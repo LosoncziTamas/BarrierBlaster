@@ -1,0 +1,163 @@
+using System.Collections.Generic;
+using ArBreakout.Misc;
+using DG.Tweening;
+using UnityEngine;
+using UnityEngine.Assertions;
+using static ArBreakout.Game.BreakoutPhysics;
+
+namespace ArBreakout.Game
+{
+    public class GameWorld : MonoBehaviour
+    {
+        public const string WorldRootName = "__GameWorld";
+
+        [SerializeField] private BrickPool _brickPoolPrefab;
+        [SerializeField] private BallBehaviour _ballPrefab;
+        [SerializeField] private GameObject _paddleParentPrefab;
+        [SerializeField] private WallBehaviour _wallBehaviourPrefab;
+        [SerializeField] private Gap _gapPrefab;
+
+        private GameObject _gameWorldRoot;
+        private BrickPool _brickPool;
+
+        private readonly List<WallBehaviour> _walls = new List<WallBehaviour>();
+        private readonly List<BrickBehaviour> _brickReferences = new List<BrickBehaviour>();
+
+        public BallBehaviour BallBehaviour { get; private set; }
+        public PaddleBehaviour Paddle { get; private set; }
+        public int InitialBrickCount => _brickReferences.Count;
+
+        public bool Initialized { get; private set; }
+
+        public void InitWithLevel(Transform levelParent, LevelLoader.ParsedLevel level)
+        {
+            Assert.IsNull(_gameWorldRoot);
+            
+            _gameWorldRoot = new GameObject(WorldRootName);
+            _gameWorldRoot.transform.SetParent(levelParent);
+            _gameWorldRoot.transform.localScale = Vector3.one;
+            _gameWorldRoot.transform.localRotation = Quaternion.identity;
+            _gameWorldRoot.transform.localPosition = Vector3.zero;
+
+            _brickPool = Instantiate(_brickPoolPrefab, levelParent);
+            _brickPool.gameObject.SetActive(false);
+            
+            InitWallsAndGap();
+            Paddle = InitPaddle();
+            BallBehaviour = InitBall(Paddle.transform);
+            InitBricks(level);
+            Initialized = true;
+        }
+
+        public void DestroySelf()
+        {
+            Assert.IsNotNull(_gameWorldRoot, "Trying to destroy a non-existing game world.");
+
+            _brickReferences.Clear();
+            _walls.Clear();
+            Initialized = false;
+            Paddle = null;
+            BallBehaviour = null;
+            
+            Destroy(_gameWorldRoot);
+            Destroy(_brickPool);
+        }
+
+        public void SetupLevel(LevelLoader.ParsedLevel level)
+        {
+            Assert.IsTrue(Initialized);
+            Assert.IsNotNull(Paddle);
+            Assert.IsTrue(_walls.Count > 0);
+            Assert.IsNotNull(BallBehaviour);
+
+            foreach (var brick in _brickReferences)
+            {
+                if (brick)
+                {
+                    _brickPool.ReturnBrick(brick);
+                }
+            }
+         
+            _brickReferences.Clear();
+            InitBricks(level);
+            Paddle.ResetToDefaults();
+            GamePlayUtils.AnchorBallToPaddle(BallBehaviour, Paddle);
+        }
+        
+        private void InitBricks(LevelLoader.ParsedLevel parsedLevel)
+        {
+            var count = parsedLevel.brickLocations.Count;
+            for (var brickIndex = 0; brickIndex < count; ++brickIndex)
+            {
+                var brick = _brickPool.GetBrick();
+                brick.gameObject.name = $"Brick {brickIndex}";
+                var brickTransform = brick.transform;
+                brickTransform.SetParent(_gameWorldRoot.transform, false);
+                brickTransform.localPosition = parsedLevel.brickLocations[brickIndex];
+                brickTransform.localRotation = Quaternion.identity;
+                // Scale of the brick is initially set to zero. The actual scale is set with the animation.
+                brickTransform.localScale = Vector3.zero;
+                brick.Init(parsedLevel.brickTypes[brickIndex], brickIndex, count);
+                _brickReferences.Add(brick);
+            }
+        }
+
+        private BallBehaviour InitBall(Transform paddleTransform)
+        {
+            var ballInstance = Instantiate(_ballPrefab, _gameWorldRoot.transform);
+            // TODO: check
+            GamePlayUtils.CenterAboveObject(ballInstance.gameObject, paddleTransform);
+            ballInstance.transform.SetParent(paddleTransform.parent);
+
+            return ballInstance;
+        }
+
+        private PaddleBehaviour InitPaddle()
+        {
+            var paddleParent = Instantiate(_paddleParentPrefab, _gameWorldRoot.transform);
+            var playerInstance = paddleParent.GetComponentInChildren<PaddleBehaviour>();
+            
+            // Placing player at the bottom of the scene.
+            var playerOffset = Vector3.back * Mathf.Floor(LevelDimY * 0.5f) + Vector3.up * 0.5f;
+            playerInstance.transform.Translate(playerInstance.transform.TransformVector(playerOffset), Space.World);
+            playerInstance.StoreCurrentPositionAsStartPosition();
+            playerInstance.transform.localRotation = Quaternion.identity;
+
+            return playerInstance;
+        }
+        
+        private void InitWallsAndGap()
+        {
+            {
+                var leftWall = Instantiate(_wallBehaviourPrefab, _gameWorldRoot.transform);
+                var leftOffset = Vector3.left * Mathf.Ceil(LevelDimX * 0.5f) + Vector3.up * 0.5f + Vector3.forward * 0.5f;
+                leftWall.transform.Translate(_gameWorldRoot.transform.TransformVector(leftOffset), Space.World);
+                leftWall.transform.AnimatePunchScale(new Vector3(1.0f, 1.0f, LevelDimY + 1.0f), Ease.InQuad, 0.6f);
+                _walls.Add(leftWall);
+            }
+
+            {
+                var rightWall = Instantiate(_wallBehaviourPrefab, _gameWorldRoot.transform);
+                var rightOffset = Vector3.right * Mathf.Ceil(LevelDimX * 0.5f) + Vector3.up * 0.5f + Vector3.forward * 0.5f;
+                rightWall.transform.Translate(rightWall.transform.TransformVector(rightOffset), Space.World);
+                rightWall.transform.AnimatePunchScale(new Vector3(1.0f, 1.0f, LevelDimY + 1.0f), Ease.InQuad, 0.6f);                
+                _walls.Add(rightWall);
+            }
+
+            {
+                var topWall = Instantiate(_wallBehaviourPrefab, _gameWorldRoot.transform);
+                var topOffset = Vector3.forward * Mathf.Ceil(LevelDimY * 0.5f) + Vector3.up * 0.5f;
+                topWall.transform.Translate(_gameWorldRoot.transform.TransformVector(topOffset), Space.World);                                
+                topWall.transform.AnimatePunchScale(new Vector3(LevelDimX, 1.0f, 1.0f), Ease.InQuad, 0.6f);                
+                _walls.Add(topWall);
+            }
+
+            {
+                var gap = Instantiate(_gapPrefab, _gameWorldRoot.transform);
+                var bottomOffset = Vector3.back * Mathf.Ceil(LevelDimY * 0.5f) + Vector3.up * 0.5f;
+                gap.transform.Translate(_gameWorldRoot.transform.TransformVector(bottomOffset), Space.World);
+                gap.transform.localScale = new Vector3(LevelDimX, 1.0f, 1.0f);
+            }
+        }
+    }
+}
