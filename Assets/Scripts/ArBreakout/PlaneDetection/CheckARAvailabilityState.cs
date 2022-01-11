@@ -10,7 +10,6 @@ namespace ArBreakout.PlaneDetection
         [SerializeField] private CanvasGroup _deviceNotSupported;
         [SerializeField] private GameObject _circularProgress;
         
-        
         public override void OnEnter(AppState fromState)
         {
             base.OnEnter(fromState);
