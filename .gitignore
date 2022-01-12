@@ -64,7 +64,7 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-Build-iOS/
+iOS-Build/
 osxbuild.app/
 Assets/notes.md
 Assets/notes.md.meta
