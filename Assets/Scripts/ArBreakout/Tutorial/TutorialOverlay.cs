@@ -1,14 +1,10 @@
 ﻿using System;
-using ArBreakout.Misc;
 using ArBreakout.PowerUps;
-using ArBreakout.SinglePlayer;
 using DG.Tweening;
 using Michsky.UI.ModernUIPack;
-using Possible.AppController;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace ArBreakout.Tutorial

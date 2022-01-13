@@ -1,3 +1,4 @@
+using System;
 using ArBreakout.Game;
 using ArBreakout.Misc;
 using ArBreakout.SinglePlayer;
@@ -129,6 +130,14 @@ namespace ArBreakout.PlaneDetection
             }
             _buttonsOverlay.alpha = 0.0f;
             _planeDetected = false;
+        }
+
+        private void Update()
+        {
+            if (Application.platform == RuntimePlatform.Android && Input.GetKey(KeyCode.Escape))
+            {
+                OnBackButtonClicked();
+            }
         }
 
         private void OnDoubleTapRecognized(TKTapRecognizer recognizer)

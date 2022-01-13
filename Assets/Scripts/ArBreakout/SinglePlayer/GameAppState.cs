@@ -104,6 +104,21 @@ namespace ArBreakout.SinglePlayer
                 OnBackToMain);
             GameTime.paused = true;
         }
+        
+        private void Update()
+        {
+            if (Application.platform == RuntimePlatform.Android && Input.GetKey(KeyCode.Escape))
+            {
+                if (!GameTime.paused)
+                {
+                    OnPause();
+                }
+                else
+                {
+                    _tutorialOverlay.DismissAndResume();
+                }
+            }
+        }
 
         private void OnBackToMain()
         {
