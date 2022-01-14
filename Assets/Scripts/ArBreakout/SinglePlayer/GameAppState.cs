@@ -113,10 +113,6 @@ namespace ArBreakout.SinglePlayer
                 {
                     OnPause();
                 }
-                else
-                {
-                    _tutorialOverlay.DismissAndResume();
-                }
             }
         }
 
