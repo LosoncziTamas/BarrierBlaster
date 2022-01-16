@@ -65,6 +65,7 @@ namespace ArBreakout.SinglePlayer
 
         private void OnGUI()
         {
+            GUILayout.Space(100);
             if (_levelProgression.LevelsCompleted)
             {
                 if (GUILayout.Button("Clear level progress"))
