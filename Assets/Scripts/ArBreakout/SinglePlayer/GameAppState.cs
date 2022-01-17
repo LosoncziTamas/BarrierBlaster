@@ -206,8 +206,7 @@ namespace ArBreakout.SinglePlayer
             
             _brickCount--;
             if (_brickCount == 0)
-            {                
-      
+            {
                 _levelProgression.UnlockNextLevel(_currLevel.levelIndex);
                 
                 if (_currLevel.levelIndex == _levelProgression.Levels.Count - 1)
