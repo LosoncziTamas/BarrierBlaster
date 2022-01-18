@@ -3,12 +3,11 @@ using UnityEngine;
 
 namespace ArBreakout.Game
 {
-    public class BrickNew : MonoBehaviour
+    public class ChangeMeshColor : MonoBehaviour
     {
         private static readonly int ColorProperty = Shader.PropertyToID("_Color");
         
         [SerializeField] private MeshRenderer _meshRenderer;
-        [SerializeField] private ColorPalette _colorPalette;
 
         private MaterialPropertyBlock _block;
 

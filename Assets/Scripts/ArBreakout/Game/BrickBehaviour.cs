@@ -23,9 +23,10 @@ namespace ArBreakout.Game
         public PowerUp PowerUp { private set; get; }
         public BrickPool Pool { set; get; }
         
-        [SerializeField] private Material _hardBrickMaterial1;
-        [SerializeField] private Material _hardBrickMaterial2;
-        
+        // [SerializeField] private Material _hardBrickMaterial1;
+        // [SerializeField] private Material _hardBrickMaterial2;
+        [SerializeField] private ChangeMeshColor _changeMeshColor;
+
         private Renderer _renderer;
         private Collider _collider;
         private int _hitPoints;
@@ -37,18 +38,19 @@ namespace ArBreakout.Game
             _collider = GetComponent<Collider>();
         }
 
-        public void Init(PowerUp type, int index, int count)
+        public void Init(Color color, int index, int count)
         {
-            PowerUp = type;
-            _hitPoints = type == PowerUp.Hard ? 3 : 1;
-            var powerUpSO = PowerUpMappingScriptableObject.Instance.GetPowerUpSO(type);
-            _renderer.material = powerUpSO.material;
+            //PowerUp = type;
+            //_hitPoints = type == PowerUp.Hard ? 3 : 1;
+            //var powerUpSO = PowerUpMappingScriptableObject.Instance.GetPowerUpSO(type);
+            //_renderer.material = powerUpSO.material;
             
             // Appear animation
+            _changeMeshColor.SetColor(color);
             _collider.enabled = false;
             var scale01 = Mathf.Sin(((float)index / count) * Mathf.PI);
             
-            if (type.EffectsPaddle())
+            /*if (type.EffectsPaddle())
             {
                 _renderer.material.SetFloat(ScaleProperty,  0.8f);
                 _renderer.material.SetFloat(RotationProperty,  45f);
@@ -58,13 +60,13 @@ namespace ArBreakout.Game
                 _initialAnimScale = Mathf.Clamp(0.5f + (1 - scale01) * 0.5f, 0.5f, 1.0f);
                 _renderer.material.SetFloat(ScaleProperty,  _initialAnimScale);
                 _renderer.material.SetFloat(RotationProperty,  0.0f);
-            }
+            }*/
 
             Wait.For(scale01)
                 .ThenDo(() =>
                 {
                     // Use smaller scale, so it's not tightly packed.
-                    transform.AnimatePunchScale(Vector3.one * 0.9f, Ease.Linear, 0.4f);
+                    // transform.AnimatePunchScale(Vector3.one * 0.9f, Ease.Linear, 0.4f);
                     _collider.enabled = true;
                 })
                 .StartOn(this);
@@ -86,11 +88,11 @@ namespace ArBreakout.Game
             
             if (_hitPoints == 2)
             {
-                _renderer.material = _hardBrickMaterial2;
+                // _renderer.material = _hardBrickMaterial2;
             }
             else if (_hitPoints == 1)
             {
-                _renderer.material = _hardBrickMaterial1;
+                // _renderer.material = _hardBrickMaterial1;
             }
             _renderer.material.SetFloat(ScaleProperty,  _initialAnimScale);
             StartCoroutine(AnimateHit(0.4f, destroy: false));

@@ -43,5 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f928d7fb1ba4506a31a28064de97c9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _brickPrefab: {fileID: 4874382754106310092, guid: 40c480e4ca3a648daadd9c7d92d30eda,
+  _brickPrefab: {fileID: 1272931093474626876, guid: cbfe31de8929849158b0c110e7f005e0,
     type: 3}

@@ -56,7 +56,7 @@ namespace ArBreakout.PowerUps
 
         public static bool EffectsPaddle(this PowerUp powerUp)
         {
-            return powerUp != PowerUp.Default && powerUp != PowerUp.Hard;
+            return false;
         }
 
         public static bool EffectsPaddle(int powerUpOrdinal)

@@ -20,7 +20,6 @@ namespace ArBreakout.Game
 
         [SerializeField] private Color _defaultColor;
         
-        private PowerUp _activePowerUp = PowerUp.Default;
         private Vector3 _launchLocalDirection = Vector3.forward;
         private Vector3 _localVelocity;
         private Vector3 _localAcceleration;
@@ -50,7 +49,6 @@ namespace ArBreakout.Game
             _bobbing = GetComponent<Bobbing>();
             _renderer = GetComponent<MeshRenderer>();
             _gameWorldRoot = GameObject.Find(GameWorld.WorldRootName);
-            _activePowerUp = PowerUp.Default;
         }
 
         private void Start()
@@ -65,9 +63,9 @@ namespace ArBreakout.Game
             LocalVelocity = _launchLocalDirection.normalized * (DefaultSpeed + additionalForce);
             _bobbing.Disable();
         }
+        
         public void ResetPowerUpToDefaults()
         {
-            _activePowerUp = PowerUp.Default;
             _renderer.material.SetColor(ColorPropertyID, _defaultColor);
         }
 
@@ -78,7 +76,6 @@ namespace ArBreakout.Game
             {
                 var powerUpSO = PowerUpMappingScriptableObject.Instance.GetPowerUpSO(powerUp);
                 _renderer.material.SetColor(ColorPropertyID, powerUpSO.color);
-                _activePowerUp = powerUp;
             }
         }
         
@@ -216,12 +213,7 @@ namespace ArBreakout.Game
             ChangeDirection(newDir);
             
             var paddle = paddleCollision.gameObject.GetComponent<PaddleBehaviour>();
-            if (_activePowerUp.EffectsPaddle())
-            {
-                paddle.ActivatePowerUp(_activePowerUp);
-                ResetPowerUpToDefaults();
-            }
-
+            
             if (paddle.Magnetized)
             {
                 GamePlayUtils.ApplyMagnet(this, paddle);

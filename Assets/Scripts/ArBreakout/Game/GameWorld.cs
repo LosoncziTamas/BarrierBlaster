@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using ArBreakout.Misc;
+using ArBreakout.PowerUps;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -16,6 +17,7 @@ namespace ArBreakout.Game
         [SerializeField] private GameObject _paddleParentPrefab;
         [SerializeField] private WallBehaviour _wallBehaviourPrefab;
         [SerializeField] private Gap _gapPrefab;
+        [SerializeField] private ColorPalette _colorPalette;
 
         private GameObject _gameWorldRoot;
         private BrickPool _brickPool;
@@ -96,10 +98,16 @@ namespace ArBreakout.Game
                 brickTransform.localPosition = parsedLevel.brickLocations[brickIndex];
                 brickTransform.localRotation = Quaternion.identity;
                 // Scale of the brick is initially set to zero. The actual scale is set with the animation.
-                brickTransform.localScale = Vector3.zero;
-                brick.Init(parsedLevel.brickTypes[brickIndex], brickIndex, count);
+                // brickTransform.localScale = Vector3.zero;
+                brick.Init(PowerUpToColor(parsedLevel.brickTypes[brickIndex]), brickIndex, count);
                 _brickReferences.Add(brick);
             }
+        }
+
+        private Color PowerUpToColor(PowerUp powerUp)
+        {
+            var idx = (int)powerUp % 5;
+            return _colorPalette.Colors[idx];
         }
 
         private BallBehaviour InitBall(Transform paddleTransform)
