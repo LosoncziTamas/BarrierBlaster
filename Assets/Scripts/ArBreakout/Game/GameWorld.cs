@@ -107,7 +107,7 @@ namespace ArBreakout.Game
         private Color PowerUpToColor(PowerUp powerUp)
         {
             var idx = (int)powerUp % 5;
-            return _colorPalette.Colors[idx];
+            return _colorPalette.Colors[idx + 1];
         }
 
         private BallBehaviour InitBall(Transform paddleTransform)

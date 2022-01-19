@@ -34,6 +34,7 @@ namespace ArBreakout.Game
         
         private void Awake()
         {
+            // TODO: add self to list
             _renderer = GetComponent<MeshRenderer>();
             _collider = GetComponent<Collider>();
         }
