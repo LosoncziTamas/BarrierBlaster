@@ -4,6 +4,9 @@ Shader "Custom/SingleColored" {
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
+        _Scale ("Scale", Range(0, 1)) = 1
+		_Rotation ("Rotation", Range(0, 180)) = 0
+		_HighlightIntensity("Highlight Intensity", Range(0, 1)) = 0
     }
     SubShader {
         Tags { "RenderType"="Opaque" }
@@ -18,6 +21,13 @@ Shader "Custom/SingleColored" {
 
         sampler2D _MainTex;
 
+        struct appdata
+        {
+            float4 vertex: POSITION;
+            float3 normal: NORMAL;
+            float2 texcoord: TEXCOORD0;
+        };
+
         struct Input {
             float2 uv_MainTex;
         };
@@ -25,6 +35,9 @@ Shader "Custom/SingleColored" {
         half _Glossiness;
         half _Metallic;
         fixed4 _Color;
+        float _Scale;
+		float _Rotation;
+		float _HighlightIntensity;
 
         // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
         // See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
@@ -32,6 +45,13 @@ Shader "Custom/SingleColored" {
         UNITY_INSTANCING_BUFFER_START(Props)
             // put more per-instance properties here
         UNITY_INSTANCING_BUFFER_END(Props)
+
+		void vert(inout appdata v, out Input o)
+        {
+            // Initializes o to zero.
+            UNITY_INITIALIZE_OUTPUT(Input, o);
+            v.vertex.xyz *= _Scale;
+        }
 
         void surf (Input IN, inout SurfaceOutputStandard o) {
             // Albedo comes from a texture tinted by color

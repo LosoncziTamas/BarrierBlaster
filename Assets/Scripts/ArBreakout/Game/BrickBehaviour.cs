@@ -23,8 +23,6 @@ namespace ArBreakout.Game
         public PowerUp PowerUp { private set; get; }
         public BrickPool Pool { set; get; }
         
-        // [SerializeField] private Material _hardBrickMaterial1;
-        // [SerializeField] private Material _hardBrickMaterial2;
         [SerializeField] private ChangeMeshColor _changeMeshColor;
 
         private Renderer _renderer;
@@ -51,17 +49,9 @@ namespace ArBreakout.Game
             _collider.enabled = false;
             var scale01 = Mathf.Sin(((float)index / count) * Mathf.PI);
             
-            /*if (type.EffectsPaddle())
-            {
-                _renderer.material.SetFloat(ScaleProperty,  0.8f);
-                _renderer.material.SetFloat(RotationProperty,  45f);
-            }
-            else
-            {
-                _initialAnimScale = Mathf.Clamp(0.5f + (1 - scale01) * 0.5f, 0.5f, 1.0f);
-                _renderer.material.SetFloat(ScaleProperty,  _initialAnimScale);
-                _renderer.material.SetFloat(RotationProperty,  0.0f);
-            }*/
+            _initialAnimScale = Mathf.Clamp(0.5f + (1 - scale01) * 0.5f, 0.5f, 1.0f);
+            _renderer.material.SetFloat(ScaleProperty,  _initialAnimScale);
+            
 
             Wait.For(scale01)
                 .ThenDo(() =>
@@ -87,14 +77,6 @@ namespace ArBreakout.Game
                 return;
             }
             
-            if (_hitPoints == 2)
-            {
-                // _renderer.material = _hardBrickMaterial2;
-            }
-            else if (_hitPoints == 1)
-            {
-                // _renderer.material = _hardBrickMaterial1;
-            }
             _renderer.material.SetFloat(ScaleProperty,  _initialAnimScale);
             StartCoroutine(AnimateHit(0.4f, destroy: false));
         }
