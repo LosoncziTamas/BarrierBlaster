@@ -32,6 +32,7 @@ namespace ArBreakout.Game
         {
             if (toReturn.Pool != null)
             {
+                toReturn.CancelInvoke();
                 toReturn.Pool = null;
                 toReturn.gameObject.SetActive(false);
                 toReturn.transform.SetParent(transform);

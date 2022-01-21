@@ -17,8 +17,6 @@ namespace ArBreakout.Game
         public const string GameObjectTag = "Brick";
         
         private static readonly int HighlightIntensity = Shader.PropertyToID("_HighlightIntensity");
-        private static readonly int ScaleProperty = Shader.PropertyToID("_Scale");
-        private static readonly int RotationProperty = Shader.PropertyToID("_Rotation");
         
         public PowerUp PowerUp { private set; get; }
         public BrickPool Pool { set; get; }
@@ -28,39 +26,33 @@ namespace ArBreakout.Game
         private Renderer _renderer;
         private Collider _collider;
         private int _hitPoints;
-        private float _initialAnimScale = 1.0f;
+        private Vector3 _originalScale;
         
         private void Awake()
         {
             // TODO: add self to list
             _renderer = GetComponent<MeshRenderer>();
             _collider = GetComponent<Collider>();
+            _originalScale = transform.localScale;
         }
 
         public void Init(Color color, int index, int count)
         {
-            //PowerUp = type;
-            //_hitPoints = type == PowerUp.Hard ? 3 : 1;
-            //var powerUpSO = PowerUpMappingScriptableObject.Instance.GetPowerUpSO(type);
-            //_renderer.material = powerUpSO.material;
-            
-            // Appear animation
             _changeMeshColor.SetColor(color);
             _collider.enabled = false;
             var scale01 = Mathf.Sin(((float)index / count) * Mathf.PI);
             
-            _initialAnimScale = Mathf.Clamp(0.5f + (1 - scale01) * 0.5f, 0.5f, 1.0f);
-            _renderer.material.SetFloat(ScaleProperty,  _initialAnimScale);
+            var initialAnimScale = Mathf.Clamp(0.5f + (1 - scale01) * 0.5f, 0.5f, 1.0f);
+            transform.localScale = _originalScale * initialAnimScale;
             
+            Invoke(nameof(AnimateAppear), scale01);
+        }
 
-            Wait.For(scale01)
-                .ThenDo(() =>
-                {
-                    // Use smaller scale, so it's not tightly packed.
-                    // transform.AnimatePunchScale(Vector3.one * 0.9f, Ease.Linear, 0.4f);
-                    _collider.enabled = true;
-                })
-                .StartOn(this);
+        private void AnimateAppear()
+        {
+            // Use smaller scale, so it's not tightly packed.
+            transform.AnimatePunchScale(_originalScale * 0.9f, Ease.Linear, 0.4f);
+            _collider.enabled = true;
         }
 
         public void Smash()
@@ -77,7 +69,6 @@ namespace ArBreakout.Game
                 return;
             }
             
-            _renderer.material.SetFloat(ScaleProperty,  _initialAnimScale);
             StartCoroutine(AnimateHit(0.4f, destroy: false));
         }
         
