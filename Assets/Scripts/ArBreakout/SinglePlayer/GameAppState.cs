@@ -184,10 +184,10 @@ namespace ArBreakout.SinglePlayer
         {
             var allLevels = _levelProgression.Levels;
             
-            Assert.IsTrue(_currLevel.levelIndex + 1 < allLevels.Count);
+            Assert.IsTrue(_currLevel.LevelIndex + 1 < allLevels.Count);
             Assert.IsTrue(_totalLives > 0);
 
-            _currLevel = allLevels[_currLevel.levelIndex + 1].parsedLevel;
+            _currLevel = allLevels[_currLevel.LevelIndex + 1].parsedLevel;
             _gameWorld.SetupLevel(_currLevel);
             
             _timeLeftInSeconds = _currLevel.timeLimitInSeconds;
@@ -207,9 +207,9 @@ namespace ArBreakout.SinglePlayer
             _brickCount--;
             if (_brickCount == 0)
             {
-                _levelProgression.UnlockNextLevel(_currLevel.levelIndex);
+                _levelProgression.UnlockNextLevel(_currLevel.LevelIndex);
                 
-                if (_currLevel.levelIndex == _levelProgression.Levels.Count - 1)
+                if (_currLevel.LevelIndex == _levelProgression.Levels.Count - 1)
                 {
                     _allLevelCompleteModal.OpenWindow();
                 }

@@ -22,7 +22,7 @@ namespace ArBreakout.Misc
             this.unlocked = unlocked;
             this.parsedLevel = parsedLevel;
             // {parsedLevel.levelIndex + 1} 
-            displayedName = $"{parsedLevel.levelName}";
+            displayedName = $"{parsedLevel.LevelName}";
         }
     }
 
@@ -39,7 +39,7 @@ namespace ArBreakout.Misc
             get
             {
                 var last = Levels.Last();
-                return last.parsedLevel.levelIndex == _unlockedLevelIndex && last.completed;
+                return last.parsedLevel.LevelIndex == _unlockedLevelIndex && last.completed;
             }
         }
 
@@ -51,8 +51,8 @@ namespace ArBreakout.Misc
             var parsedLevels = LevelLoader.LoadLevels();
             foreach (var level in parsedLevels)
             {
-                var completed = level.levelIndex < _unlockedLevelIndex;
-                var unlocked = level.levelIndex <= _unlockedLevelIndex;
+                var completed = level.LevelIndex < _unlockedLevelIndex;
+                var unlocked = level.LevelIndex <= _unlockedLevelIndex;
                 Levels.Add(new Level(completed, unlocked, level));
             }
         }

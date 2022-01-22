@@ -88,26 +88,23 @@ namespace ArBreakout.Game
         
         private void InitBricks(LevelLoader.ParsedLevel parsedLevel)
         {
-            var count = parsedLevel.brickLocations.Count;
-            for (var brickIndex = 0; brickIndex < count; ++brickIndex)
+            var count = parsedLevel.bricksProps.Count;
+            var paletteColorCount = _colorPalette.Colors.Length;
+            foreach (var bricksProp in parsedLevel.bricksProps)
             {
                 var brick = _brickPool.GetBrick();
-                brick.gameObject.name = $"Brick {brickIndex}";
+                brick.gameObject.name = $"Brick {bricksProp.Location}";
                 var brickTransform = brick.transform;
                 brickTransform.SetParent(_gameWorldRoot.transform, false);
-                brickTransform.localPosition = parsedLevel.brickLocations[brickIndex];
+                brickTransform.localPosition = bricksProp.Location;
                 brickTransform.localRotation = Quaternion.identity;
                 // Scale of the brick is initially set to zero. The actual scale is set with the animation.
                 // brickTransform.localScale = Vector3.zero;
-                brick.Init(PowerUpToColor(parsedLevel.brickTypes[brickIndex]), brickIndex, count);
+                var lineIndex = bricksProp.LineIdx;
+                var color = _colorPalette.Colors[lineIndex % paletteColorCount];
+                brick.Init(bricksProp, color, count);
                 _brickReferences.Add(brick);
             }
-        }
-
-        private Color PowerUpToColor(PowerUp powerUp)
-        {
-            var idx = (int)powerUp % 5;
-            return _colorPalette.Colors[idx];
         }
 
         private BallBehaviour InitBall(Transform paddleTransform)

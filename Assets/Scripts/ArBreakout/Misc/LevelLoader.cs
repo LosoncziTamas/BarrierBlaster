@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
 using ArBreakout.PowerUps;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -15,22 +14,29 @@ namespace ArBreakout.Misc
         private static List<ParsedLevel> _cachedLevels;
         public class ParsedLevel
         {
-            public readonly List<Vector3> brickLocations;
-            public readonly List<PowerUp> brickTypes;
-               
+            public readonly List<BrickProps> bricksProps;
+            public readonly int lineCount;
             public readonly float timeLimitInSeconds;
-            
-            public string levelName;
-            public int levelIndex; 
 
-            public ParsedLevel(float timeLimitInSeconds, List<Vector3> brickLocations, List<PowerUp> brickTypes)
+            public string LevelName { get; set; }
+            public int LevelIndex { get; set; }
+
+            public ParsedLevel(float timeLimitInSeconds, List<BrickProps> bricksProps, int lineCount)
             {
                 this.timeLimitInSeconds = timeLimitInSeconds;
-                this.brickLocations = brickLocations;
-                this.brickTypes = brickTypes;
+                this.bricksProps = bricksProps;
+                this.lineCount = lineCount;
             }
         }
-        
+
+        public class BrickProps
+        {
+            public Vector3 Location { get; set; }
+            public int LineIdx { get; set; }
+            public int HitPoints { get; set; }
+            public PowerUp PowerUp { get; set; }
+        }
+
         public static List<ParsedLevel> LoadLevels()
         {
             if (_cachedLevels != null)
@@ -47,8 +53,8 @@ namespace ArBreakout.Misc
                 var level = ParseLevelFileContent(content);
                     
                 var splitName = levelCSV.name.Split('_');
-                level.levelIndex = int.Parse(splitName[0]) - 1;
-                level.levelName = splitName[1];
+                level.LevelIndex = int.Parse(splitName[0]) - 1;
+                level.LevelName = splitName[1];
                     
                 _cachedLevels.Add(level); 
             }
@@ -59,9 +65,8 @@ namespace ArBreakout.Misc
         private static ParsedLevel ParseLevelFileContent(string content)
         {
             var lines = content.Split('\n');
-            var brickLocations = new List<Vector3>();
-            var brickTypes = new List<PowerUp>();
             var metaDataLineIndex = lines.Length - 1;
+            var brickProps = new List<BrickProps>();
             
             Assert.IsTrue(lines.Length == LevelDimension + 1);
             
@@ -80,13 +85,21 @@ namespace ArBreakout.Misc
                     }
                     if (!levelElement.Equals("0"))
                     {
-                        brickLocations.Add(new Vector3
+                        var pos = new Vector3
                         {
                             x = -0.5f * LevelDimension + elementIndex + 0.5f,
                             y =  0.5f,
                             z =  0.5f * LevelDimension - lineIndex + 3.0f
-                        });
-                        brickTypes.Add(PowerUpUtils.ParseLevelElement(levelElement));
+                        };
+                        
+                        var brickProp = new BrickProps
+                        {
+                            Location = pos,
+                            PowerUp = PowerUp.Default,
+                            LineIdx = lineIndex,
+                            HitPoints = 1
+                        };
+                        brickProps.Add(brickProp);
                     }
                 }
             }
@@ -96,7 +109,7 @@ namespace ArBreakout.Misc
 
             var timeLimit = float.Parse(metaData[0]);
             
-            return new ParsedLevel(timeLimit, brickLocations, brickTypes);
+            return new ParsedLevel(timeLimit, brickProps, lines.Length);
         }
     }
 }

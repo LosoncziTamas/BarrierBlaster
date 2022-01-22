@@ -36,11 +36,12 @@ namespace ArBreakout.Game
             _originalScale = transform.localScale;
         }
 
-        public void Init(Color color, int index, int count)
+        public void Init(LevelLoader.BrickProps brickProps, Color color, int lineCount)
         {
+            _hitPoints = brickProps.HitPoints;
             _changeMeshColor.SetColor(color);
             _collider.enabled = false;
-            var scale01 = Mathf.Sin(((float)index / count) * Mathf.PI);
+            var scale01 = Mathf.Sin(((float)brickProps.LineIdx / lineCount) * Mathf.PI);
             
             var initialAnimScale = Mathf.Clamp(0.5f + (1 - scale01) * 0.5f, 0.5f, 1.0f);
             transform.localScale = _originalScale * initialAnimScale;
