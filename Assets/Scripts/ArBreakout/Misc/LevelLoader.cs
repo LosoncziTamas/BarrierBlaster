@@ -91,11 +91,13 @@ namespace ArBreakout.Misc
                             y =  0.5f,
                             z =  0.5f * LevelDimension - lineIndex + 3.0f
                         };
+
+                        var powerUp = PowerUpUtils.ParseLevelElement(levelElement);
                         
                         var brickProp = new BrickProps
                         {
                             Location = pos,
-                            PowerUp = PowerUp.Default,
+                            PowerUp = powerUp,
                             LineIdx = lineIndex,
                             HitPoints = 1
                         };

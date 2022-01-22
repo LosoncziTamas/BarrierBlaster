@@ -1,7 +1,7 @@
 using ArBreakout.Misc;
 using UnityEngine;
 
-namespace ArBreakout.Game
+namespace ArBreakout.GamePhysics
 {
     public static class BreakoutPhysics
     {

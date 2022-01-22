@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ArBreakout.GamePhysics;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
 using DG.Tweening;
@@ -347,6 +348,16 @@ namespace ArBreakout.Game
                 _localVelocity += transform.InverseTransformVector(reflectionGlobal) * BallCollisionBounce;
                 // Only apply the reflection force in one dimension.
                 _localVelocity.Scale(Vector3.right);
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag(Collectable.GameObjectTag))
+            {
+                var collectable = other.gameObject.GetComponent<Collectable>();
+                ActivatePowerUp(collectable.PowerUp);
+                collectable.Destroy();
             }
         }
 

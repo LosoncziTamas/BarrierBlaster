@@ -9,6 +9,7 @@ TagManager:
   - Brick
   - Ball
   - LevelGhost
+  - Collectable
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Collectable
   - Paddle
   - Brick
   - Wall

@@ -2,7 +2,7 @@ namespace ArBreakout.PowerUps
 {
     public enum PowerUp
     {
-        Default,
+        None,
         Hard,
         Accelerator,
         Decelerator,
@@ -51,7 +51,7 @@ namespace ArBreakout.PowerUps
                 return PowerUp.Magnet;
             }
 
-            return PowerUp.Default;
+            return PowerUp.None;
         }
 
         public static bool EffectsPaddle(this PowerUp powerUp)

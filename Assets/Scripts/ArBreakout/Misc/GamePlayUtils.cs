@@ -8,7 +8,7 @@ namespace ArBreakout.Misc
     {
         public static void AnchorBallToPaddle(BallBehaviour ballBehaviour, PaddleBehaviour paddle)
         {
-            CenterAboveObject(ballBehaviour.gameObject, paddle.gameObject.transform);
+            CenterAboveObject(ballBehaviour.transform, paddle.gameObject.transform);
             ballBehaviour.transform.SetParent(paddle.transform.parent);
             ballBehaviour.ResetToDefaults();
             ballBehaviour.ResetPowerUpToDefaults();
@@ -34,12 +34,12 @@ namespace ArBreakout.Misc
 #endif
         }
         
-        public static void CenterAboveObject(GameObject ballInstance, Transform anchorObject)
+        public static void CenterAboveObject(Transform target, Transform anchorObject)
         {
-            var offset = anchorObject.transform.position - ballInstance.transform.position + ballInstance.transform.TransformVector(Vector3.forward);
-            ballInstance.transform.Translate(offset, Space.World);
+            var offset = anchorObject.transform.position - target.position + target.TransformVector(Vector3.forward);
+            target.Translate(offset, Space.World);
         }
-        
+
         public static string FormatTime(float timeInSeconds)
         {
             return $"{(int) (timeInSeconds / 60):D2}:{(int) (timeInSeconds % 60):D2}";

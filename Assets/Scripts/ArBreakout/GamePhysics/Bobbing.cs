@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ArBreakout.Game
+namespace ArBreakout.GamePhysics
 {
     [RequireComponent(typeof(Collider))]
     public class Bobbing : MonoBehaviour

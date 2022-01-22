@@ -3,7 +3,6 @@ using System.Collections;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
 using DG.Tweening;
-using Possible.Scheduling;
 using UnityEngine;
 
 namespace ArBreakout.Game
@@ -17,6 +16,8 @@ namespace ArBreakout.Game
         public const string GameObjectTag = "Brick";
         
         private static readonly int HighlightIntensity = Shader.PropertyToID("_HighlightIntensity");
+        [SerializeField] private Collectable _collectiblePrefab;
+        private Collectable _collectableInstance;
         
         public PowerUp PowerUp { private set; get; }
         public BrickPool Pool { set; get; }
@@ -45,6 +46,8 @@ namespace ArBreakout.Game
             
             var initialAnimScale = Mathf.Clamp(0.5f + (1 - scale01) * 0.5f, 0.5f, 1.0f);
             transform.localScale = _originalScale * initialAnimScale;
+
+            SetupCollectable(brickProps.PowerUp);
             
             Invoke(nameof(AnimateAppear), scale01);
         }
@@ -54,6 +57,17 @@ namespace ArBreakout.Game
             // Use smaller scale, so it's not tightly packed.
             transform.AnimatePunchScale(_originalScale * 0.9f, Ease.Linear, 0.4f);
             _collider.enabled = true;
+        }
+
+        private void SetupCollectable(PowerUp powerUp)
+        {
+            if (powerUp != PowerUp.None)
+            {
+                _collectableInstance = Instantiate(_collectiblePrefab, transform.parent);
+                _collectableInstance.transform.position = transform.position;
+                _collectableInstance.Init(powerUp);
+                _collectableInstance.gameObject.SetActive(false);
+            }
         }
 
         public void Smash()
@@ -67,6 +81,9 @@ namespace ArBreakout.Game
                 _collider.enabled = false;
                 transform.AnimatePunchScale(transform.localScale, Ease.Linear, 0.2f);
                 StartCoroutine(AnimateHit(0.2f, destroy: true));
+                
+                // ReSharper disable once Unity.NoNullPropagation
+                _collectableInstance?.gameObject.SetActive(true);
                 return;
             }
             

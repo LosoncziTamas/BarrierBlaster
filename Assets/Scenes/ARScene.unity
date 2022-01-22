@@ -992,6 +992,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AR
       objectReference: {fileID: 0}
+    - target: {fileID: 4308428246982143812, guid: 1c5802cdc9e244330b143e1e1831d267,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4023
+      objectReference: {fileID: 0}
     - target: {fileID: 4308428246982143815, guid: 1c5802cdc9e244330b143e1e1831d267,
         type: 3}
       propertyPath: m_IsActive

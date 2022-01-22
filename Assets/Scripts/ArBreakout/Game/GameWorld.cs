@@ -4,7 +4,7 @@ using ArBreakout.PowerUps;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Assertions;
-using static ArBreakout.Game.BreakoutPhysics;
+using static ArBreakout.GamePhysics.BreakoutPhysics;
 
 namespace ArBreakout.Game
 {
@@ -111,7 +111,7 @@ namespace ArBreakout.Game
         {
             var ballInstance = Instantiate(_ballPrefab, _gameWorldRoot.transform);
             // TODO: check
-            GamePlayUtils.CenterAboveObject(ballInstance.gameObject, paddleTransform);
+            GamePlayUtils.CenterAboveObject(ballInstance.transform, paddleTransform);
             ballInstance.transform.SetParent(paddleTransform.parent);
 
             return ballInstance;
