@@ -3,7 +3,6 @@ namespace ArBreakout.PowerUps
     public enum PowerUp
     {
         None,
-        Hard,
         Accelerator,
         Decelerator,
         ControlSwitch,
@@ -16,11 +15,7 @@ namespace ArBreakout.PowerUps
     {
         public static PowerUp ParseLevelElement(string element)
         {
-            if (element.Equals("h"))
-            {
-                return PowerUp.Hard;
-            }
-
+            
             if (element.Equals("a"))
             {
                 return PowerUp.Decelerator;
