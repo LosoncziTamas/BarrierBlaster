@@ -355,7 +355,7 @@ namespace ArBreakout.Game
         {
             if (other.gameObject.CompareTag(Collectable.GameObjectTag))
             {
-                var collectable = other.gameObject.GetComponent<Collectable>();
+                var collectable = other.gameObject.GetComponentInParent<Collectable>();
                 ActivatePowerUp(collectable.PowerUp);
                 collectable.Destroy();
             }

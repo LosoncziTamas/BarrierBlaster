@@ -81,15 +81,12 @@ namespace ArBreakout.Game
                 _collider.enabled = false;
                 transform.AnimatePunchScale(transform.localScale, Ease.Linear, 0.2f);
                 StartCoroutine(AnimateHit(0.2f, destroy: true));
-                
-                // ReSharper disable once Unity.NoNullPropagation
-                _collectableInstance?.gameObject.SetActive(true);
                 return;
             }
             
             StartCoroutine(AnimateHit(0.4f, destroy: false));
         }
-        
+
         private IEnumerator AnimateHit(float duration, bool destroy)
         {
             var left = duration;
@@ -101,9 +98,20 @@ namespace ArBreakout.Game
             }
 
             if (destroy)
-            {                
+            {
+                EmitCollectable();
                 _collider.enabled = true;
                 Pool.ReturnBrick(this);
+            }
+        }
+
+        private void EmitCollectable()
+        {
+            if (_collectableInstance)
+            {
+                _collectableInstance.gameObject.SetActive(true);
+                _collectableInstance.AnimateAppearance();
+                _collectableInstance = null;
             }
         }
     }
