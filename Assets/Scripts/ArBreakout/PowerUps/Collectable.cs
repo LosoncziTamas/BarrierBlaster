@@ -12,6 +12,7 @@ namespace ArBreakout.PowerUps
         public PowerUp PowerUp { get; private set; }
         
         [SerializeField] private MovementProperties _movementProperties;
+        [SerializeField] private bool _rotateAnimation;
         
         private Vector3 _velocity;
         private Vector3 _acceleration;
@@ -57,7 +58,10 @@ namespace ArBreakout.PowerUps
         {
             transform.localScale = Vector3.one * 0.1f;
             transform.AnimatePunchScale(_originalScale * 0.9f, Ease.Linear, 0.4f);
-            transform.DOPunchRotation(Vector3.forward * 360f, 1.0f, 1, 0.5f);
+            if (_rotateAnimation)
+            {
+                transform.DOPunchRotation(Vector3.forward * 360f, 1.0f, 1, 0.5f);
+            }
         }
 
         public void Destroy()

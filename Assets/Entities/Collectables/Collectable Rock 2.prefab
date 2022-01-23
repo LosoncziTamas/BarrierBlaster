@@ -141,3 +141,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementProperties: {fileID: 11400000, guid: 4721bce2e5fff4d869c538f83a526c5a,
     type: 2}
+  _rotateAnimation: 1
