@@ -1,5 +1,6 @@
 using ArBreakout.Game;
 using ArBreakout.GamePhysics;
+using ArBreakout.Levels;
 using ArBreakout.Misc;
 using ArBreakout.PlaneDetection;
 using ArBreakout.PowerUps;

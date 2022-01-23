@@ -1,12 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using ArBreakout.Game;
-using ArBreakout.PowerUps;
 using Possible;
 using UnityEngine;
-using UnityEngine.Assertions;
 
-namespace ArBreakout.Misc
+namespace ArBreakout.Levels
 {
     public class Level
     {

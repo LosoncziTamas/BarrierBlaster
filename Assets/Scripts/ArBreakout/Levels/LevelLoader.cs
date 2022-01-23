@@ -3,7 +3,7 @@ using ArBreakout.PowerUps;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace ArBreakout.Misc
+namespace ArBreakout.Levels
 {
     public static class LevelLoader 
     {

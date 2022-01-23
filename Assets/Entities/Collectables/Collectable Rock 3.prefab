@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &899888999055917935
+--- !u!1 &5135557565667611496
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 899888999056088911}
-  - component: {fileID: 899888999058988911}
-  - component: {fileID: 899888999057857967}
-  - component: {fileID: 899888999055951306}
-  - component: {fileID: 899888999055951309}
+  - component: {fileID: 5135557565668101960}
+  - component: {fileID: 5135557565664710504}
+  - component: {fileID: 5135557565665676712}
+  - component: {fileID: 5135557565667710413}
   m_Layer: 7
-  m_Name: Collectable Rock 3
+  m_Name: Mesh
   m_TagString: Collectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &899888999056088911
+--- !u!4 &5135557565668101960
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 899888999055917935}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_GameObject: {fileID: 5135557565667611496}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.1, y: 0, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.20000002, z: 0.20000002}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 9171438656992446296}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!33 &899888999058988911
+--- !u!33 &5135557565664710504
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 899888999055917935}
+  m_GameObject: {fileID: 5135557565667611496}
   m_Mesh: {fileID: 4300000, guid: 7949c5c9e31651a4d95b93b09271bfe3, type: 3}
---- !u!23 &899888999057857967
+--- !u!23 &5135557565665676712
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 899888999055917935}
+  m_GameObject: {fileID: 5135557565667611496}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -83,26 +82,58 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &899888999055951306
+--- !u!65 &5135557565667710413
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 899888999055917935}
+  m_GameObject: {fileID: 5135557565667611496}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3.248413, y: 6.419501, z: 2.1116443}
   m_Center: {x: -0.20878714, y: -0.6435167, z: -0.6157216}
---- !u!114 &899888999055951309
+--- !u!1 &9171438656992446298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9171438656992446296}
+  - component: {fileID: 9171438656992446297}
+  m_Layer: 0
+  m_Name: Collectable Rock 3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9171438656992446296
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9171438656992446298}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5135557565668101960}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9171438656992446297
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 899888999055917935}
+  m_GameObject: {fileID: 9171438656992446298}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c07b365c160416a9388cc3c38d935d1, type: 3}
@@ -110,3 +141,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementProperties: {fileID: 11400000, guid: 4721bce2e5fff4d869c538f83a526c5a,
     type: 2}
+  _rotateAnimation: 0
