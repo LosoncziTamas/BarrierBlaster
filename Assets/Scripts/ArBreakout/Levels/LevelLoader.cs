@@ -15,17 +15,15 @@ namespace ArBreakout.Levels
         public class ParsedLevel
         {
             public readonly List<BrickProps> bricksProps;
-            public readonly int lineCount;
             public readonly float timeLimitInSeconds;
 
             public string LevelName { get; set; }
             public int LevelIndex { get; set; }
 
-            public ParsedLevel(float timeLimitInSeconds, List<BrickProps> bricksProps, int lineCount)
+            public ParsedLevel(float timeLimitInSeconds, List<BrickProps> bricksProps)
             {
                 this.timeLimitInSeconds = timeLimitInSeconds;
                 this.bricksProps = bricksProps;
-                this.lineCount = lineCount;
             }
         }
 
@@ -111,7 +109,7 @@ namespace ArBreakout.Levels
 
             var timeLimit = float.Parse(metaData[0]);
             
-            return new ParsedLevel(timeLimit, brickProps, lines.Length);
+            return new ParsedLevel(timeLimit, brickProps);
         }
     }
 }

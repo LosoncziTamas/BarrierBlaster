@@ -17,7 +17,6 @@ namespace ArBreakout.Game
         public const string GameObjectTag = "Brick";
         
         private static readonly int HighlightIntensity = Shader.PropertyToID("_HighlightIntensity");
-        [SerializeField] private Collectable _collectiblePrefab;
         private Collectable _collectableInstance;
         
         public PowerUp PowerUp { private set; get; }
@@ -64,7 +63,8 @@ namespace ArBreakout.Game
         {
             if (powerUp != PowerUp.None)
             {
-                _collectableInstance = Instantiate(_collectiblePrefab, transform.parent);
+                var powerUpSo = PowerUpMappingScriptableObject.Instance.GetPowerUpSO(powerUp);
+                _collectableInstance = Instantiate(powerUpSo.collectablePrefab, transform.parent);
                 _collectableInstance.transform.position = transform.position;
                 _collectableInstance.Init(powerUp);
                 _collectableInstance.gameObject.SetActive(false);

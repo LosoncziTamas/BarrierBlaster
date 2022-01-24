@@ -9,6 +9,6 @@ namespace ArBreakout.Levels
         [SerializeField] private Array2DChar _layout;
         [SerializeField] private float _timeLimit;
         
-
+        // TODO: entirely replace legacy level loading
     }
 }

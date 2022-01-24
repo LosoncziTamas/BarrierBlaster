@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b3aa9a68fff6496eaf9a7846ea19f35, type: 3}
   m_Name: Magnifier
   m_EditorClassIdentifier: 
-  powerUp: 5
+  _collectablePrefab: {fileID: 9171438656992446297, guid: 24e9d1957824b4335947e3170411e5b0,
+    type: 3}
+  powerUp: 4
   icon: {fileID: 21300000, guid: 5ebd07fbd38ce49aabc5aa27259f95d9, type: 3}
-  descriptionText: If you catch a ball which has cleared an <b>Solidate</b> your paddle
-    will grow.
+  descriptionText: If you catch a ball which has cleared an <b>Solidate</b> your
+    paddle will grow.
   material: {fileID: 2100000, guid: 79e7605ec93594f5e9dd5024f244add5, type: 2}
   color: {r: 0.23529412, g: 0.29803923, b: 0.53333336, a: 0}
