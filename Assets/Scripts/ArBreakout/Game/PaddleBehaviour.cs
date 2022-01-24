@@ -29,10 +29,11 @@ namespace ArBreakout.Game
         
         private readonly List<bool> _activePowerUps = new List<bool>(TotalPowerUpCount);
         private readonly List<float> _activePowerUpTimes = new List<float>(TotalPowerUpCount);
+
+        [SerializeField] private Material _material;
         
         private Vector3 _localVelocity;
         private BallBehaviour _ballBehaviour;
-        private Renderer _renderer;
 
         private Vector3 _parentStartPosition;
         private Vector3 _defaultScale;
@@ -86,7 +87,6 @@ namespace ArBreakout.Game
         
         private void Awake()
         {
-            _renderer = GetComponent<Renderer>();
             _defaultScale = transform.localScale;
             _parentTransform = transform.parent;
             _speed = DefaultSpeed;
@@ -282,12 +282,12 @@ namespace ArBreakout.Game
         private IEnumerator AnimatePowerUpCatch(float duration, Color color)
         {
             var left = duration;
-            _renderer.material.SetColor(Tint, color);
+            _material.SetColor(Tint, color);
             while (left > 0)
             {
                 left -= Time.deltaTime;
                 var mix = Mathf.Sin((duration - left) / duration * Mathf.PI);
-                _renderer.material.SetFloat(MixScale, mix);
+                _material.SetFloat(MixScale, mix);
                 yield return new WaitForEndOfFrame();
             }
             

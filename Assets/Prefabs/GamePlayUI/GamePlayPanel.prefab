@@ -1301,7 +1301,7 @@ MonoBehaviour:
     type: 3}
   _ballPrefab: {fileID: 7102717554571487894, guid: e55b5f4bd7ef14c43af9d89758daa71f,
     type: 3}
-  _paddleParentPrefab: {fileID: 8457119976332436367, guid: 2ea6bb3beb4624b83a8d20d49d4adfcf,
+  _paddleParentPrefab: {fileID: 9189816665348010839, guid: d313a618b74e344adafeee1edb453140,
     type: 3}
   _wallBehaviourPrefab: {fileID: -1298968180689936513, guid: 68229159241c44fce82b987aacbac9bb,
     type: 3}

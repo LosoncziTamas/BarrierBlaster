@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b3aa9a68fff6496eaf9a7846ea19f35, type: 3}
   m_Name: Accelerator
   m_EditorClassIdentifier: 
-  _collectablePrefab: {fileID: 568984345741600570, guid: a16611a17495e4b07bf732b11fe8c464,
+  collectablePrefab: {fileID: 568984345741600570, guid: a16611a17495e4b07bf732b11fe8c464,
     type: 3}
   powerUp: 1
   icon: {fileID: 21300000, guid: b30999fa8ecc148a091df138c69a05d8, type: 3}
