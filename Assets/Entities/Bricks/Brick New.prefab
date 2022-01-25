@@ -110,9 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd9709f44f24ef392ab6fc37045e20d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collectiblePrefab: {fileID: 568984345741600570, guid: a16611a17495e4b07bf732b11fe8c464,
-    type: 3}
   _changeMeshColor: {fileID: 2119847166445350993}
+  _powerUpMappings: {fileID: 11400000, guid: 478a13d953ece489bb6546344ea15e2f, type: 2}
 --- !u!54 &5201822731914409680
 Rigidbody:
   m_ObjectHideFlags: 0

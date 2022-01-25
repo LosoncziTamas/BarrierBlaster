@@ -31,6 +31,7 @@ namespace ArBreakout.Game
         private readonly List<float> _activePowerUpTimes = new List<float>(TotalPowerUpCount);
 
         [SerializeField] private Material _material;
+        [SerializeField] private PowerUpMapping _powerUpMapping;
         
         private Vector3 _localVelocity;
         private BallBehaviour _ballBehaviour;
@@ -273,7 +274,7 @@ namespace ArBreakout.Game
                 _activePowerUps[powerUpIdx] = true;
             }
 
-            var powerUpColor = PowerUpMappingScriptableObject.Instance.GetPowerUpSO(powerUp).color;
+            var powerUpColor = _powerUpMapping.GetPowerUpDescriptor(powerUp).color;
             StartCoroutine(AnimatePowerUpCatch(0.6f, powerUpColor));
             
             PublishPowerUpState();

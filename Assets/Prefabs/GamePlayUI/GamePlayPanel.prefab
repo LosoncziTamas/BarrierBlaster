@@ -396,6 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pool: {fileID: 4201702555210807332}
+  _powerUpMappings: {fileID: 11400000, guid: 478a13d953ece489bb6546344ea15e2f, type: 2}
 --- !u!225 &2486522262553850895
 CanvasGroup:
   m_ObjectHideFlags: 0

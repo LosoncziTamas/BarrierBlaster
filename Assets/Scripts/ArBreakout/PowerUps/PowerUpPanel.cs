@@ -9,7 +9,8 @@ namespace ArBreakout.PowerUps
     public class PowerUpPanel : MonoBehaviour
     {
         [SerializeField] private ItemPool _pool;
-        
+        [SerializeField] private PowerUpMapping _powerUpMappings;
+
         private CanvasGroup _canvasGroup;
 
         private void Awake()
@@ -43,7 +44,7 @@ namespace ArBreakout.PowerUps
             {
                 var powerUp = activePowerUps[i];
                 var powerUpTime = activePowerUpTimes[i];
-                var data = PowerUpMappingScriptableObject.Instance.GetPowerUpSO(powerUp);
+                var data = _powerUpMappings.GetPowerUpDescriptor(powerUp);
                 var item = _pool.GetItem().GetComponent<PowerUpItem>();
                 
                 item.transform.SetParent(transform);

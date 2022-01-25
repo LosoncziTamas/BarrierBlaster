@@ -20,6 +20,7 @@ namespace ArBreakout.Game
         private static readonly float PositiveMinX = Mathf.Cos(Mathf.Deg2Rad *  15.0f);
 
         [SerializeField] private Color _defaultColor;
+        [SerializeField] private PowerUpMapping _powerUpMappings;
         
         private Vector3 _launchLocalDirection = Vector3.forward;
         private Vector3 _localVelocity;
@@ -75,8 +76,8 @@ namespace ArBreakout.Game
             var powerUp = smashedBrick.PowerUp;
             if (powerUp.EffectsPaddle())
             {
-                var powerUpSO = PowerUpMappingScriptableObject.Instance.GetPowerUpSO(powerUp);
-                _renderer.material.SetColor(ColorPropertyID, powerUpSO.color);
+                var powerUpDescriptor = _powerUpMappings.GetPowerUpDescriptor(powerUp);
+                _renderer.material.SetColor(ColorPropertyID, powerUpDescriptor.color);
             }
         }
         

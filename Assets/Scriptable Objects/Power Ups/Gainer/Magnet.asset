@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b3aa9a68fff6496eaf9a7846ea19f35, type: 3}
   m_Name: Magnet
   m_EditorClassIdentifier: 
-  _collectablePrefab: {fileID: 9013228075026565027, guid: ff820df8ad181441d986d0f8071c423f,
+  collectablePrefab: {fileID: 9013228075026565027, guid: ff820df8ad181441d986d0f8071c423f,
     type: 3}
   powerUp: 6
   icon: {fileID: 21300000, guid: e21d13fe6dc284df3a0444145c5ca594, type: 3}

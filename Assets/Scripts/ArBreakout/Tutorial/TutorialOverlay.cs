@@ -18,8 +18,7 @@ namespace ArBreakout.Tutorial
         [SerializeField] private Button _backButton;
         [SerializeField] private TextMeshProUGUI _descriptionText;
         [SerializeField] private Canvas _tutorialCanvas;
-        
-        [SerializeField] private PowerUpMappingScriptableObject _powerUpMappings;
+        [SerializeField] private PowerUpMapping _powerUpMappings;
 
         private MeshRenderer _brickMeshRenderer;
         private Action _onDismissed;

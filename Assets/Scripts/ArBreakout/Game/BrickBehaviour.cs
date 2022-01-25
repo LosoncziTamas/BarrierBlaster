@@ -23,7 +23,8 @@ namespace ArBreakout.Game
         public BrickPool Pool { set; get; }
         
         [SerializeField] private ChangeMeshColor _changeMeshColor;
-
+        [SerializeField] private PowerUpMapping _powerUpMappings;
+        
         private Renderer _renderer;
         private Collider _collider;
         private int _hitPoints;
@@ -63,7 +64,7 @@ namespace ArBreakout.Game
         {
             if (powerUp != PowerUp.None)
             {
-                var powerUpSo = PowerUpMappingScriptableObject.Instance.GetPowerUpSO(powerUp);
+                var powerUpSo = _powerUpMappings.GetPowerUpDescriptor(powerUp);
                 _collectableInstance = Instantiate(powerUpSo.collectablePrefab, transform.parent);
                 _collectableInstance.transform.position = transform.position;
                 _collectableInstance.Init(powerUp);
