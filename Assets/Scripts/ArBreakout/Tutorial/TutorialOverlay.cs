@@ -12,7 +12,6 @@ namespace ArBreakout.Tutorial
     public class TutorialOverlay : MonoBehaviour
     {
         [SerializeField] private HorizontalSelector _brickSelector;
-        [SerializeField] private GameObject _brick;
         [SerializeField] private Button _prevButton;
         [SerializeField] private Button _nextButton;
         [SerializeField] private Button _backButton;
@@ -20,9 +19,9 @@ namespace ArBreakout.Tutorial
         [SerializeField] private Canvas _tutorialCanvas;
         [SerializeField] private PowerUpMapping _powerUpMappings;
 
-        private MeshRenderer _brickMeshRenderer;
         private Action _onDismissed;
         private Action _onExitGame;
+        private ObjectSwapper _objectSwapper;
         
         private void OnValidate()
         {
@@ -34,14 +33,14 @@ namespace ArBreakout.Tutorial
         
         private void Awake()
         {
+            _objectSwapper = FindObjectOfType<ObjectSwapper>();
             foreach (var description in _powerUpMappings.mappings)
             {
                 _brickSelector.CreateNewItem(description.name);
             }
 
-            _brickMeshRenderer = _brick.GetComponent<MeshRenderer>();
             DisplayItemAtIndex(0);
-            _brickMeshRenderer.material = _powerUpMappings.mappings[0].material; 
+            _objectSwapper.SwapToPowerUpObject( _powerUpMappings.mappings[0].powerUp, 120);
         }
 
         private void OnEnable()
@@ -83,25 +82,18 @@ namespace ArBreakout.Tutorial
 
         private void OnNextButtonClick()
         {
-            AnimateBrickRotation(-120);
+            var nextIdx = Math.Min(_brickSelector.index, _powerUpMappings.mappings.Length - 1);
+            var nextObject = _powerUpMappings.mappings[nextIdx];
+            _objectSwapper.SwapToPowerUpObject(nextObject.powerUp, 120);
         }
         
         private void OnPrevButtonClick()
         {
-            AnimateBrickRotation(120);
+            var prevIdx = Math.Max(_brickSelector.index, 0);
+            var prevObject = _powerUpMappings.mappings[prevIdx];
+            _objectSwapper.SwapToPowerUpObject(prevObject.powerUp, -120);
         }
-
-        private void AnimateBrickRotation(float degree)
-        {
-            DisplayItemAtIndex(_brickSelector.index);
-            DOTween.Sequence().Append(_brick.transform.DOPunchRotation(new Vector3(0.0f, degree, 0.0f), 1.0f, 1, 0.5f))
-                .InsertCallback(0.3f,
-                    () =>
-                    {
-                        _brickMeshRenderer.material = _powerUpMappings.mappings[_brickSelector.index].material; 
-                    });
-        }
-
+        
         private void DisplayItemAtIndex(int index)
         {
             Assert.IsTrue(index > -1 && index < _powerUpMappings.mappings.Length);
