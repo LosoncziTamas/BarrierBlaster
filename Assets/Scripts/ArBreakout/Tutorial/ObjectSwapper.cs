@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using ArBreakout.PowerUps;
 using DG.Tweening;
@@ -14,6 +12,9 @@ namespace ArBreakout.Tutorial
         [SerializeField] private GameObject _magnet;
         [SerializeField] private GameObject _arrow;
         [SerializeField] private GameObject _mushroom;
+        [SerializeField] private GameObject _anvil;
+        [SerializeField] private GameObject _scissor;
+        [SerializeField] private GameObject _beer;
 
         private GameObject _visibleObject;
         private PowerUp _visiblePowerUp;
@@ -24,6 +25,9 @@ namespace ArBreakout.Tutorial
             _powerUpObjects.Add(PowerUp.Accelerator, _arrow);
             _powerUpObjects.Add(PowerUp.Magnet, _magnet);
             _powerUpObjects.Add(PowerUp.Magnifier, _mushroom);
+            _powerUpObjects.Add(PowerUp.Decelerator, _anvil);
+            _powerUpObjects.Add(PowerUp.Minifier, _scissor);
+            _powerUpObjects.Add(PowerUp.ControlSwitch, _beer);
         }
 
         public void SwapToPowerUpObject(PowerUp powerUp, float rotationDegree)
