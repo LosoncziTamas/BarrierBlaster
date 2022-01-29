@@ -7,7 +7,7 @@ namespace ArBreakout.Tutorial
 {
     public class ObjectSwapper : MonoBehaviour
     {
-        private Dictionary<PowerUp, GameObject> _powerUpObjects = new Dictionary<PowerUp, GameObject>();
+        private readonly Dictionary<PowerUp, GameObject> _powerUpObjects = new Dictionary<PowerUp, GameObject>();
 
         [SerializeField] private GameObject _magnet;
         [SerializeField] private GameObject _arrow;
@@ -52,8 +52,5 @@ namespace ArBreakout.Tutorial
             _visibleObject.transform.DOScale(Vector3.one, 0.6f).OnComplete(() => _canSwap = true);
             _visiblePowerUp = powerUp;
         }
-        
-        
-        
     }
 }

@@ -87,7 +87,14 @@ namespace ArBreakout.SinglePlayer
             _selectedLevel = (Level) level.dataRef;
             if (NativePermissions.IsPermissionGranted(Permission.Camera))
             {
-                Controller.TransitionTo(typeof(CheckARAvailabilityState));
+                if (Application.isEditor)
+                {
+                    Controller.TransitionTo(typeof(NoARState));
+                }
+                else
+                {
+                    Controller.TransitionTo(typeof(CheckARAvailabilityState));
+                }
             }
             else
             {

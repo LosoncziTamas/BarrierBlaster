@@ -51,9 +51,9 @@ namespace ArBreakout.SinglePlayer
 
 #if UNITY_EDITOR
             // View the level form the top in the editor.
-            var editorCam = Camera.main.transform;
-            editorCam.position = _levelParent.transform.position + Vector3.up * BreakoutPhysics.LevelSizeInMeter * 2.0f;
-            editorCam.localRotation =  Quaternion.Euler(new Vector3(90.0f, 0.0f, 0f));            
+            // var editorCam = Camera.main.transform;
+            // editorCam.position = _levelParent.transform.position + Vector3.up * BreakoutPhysics.LevelSizeInMeter * 2.0f;
+            // editorCam.localRotation =  Quaternion.Euler(new Vector3(90.0f, 0.0f, 0f));            
 #endif
             _currLevel = LevelSelectorAppState.SelectedLevel.parsedLevel;
             Assert.IsNotNull(_currLevel, "No level selected.");

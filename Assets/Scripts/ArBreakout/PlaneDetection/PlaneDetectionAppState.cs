@@ -274,7 +274,6 @@ namespace ArBreakout.PlaneDetection
                 _levelParent.position = pose.position;
                 _levelParent.rotation = pose.rotation;
 
-                // _levelPlacer = Instantiate(_levelGhostPrefab, _levelParent);  
                 _levelGhost = Instantiate(_levelGhostPrefab, _levelParent);  
                                 
                 // Create a plane aligned with the hit
