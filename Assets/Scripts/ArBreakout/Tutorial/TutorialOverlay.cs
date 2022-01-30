@@ -85,6 +85,7 @@ namespace ArBreakout.Tutorial
             var nextIdx = Math.Min(_brickSelector.index, _powerUpMappings.mappings.Length - 1);
             var nextObject = _powerUpMappings.mappings[nextIdx];
             _objectSwapper.SwapToPowerUpObject(nextObject.powerUp, 120);
+            DisplayItemAtIndex(nextIdx);
         }
         
         private void OnPrevButtonClick()
@@ -92,6 +93,7 @@ namespace ArBreakout.Tutorial
             var prevIdx = Math.Max(_brickSelector.index, 0);
             var prevObject = _powerUpMappings.mappings[prevIdx];
             _objectSwapper.SwapToPowerUpObject(prevObject.powerUp, -120);
+            DisplayItemAtIndex(prevIdx);
         }
         
         private void DisplayItemAtIndex(int index)

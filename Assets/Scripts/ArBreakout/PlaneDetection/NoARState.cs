@@ -11,7 +11,12 @@ namespace ArBreakout.PlaneDetection
         public override void OnEnter(AppState fromState)
         {
             base.OnEnter(fromState);
+            if (!_levelParent)
+            {
+                var levelParent = new GameObject("LevelParent");
+            }
             Controller.TransitionTo(typeof(GameAppState));
         }
+        
     }
 }
