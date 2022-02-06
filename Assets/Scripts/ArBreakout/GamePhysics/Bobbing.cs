@@ -5,9 +5,7 @@ namespace ArBreakout.GamePhysics
     [RequireComponent(typeof(Collider))]
     public class Bobbing : MonoBehaviour
     {
-        private const float Extent = 0.15f;
-        private const float Speed = 5.0f;
-        private const float Offset = 0.5f;
+        [SerializeField] private BobbingProperties _bobbingProperties;
         
         private float _baseValue;
         private bool _enabled;
@@ -22,9 +20,8 @@ namespace ArBreakout.GamePhysics
         {
             _enabled = true;
             // Apply extra offset to make sure bobbing doesn't interfere with collisions.
-            _baseValue = transform.localPosition.z + Offset;
+            _baseValue = transform.localPosition.z + _bobbingProperties.startOffsetZ;
             _collider.enabled = false;
-
         }
 
         public void Disable()
@@ -37,8 +34,10 @@ namespace ArBreakout.GamePhysics
             if (_enabled)
             {
                 var position = transform.localPosition;
-                position = new Vector3(position.x, position.y, _baseValue + Mathf.Sin(Time.time * Speed) * Extent);
+                position = new Vector3(position.x, position.y, _baseValue + Mathf.Sin(Time.time * _bobbingProperties.speed) * _bobbingProperties.extent);
                 transform.localPosition = position;
+                // TODO: check realted bug
+                transform.Rotate(_bobbingProperties.rotationAxis, _bobbingProperties.rotationValue, Space.Self);
             }
         }
     }
