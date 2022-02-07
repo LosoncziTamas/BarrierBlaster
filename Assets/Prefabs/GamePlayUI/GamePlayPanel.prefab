@@ -1308,7 +1308,7 @@ MonoBehaviour:
     type: 3}
   _gapPrefab: {fileID: 3228544412225583249, guid: e46a87f38612f446dbce686215ece893,
     type: 3}
-  _colorPalette: {fileID: 11400000, guid: 5f98d2d3196814aaba1f2fd381b65df0, type: 2}
+  _colorPalette: {fileID: 11400000, guid: c7bd3695bf3a54c58913042ab0f9cff9, type: 2}
 --- !u!114 &6206702301688281691
 MonoBehaviour:
   m_ObjectHideFlags: 0

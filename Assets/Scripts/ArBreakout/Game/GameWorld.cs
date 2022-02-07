@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using ArBreakout.Levels;
 using ArBreakout.Misc;
-using ArBreakout.PowerUps;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -124,6 +123,7 @@ namespace ArBreakout.Game
             var playerInstance = paddleParent.GetComponentInChildren<PaddleBehaviour>();
             
             // Placing player at the bottom of the scene.
+            // TODO: check this
             var playerOffset = Vector3.back * Mathf.Floor(LevelDimY * 0.5f) + Vector3.up * 0.5f;
             playerInstance.transform.Translate(playerInstance.transform.TransformVector(playerOffset), Space.World);
             playerInstance.StoreCurrentPositionAsStartPosition();
