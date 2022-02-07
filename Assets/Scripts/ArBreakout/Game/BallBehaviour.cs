@@ -5,8 +5,6 @@ using UnityEngine;
 
 namespace ArBreakout.Game
 {
-    [RequireComponent(typeof(Bobbing))]
-    [RequireComponent(typeof(MeshRenderer))]
     public class BallBehaviour : MonoBehaviour
     {
         public const string GameObjectTag = "Ball";
@@ -21,12 +19,12 @@ namespace ArBreakout.Game
 
         [SerializeField] private Color _defaultColor;
         [SerializeField] private PowerUpMapping _powerUpMappings;
-        
+        [SerializeField] private MeshRenderer _renderer;
+        [SerializeField] private Bobbing _bobbing;
+
         private Vector3 _launchLocalDirection = Vector3.forward;
         private Vector3 _localVelocity;
         private Vector3 _localAcceleration;
-        private Bobbing _bobbing;
-        private MeshRenderer _renderer;
         private GameObject _gameWorldRoot;
 
         private bool _released;
@@ -48,8 +46,6 @@ namespace ArBreakout.Game
 
         private void Awake()
         {
-            _bobbing = GetComponent<Bobbing>();
-            _renderer = GetComponent<MeshRenderer>();
             _gameWorldRoot = GameObject.Find(GameWorld.WorldRootName);
         }
 

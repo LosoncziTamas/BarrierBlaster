@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abc68e8464564ee1ba1d5be2be2f2fef, type: 3}
-  m_Name: Ball Bobbing Properties
+  m_Script: {fileID: 11500000, guid: 214e27de3c234939afc18f65d7a920ce, type: 3}
+  m_Name: Ball Rotation Properties
   m_EditorClassIdentifier: 
-  extent: 0.15
-  speed: 5
-  startOffsetZ: 0.5
-  rotationAxis: {x: 1, y: 0, z: 0}
-  rotationValue: 1
+  rotationAxis: {x: 0, y: 1, z: 0}
+  rotationValue: 3

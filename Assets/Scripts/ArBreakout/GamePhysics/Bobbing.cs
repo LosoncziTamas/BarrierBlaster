@@ -36,8 +36,6 @@ namespace ArBreakout.GamePhysics
                 var position = transform.localPosition;
                 position = new Vector3(position.x, position.y, _baseValue + Mathf.Sin(Time.time * _bobbingProperties.speed) * _bobbingProperties.extent);
                 transform.localPosition = position;
-                // TODO: check realted bug
-                transform.Rotate(_bobbingProperties.rotationAxis, _bobbingProperties.rotationValue, Space.Self);
             }
         }
     }

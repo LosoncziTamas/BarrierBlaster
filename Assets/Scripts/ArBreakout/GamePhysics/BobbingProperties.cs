@@ -8,7 +8,6 @@ namespace ArBreakout.GamePhysics
         public float extent;
         public float speed;
         public float startOffsetZ;
-        public Vector3 rotationAxis;
-        public float rotationValue;
+
     }
 }
