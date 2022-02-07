@@ -123,11 +123,9 @@ namespace ArBreakout.Game
             var playerInstance = paddleParent.GetComponentInChildren<PaddleBehaviour>();
             
             // Placing player at the bottom of the scene.
-            // TODO: check this
-            var playerOffset = Vector3.back * Mathf.Floor(LevelDimY * 0.5f) + Vector3.up * 0.5f;
-            playerInstance.transform.Translate(playerInstance.transform.TransformVector(playerOffset), Space.World);
+            var playerOffset = Vector3.forward * Mathf.Floor(LevelDimY * 0.5f) + Vector3.down * 0.5f;
+            playerInstance.transform.Translate(playerInstance.transform.TransformVector(playerOffset), Space.Self);
             playerInstance.StoreCurrentPositionAsStartPosition();
-            playerInstance.transform.localRotation = Quaternion.identity;
 
             return playerInstance;
         }
