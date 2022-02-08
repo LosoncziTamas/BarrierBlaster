@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using ArBreakout.GamePhysics;
 using ArBreakout.Misc;
@@ -29,9 +28,6 @@ namespace ArBreakout.Game
         
         private readonly List<bool> _activePowerUps = new List<bool>(TotalPowerUpCount);
         private readonly List<float> _activePowerUpTimes = new List<float>(TotalPowerUpCount);
-
-        [SerializeField] private Material _material;
-        [SerializeField] private PowerUpMapping _powerUpMapping;
         
         private Vector3 _localVelocity;
         private BallBehaviour _ballBehaviour;
@@ -43,9 +39,6 @@ namespace ArBreakout.Game
         private bool _moveLeft;
         private bool _moveRight;
         private bool _fire;
-        
-        private static readonly int Tint = Shader.PropertyToID("_Tint");
-        private static readonly int MixScale = Shader.PropertyToID("_MixScale");
 
         public void StoreCurrentPositionAsStartPosition()
         {
@@ -273,25 +266,7 @@ namespace ArBreakout.Game
                 _activePowerUpTimes[powerUpIdx] = PowerUpEffectDuration;
                 _activePowerUps[powerUpIdx] = true;
             }
-
-            var powerUpColor = _powerUpMapping.GetPowerUpDescriptor(powerUp).color;
-            StartCoroutine(AnimatePowerUpCatch(0.6f, powerUpColor));
-            
             PublishPowerUpState();
-        }
-
-        private IEnumerator AnimatePowerUpCatch(float duration, Color color)
-        {
-            var left = duration;
-            _material.SetColor(Tint, color);
-            while (left > 0)
-            {
-                left -= Time.deltaTime;
-                var mix = Mathf.Sin((duration - left) / duration * Mathf.PI);
-                _material.SetFloat(MixScale, mix);
-                yield return new WaitForEndOfFrame();
-            }
-            
         }
 
         private void UpdatePowerUpStates()

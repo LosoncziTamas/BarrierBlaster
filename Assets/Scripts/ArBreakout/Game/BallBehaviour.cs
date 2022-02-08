@@ -17,7 +17,6 @@ namespace ArBreakout.Game
         private static readonly float NegativeMaxX = Mathf.Cos(Mathf.Deg2Rad *  165.0f);
         private static readonly float PositiveMinX = Mathf.Cos(Mathf.Deg2Rad *  15.0f);
 
-        [SerializeField] private Color _defaultColor;
         [SerializeField] private PowerUpMapping _powerUpMappings;
         [SerializeField] private MeshRenderer _renderer;
         [SerializeField] private Bobbing _bobbing;
@@ -29,7 +28,6 @@ namespace ArBreakout.Game
 
         private bool _released;
         private bool _collidedWithBrickInFrame;
-        private static readonly int ColorPropertyID = Shader.PropertyToID("_Color");
 
         /*
          * Property for the velocity component. Y value is intentionally not set, so the ball doesn't bounce out of the level due to the physics calculations.
@@ -61,20 +59,10 @@ namespace ArBreakout.Game
             LocalVelocity = _launchLocalDirection.normalized * (DefaultSpeed + additionalForce);
             _bobbing.Disable();
         }
-        
-        public void ResetPowerUpToDefaults()
-        {
-            _renderer.material.SetColor(ColorPropertyID, _defaultColor);
-        }
 
         private void ActivatePowerUp(BrickBehaviour smashedBrick)
         {
             var powerUp = smashedBrick.PowerUp;
-            if (powerUp.EffectsPaddle())
-            {
-                var powerUpDescriptor = _powerUpMappings.GetPowerUpDescriptor(powerUp);
-                _renderer.material.SetColor(ColorPropertyID, powerUpDescriptor.color);
-            }
         }
         
         private void DrawContactLine(BreakoutPhysics.Contact contact, Color color)
@@ -261,6 +249,11 @@ namespace ArBreakout.Game
             _launchLocalDirection = Vector3.forward;
             _localVelocity = new Vector3();
             _localAcceleration = new Vector3();
+        }
+
+        public void ResetPowerUpToDefaults()
+        {
+            
         }
     }
 }
