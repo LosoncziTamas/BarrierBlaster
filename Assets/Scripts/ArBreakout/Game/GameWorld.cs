@@ -22,7 +22,6 @@ namespace ArBreakout.Game
         private GameObject _gameWorldRoot;
         private BrickPool _brickPool;
 
-        private readonly List<WallBehaviour> _walls = new List<WallBehaviour>();
         private readonly List<BrickBehaviour> _brickReferences = new List<BrickBehaviour>();
 
         public BallBehaviour BallBehaviour { get; private set; }
@@ -43,8 +42,8 @@ namespace ArBreakout.Game
 
             _brickPool = Instantiate(_brickPoolPrefab, levelParent);
             _brickPool.gameObject.SetActive(false);
-            
-            InitWallsAndGap();
+
+            var wall = Instantiate(_wallBehaviourPrefab, _gameWorldRoot.transform);
             Paddle = InitPaddle();
             BallBehaviour = InitBall(Paddle.transform);
             InitBricks(level);
@@ -56,7 +55,6 @@ namespace ArBreakout.Game
             Assert.IsNotNull(_gameWorldRoot, "Trying to destroy a non-existing game world.");
 
             _brickReferences.Clear();
-            _walls.Clear();
             Initialized = false;
             Paddle = null;
             BallBehaviour = null;
@@ -69,7 +67,6 @@ namespace ArBreakout.Game
         {
             Assert.IsTrue(Initialized);
             Assert.IsNotNull(Paddle);
-            Assert.IsTrue(_walls.Count > 0);
             Assert.IsNotNull(BallBehaviour);
 
             foreach (var brick in _brickReferences)
@@ -137,7 +134,6 @@ namespace ArBreakout.Game
                 var leftOffset = Vector3.left * Mathf.Ceil(LevelDimX * 0.5f) + Vector3.up * 0.5f + Vector3.forward * 0.5f;
                 leftWall.transform.Translate(_gameWorldRoot.transform.TransformVector(leftOffset), Space.World);
                 leftWall.transform.AnimatePunchScale(new Vector3(1.0f, 1.0f, LevelDimY + 1.0f), Ease.InQuad, 0.6f);
-                _walls.Add(leftWall);
             }
 
             {
@@ -145,7 +141,6 @@ namespace ArBreakout.Game
                 var rightOffset = Vector3.right * Mathf.Ceil(LevelDimX * 0.5f) + Vector3.up * 0.5f + Vector3.forward * 0.5f;
                 rightWall.transform.Translate(rightWall.transform.TransformVector(rightOffset), Space.World);
                 rightWall.transform.AnimatePunchScale(new Vector3(1.0f, 1.0f, LevelDimY + 1.0f), Ease.InQuad, 0.6f);                
-                _walls.Add(rightWall);
             }
 
             {
@@ -153,7 +148,6 @@ namespace ArBreakout.Game
                 var topOffset = Vector3.forward * Mathf.Ceil(LevelDimY * 0.5f) + Vector3.up * 0.5f;
                 topWall.transform.Translate(_gameWorldRoot.transform.TransformVector(topOffset), Space.World);                                
                 topWall.transform.AnimatePunchScale(new Vector3(LevelDimX, 1.0f, 1.0f), Ease.InQuad, 0.6f);                
-                _walls.Add(topWall);
             }
 
             {
