@@ -44,7 +44,7 @@ namespace ArBreakout.Game
 
         private void Awake()
         {
-            _gameWorldRoot = GameObject.Find(GameWorld.WorldRootName);
+            _gameWorldRoot = GameObject.Find(LevelRoot.ObjectName);
         }
 
         private void Start()

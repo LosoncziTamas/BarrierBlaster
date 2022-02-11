@@ -154,7 +154,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.59607846, g: 0.59607846, b: 0.59607846, a: 1}
+  m_BackGroundColor: {r: 0.11372549, g: 0.1254902, b: 0.16470589, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -168,7 +168,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 20
+  far clip plane: 22
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -255,12 +255,12 @@ PrefabInstance:
     - target: {fileID: 4370927124561719831, guid: 5e36ae584a837475f97e47fd4a7dab96,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4370927124561719831, guid: 5e36ae584a837475f97e47fd4a7dab96,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4370927124561719831, guid: 5e36ae584a837475f97e47fd4a7dab96,
         type: 3}
@@ -275,7 +275,7 @@ PrefabInstance:
     - target: {fileID: 4370927124561719831, guid: 5e36ae584a837475f97e47fd4a7dab96,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4370927124934602676, guid: 5e36ae584a837475f97e47fd4a7dab96,
         type: 3}
@@ -1758,7 +1758,7 @@ PrefabInstance:
     - target: {fileID: 3594997242201236966, guid: fc547e6a5438f4cdbaeab34d9ece8749,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 272.5
       objectReference: {fileID: 0}
     - target: {fileID: 3594997242201236966, guid: fc547e6a5438f4cdbaeab34d9ece8749,
         type: 3}
@@ -2478,12 +2478,12 @@ PrefabInstance:
     - target: {fileID: 6229848608082584915, guid: 0e10c22d085c343f095dad8f40948838,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6229848608082584915, guid: 0e10c22d085c343f095dad8f40948838,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6229848608082584915, guid: 0e10c22d085c343f095dad8f40948838,
         type: 3}
@@ -2498,7 +2498,7 @@ PrefabInstance:
     - target: {fileID: 6229848608082584915, guid: 0e10c22d085c343f095dad8f40948838,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6229848608082584916, guid: 0e10c22d085c343f095dad8f40948838,
         type: 3}

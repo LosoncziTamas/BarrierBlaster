@@ -11,6 +11,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace ArBreakout.SinglePlayer
@@ -19,7 +20,7 @@ namespace ArBreakout.SinglePlayer
     {
         private const int InitialLifeCount = 3;
         
-        [SerializeField] private GameWorld _gameWorld;
+        [FormerlySerializedAs("_gameWorld")] [SerializeField] private LevelRoot _levelRoot;
 
         [SerializeField] private LifeCounter _lifeCounter;
         [SerializeField] private Text _timeLeftText;
@@ -90,12 +91,12 @@ namespace ArBreakout.SinglePlayer
 
         private void OnRetry()
         {            
-            _gameWorld.SetupLevel(_currLevel);
+            _levelRoot.SetupLevel(_currLevel);
             
             _timeLeftInSeconds = _currLevel.timeLimitInSeconds;
             _timeLeftText.text = GamePlayUtils.FormatTime(_timeLeftInSeconds);
             _totalLives = InitialLifeCount;
-            _brickCount = _gameWorld.InitialBrickCount;
+            _brickCount = _levelRoot.InitialBrickCount;
             _lifeCounter.UpdateLives(_totalLives);
         }
 
@@ -121,7 +122,7 @@ namespace ArBreakout.SinglePlayer
         private void OnBackToMain()
         {
             GameTime.paused = false;
-            _gameWorld.DestroySelf();
+            _levelRoot.DestroySelf();
            Destroy(_levelParent);
            Controller.TransitionTo(typeof(LevelSelectorAppState));
            ARService.Instance.ResetAR();
@@ -152,33 +153,33 @@ namespace ArBreakout.SinglePlayer
             
             if (_leftButton.PointerDown || Input.GetAxis("Horizontal") < 0)
             {
-                _gameWorld.Paddle.MoveLeft();
+                _levelRoot.Paddle.MoveLeft();
             }
             if (_rightButton.PointerDown || Input.GetAxis("Horizontal") > 0)
             {
-                _gameWorld.Paddle.MoveRight();
+                _levelRoot.Paddle.MoveRight();
             }
             if (_fireButton.PointerDown || Input.GetButton("Jump"))
             {
-                _gameWorld.Paddle.Fire();
+                _levelRoot.Paddle.Fire();
             }
         }
 
         private void InitializeLevel()
         {
-            Assert.IsFalse(_gameWorld.Initialized);
+            Assert.IsFalse(_levelRoot.Initialized);
 #if UNITY_EDITOR
             if (_currLevel == null)
             {
                 _currLevel = _levelProgression.GetDefaultLevel().parsedLevel;
             }
 #endif
-            _gameWorld.InitWithLevel(_levelParent.transform, _currLevel);
+            _levelRoot.InitWithLevel(_levelParent.transform, _currLevel);
 
             _timeLeftInSeconds = _currLevel.timeLimitInSeconds;
             _timeLeftText.text = GamePlayUtils.FormatTime(_timeLeftInSeconds);
             _totalLives = InitialLifeCount;
-            _brickCount = _gameWorld.InitialBrickCount;
+            _brickCount = _levelRoot.InitialBrickCount;
             _lifeCounter.UpdateLives(_totalLives);
         }
 
@@ -190,11 +191,11 @@ namespace ArBreakout.SinglePlayer
             Assert.IsTrue(_totalLives > 0);
 
             _currLevel = allLevels[_currLevel.LevelIndex + 1].parsedLevel;
-            _gameWorld.SetupLevel(_currLevel);
+            _levelRoot.SetupLevel(_currLevel);
             
             _timeLeftInSeconds = _currLevel.timeLimitInSeconds;
             _timeLeftText.text = GamePlayUtils.FormatTime(_timeLeftInSeconds);
-            _brickCount = _gameWorld.InitialBrickCount;
+            _brickCount = _levelRoot.InitialBrickCount;
         }
 
         private void OnPowerUpStateChangeEvent(object sender, PaddleBehaviour.PowerUpState e)
@@ -221,7 +222,7 @@ namespace ArBreakout.SinglePlayer
                     _levelCompleteModal.OpenWindow();
                 }
 
-                GamePlayUtils.AnchorBallToPaddle(_gameWorld.BallBehaviour, _gameWorld.Paddle);
+                GamePlayUtils.AnchorBallToPaddle(_levelRoot.BallBehaviour, _levelRoot.Paddle);
                 GameTime.paused = true;
             }
         }
@@ -231,7 +232,7 @@ namespace ArBreakout.SinglePlayer
             _lifeCounter.UpdateLives(--_totalLives);
             if (_totalLives > 0)
             {
-                GamePlayUtils.AnchorBallToPaddle(_gameWorld.BallBehaviour, _gameWorld.Paddle);
+                GamePlayUtils.AnchorBallToPaddle(_levelRoot.BallBehaviour, _levelRoot.Paddle);
             }
         }
     }

@@ -8,9 +8,9 @@ using static ArBreakout.GamePhysics.BreakoutPhysics;
 
 namespace ArBreakout.Game
 {
-    public class GameWorld : MonoBehaviour
+    public class LevelRoot : MonoBehaviour
     {
-        public const string WorldRootName = "__GameWorld";
+        public const string ObjectName = "LevelRoot";
 
         [SerializeField] private BrickPool _brickPoolPrefab;
         [SerializeField] private BallBehaviour _ballPrefab;
@@ -34,7 +34,7 @@ namespace ArBreakout.Game
         {
             Assert.IsNull(_gameWorldRoot);
             
-            _gameWorldRoot = new GameObject(WorldRootName);
+            _gameWorldRoot = new GameObject(ObjectName);
             _gameWorldRoot.transform.SetParent(levelParent);
             _gameWorldRoot.transform.localScale = Vector3.one;
             _gameWorldRoot.transform.localRotation = Quaternion.identity;
@@ -43,10 +43,11 @@ namespace ArBreakout.Game
             _brickPool = Instantiate(_brickPoolPrefab, levelParent);
             _brickPool.gameObject.SetActive(false);
 
-            var wall = Instantiate(_wallBehaviourPrefab, _gameWorldRoot.transform);
+            InitWallsAndGap();
             Paddle = InitPaddle();
             BallBehaviour = InitBall(Paddle.transform);
             InitBricks(level);
+            
             Initialized = true;
         }
 
@@ -95,8 +96,7 @@ namespace ArBreakout.Game
                 brickTransform.SetParent(_gameWorldRoot.transform, false);
                 brickTransform.localPosition = bricksProp.Location;
                 brickTransform.localRotation = Quaternion.identity;
-                // Scale of the brick is initially set to zero. The actual scale is set with the animation.
-                // brickTransform.localScale = Vector3.zero;
+                // Scale of the brick is set with the animation.
                 var lineIndex = bricksProp.LineIdx;
                 var color = _colorPalette.Colors[lineIndex % paletteColorCount];
                 brick.Init(bricksProp, color, count);
@@ -107,7 +107,6 @@ namespace ArBreakout.Game
         private BallBehaviour InitBall(Transform paddleTransform)
         {
             var ballInstance = Instantiate(_ballPrefab, _gameWorldRoot.transform);
-            // TODO: check
             GamePlayUtils.CenterAboveObject(ballInstance.transform, paddleTransform);
             ballInstance.transform.SetParent(paddleTransform.parent);
 
@@ -129,33 +128,8 @@ namespace ArBreakout.Game
         
         private void InitWallsAndGap()
         {
-            {
-                var leftWall = Instantiate(_wallBehaviourPrefab, _gameWorldRoot.transform);
-                var leftOffset = Vector3.left * Mathf.Ceil(LevelDimX * 0.5f) + Vector3.up * 0.5f + Vector3.forward * 0.5f;
-                leftWall.transform.Translate(_gameWorldRoot.transform.TransformVector(leftOffset), Space.World);
-                leftWall.transform.AnimatePunchScale(new Vector3(1.0f, 1.0f, LevelDimY + 1.0f), Ease.InQuad, 0.6f);
-            }
-
-            {
-                var rightWall = Instantiate(_wallBehaviourPrefab, _gameWorldRoot.transform);
-                var rightOffset = Vector3.right * Mathf.Ceil(LevelDimX * 0.5f) + Vector3.up * 0.5f + Vector3.forward * 0.5f;
-                rightWall.transform.Translate(rightWall.transform.TransformVector(rightOffset), Space.World);
-                rightWall.transform.AnimatePunchScale(new Vector3(1.0f, 1.0f, LevelDimY + 1.0f), Ease.InQuad, 0.6f);                
-            }
-
-            {
-                var topWall = Instantiate(_wallBehaviourPrefab, _gameWorldRoot.transform);
-                var topOffset = Vector3.forward * Mathf.Ceil(LevelDimY * 0.5f) + Vector3.up * 0.5f;
-                topWall.transform.Translate(_gameWorldRoot.transform.TransformVector(topOffset), Space.World);                                
-                topWall.transform.AnimatePunchScale(new Vector3(LevelDimX, 1.0f, 1.0f), Ease.InQuad, 0.6f);                
-            }
-
-            {
-                var gap = Instantiate(_gapPrefab, _gameWorldRoot.transform);
-                var bottomOffset = Vector3.back * Mathf.Ceil(LevelDimY * 0.5f) + Vector3.up * 0.5f;
-                gap.transform.Translate(_gameWorldRoot.transform.TransformVector(bottomOffset), Space.World);
-                gap.transform.localScale = new Vector3(LevelDimX, 1.0f, 1.0f);
-            }
+            var wall = Instantiate(_wallBehaviourPrefab, _gameWorldRoot.transform);
+            var gap = Instantiate(_gapPrefab, _gameWorldRoot.transform);
         }
     }
 }
