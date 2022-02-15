@@ -1,4 +1,5 @@
 using System;
+using ArBreakout.GameInput;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
 using Possible.AppController;
@@ -11,15 +12,22 @@ namespace ArBreakout.Gui
     {
         [SerializeField] private LifeCounter _lifeCounter;
         [SerializeField] private Text _timeLeftText;
-        [SerializeField] private PointerDetector _leftButton;
-        [SerializeField] private PointerDetector _rightButton;
-        [SerializeField] private PointerDetector _fireButton;
         [SerializeField] private Button _backButton;
         [SerializeField] private PowerUpPanel _powerUpPanel;
 
-        private void Start()
+        private void OnEnable()
         {
-            
+            _backButton.onClick.AddListener(OnPause);
+        }
+
+        private void OnDisable()
+        {
+            _backButton.onClick.RemoveListener(OnPause);
+        }
+        
+        private void OnPause()
+        {
+            GameTime.paused = !GameTime.paused;
         }
     }
 }

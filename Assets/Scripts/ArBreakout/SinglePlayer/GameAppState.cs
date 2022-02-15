@@ -1,4 +1,5 @@
 using ArBreakout.Game;
+using ArBreakout.GameInput;
 using ArBreakout.Levels;
 using ArBreakout.Misc;
 using ArBreakout.PlaneDetection;

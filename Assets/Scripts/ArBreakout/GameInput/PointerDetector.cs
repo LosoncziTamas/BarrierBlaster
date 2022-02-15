@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace ArBreakout.Misc
+namespace ArBreakout.GameInput
 {
     public class PointerDetector : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
     {
