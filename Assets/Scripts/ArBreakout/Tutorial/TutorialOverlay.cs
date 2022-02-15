@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using ArBreakout.PowerUps;
 using DG.Tweening;
 using Michsky.UI.ModernUIPack;
@@ -11,6 +12,12 @@ namespace ArBreakout.Tutorial
 {
     public class TutorialOverlay : MonoBehaviour
     {
+        public enum ReturnState
+        {
+            Game,
+            MainMenu
+        }
+        
         [SerializeField] private HorizontalSelector _brickSelector;
         [SerializeField] private Button _prevButton;
         [SerializeField] private Button _nextButton;
@@ -22,14 +29,7 @@ namespace ArBreakout.Tutorial
         private Action _onDismissed;
         private Action _onExitGame;
         private ObjectSwapper _objectSwapper;
-        
-        private void OnValidate()
-        {
-            Assert.IsNotNull(_powerUpMappings);
-            Assert.IsTrue(_powerUpMappings.mappings.Length > 0);
-            Assert.IsNotNull(_descriptionText);
-            Assert.IsNotNull(_brickSelector);
-        }
+        private TaskCompletionSource<ReturnState> _taskCompletionSource;
         
         private void Awake()
         {
@@ -66,11 +66,22 @@ namespace ArBreakout.Tutorial
             _tutorialCanvas.enabled = true;
         }
 
+        public Task<ReturnState> Show()
+        {
+            Debug.Assert(_taskCompletionSource == null);
+            _taskCompletionSource = new TaskCompletionSource<ReturnState>();
+            _tutorialCanvas.enabled = true;
+            return _taskCompletionSource.Task;
+        }
+
         public void DismissAndResume()
         {
             _tutorialCanvas.enabled = false;
             _onDismissed?.Invoke();
             _onDismissed = _onExitGame = null;
+            
+            _taskCompletionSource.SetResult(ReturnState.Game);
+            _taskCompletionSource = null;
         }
 
         private void OnBackButtonClick()
@@ -78,6 +89,9 @@ namespace ArBreakout.Tutorial
             _tutorialCanvas.enabled = false;
             _onExitGame?.Invoke();
             _onDismissed = _onExitGame = null;
+            
+            _taskCompletionSource.SetResult(ReturnState.MainMenu);
+            _taskCompletionSource = null;
         }
 
         private void OnNextButtonClick()

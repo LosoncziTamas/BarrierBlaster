@@ -1,7 +1,6 @@
-using System;
-using ArBreakout.GameInput;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
+using ArBreakout.Tutorial;
 using Possible.AppController;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +14,14 @@ namespace ArBreakout.Gui
         [SerializeField] private Button _backButton;
         [SerializeField] private PowerUpPanel _powerUpPanel;
 
+        private TutorialOverlay _tutorialOverlay;
+        
+        protected override void Awake()
+        {
+            base.Awake();
+            _tutorialOverlay = FindObjectOfType<TutorialOverlay>();
+        }
+
         private void OnEnable()
         {
             _backButton.onClick.AddListener(OnPause);
@@ -25,9 +32,15 @@ namespace ArBreakout.Gui
             _backButton.onClick.RemoveListener(OnPause);
         }
         
-        private void OnPause()
+        private async void OnPause()
         {
-            GameTime.paused = !GameTime.paused;
+            GameTime.paused = true;
+            var returnTo = await _tutorialOverlay.Show();
+            GameTime.paused = false;
+            if (returnTo == TutorialOverlay.ReturnState.MainMenu)
+            {
+                Controller.TransitionTo(typeof(MainMenu));
+            }
         }
     }
 }
