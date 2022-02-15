@@ -177,7 +177,7 @@ namespace ArBreakout.PlaneDetection
         {
             Destroy(_levelGhost.gameObject);
             UIMessageController.Instance.ClearMessages();
-            Controller.TransitionTo(typeof(LevelSelectorAppState));
+            Controller.TransitionTo(typeof(LegacyLevelSelectorAppState));
             ARService.Instance.ResetAR();
         }
 

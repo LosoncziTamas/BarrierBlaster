@@ -30,7 +30,7 @@ namespace ArBreakout.Main
 
         private void OnLevelSelectorButtonClick()
         {
-            Controller.TransitionTo(typeof(LevelSelectorAppState));
+            Controller.TransitionTo(typeof(LegacyLevelSelectorAppState));
         }
 
         private void OnDisable()

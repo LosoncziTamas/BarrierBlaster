@@ -1,5 +1,4 @@
 using ArBreakout.Game;
-using ArBreakout.GamePhysics;
 using ArBreakout.Levels;
 using ArBreakout.Misc;
 using ArBreakout.PlaneDetection;
@@ -10,7 +9,6 @@ using Possible.AppController;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -56,7 +54,7 @@ namespace ArBreakout.SinglePlayer
             // editorCam.position = _levelParent.transform.position + Vector3.up * BreakoutPhysics.LevelSizeInMeter * 2.0f;
             // editorCam.localRotation =  Quaternion.Euler(new Vector3(90.0f, 0.0f, 0f));            
 #endif
-            _currLevel = LevelSelectorAppState.SelectedLevel.parsedLevel;
+            _currLevel = LegacyLevelSelectorAppState.SelectedLevel.parsedLevel;
             Assert.IsNotNull(_currLevel, "No level selected.");
             InitializeLevel();
         }
@@ -124,7 +122,7 @@ namespace ArBreakout.SinglePlayer
             GameTime.paused = false;
             _levelRoot.DestroySelf();
            Destroy(_levelParent);
-           Controller.TransitionTo(typeof(LevelSelectorAppState));
+           Controller.TransitionTo(typeof(LegacyLevelSelectorAppState));
            ARService.Instance.ResetAR();
         }
 

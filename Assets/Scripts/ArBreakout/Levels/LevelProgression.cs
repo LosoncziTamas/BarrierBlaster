@@ -18,7 +18,6 @@ namespace ArBreakout.Levels
             this.completed = completed;
             this.unlocked = unlocked;
             this.parsedLevel = parsedLevel;
-            // {parsedLevel.levelIndex + 1} 
             displayedName = $"{parsedLevel.LevelName}";
         }
     }

@@ -11,7 +11,7 @@ using Permission = Possible.NativePermissions.Managed.Permission;
 
 namespace ArBreakout.SinglePlayer
 {
-    public class LevelSelectorAppState : AppState
+    public class LegacyLevelSelectorAppState : AppState
     {
         [SerializeField] private LevelSelector _levelSelector;
         [SerializeField] private NotificationManager _permissionNotification;                
