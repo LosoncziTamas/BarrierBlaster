@@ -101,9 +101,9 @@ namespace ArBreakout.SinglePlayer
 
         private void OnPause()
         {
-            _tutorialOverlay.Show(
+            /*_tutorialOverlay.Show(
                 () => GameTime.paused = false,
-                OnBackToMain);
+                OnBackToMain);*/
             GameTime.paused = true;
         }
         
