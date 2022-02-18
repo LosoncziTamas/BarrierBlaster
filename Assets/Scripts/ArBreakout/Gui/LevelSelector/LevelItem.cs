@@ -11,6 +11,7 @@ namespace ArBreakout.Gui
         [SerializeField] private GameObject _shadow;
         [SerializeField] private GameObject _lockedIcon;
         [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private Stars _stars;
 
         private Action<LevelModel> _onClickAction;
         private LevelModel _levelModel;
@@ -59,6 +60,7 @@ namespace ArBreakout.Gui
 
         private void Lock()
         {
+            _stars.gameObject.SetActive(false);
             _button.interactable = false;
             _shadow.SetActive(false);
             _text.gameObject.SetActive(false);
@@ -67,6 +69,7 @@ namespace ArBreakout.Gui
 
         private void Unlock()
         {
+            _stars.gameObject.SetActive(true);
             _button.interactable = true;
             _shadow.SetActive(true);
             _text.gameObject.SetActive(true);
