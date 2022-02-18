@@ -8,7 +8,7 @@ namespace ArBreakout.GamePhysics
         public const float LevelSizeInMeter = 0.3f;
         public const float LevelDimX = 15.0f;
         public const float LevelDimY = 19.0f;
-        
+
         private const float MaxVelocity = 2.0f;
 
         /*
@@ -20,13 +20,13 @@ namespace ArBreakout.GamePhysics
             public Vector3 Normal;
             public Vector3 Point;
         }
-        
+
         public static Contact ExtractContactPoint(Collision other)
         {
             var result = new Contact();
             var contactCount = other.contactCount;
-            var contactPoints = new ContactPoint[contactCount];          
-            
+            var contactPoints = new ContactPoint[contactCount];
+
             other.GetContacts(contactPoints);
             foreach (var contact in contactPoints)
             {
@@ -53,6 +53,6 @@ namespace ArBreakout.GamePhysics
         public static Vector3 CalculateMovementDelta(Vector3 acceleration, Vector3 velocity)
         {
             return (0.5f * acceleration * Mathf.Pow(GameTime.fixedDelta, 2.0f) + velocity * GameTime.fixedDelta);
-        }  
+        }
     }
 }

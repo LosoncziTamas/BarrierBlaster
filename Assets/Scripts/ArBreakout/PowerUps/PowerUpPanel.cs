@@ -25,7 +25,7 @@ namespace ArBreakout.PowerUps
             {
                 var child = transform.GetChild(0);
                 _pool.ReturnItem(child.gameObject);
-            }   
+            }
         }
 
         public void SetVisibility(bool visible)
@@ -36,17 +36,17 @@ namespace ArBreakout.PowerUps
         public void Refresh(List<PowerUp> activePowerUps, List<float> activePowerUpTimes)
         {
             Assert.IsTrue(activePowerUps.Count == activePowerUpTimes.Count);
-            
+
             Clear();
             SetVisibility(activePowerUps.Count > 0);
-            
+
             for (var i = 0; i < activePowerUps.Count; i++)
             {
                 var powerUp = activePowerUps[i];
                 var powerUpTime = activePowerUpTimes[i];
                 var data = _powerUpMappings.GetPowerUpDescriptor(powerUp);
                 var item = _pool.GetItem().GetComponent<PowerUpItem>();
-                
+
                 item.transform.SetParent(transform);
                 item.transform.localScale = Vector3.one;
                 item.Init(data.icon, powerUpTime);

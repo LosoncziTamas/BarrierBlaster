@@ -8,6 +8,5 @@ namespace ArBreakout.GamePhysics
         public float extent;
         public float speed;
         public float startOffsetZ;
-
     }
 }

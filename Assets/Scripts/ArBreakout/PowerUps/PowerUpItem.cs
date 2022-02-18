@@ -9,7 +9,7 @@ namespace ArBreakout.PowerUps
     {
         [SerializeField] private Image _greyFill;
         [SerializeField] private Image _underlyingImage;
-        
+
         private float _timeLeft;
 
         public void Init(Sprite image, float timeLeft)

@@ -11,6 +11,6 @@ namespace ArBreakout.Misc
         public Color Color4;
         public Color Color5;
 
-        public Color[] Colors => new[] { Color1, Color2, Color3, Color4, Color5 };
+        public Color[] Colors => new[] {Color1, Color2, Color3, Color4, Color5};
     }
 }

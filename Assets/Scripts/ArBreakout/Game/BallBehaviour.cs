@@ -11,11 +11,11 @@ namespace ArBreakout.Game
 
         private const float DefaultSpeed = 18.0f;
         private const float Drag = 2.0f;
-        
+
         private static readonly float NegativeMaxZ = Mathf.Sin(Mathf.Deg2Rad * -15.0f);
-        private static readonly float PositiveMinZ = Mathf.Sin(Mathf.Deg2Rad *  15.0f);
-        private static readonly float NegativeMaxX = Mathf.Cos(Mathf.Deg2Rad *  165.0f);
-        private static readonly float PositiveMinX = Mathf.Cos(Mathf.Deg2Rad *  15.0f);
+        private static readonly float PositiveMinZ = Mathf.Sin(Mathf.Deg2Rad * 15.0f);
+        private static readonly float NegativeMaxX = Mathf.Cos(Mathf.Deg2Rad * 165.0f);
+        private static readonly float PositiveMinX = Mathf.Cos(Mathf.Deg2Rad * 15.0f);
 
         [SerializeField] private PowerUpMapping _powerUpMappings;
         [SerializeField] private MeshRenderer _renderer;
@@ -64,14 +64,14 @@ namespace ArBreakout.Game
         {
             var powerUp = smashedBrick.PowerUp;
         }
-        
+
         private void DrawContactLine(BreakoutPhysics.Contact contact, Color color)
         {
             Debug.DrawRay(contact.Point, contact.Normal, color, 2, false);
         }
 
         private bool _mouseControlEnabled = false;
-        
+
         private void OnGUI()
         {
             if (!_mouseControlEnabled)
@@ -96,7 +96,7 @@ namespace ArBreakout.Game
             {
                 return;
             }
-            
+
             if (Input.GetMouseButton(0))
             {
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -105,19 +105,19 @@ namespace ArBreakout.Game
                     var offset = info.point - transform.position;
                     Debug.DrawLine(transform.position, transform.position + offset);
                     ChangeDirection(offset);
-                }            
+                }
             }
         }
-        
+
         private void FixedUpdate()
         {
             ApplyMouseControl();
-            
+
             if (!_released)
             {
                 return;
             }
-            
+
             _localAcceleration = LocalVelocity.normalized;
             _localAcceleration *= DefaultSpeed;
             _localAcceleration += -Drag * LocalVelocity;
@@ -132,7 +132,7 @@ namespace ArBreakout.Game
             if (other.gameObject.CompareTag(WallBehaviour.GameObjectTag))
             {
                 ResolveWallCollision(other);
-            }           
+            }
             else if (other.gameObject.CompareTag(PaddleBehaviour.GameObjectTag) && _released)
             {
                 ResolvePaddleCollision(other);
@@ -144,27 +144,27 @@ namespace ArBreakout.Game
                 ResolveBrickCollision(other);
             }
         }
-        
-        private void OnCollisionStay(Collision collisionInfo) 
+
+        private void OnCollisionStay(Collision collisionInfo)
         {
             var contact = BreakoutPhysics.ExtractContactPoint(collisionInfo);
             DrawContactLine(contact, Color.red);
-            
+
             // Move ball out of other object, then fallback to default collision resolution.
             const float MinCorrection = 0.001f;
-            transform.position += contact.Normal * Mathf.Max(MinCorrection, contact.Separation);  
+            transform.position += contact.Normal * Mathf.Max(MinCorrection, contact.Separation);
             OnCollisionEnter(collisionInfo);
         }
 
         private void ResolveWallCollision(Collision wallCollision)
         {
             var contact = BreakoutPhysics.ExtractContactPoint(wallCollision);
-            
+
             DrawContactLine(contact, Color.blue);
 
             var reflection = Vector3.Reflect(LocalVelocity, transform.InverseTransformDirection(contact.Normal));
             var velocityNormal = reflection.normalized;
-            
+
             // Take the average of the surface and the current velocity vector in case they are perpendicular.
             // Otherwise the ball would move the same direction, resulting in a tunnelling effect.
             if (reflection.Equals(LocalVelocity))
@@ -173,7 +173,7 @@ namespace ArBreakout.Game
                 Debug.DrawRay(transform.position, LocalVelocity.normalized, Color.magenta, 2, false);
                 return;
             }
-            
+
             // Correcting bounce off from wall
             if (velocityNormal.z < PositiveMinZ && velocityNormal.z > NegativeMaxZ)
             {
@@ -184,8 +184,9 @@ namespace ArBreakout.Game
                     y = 0,
                     z = velocityNormal.z < 0 ? NegativeMaxZ : PositiveMinZ
                 };
-                LocalVelocity = newVelocity * velocityLen;                    
-                Debug.LogFormat("Correcting ball reflection from wall. Orig: {0} New: {1}", velocityNormal, newVelocity);
+                LocalVelocity = newVelocity * velocityLen;
+                Debug.LogFormat("Correcting ball reflection from wall. Orig: {0} New: {1}", velocityNormal,
+                    newVelocity);
             }
             else
             {
@@ -197,9 +198,9 @@ namespace ArBreakout.Game
         {
             var newDir = transform.position - paddleCollision.gameObject.transform.position;
             ChangeDirection(newDir);
-            
+
             var paddle = paddleCollision.gameObject.GetComponent<PaddleBehaviour>();
-            
+
             if (paddle.Magnetized)
             {
                 GamePlayUtils.ApplyMagnet(this, paddle);
@@ -209,12 +210,12 @@ namespace ArBreakout.Game
         private void ResolveBrickCollision(Collision brickCollision)
         {
             var contact = BreakoutPhysics.ExtractContactPoint(brickCollision);
-            
+
             DrawContactLine(contact, Color.blue);
             Debug.DrawRay(transform.position, LocalVelocity.normalized, Color.cyan, 2, false);
             var normalInLocalSpace = transform.InverseTransformDirection(contact.Normal);
             var reflection = Vector3.Reflect(LocalVelocity, normalInLocalSpace);
-            
+
             // If angle between velocity and reflection is very low, bouncing may seem unnatural in the game.            
             var angle = Vector3.Angle(LocalVelocity, reflection);
             Debug.Log(angle);
@@ -226,19 +227,20 @@ namespace ArBreakout.Game
             {
                 LocalVelocity = reflection;
             }
-             
+
             Debug.DrawRay(transform.position, LocalVelocity.normalized, Color.magenta, 2, false);
-            
+
             var brick = brickCollision.gameObject.GetComponent<BrickBehaviour>();
             brick.Smash();
             ActivatePowerUp(brick);
         }
-        
+
         private void ChangeDirection(Vector3 newDirInWorldSpace)
-        {   
-            LocalVelocity = transform.InverseTransformDirection(newDirInWorldSpace.normalized) * LocalVelocity.magnitude;
+        {
+            LocalVelocity = transform.InverseTransformDirection(newDirInWorldSpace.normalized) *
+                            LocalVelocity.magnitude;
         }
-        
+
         /*
          * Reset the internal state of the ball to the default, ready-to-launch state.
          */
@@ -253,7 +255,6 @@ namespace ArBreakout.Game
 
         public void ResetPowerUpToDefaults()
         {
-            
         }
     }
 }

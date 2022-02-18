@@ -5,13 +5,14 @@ using UnityEngine.Assertions;
 
 namespace ArBreakout.Levels
 {
-    public static class LevelLoader 
+    public static class LevelLoader
     {
         private const string LevelRootPath = "Levels";
-        
+
         private const int LevelDimension = 9;
 
         private static List<ParsedLevel> _cachedLevels;
+
         public class ParsedLevel
         {
             public readonly List<BrickProps> bricksProps;
@@ -41,37 +42,37 @@ namespace ArBreakout.Levels
             {
                 return _cachedLevels;
             }
-            
+
             _cachedLevels = new List<ParsedLevel>();
             // TODO: Switch to asset bundles in production
             var loadedLevels = Resources.LoadAll<TextAsset>(LevelRootPath);
             foreach (var levelCSV in loadedLevels)
             {
-                var content =  levelCSV.text.Trim();
+                var content = levelCSV.text.Trim();
                 var level = ParseLevelFileContent(content);
-                    
+
                 var splitName = levelCSV.name.Split('_');
                 level.LevelIndex = int.Parse(splitName[0]) - 1;
                 level.LevelName = splitName[1];
-                    
-                _cachedLevels.Add(level); 
+
+                _cachedLevels.Add(level);
             }
 
             return _cachedLevels;
-        } 
-        
+        }
+
         private static ParsedLevel ParseLevelFileContent(string content)
         {
             var lines = content.Split('\n');
             var metaDataLineIndex = lines.Length - 1;
             var brickProps = new List<BrickProps>();
-            
+
             Assert.IsTrue(lines.Length == LevelDimension + 1);
-            
+
             for (var lineIndex = 0; lineIndex < metaDataLineIndex; lineIndex++)
             {
                 var lineElements = lines[lineIndex].Split(',');
-                
+
                 Assert.IsTrue(lineElements.Length <= LevelDimension + 1);
 
                 for (var elementIndex = 0; elementIndex < lineElements.Length; elementIndex++)
@@ -81,17 +82,18 @@ namespace ArBreakout.Levels
                     {
                         continue;
                     }
+
                     if (!levelElement.Equals("0"))
                     {
                         var pos = new Vector3
                         {
                             x = -0.5f * LevelDimension + elementIndex + 0.5f,
-                            y =  0.5f,
-                            z =  0.5f * LevelDimension - lineIndex + 3.0f
+                            y = 0.5f,
+                            z = 0.5f * LevelDimension - lineIndex + 3.0f
                         };
 
                         var powerUp = PowerUpUtils.ParseLevelElement(levelElement);
-                        
+
                         var brickProp = new BrickProps
                         {
                             Location = pos,
@@ -108,7 +110,7 @@ namespace ArBreakout.Levels
             Assert.IsTrue(metaData.Length > 0);
 
             var timeLimit = float.Parse(metaData[0]);
-            
+
             return new ParsedLevel(timeLimit, brickProps);
         }
     }

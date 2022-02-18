@@ -11,10 +11,12 @@ namespace ArBreakout.Misc
             group.blocksRaycasts = visible;
         }
 
-        public static Sequence AnimatePunchScale(this Transform transform, Vector3 targetScale, Ease ease, float duration)
+        public static Sequence AnimatePunchScale(this Transform transform, Vector3 targetScale, Ease ease,
+            float duration)
         {
             return DOTween.Sequence()
-                .Append(transform.DOScale(new Vector3(targetScale.x + 0.5f, targetScale.y + 0.5f, targetScale.z + 0.5f), duration * 0.5f)
+                .Append(transform.DOScale(new Vector3(targetScale.x + 0.5f, targetScale.y + 0.5f, targetScale.z + 0.5f),
+                        duration * 0.5f)
                     .SetEase(ease))
                 .Append(transform.DOScale(targetScale, duration * 0.5f)
                     .SetEase(ease));

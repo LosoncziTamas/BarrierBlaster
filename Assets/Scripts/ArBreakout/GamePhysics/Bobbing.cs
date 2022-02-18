@@ -6,7 +6,7 @@ namespace ArBreakout.GamePhysics
     public class Bobbing : MonoBehaviour
     {
         [SerializeField] private BobbingProperties _bobbingProperties;
-        
+
         private float _baseValue;
         private bool _enabled;
         private Collider _collider;
@@ -29,12 +29,14 @@ namespace ArBreakout.GamePhysics
             _enabled = false;
             _collider.enabled = true;
         }
+
         private void FixedUpdate()
         {
             if (_enabled)
             {
                 var position = transform.localPosition;
-                position = new Vector3(position.x, position.y, _baseValue + Mathf.Sin(Time.time * _bobbingProperties.speed) * _bobbingProperties.extent);
+                position = new Vector3(position.x, position.y,
+                    _baseValue + Mathf.Sin(Time.time * _bobbingProperties.speed) * _bobbingProperties.extent);
                 transform.localPosition = position;
             }
         }

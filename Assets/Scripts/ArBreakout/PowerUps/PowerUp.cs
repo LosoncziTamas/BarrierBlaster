@@ -15,7 +15,6 @@ namespace ArBreakout.PowerUps
     {
         public static PowerUp ParseLevelElement(string element)
         {
-            
             if (element.Equals("a"))
             {
                 return PowerUp.Decelerator;

@@ -18,8 +18,9 @@ namespace ArBreakout.SinglePlayer
     public class GameAppState : AppState
     {
         private const int InitialLifeCount = 3;
-        
-        [FormerlySerializedAs("_gameWorld")] [SerializeField] private LevelRoot _levelRoot;
+
+        [FormerlySerializedAs("_gameWorld")] [SerializeField]
+        private LevelRoot _levelRoot;
 
         [SerializeField] private LifeCounter _lifeCounter;
         [SerializeField] private Text _timeLeftText;
@@ -28,16 +29,16 @@ namespace ArBreakout.SinglePlayer
         [SerializeField] private PointerDetector _fireButton;
         [SerializeField] private ModalWindowManager _gameOverModal;
         [SerializeField] private ModalWindowManager _levelCompleteModal;
-        [SerializeField] private ModalWindowManager _allLevelCompleteModal;        
+        [SerializeField] private ModalWindowManager _allLevelCompleteModal;
         [SerializeField] private TextMeshProUGUI _completionModalText;
         [SerializeField] private Button _backButton;
         [SerializeField] private PowerUpPanel _powerUpPanel;
         [SerializeField] private TutorialOverlay _tutorialOverlay;
-        
+
         private GameObject _levelParent;
         private LevelLoader.ParsedLevel _currLevel;
         private LevelProgression _levelProgression;
-        
+
         private int _totalLives;
         private float _timeLeftInSeconds;
         private int _brickCount;
@@ -47,7 +48,7 @@ namespace ArBreakout.SinglePlayer
             base.OnEnter(fromState);
             _levelProgression = LevelProgression.Instance;
             _levelParent = GameObject.Find("LevelParent");
-            Assert.IsNotNull(_levelParent,"No level parent was found");
+            Assert.IsNotNull(_levelParent, "No level parent was found");
 
 #if UNITY_EDITOR
             // View the level form the top in the editor.
@@ -65,33 +66,33 @@ namespace ArBreakout.SinglePlayer
             Gap.BallHasLeftTheGameEvent += OnBallHasLeftTheGameEvent;
             BrickBehaviour.BrickDestroyedEvent += OnBrickDestroyedEvent;
             PaddleBehaviour.PowerUpStateChangeEvent += OnPowerUpStateChangeEvent;
-            
+
             _gameOverModal.onCancel.AddListener(OnBackToMain);
             _gameOverModal.onConfirm.AddListener(OnRetry);
             _levelCompleteModal.onConfirm.AddListener(OnLevelComplete);
             _allLevelCompleteModal.onCancel.AddListener(OnBackToMain);
             _backButton.onClick.AddListener(OnPause);
         }
-        
+
         private void OnDisable()
         {
             Gap.BallHasLeftTheGameEvent -= OnBallHasLeftTheGameEvent;
             BrickBehaviour.BrickDestroyedEvent -= OnBrickDestroyedEvent;
             PaddleBehaviour.PowerUpStateChangeEvent -= OnPowerUpStateChangeEvent;
-            
+
             _gameOverModal.onCancel.RemoveListener(OnBackToMain);
             _gameOverModal.onConfirm.RemoveListener(OnRetry);
             _levelCompleteModal.onConfirm.RemoveListener(OnLevelComplete);
             _allLevelCompleteModal.onCancel.RemoveListener(OnBackToMain);
             _backButton.onClick.RemoveListener(OnPause);
-            
-            _powerUpPanel.SetVisibility(false);   
+
+            _powerUpPanel.SetVisibility(false);
         }
 
         private void OnRetry()
-        {            
+        {
             _levelRoot.SetupLevel(_currLevel);
-            
+
             _timeLeftInSeconds = _currLevel.timeLimitInSeconds;
             _timeLeftText.text = GamePlayUtils.FormatTime(_timeLeftInSeconds);
             _totalLives = InitialLifeCount;
@@ -106,7 +107,7 @@ namespace ArBreakout.SinglePlayer
                 OnBackToMain);*/
             GameTime.paused = true;
         }
-        
+
         private void Update()
         {
             if (Application.platform == RuntimePlatform.Android && Input.GetKey(KeyCode.Escape))
@@ -122,9 +123,9 @@ namespace ArBreakout.SinglePlayer
         {
             GameTime.paused = false;
             _levelRoot.DestroySelf();
-           Destroy(_levelParent);
-           Controller.TransitionTo(typeof(LegacyLevelSelectorAppState));
-           ARService.Instance.ResetAR();
+            Destroy(_levelParent);
+            Controller.TransitionTo(typeof(LegacyLevelSelectorAppState));
+            ARService.Instance.ResetAR();
         }
 
         private void OnLevelComplete()
@@ -139,7 +140,7 @@ namespace ArBreakout.SinglePlayer
             {
                 return;
             }
-            
+
             _timeLeftInSeconds -= GameTime.delta;
 
             if (_totalLives == 0 || _timeLeftInSeconds <= 0.0f)
@@ -149,15 +150,17 @@ namespace ArBreakout.SinglePlayer
             }
 
             _timeLeftText.text = GamePlayUtils.FormatTime(_timeLeftInSeconds);
-            
+
             if (_leftButton.PointerDown || Input.GetAxis("Horizontal") < 0)
             {
                 _levelRoot.Paddle.MoveLeft();
             }
+
             if (_rightButton.PointerDown || Input.GetAxis("Horizontal") > 0)
             {
                 _levelRoot.Paddle.MoveRight();
             }
+
             if (_fireButton.PointerDown || Input.GetButton("Jump"))
             {
                 _levelRoot.Paddle.Fire();
@@ -185,13 +188,13 @@ namespace ArBreakout.SinglePlayer
         private void SetupNextLevel()
         {
             var allLevels = _levelProgression.Levels;
-            
+
             Assert.IsTrue(_currLevel.LevelIndex + 1 < allLevels.Count);
             Assert.IsTrue(_totalLives > 0);
 
             _currLevel = allLevels[_currLevel.LevelIndex + 1].parsedLevel;
             _levelRoot.SetupLevel(_currLevel);
-            
+
             _timeLeftInSeconds = _currLevel.timeLimitInSeconds;
             _timeLeftText.text = GamePlayUtils.FormatTime(_timeLeftInSeconds);
             _brickCount = _levelRoot.InitialBrickCount;
@@ -201,16 +204,16 @@ namespace ArBreakout.SinglePlayer
         {
             _powerUpPanel.Refresh(e.ActivePowerUps, e.ActivePowerUpTimes);
         }
-        
+
         private void OnBrickDestroyedEvent(object sender, BrickBehaviour.BrickDestroyedArgs e)
         {
             Assert.IsTrue(_brickCount > 0);
-            
+
             _brickCount--;
             if (_brickCount == 0)
             {
                 _levelProgression.UnlockNextLevel(_currLevel.LevelIndex);
-                
+
                 if (_currLevel.LevelIndex == _levelProgression.Levels.Count - 1)
                 {
                     _allLevelCompleteModal.OpenWindow();

@@ -9,10 +9,12 @@ namespace ArBreakout.PlaneDetection
 {
     public class LevelGhost : MonoBehaviour
     {
-        private static readonly Vector3 PlaceholderTargetScale = new Vector3(BreakoutPhysics.LevelDimX, 1.0f, BreakoutPhysics.LevelDimY);
+        private static readonly Vector3 PlaceholderTargetScale =
+            new Vector3(BreakoutPhysics.LevelDimX, 1.0f, BreakoutPhysics.LevelDimY);
+
         private static readonly Vector3 ShadowTargetScale = new Vector3(3.0f, 1.0f, 3.0f);
         private static readonly Vector3 InitialScale = Vector3.one;
-        
+
         private static readonly Color SemiTransparentBlack = new Color(0f, 0f, 0f, 0.5f);
 
         private const float DefaultInnerSpeed = 15.0f;
@@ -20,7 +22,7 @@ namespace ArBreakout.PlaneDetection
 
         private float outerSpeed = DefaultOuterSpeed;
         private float innerSpeed = DefaultInnerSpeed;
-        
+
         public GameObject shadowParent;
         public Transform outer;
         public Transform inner;
@@ -30,7 +32,7 @@ namespace ArBreakout.PlaneDetection
         private MeshRenderer _placeHolderRenderer;
 
         public bool IsDragging { get; private set; }
-        
+
         private void Awake()
         {
             placeHolder.transform.localScale = InitialScale;
@@ -47,10 +49,10 @@ namespace ArBreakout.PlaneDetection
 
         private void Update()
         {
-            outer.Rotate(Vector3.up, outerSpeed * GameTime.delta,Space.Self);
-            inner.Rotate(Vector3.up, innerSpeed * GameTime.delta,Space.Self);
+            outer.Rotate(Vector3.up, outerSpeed * GameTime.delta, Space.Self);
+            inner.Rotate(Vector3.up, innerSpeed * GameTime.delta, Space.Self);
         }
-        
+
         public void Drag()
         {
             IsDragging = true;

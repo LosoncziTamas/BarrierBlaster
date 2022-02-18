@@ -18,7 +18,7 @@ namespace ArBreakout.PowerUps
                     return item;
                 }
             }
-            
+
             throw new ArgumentException($"No registered mapping for {powerUp}.");
         }
     }

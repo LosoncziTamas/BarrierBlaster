@@ -18,7 +18,7 @@ namespace ArBreakout.PlaneDetection
     public class PlaneDetectionAppState : AppState
     {
         private const string LevelParentName = "LevelParent";
-        
+
 #if UNITY_EDITOR
         private const float ScaleEasing = 0.02f;
         private const float AngularSpeed = 100.0f;
@@ -33,7 +33,7 @@ namespace ArBreakout.PlaneDetection
             public bool movementHintDisplayed;
             public bool doubleTapHintDisplayed;
         }
-        
+
         [SerializeField] private GameObject _levelParentPrefab;
         [SerializeField] private Button _backButton;
         [SerializeField] private PlaneDetectionHint _planeDetectionHint;
@@ -50,7 +50,7 @@ namespace ArBreakout.PlaneDetection
         private HintState _hintState;
         private LevelGhost _levelGhost;
         private Plane _raycastPlane;
-        
+
         private float _initialScale;
         private bool _planeDetected;
 
@@ -67,7 +67,7 @@ namespace ArBreakout.PlaneDetection
             {
                 return;
             }
-            
+
             var notTrackingReason = args.notTrackingReason;
             if (notTrackingReason != NotTrackingReason.None)
             {
@@ -89,7 +89,7 @@ namespace ArBreakout.PlaneDetection
                     title = "Unable to track the environment";
                     description = "Please make sure your environment is suitable for AR.";
                 }
-                else if(notTrackingReason == NotTrackingReason.Relocalizing)
+                else if (notTrackingReason == NotTrackingReason.Relocalizing)
                 {
                     title = "Stabilizing";
                     description = "Please wait a few seconds until AR tracking recovers.";
@@ -108,9 +108,9 @@ namespace ArBreakout.PlaneDetection
         public override void OnEnter(AppState fromState)
         {
             base.OnEnter(fromState);
-            
+
             _levelParent = GetLevelParent().transform;
-            
+
             _touchRecognizer = new TKAnyTouchRecognizer(new TKRect(0f, 0f, Screen.width, Screen.height));
             _pinchRecognizer = new TKPinchRecognizer();
             _oneFingerRotationRecognizer = new TKOneFingerRotationRecognizer();
@@ -119,7 +119,7 @@ namespace ArBreakout.PlaneDetection
             TouchKit.addGestureRecognizer(_tapRecognizer);
             // This has to be registered in order to capture double taps. 
             _tapRecognizer.gestureRecognizedEvent += OnDoubleTapRecognized;
-            
+
             TouchKit.addGestureRecognizer(_oneFingerRotationRecognizer);
             TouchKit.addGestureRecognizer(_touchRecognizer);
             TouchKit.addGestureRecognizer(_pinchRecognizer);
@@ -129,6 +129,7 @@ namespace ArBreakout.PlaneDetection
             {
                 _planeDetectionHint.StartGuide();
             }
+
             _buttonsOverlay.alpha = 0.0f;
             _planeDetected = false;
         }
@@ -144,10 +145,7 @@ namespace ArBreakout.PlaneDetection
         private void OnDoubleTapRecognized(TKTapRecognizer recognizer)
         {
             UIMessageController.Instance.ClearMessages();
-            _levelGhost.SwapToLevelBase((() =>
-            {
-                Controller.TransitionTo(typeof(GameAppState));
-            }));
+            _levelGhost.SwapToLevelBase((() => { Controller.TransitionTo(typeof(GameAppState)); }));
         }
 
         private GameObject GetLevelParent()
@@ -157,9 +155,9 @@ namespace ArBreakout.PlaneDetection
             {
                 return parent;
             }
-            
+
             parent = Instantiate(_levelParentPrefab, _arService.transform);
-            parent.name = LevelParentName;            
+            parent.name = LevelParentName;
             return parent;
         }
 
@@ -171,8 +169,8 @@ namespace ArBreakout.PlaneDetection
             TouchKit.removeGestureRecognizer(_pinchRecognizer);
             _tapRecognizer.gestureRecognizedEvent -= OnDoubleTapRecognized;
             _backButton.onClick.RemoveListener(OnBackButtonClicked);
-        }     
-        
+        }
+
         private void OnBackButtonClicked()
         {
             Destroy(_levelGhost.gameObject);
@@ -187,7 +185,7 @@ namespace ArBreakout.PlaneDetection
             {
                 return;
             }
-            
+
             if (!_planeDetected && _arService.TrackedPlanesCount > 0)
             {
                 _planeDetected = PerformHitTest();
@@ -209,7 +207,8 @@ namespace ArBreakout.PlaneDetection
 
             if (_planeDetected)
             {
-                if (_pinchRecognizer.state == TKGestureRecognizerState.RecognizedAndStillRecognizing && !_levelGhost.IsDragging)
+                if (_pinchRecognizer.state == TKGestureRecognizerState.RecognizedAndStillRecognizing &&
+                    !_levelGhost.IsDragging)
                 {
                     DisplayGestureHint();
                     var newScale =
@@ -217,19 +216,19 @@ namespace ArBreakout.PlaneDetection
                             _pinchRecognizer.deltaScale * ScaleEasing * Time.deltaTime +
                             _levelParent.localScale.x, _initialScale * 0.75f, _initialScale * 1.5f);
                     _levelParent.localScale = Vector3.one * newScale;
-                                                      
-                }      
-                else if (_oneFingerRotationRecognizer.state == TKGestureRecognizerState.RecognizedAndStillRecognizing && !_levelGhost.IsDragging)
+                }
+                else if (_oneFingerRotationRecognizer.state == TKGestureRecognizerState.RecognizedAndStillRecognizing &&
+                         !_levelGhost.IsDragging)
                 {
                     DisplayGestureHint();
                     // TODO: improve rotation
                     var normalizedRotation = _oneFingerRotationRecognizer.deltaRotation < 0.0f ? -1.0f : 1.0f;
-                    var rotationDelta = Mathf.Clamp(_oneFingerRotationRecognizer.deltaRotation, -1.0f, 1.0f) * Time.deltaTime * AngularSpeed;
+                    var rotationDelta = Mathf.Clamp(_oneFingerRotationRecognizer.deltaRotation, -1.0f, 1.0f) *
+                                        Time.deltaTime * AngularSpeed;
                     _levelParent.Rotate(Vector3.up, _oneFingerRotationRecognizer.deltaRotation);
                 }
                 else if (_touchRecognizer.state == TKGestureRecognizerState.RecognizedAndStillRecognizing)
                 {
-
                     DragObject();
                 }
                 else
@@ -247,9 +246,9 @@ namespace ArBreakout.PlaneDetection
         {
             if (!_hintState.rotationAndScaleHintDisplayed)
             {
-                UIMessageController.Instance.DisplayMessage("You can also use single finger rotation and pinch to scale.", 4.0f);
+                UIMessageController.Instance.DisplayMessage(
+                    "You can also use single finger rotation and pinch to scale.", 4.0f);
                 _hintState.rotationAndScaleHintDisplayed = true;
-                        
             }
             else if (!_hintState.doubleTapHintDisplayed)
             {
@@ -265,20 +264,21 @@ namespace ArBreakout.PlaneDetection
                 // The distance from the raycast hit to the top of the view frustum
                 var fromHitToFrustumTop = distance * Mathf.Tan(_arService.ARCamera.fieldOfView * 0.5f * Mathf.Deg2Rad);
                 var pixelToMeter = fromHitToFrustumTop / (Screen.height * 0.5f);
-       
+
                 // We want to make sure the initial scale of the placed object fits into the frustum
                 var largestLevelDim = Mathf.Max(BreakoutPhysics.LevelDimX, BreakoutPhysics.LevelDimY);
-                _initialScale = Screen.height * (1.0f / largestLevelDim) * pixelToMeter * BreakoutPhysics.LevelSizeInMeter * 0.75f;
-                                
-                _levelParent.localScale = new Vector3(_initialScale,  _initialScale, _initialScale);
+                _initialScale = Screen.height * (1.0f / largestLevelDim) * pixelToMeter *
+                                BreakoutPhysics.LevelSizeInMeter * 0.75f;
+
+                _levelParent.localScale = new Vector3(_initialScale, _initialScale, _initialScale);
                 _levelParent.position = pose.position;
                 _levelParent.rotation = pose.rotation;
 
-                _levelGhost = Instantiate(_levelGhostPrefab, _levelParent);  
-                                
+                _levelGhost = Instantiate(_levelGhostPrefab, _levelParent);
+
                 // Create a plane aligned with the hit
-                _raycastPlane = new Plane(_levelParent.up, pose.position);  
-                 return true;
+                _raycastPlane = new Plane(_levelParent.up, pose.position);
+                return true;
             }
 
             return false;

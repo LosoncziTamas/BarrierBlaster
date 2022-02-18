@@ -16,10 +16,12 @@ namespace ArBreakout.GameInput
             {
                 _playerInput.Left = true;
             }
+
             if (_rightButton.PointerDown || Input.GetAxis("Horizontal") > 0)
             {
                 _playerInput.Right = true;
             }
+
             if (_fireButton.PointerDown || Input.GetButton("Jump"))
             {
                 _playerInput.Fire = true;

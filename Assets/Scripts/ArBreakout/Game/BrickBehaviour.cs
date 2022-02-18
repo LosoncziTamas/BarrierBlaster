@@ -12,24 +12,27 @@ namespace ArBreakout.Game
     public class BrickBehaviour : MonoBehaviour
     {
         public static event EventHandler<BrickDestroyedArgs> BrickDestroyedEvent;
-        public class BrickDestroyedArgs : EventArgs {}
+
+        public class BrickDestroyedArgs : EventArgs
+        {
+        }
 
         public const string GameObjectTag = "Brick";
-        
+
         private static readonly int HighlightIntensity = Shader.PropertyToID("_HighlightIntensity");
         private Collectable _collectableInstance;
-        
+
         public PowerUp PowerUp { private set; get; }
         public BrickPool Pool { set; get; }
-        
+
         [SerializeField] private ChangeMeshColor _changeMeshColor;
         [SerializeField] private PowerUpMapping _powerUpMappings;
-        
+
         private Renderer _renderer;
         private Collider _collider;
         private int _hitPoints;
         private Vector3 _originalScale;
-        
+
         private void Awake()
         {
             // TODO: add self to list
@@ -43,13 +46,13 @@ namespace ArBreakout.Game
             _hitPoints = brickProps.HitPoints;
             _changeMeshColor.SetColor(color);
             _collider.enabled = false;
-            var scale01 = Mathf.Sin(((float)brickProps.LineIdx / lineCount) * Mathf.PI);
-            
+            var scale01 = Mathf.Sin(((float) brickProps.LineIdx / lineCount) * Mathf.PI);
+
             var initialAnimScale = Mathf.Clamp(0.5f + (1 - scale01) * 0.5f, 0.5f, 1.0f);
             transform.localScale = _originalScale * initialAnimScale;
 
             SetupCollectable(brickProps.PowerUp);
-            
+
             Invoke(nameof(AnimateAppear), scale01);
         }
 
@@ -75,7 +78,7 @@ namespace ArBreakout.Game
         public void Smash()
         {
             --_hitPoints;
-            
+
             if (_hitPoints == 0)
             {
                 BrickDestroyedEvent?.Invoke(this, new BrickDestroyedArgs());
@@ -85,7 +88,7 @@ namespace ArBreakout.Game
                 StartCoroutine(AnimateHit(0.2f, destroy: true));
                 return;
             }
-            
+
             StartCoroutine(AnimateHit(0.4f, destroy: false));
         }
 
@@ -95,7 +98,8 @@ namespace ArBreakout.Game
             while (left > 0)
             {
                 left -= Time.deltaTime;
-                _renderer.material.SetFloat(HighlightIntensity, Mathf.Sin((duration - left)/duration * Mathf.PI) * 0.2f);
+                _renderer.material.SetFloat(HighlightIntensity,
+                    Mathf.Sin((duration - left) / duration * Mathf.PI) * 0.2f);
                 yield return new WaitForEndOfFrame();
             }
 

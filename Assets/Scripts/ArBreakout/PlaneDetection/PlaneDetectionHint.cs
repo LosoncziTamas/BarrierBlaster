@@ -13,9 +13,9 @@ namespace ArBreakout.PlaneDetection
 #else
         private const float HintInterval = 1.5f;
 #endif
-        
+
         private const float FadeDuration = 0.6f;
-        
+
         [SerializeField] private TextMeshProUGUI _hintText;
         [SerializeField] private string[] _hints;
 
@@ -24,7 +24,7 @@ namespace ArBreakout.PlaneDetection
         private int _currentHintIdx;
 
         public bool GuideCompleted => _guideCompleted;
-        
+
         private void OnValidate()
         {
             Assert.IsNotNull(_hints);

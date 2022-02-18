@@ -6,13 +6,13 @@ namespace ArBreakout.Game
     public class BrickPool : MonoBehaviour
     {
         [SerializeField] private BrickBehaviour _brickPrefab;
-        
+
         private readonly Stack<BrickBehaviour> _pooledBricks = new Stack<BrickBehaviour>();
 
         public BrickBehaviour GetBrick()
         {
             BrickBehaviour result;
-            
+
             if (_pooledBricks.Count > 0)
             {
                 result = _pooledBricks.Pop();
@@ -21,10 +21,11 @@ namespace ArBreakout.Game
             {
                 result = Instantiate(_brickPrefab);
             }
+
             result.transform.SetParent(null);
             result.gameObject.SetActive(true);
             result.Pool = this;
-            
+
             return result;
         }
 

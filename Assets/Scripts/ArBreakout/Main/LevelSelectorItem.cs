@@ -8,9 +8,9 @@ namespace ArBreakout.Main
     {
         [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] private Button _button;
-        
+
         private Main.LevelSelector.ItemData _data;
-                
+
         public void Init(Main.LevelSelector.ItemData data)
         {
             _data = data;

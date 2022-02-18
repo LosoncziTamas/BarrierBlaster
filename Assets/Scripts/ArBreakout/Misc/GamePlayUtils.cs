@@ -30,10 +30,10 @@ namespace ArBreakout.Misc
                 ballTrans.SetParent(paddle.transform);
                 ballBehaviour.ResetToDefaults();
                 paddle.AnchoredBallBehaviour = ballBehaviour;
-            });            
+            });
 #endif
         }
-        
+
         public static void CenterAboveObject(Transform target, Transform anchorObject)
         {
             var offset = anchorObject.transform.position - target.position + target.TransformVector(Vector3.forward);

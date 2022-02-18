@@ -10,14 +10,14 @@ namespace ArBreakout.PowerUps
         public const string GameObjectTag = "Collectable";
 
         public PowerUp PowerUp { get; private set; }
-        
+
         [SerializeField] private MovementProperties _movementProperties;
         [SerializeField] private bool _rotateAnimation;
-        
+
         private Vector3 _velocity;
         private Vector3 _acceleration;
         private Vector3 _originalScale;
-        
+
         private bool _destroyed;
 
         private void Awake()
@@ -36,7 +36,7 @@ namespace ArBreakout.PowerUps
             {
                 return;
             }
-            
+
             _acceleration = Vector3.back;
             _acceleration *= _movementProperties.speed;
             _acceleration += -_movementProperties.drag * _velocity;
@@ -70,6 +70,7 @@ namespace ArBreakout.PowerUps
             {
                 Destroy(gameObject);
             }
+
             _destroyed = true;
         }
     }

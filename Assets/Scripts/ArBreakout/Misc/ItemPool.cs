@@ -6,21 +6,22 @@ namespace ArBreakout.Misc
     public class ItemPool : MonoBehaviour
     {
         [SerializeField] private GameObject _itemPrefab;
-            
+
         private readonly Stack<GameObject> _pooledObjects = new Stack<GameObject>();
 
         public GameObject GetItem()
         {
             GameObject result;
-            
+
             if (_pooledObjects.Count > 0)
             {
-                result =  _pooledObjects.Pop();
+                result = _pooledObjects.Pop();
             }
             else
             {
                 result = Instantiate(_itemPrefab);
             }
+
             result.transform.SetParent(null);
             result.gameObject.SetActive(true);
 
@@ -36,10 +37,11 @@ namespace ArBreakout.Misc
 
         public void Clear()
         {
-            foreach(var item in _pooledObjects)
+            foreach (var item in _pooledObjects)
             {
-                Destroy(item);   
+                Destroy(item);
             }
+
             _pooledObjects.Clear();
         }
     }

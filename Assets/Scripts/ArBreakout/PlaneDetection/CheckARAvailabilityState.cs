@@ -9,7 +9,7 @@ namespace ArBreakout.PlaneDetection
     {
         [SerializeField] private CanvasGroup _deviceNotSupported;
         [SerializeField] private GameObject _circularProgress;
-        
+
         public override void OnEnter(AppState fromState)
         {
             base.OnEnter(fromState);
@@ -38,7 +38,8 @@ namespace ArBreakout.PlaneDetection
                 _circularProgress.SetActive(false);
                 _deviceNotSupported.DOFade(1.0f, 0.6f);
             }
-            else if (args.newState == ARSessionState.Ready || args.newState == ARSessionState.SessionTracking || args.newState == ARSessionState.SessionInitializing)
+            else if (args.newState == ARSessionState.Ready || args.newState == ARSessionState.SessionTracking ||
+                     args.newState == ARSessionState.SessionInitializing)
             {
                 Controller.TransitionTo(typeof(PlaneDetectionAppState));
             }
@@ -46,7 +47,8 @@ namespace ArBreakout.PlaneDetection
 
         private static bool ARIsReady(ARSessionState state)
         {
-            return state == ARSessionState.Ready || state == ARSessionState.SessionTracking || state == ARSessionState.SessionInitializing;
+            return state == ARSessionState.Ready || state == ARSessionState.SessionTracking ||
+                   state == ARSessionState.SessionInitializing;
         }
     }
 }

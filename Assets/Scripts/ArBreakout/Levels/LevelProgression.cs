@@ -9,7 +9,7 @@ namespace ArBreakout.Levels
     {
         public readonly LevelLoader.ParsedLevel parsedLevel;
         public readonly string displayedName;
-        
+
         public bool completed;
         public bool unlocked;
 
@@ -25,7 +25,7 @@ namespace ArBreakout.Levels
     public class LevelProgression : SingletonBehaviour<LevelProgression>
     {
         private const string LevelIndexKey = "level_index_key";
-        
+
         private int _unlockedLevelIndex;
 
         public List<Level> Levels { get; private set; }
@@ -52,12 +52,12 @@ namespace ArBreakout.Levels
                 Levels.Add(new Level(completed, unlocked, level));
             }
         }
-                
-        private void OnApplicationQuit() 
+
+        private void OnApplicationQuit()
         {
-            PlayerPrefs.SetInt(LevelIndexKey, _unlockedLevelIndex);      
+            PlayerPrefs.SetInt(LevelIndexKey, _unlockedLevelIndex);
         }
-        
+
         public void UnlockNextLevel(int levelIndex)
         {
             if (levelIndex == _unlockedLevelIndex)
@@ -77,6 +77,7 @@ namespace ArBreakout.Levels
                 Levels[i].completed = true;
                 Levels[i].unlocked = true;
             }
+
             _unlockedLevelIndex = Levels.Count - 1;
             PlayerPrefs.SetInt(LevelIndexKey, _unlockedLevelIndex);
         }
@@ -88,6 +89,7 @@ namespace ArBreakout.Levels
                 Levels[i].completed = false;
                 Levels[i].unlocked = false;
             }
+
             _unlockedLevelIndex = 0;
             Levels[_unlockedLevelIndex].unlocked = true;
             PlayerPrefs.SetInt(LevelIndexKey, _unlockedLevelIndex);
@@ -96,6 +98,6 @@ namespace ArBreakout.Levels
         public Level GetDefaultLevel()
         {
             return Levels[0];
-        }     
+        }
     }
 }

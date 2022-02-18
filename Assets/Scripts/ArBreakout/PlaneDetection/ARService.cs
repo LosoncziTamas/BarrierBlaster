@@ -16,17 +16,18 @@ namespace ArBreakout.PlaneDetection
         [SerializeField] private ARPlaneManager _arPlaneManager;
         [SerializeField] private ARSession _arSession;
         [SerializeField] private ARPointCloudManager _pointCloudManager;
-    
-        private readonly Vector2 _screenCenter = new Vector2(Screen.width,Screen.height) * 0.5f;
+
+        private readonly Vector2 _screenCenter = new Vector2(Screen.width, Screen.height) * 0.5f;
         private readonly List<ARRaycastHit> _hits = new List<ARRaycastHit>();
         private readonly List<ARPlane> _trackedPlanes = new List<ARPlane>();
-        
+
         private ARPointCloudParticleVisualizer _pointCloud;
         private ARSessionState _lastKnownState;
 
         public ARSessionState LastKnownState => _lastKnownState;
-    
+
         public Camera ARCamera => _arCamera;
+
         public int TrackedPlanesCount
         {
             get
@@ -49,13 +50,14 @@ namespace ArBreakout.PlaneDetection
                 this.notTrackingReason = notTrackingReason;
             }
         }
+
         public event EventHandler<TrackingStateEventArgs> ARStateChange;
 
         private void Awake()
         {
             Instance = this;
         }
-        
+
         private void OnDestroy()
         {
             Instance = null;
@@ -66,29 +68,30 @@ namespace ArBreakout.PlaneDetection
             ARSession.stateChanged += OnARStateChange;
             _arPlaneManager.planesChanged += OnPlanesChanged;
         }
-    
+
         private void OnDisable()
         {
             ARSession.stateChanged -= OnARStateChange;
             _arPlaneManager.planesChanged -= OnPlanesChanged;
         }
-   
+
         public bool HitTestFromScreenCenter(out Pose pose, out float distance)
         {
-#if UNITY_EDITOR 
+#if UNITY_EDITOR
             pose = new Pose(Vector3.zero, Quaternion.identity);
             distance = 1.0f;
             return true;
 #endif
             pose = default;
             distance = default;
-        
+
             if (_raycastManager.Raycast(_screenCenter, _hits, TrackableType.Planes))
             {
                 pose = _hits[0].pose;
                 distance = _hits[0].distance;
                 return true;
             }
+
             return false;
         }
 
@@ -98,6 +101,7 @@ namespace ArBreakout.PlaneDetection
             {
                 _pointCloud = _pointCloudManager.GetComponentInChildren<ARPointCloudParticleVisualizer>();
             }
+
             if (_pointCloud)
             {
                 _pointCloud.enabled = enable;
@@ -110,7 +114,7 @@ namespace ArBreakout.PlaneDetection
             _trackedPlanes.Clear();
             TogglePointCloud(true);
         }
-        
+
         private void OnPlanesChanged(ARPlanesChangedEventArgs args)
         {
             var removedIDs = args.removed.Select(p => p.trackableId);
@@ -118,7 +122,7 @@ namespace ArBreakout.PlaneDetection
             _trackedPlanes.AddRange(args.added);
             // We ignore updated planes, since we are only interested in the number of available planes.
         }
-        
+
         private void OnARStateChange(ARSessionStateChangedEventArgs args)
         {
             PublishEvent(args.state, ARSession.notTrackingReason);

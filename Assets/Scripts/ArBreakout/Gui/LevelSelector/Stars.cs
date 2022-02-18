@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ArBreakout.Gui
+namespace ArBreakout.Gui.LevelSelector
 {
     public class Stars : MonoBehaviour
     {

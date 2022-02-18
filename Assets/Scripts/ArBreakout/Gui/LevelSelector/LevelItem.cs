@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ArBreakout.Gui
+namespace ArBreakout.Gui.LevelSelector
 {
     public class LevelItem : MonoBehaviour
     {
@@ -17,7 +17,7 @@ namespace ArBreakout.Gui
         private LevelModel _levelModel;
 
         private bool _unlocked;
-        
+
         public bool Unlocked
         {
             get => _unlocked;
@@ -31,6 +31,7 @@ namespace ArBreakout.Gui
                 {
                     Lock();
                 }
+
                 _unlocked = value;
             }
         }
@@ -39,17 +40,17 @@ namespace ArBreakout.Gui
         {
             _button.onClick.AddListener(OnButtonClick);
         }
-        
+
         private void OnDisable()
         {
             _button.onClick.AddListener(OnButtonClick);
         }
-        
+
         private void OnButtonClick()
         {
             _onClickAction?.Invoke(_levelModel);
         }
-        
+
         public void Bind(LevelModel data, Action<LevelModel> click)
         {
             _levelModel = data;

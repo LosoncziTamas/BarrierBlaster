@@ -7,16 +7,16 @@ using DG.Tweening;
 using UnityEngine;
 
 namespace ArBreakout.Game
-{    
+{
     [RequireComponent(typeof(Collider))]
     public class PaddleBehaviour : MonoBehaviour
     {
         public const string GameObjectTag = "Paddle";
-        
+
         private static readonly int TotalPowerUpCount = Enum.GetNames(typeof(PowerUp)).Length;
-        
+
         public const float PowerUpEffectDuration = 15.0f;
-        
+
         private const float MaxWidthMultiplier = 2.0f;
         private const float MinWidthMultiplier = 0.5f;
         private const float DefaultSpeed = 18.0f;
@@ -25,10 +25,10 @@ namespace ArBreakout.Game
         private const float Drag = 2.0f;
         private const float WallCollisionBounce = 15.0f;
         private const float BallCollisionBounce = 5.0f;
-        
+
         private readonly List<bool> _activePowerUps = new List<bool>(TotalPowerUpCount);
         private readonly List<float> _activePowerUpTimes = new List<float>(TotalPowerUpCount);
-        
+
         private Vector3 _localVelocity;
         private BallBehaviour _ballBehaviour;
 
@@ -44,12 +44,14 @@ namespace ArBreakout.Game
         {
             _parentStartPosition = transform.parent.position;
         }
+
         public BallBehaviour AnchoredBallBehaviour
         {
             set => _ballBehaviour = value;
         }
-        public bool Magnetized => _activePowerUps[(int)PowerUp.Magnet];
-        
+
+        public bool Magnetized => _activePowerUps[(int) PowerUp.Magnet];
+
         public class PowerUpState : EventArgs
         {
             public readonly List<PowerUp> ActivePowerUps;
@@ -61,9 +63,9 @@ namespace ArBreakout.Game
                 ActivePowerUpTimes = activePowerUpTimes;
             }
         }
-        
+
         public static event EventHandler<PowerUpState> PowerUpStateChangeEvent;
-        
+
         private void PublishPowerUpState()
         {
             var activePowerUps = new List<PowerUp>();
@@ -72,13 +74,14 @@ namespace ArBreakout.Game
             {
                 if (_activePowerUps[i])
                 {
-                    activePowerUps.Add((PowerUp)i);
+                    activePowerUps.Add((PowerUp) i);
                     activePowerUpTimes.Add(_activePowerUpTimes[i]);
                 }
             }
+
             PowerUpStateChangeEvent?.Invoke(this, new PowerUpState(activePowerUps, activePowerUpTimes));
         }
-        
+
         private void Awake()
         {
             _defaultScale = transform.localScale;
@@ -110,13 +113,13 @@ namespace ArBreakout.Game
         {
             _fire = true;
         }
-        
+
         public void ResetToDefaults()
         {
             _parentTransform.DOMove(_parentStartPosition, 0.6f);
             _speed = DefaultSpeed;
             AnimateScale(_defaultScale.x, _defaultScale.y, _defaultScale.z);
-            
+
             for (var i = 0; i < TotalPowerUpCount; i++)
             {
                 _activePowerUps[i] = false;
@@ -130,17 +133,18 @@ namespace ArBreakout.Game
         {
             transform.DOScale(new Vector3(x, y, z), 0.6f);
         }
-        
+
         private void FixedUpdate()
         {
             var localAcceleration = Vector3.zero;
             var controlSwitchIsActive = _activePowerUps[(int) PowerUp.ControlSwitch];
-            
+
             if (_moveLeft || Input.GetAxis("Horizontal") < 0)
             {
                 localAcceleration.x += controlSwitchIsActive ? 1.0f : -1.0f;
             }
-            if  (_moveRight || Input.GetAxis("Horizontal") > 0)
+
+            if (_moveRight || Input.GetAxis("Horizontal") > 0)
             {
                 localAcceleration.x += controlSwitchIsActive ? -1.0f : 1.0f;
             }
@@ -153,7 +157,7 @@ namespace ArBreakout.Game
 
             localAcceleration *= _speed;
             localAcceleration += -Drag * _localVelocity;
-            
+
             _localVelocity += BreakoutPhysics.CalculateVelocityDelta(localAcceleration);
             // We move the parent transform instead of the paddle. This is a workaround used to avoid unwanted scale of the ball.
             transform.parent.localPosition += BreakoutPhysics.CalculateMovementDelta(localAcceleration, _localVelocity);
@@ -242,7 +246,6 @@ namespace ArBreakout.Game
                     _activePowerUps[powerUpIdx] = true;
                     _speed = MaxSpeed;
                 }
-
             }
             else if (powerUp == PowerUp.Decelerator)
             {
@@ -266,6 +269,7 @@ namespace ArBreakout.Game
                 _activePowerUpTimes[powerUpIdx] = PowerUpEffectDuration;
                 _activePowerUps[powerUpIdx] = true;
             }
+
             PublishPowerUpState();
         }
 
@@ -280,8 +284,8 @@ namespace ArBreakout.Game
                     {
                         _activePowerUpTimes[i] = 0.0f;
                         _activePowerUps[i] = false;
-                        
-                        var powerUp = (PowerUp)i;
+
+                        var powerUp = (PowerUp) i;
                         if (powerUp == PowerUp.Minifier || powerUp == PowerUp.Magnifier)
                         {
                             AnimateScale(_defaultScale.x, _defaultScale.y, _defaultScale.z);
@@ -294,7 +298,7 @@ namespace ArBreakout.Game
                         {
                             _ballBehaviour.Release(_localVelocity.magnitude);
                         }
-                        
+
                         PublishPowerUpState();
                     }
                     else
@@ -312,14 +316,16 @@ namespace ArBreakout.Game
             if (other.gameObject.CompareTag(WallBehaviour.GameObjectTag))
             {
                 var contact = BreakoutPhysics.ExtractContactPoint(other);
-                var reflectionGlobal = Vector3.Reflect(transform.TransformVector(_localVelocity), contact.Normal) * contact.Separation;
+                var reflectionGlobal = Vector3.Reflect(transform.TransformVector(_localVelocity), contact.Normal) *
+                                       contact.Separation;
                 // Change the velocity so it is properly bounced back from the wall.
                 _localVelocity = transform.InverseTransformVector(reflectionGlobal) * WallCollisionBounce;
             }
             else if (other.gameObject.CompareTag(BallBehaviour.GameObjectTag))
             {
                 var contact = BreakoutPhysics.ExtractContactPoint(other);
-                var reflectionGlobal = Vector3.Reflect(transform.TransformVector(_localVelocity), contact.Normal) * contact.Separation;
+                var reflectionGlobal = Vector3.Reflect(transform.TransformVector(_localVelocity), contact.Normal) *
+                                       contact.Separation;
                 // Apply some bounce effect to the paddle in order to avoid tunnelling when the ball is moving between the wall and the paddle.
                 _localVelocity += transform.InverseTransformVector(reflectionGlobal) * BallCollisionBounce;
                 // Only apply the reflection force in one dimension.
@@ -339,9 +345,11 @@ namespace ArBreakout.Game
 
         private void OnCollisionStay(Collision collisionInfo)
         {
-            Debug.DrawRay(collisionInfo.contacts[0].point, collisionInfo.contacts[0].normal * collisionInfo.contacts[0].separation, Color.red, 2, false);
-            
-            if (collisionInfo.gameObject.CompareTag(WallBehaviour.GameObjectTag) || collisionInfo.gameObject.CompareTag(BallBehaviour.GameObjectTag))
+            Debug.DrawRay(collisionInfo.contacts[0].point,
+                collisionInfo.contacts[0].normal * collisionInfo.contacts[0].separation, Color.red, 2, false);
+
+            if (collisionInfo.gameObject.CompareTag(WallBehaviour.GameObjectTag) ||
+                collisionInfo.gameObject.CompareTag(BallBehaviour.GameObjectTag))
             {
                 var contact = BreakoutPhysics.ExtractContactPoint(collisionInfo);
                 var localContactNormal = transform.InverseTransformDirection(contact.Normal);
@@ -358,6 +366,7 @@ namespace ArBreakout.Game
                     // Apply bounce effect for walls
                     newVelocity += localContactNormal * WallCollisionBounce;
                 }
+
                 newVelocity.Scale(Vector3.right);
                 _localVelocity = newVelocity;
             }

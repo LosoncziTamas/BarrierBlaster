@@ -15,7 +15,7 @@ namespace ArBreakout.Gui
         [SerializeField] private PowerUpPanel _powerUpPanel;
 
         private TutorialOverlay _tutorialOverlay;
-        
+
         protected override void Awake()
         {
             base.Awake();
@@ -31,7 +31,7 @@ namespace ArBreakout.Gui
         {
             _backButton.onClick.RemoveListener(OnPause);
         }
-        
+
         private async void OnPause()
         {
             GameTime.paused = true;

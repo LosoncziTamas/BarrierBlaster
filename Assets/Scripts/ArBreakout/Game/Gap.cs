@@ -7,7 +7,6 @@ namespace ArBreakout.Game
     {
         public class BallHasLeftTheGameArgs : EventArgs
         {
-            
         }
 
         public static event EventHandler<BallHasLeftTheGameArgs> BallHasLeftTheGameEvent;

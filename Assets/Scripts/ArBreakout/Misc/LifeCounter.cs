@@ -11,9 +11,10 @@ namespace ArBreakout.Misc
         [SerializeField] private Sprite _emptyHeart;
 
         public void UpdateLives(int lifeCount)
-        {            
-            Assert.IsTrue(lifeCount > -1 && lifeCount <= _hearts.Length, $"Invalid life count: {lifeCount}. Available: {_hearts.Length}");        
-            
+        {
+            Assert.IsTrue(lifeCount > -1 && lifeCount <= _hearts.Length,
+                $"Invalid life count: {lifeCount}. Available: {_hearts.Length}");
+
             HideAll();
             for (var i = 0; i < lifeCount; i++)
             {

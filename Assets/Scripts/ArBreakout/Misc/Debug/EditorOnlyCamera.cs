@@ -6,7 +6,7 @@ namespace ArBreakout
     public class EditorOnlyCamera : MonoBehaviour
     {
         public Camera cameraRef;
-        
+
         public static EditorOnlyCamera Instance
         {
             get
@@ -32,7 +32,7 @@ namespace ArBreakout
         }
 
         private static EditorOnlyCamera _instance;
-        
+
         private void Awake()
         {
             cameraRef = GetComponent<Camera>();

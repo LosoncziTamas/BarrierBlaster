@@ -14,12 +14,12 @@ namespace ArBreakout.SinglePlayer
     public class LegacyLevelSelectorAppState : AppState
     {
         [SerializeField] private LevelSelector _levelSelector;
-        [SerializeField] private NotificationManager _permissionNotification;                
-        [SerializeField] private CanvasGroup _canvas;                
-        
+        [SerializeField] private NotificationManager _permissionNotification;
+        [SerializeField] private CanvasGroup _canvas;
+
         private static Level _selectedLevel;
         public static Level SelectedLevel => _selectedLevel;
-        
+
         private LevelProgression _levelProgression;
 
         protected override void Awake()
@@ -31,6 +31,7 @@ namespace ArBreakout.SinglePlayer
             {
                 Screen.sleepTimeout = SleepTimeout.NeverSleep;
             }
+
             _canvas.SetVisibility(false);
         }
 
@@ -40,7 +41,7 @@ namespace ArBreakout.SinglePlayer
             _canvas.SetVisibility(true);
             ResetLevelSelector();
         }
-        
+
         public override void OnExit(AppState toState)
         {
             _canvas.SetVisibility(false);
@@ -50,7 +51,8 @@ namespace ArBreakout.SinglePlayer
         private void ResetLevelSelector()
         {
             var levelSelectorItems = _levelProgression.Levels
-                .Select((info => new LevelSelector.ItemData(OnLevelSelected, info.displayedName, info.unlocked, info))).ToList();
+                .Select((info => new LevelSelector.ItemData(OnLevelSelected, info.displayedName, info.unlocked, info)))
+                .ToList();
             _levelSelector.SetItems(levelSelectorItems);
         }
 

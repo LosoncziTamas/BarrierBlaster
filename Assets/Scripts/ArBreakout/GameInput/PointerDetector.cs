@@ -6,7 +6,7 @@ namespace ArBreakout.GameInput
     public class PointerDetector : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
     {
         public bool PointerDown => _pointerDown;
-        
+
         private bool _pointerDown;
 
         public void OnPointerDown(PointerEventData eventData)

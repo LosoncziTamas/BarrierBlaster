@@ -33,7 +33,7 @@ namespace ArBreakout.Game
         public void InitWithLevel(Transform levelParent, LevelLoader.ParsedLevel level)
         {
             Assert.IsNull(_gameWorldRoot);
-            
+
             _gameWorldRoot = new GameObject(ObjectName);
             _gameWorldRoot.transform.SetParent(levelParent);
             _gameWorldRoot.transform.localScale = Vector3.one;
@@ -47,7 +47,7 @@ namespace ArBreakout.Game
             Paddle = InitPaddle();
             BallBehaviour = InitBall(Paddle.transform);
             InitBricks(level);
-            
+
             Initialized = true;
         }
 
@@ -59,7 +59,7 @@ namespace ArBreakout.Game
             Initialized = false;
             Paddle = null;
             BallBehaviour = null;
-            
+
             Destroy(_gameWorldRoot);
             Destroy(_brickPool);
         }
@@ -77,13 +77,13 @@ namespace ArBreakout.Game
                     _brickPool.ReturnBrick(brick);
                 }
             }
-         
+
             _brickReferences.Clear();
             InitBricks(level);
             Paddle.ResetToDefaults();
             GamePlayUtils.AnchorBallToPaddle(BallBehaviour, Paddle);
         }
-        
+
         private void InitBricks(LevelLoader.ParsedLevel parsedLevel)
         {
             var count = parsedLevel.bricksProps.Count;
@@ -117,7 +117,7 @@ namespace ArBreakout.Game
         {
             var paddleParent = Instantiate(_paddleParentPrefab, _gameWorldRoot.transform);
             var playerInstance = paddleParent.GetComponentInChildren<PaddleBehaviour>();
-            
+
             // Placing player at the bottom of the scene.
             var playerOffset = Vector3.forward * Mathf.Floor(LevelDimY * 0.5f) + Vector3.down * 0.5f;
             playerInstance.transform.Translate(playerInstance.transform.TransformVector(playerOffset), Space.Self);
@@ -125,7 +125,7 @@ namespace ArBreakout.Game
 
             return playerInstance;
         }
-        
+
         private void InitWallsAndGap()
         {
             var wall = Instantiate(_wallBehaviourPrefab, _gameWorldRoot.transform);

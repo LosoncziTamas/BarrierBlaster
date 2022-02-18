@@ -19,7 +19,7 @@ namespace ArBreakout.Tutorial
         private GameObject _visibleObject;
         private PowerUp _visiblePowerUp;
         private bool _canSwap = true;
-        
+
         private void Awake()
         {
             _powerUpObjects.Add(PowerUp.Accelerator, _arrow);
@@ -38,14 +38,16 @@ namespace ArBreakout.Tutorial
             }
 
             _canSwap = false;
-            
+
             var prevObject = _visibleObject;
             _visibleObject = _powerUpObjects[powerUp];
             if (prevObject)
             {
                 prevObject.transform.DOPunchRotation(new Vector3(0.0f, rotationDegree, 0.0f), 0.6f, 1, 0.5f);
-                prevObject.transform.DOScale(Vector3.zero, 0.6f).OnComplete(() => prevObject.gameObject.SetActive(false));
+                prevObject.transform.DOScale(Vector3.zero, 0.6f)
+                    .OnComplete(() => prevObject.gameObject.SetActive(false));
             }
+
             _visibleObject.SetActive(true);
             _visibleObject.transform.localScale = Vector3.zero;
             _visibleObject.transform.DOPunchRotation(new Vector3(0.0f, -rotationDegree, 0.0f), 0.6f, 1, 0.5f);
