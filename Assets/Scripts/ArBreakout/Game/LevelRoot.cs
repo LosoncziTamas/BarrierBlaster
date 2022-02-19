@@ -18,6 +18,7 @@ namespace ArBreakout.Game
         [SerializeField] private WallBehaviour _wallBehaviourPrefab;
         [SerializeField] private Gap _gapPrefab;
         [SerializeField] private ColorPalette _colorPalette;
+        [SerializeField] private Levels.Levels _levels;
 
         private GameObject _gameWorldRoot;
         private BrickPool _brickPool;
@@ -49,6 +50,12 @@ namespace ArBreakout.Game
             InitBricks(level);
 
             Initialized = true;
+        }
+
+        public void InitNewLevel()
+        {
+            var toBeInitialized = _levels.Selected;
+            Debug.Log(toBeInitialized.Name);
         }
 
         public void DestroySelf()

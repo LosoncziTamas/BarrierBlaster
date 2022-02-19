@@ -1,3 +1,4 @@
+using ArBreakout.Game;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
 using ArBreakout.Tutorial;
@@ -13,13 +14,22 @@ namespace ArBreakout.Gui
         [SerializeField] private Text _timeLeftText;
         [SerializeField] private Button _backButton;
         [SerializeField] private PowerUpPanel _powerUpPanel;
+        [SerializeField] private Levels.Levels _levels;
 
         private TutorialOverlay _tutorialOverlay;
+        private LevelRoot _levelRoot;
 
         protected override void Awake()
         {
             base.Awake();
             _tutorialOverlay = FindObjectOfType<TutorialOverlay>();
+            _levelRoot = FindObjectOfType<LevelRoot>();
+        }
+        
+        public override void OnEnter(AppState fromState)
+        {
+            base.OnEnter(fromState);
+            _levelRoot.InitNewLevel();
         }
 
         private void OnEnable()

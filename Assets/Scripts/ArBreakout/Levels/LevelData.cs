@@ -8,7 +8,17 @@ namespace ArBreakout.Levels
     {
         [SerializeField] private Array2DChar _layout;
         [SerializeField] private float _timeLimit;
+        [SerializeField] private string _name;
+        [SerializeField] private bool _unlocked;
 
-        // TODO: entirely replace legacy level loading
+        public Array2DChar Layout => _layout;
+
+        public float TimeLimit => _timeLimit;
+
+        public string Name => _name;
+
+        public bool Unlocked => _unlocked;
+
+        public int Id => GetInstanceID();
     }
 }

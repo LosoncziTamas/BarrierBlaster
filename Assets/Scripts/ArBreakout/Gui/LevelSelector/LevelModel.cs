@@ -1,9 +1,10 @@
-using System.Collections.Generic;
+using ArBreakout.Levels;
 
-namespace ArBreakout.Gui
+namespace ArBreakout.Gui.LevelSelector
 {
     public class LevelModel
     {
+        public int Id { get; set; }
         public string Text { get; set; }
         public bool Unlocked { get; set; }
 
@@ -12,55 +13,13 @@ namespace ArBreakout.Gui
             return $"{nameof(Text)}: {Text}";
         }
 
-        public static List<LevelModel> CreateDebugData()
+        public static LevelModel Create(LevelData levelData)
         {
-            return new List<LevelModel>
+            return new LevelModel
             {
-                new LevelModel
-                {
-                    Text = "I",
-                    Unlocked = true
-                },
-                new LevelModel
-                {
-                    Text = "II",
-                    Unlocked = true
-                },
-                new LevelModel
-                {
-                    Text = "III",
-                    Unlocked = true
-                },
-                new LevelModel
-                {
-                    Text = "IV",
-                    Unlocked = true
-                },
-                new LevelModel
-                {
-                    Text = "V",
-                    Unlocked = false
-                },
-                new LevelModel
-                {
-                    Text = "VI",
-                    Unlocked = false
-                },
-                new LevelModel
-                {
-                    Text = "VII",
-                    Unlocked = false
-                },
-                new LevelModel
-                {
-                    Text = "VIII",
-                    Unlocked = false
-                },
-                new LevelModel
-                {
-                    Text = "IX",
-                    Unlocked = false
-                }
+                Text = levelData.Name,
+                Unlocked = levelData.Unlocked,
+                Id = levelData.Id
             };
         }
     }

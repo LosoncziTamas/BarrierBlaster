@@ -44,7 +44,6 @@ namespace ArBreakout.Levels
             }
 
             _cachedLevels = new List<ParsedLevel>();
-            // TODO: Switch to asset bundles in production
             var loadedLevels = Resources.LoadAll<TextAsset>(LevelRootPath);
             foreach (var levelCSV in loadedLevels)
             {
