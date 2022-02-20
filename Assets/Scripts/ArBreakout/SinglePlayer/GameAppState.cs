@@ -91,7 +91,7 @@ namespace ArBreakout.SinglePlayer
 
         private void OnRetry()
         {
-            _levelRoot.SetupLevel(_currLevel);
+            // _levelRoot.SetupLevel(_currLevel);
 
             _timeLeftInSeconds = _currLevel.timeLimitInSeconds;
             _timeLeftText.text = GamePlayUtils.FormatTime(_timeLeftInSeconds);
@@ -122,7 +122,7 @@ namespace ArBreakout.SinglePlayer
         private void OnBackToMain()
         {
             GameTime.paused = false;
-            _levelRoot.DestroySelf();
+            // _levelRoot.DestroySelf();
             Destroy(_levelParent);
             Controller.TransitionTo(typeof(LegacyLevelSelectorAppState));
             ARService.Instance.ResetAR();
@@ -176,7 +176,7 @@ namespace ArBreakout.SinglePlayer
                 _currLevel = _levelProgression.GetDefaultLevel().parsedLevel;
             }
 #endif
-            _levelRoot.InitWithLevel(_levelParent.transform, _currLevel);
+            // _levelRoot.InitWithLevel(_levelParent.transform, _currLevel);
 
             _timeLeftInSeconds = _currLevel.timeLimitInSeconds;
             _timeLeftText.text = GamePlayUtils.FormatTime(_timeLeftInSeconds);
@@ -193,7 +193,7 @@ namespace ArBreakout.SinglePlayer
             Assert.IsTrue(_totalLives > 0);
 
             _currLevel = allLevels[_currLevel.LevelIndex + 1].parsedLevel;
-            _levelRoot.SetupLevel(_currLevel);
+            // _levelRoot.SetupLevel(_currLevel);
 
             _timeLeftInSeconds = _currLevel.timeLimitInSeconds;
             _timeLeftText.text = GamePlayUtils.FormatTime(_timeLeftInSeconds);

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using ArBreakout.Levels;
 using ArBreakout.Misc;
-using DG.Tweening;
+using ArBreakout.PowerUps;
 using UnityEngine;
 using UnityEngine.Assertions;
 using static ArBreakout.GamePhysics.BreakoutPhysics;
@@ -11,6 +11,7 @@ namespace ArBreakout.Game
     public class LevelRoot : MonoBehaviour
     {
         public const string ObjectName = "LevelRoot";
+        private const int LevelDimension = 9;
 
         [SerializeField] private BrickPool _brickPoolPrefab;
         [SerializeField] private BallBehaviour _ballPrefab;
@@ -19,11 +20,9 @@ namespace ArBreakout.Game
         [SerializeField] private Gap _gapPrefab;
         [SerializeField] private ColorPalette _colorPalette;
         [SerializeField] private Levels.Levels _levels;
-
-        private GameObject _gameWorldRoot;
-        private BrickPool _brickPool;
-
-        private readonly List<BrickBehaviour> _brickReferences = new List<BrickBehaviour>();
+        [SerializeField] private BrickPool _brickPool;
+        
+        private readonly List<BrickBehaviour> _brickReferences = new();
 
         public BallBehaviour BallBehaviour { get; private set; }
         public PaddleBehaviour Paddle { get; private set; }
@@ -31,6 +30,7 @@ namespace ArBreakout.Game
 
         public bool Initialized { get; private set; }
 
+        #if false
         public void InitWithLevel(Transform levelParent, LevelLoader.ParsedLevel level)
         {
             Assert.IsNull(_gameWorldRoot);
@@ -51,13 +51,7 @@ namespace ArBreakout.Game
 
             Initialized = true;
         }
-
-        public void InitNewLevel()
-        {
-            var toBeInitialized = _levels.Selected;
-            Debug.Log(toBeInitialized.Name);
-        }
-
+        
         public void DestroySelf()
         {
             Assert.IsNotNull(_gameWorldRoot, "Trying to destroy a non-existing game world.");
@@ -70,27 +64,8 @@ namespace ArBreakout.Game
             Destroy(_gameWorldRoot);
             Destroy(_brickPool);
         }
-
-        public void SetupLevel(LevelLoader.ParsedLevel level)
-        {
-            Assert.IsTrue(Initialized);
-            Assert.IsNotNull(Paddle);
-            Assert.IsNotNull(BallBehaviour);
-
-            foreach (var brick in _brickReferences)
-            {
-                if (brick)
-                {
-                    _brickPool.ReturnBrick(brick);
-                }
-            }
-
-            _brickReferences.Clear();
-            InitBricks(level);
-            Paddle.ResetToDefaults();
-            GamePlayUtils.AnchorBallToPaddle(BallBehaviour, Paddle);
-        }
-
+        
+        
         private void InitBricks(LevelLoader.ParsedLevel parsedLevel)
         {
             var count = parsedLevel.bricksProps.Count;
@@ -110,10 +85,82 @@ namespace ArBreakout.Game
                 _brickReferences.Add(brick);
             }
         }
+                
+        public void SetupLevel(LevelLoader.ParsedLevel level)
+        {
+            Assert.IsTrue(Initialized);
+            Assert.IsNotNull(Paddle);
+            Assert.IsNotNull(BallBehaviour);
+
+            foreach (var brick in _brickReferences)
+            {
+                if (brick)
+                {
+                    _brickPool.ReturnBrick(brick);
+                }
+            }
+
+            _brickReferences.Clear();
+            InitBricks(level);
+            Paddle.ResetToDefaults();
+            GamePlayUtils.AnchorBallToPaddle(BallBehaviour, Paddle);
+        }
+        
+        
+        #endif
+
+        public void InitNewLevel()
+        {
+            InitWallsAndGap();
+            Paddle = InitPaddle();
+            BallBehaviour = InitBall(Paddle.transform);
+            
+            var toBeInitialized = _levels.Selected;
+            var cells = toBeInitialized.Layout.GetCells();
+            var rowCount = cells.GetLength(0);
+            for (var row = 0; row < rowCount; row++) 
+            {
+                for (var col = 0; col < cells.GetLength(1); col++)
+                {
+                    // Starts at top left, goes to bottom right.
+                    var c = cells[row, col];
+                    if (!char.IsWhiteSpace(c))
+                    {
+                        var pos = new Vector3
+                        {
+                            x = -0.5f * LevelDimension + col + 0.5f,
+                            y = 0.5f,
+                            z = 0.5f * LevelDimension - row + 3.0f
+                        };
+                        
+                        var brick = _brickPool.GetBrick();
+                        brick.gameObject.name = $"Brick {pos}";
+                        var brickTransform = brick.transform;
+                        brickTransform.SetParent(transform, false);
+                        brickTransform.localPosition = pos;
+                        brickTransform.localRotation = Quaternion.identity;
+
+                        var bricksProp = new LevelLoader.BrickProps
+                        {
+                            HitPoints = 3,
+                            LineIdx = row,
+                            PowerUp = PowerUp.None
+                        };
+                        // Scale of the brick is set with the animation.
+                        var lineIndex = bricksProp.LineIdx;
+                        var color = _colorPalette.Colors[lineIndex % 5];
+                        brick.Init(bricksProp, color, rowCount);
+                        _brickReferences.Add(brick);
+                    }
+                }
+            }
+        }
+
+
 
         private BallBehaviour InitBall(Transform paddleTransform)
         {
-            var ballInstance = Instantiate(_ballPrefab, _gameWorldRoot.transform);
+            var ballInstance = Instantiate(_ballPrefab, transform);
             GamePlayUtils.CenterAboveObject(ballInstance.transform, paddleTransform);
             ballInstance.transform.SetParent(paddleTransform.parent);
 
@@ -122,7 +169,7 @@ namespace ArBreakout.Game
 
         private PaddleBehaviour InitPaddle()
         {
-            var paddleParent = Instantiate(_paddleParentPrefab, _gameWorldRoot.transform);
+            var paddleParent = Instantiate(_paddleParentPrefab, transform);
             var playerInstance = paddleParent.GetComponentInChildren<PaddleBehaviour>();
 
             // Placing player at the bottom of the scene.
@@ -135,8 +182,8 @@ namespace ArBreakout.Game
 
         private void InitWallsAndGap()
         {
-            var wall = Instantiate(_wallBehaviourPrefab, _gameWorldRoot.transform);
-            var gap = Instantiate(_gapPrefab, _gameWorldRoot.transform);
+            var wall = Instantiate(_wallBehaviourPrefab, transform);
+            var gap = Instantiate(_gapPrefab, transform);
         }
     }
 }
