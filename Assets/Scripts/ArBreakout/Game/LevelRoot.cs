@@ -3,17 +3,15 @@ using ArBreakout.Levels;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
 using UnityEngine;
-using UnityEngine.Assertions;
 using static ArBreakout.GamePhysics.BreakoutPhysics;
 
 namespace ArBreakout.Game
 {
     public class LevelRoot : MonoBehaviour
     {
-        public const string ObjectName = "LevelRoot";
+        public const string ObjectName = "Level Root";
         private const int LevelDimension = 9;
 
-        [SerializeField] private BrickPool _brickPoolPrefab;
         [SerializeField] private BallBehaviour _ballPrefab;
         [SerializeField] private GameObject _paddleParentPrefab;
         [SerializeField] private WallBehaviour _wallBehaviourPrefab;
@@ -27,9 +25,7 @@ namespace ArBreakout.Game
         public BallBehaviour BallBehaviour { get; private set; }
         public PaddleBehaviour Paddle { get; private set; }
         public int InitialBrickCount => _brickReferences.Count;
-
-        public bool Initialized { get; private set; }
-
+        
         #if false
         public void InitWithLevel(Transform levelParent, LevelLoader.ParsedLevel level)
         {
@@ -109,6 +105,11 @@ namespace ArBreakout.Game
         
         #endif
 
+        private void Awake()
+        {
+            gameObject.name = ObjectName;
+        }
+
         public void InitNewLevel()
         {
             InitWallsAndGap();
@@ -155,9 +156,7 @@ namespace ArBreakout.Game
                 }
             }
         }
-
-
-
+        
         private BallBehaviour InitBall(Transform paddleTransform)
         {
             var ballInstance = Instantiate(_ballPrefab, transform);

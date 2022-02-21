@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ArBreakout.GameInput;
 using ArBreakout.GamePhysics;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
@@ -16,7 +17,7 @@ namespace ArBreakout.Game
         private static readonly int TotalPowerUpCount = Enum.GetNames(typeof(PowerUp)).Length;
 
         public const float PowerUpEffectDuration = 15.0f;
-
+        
         private const float MaxWidthMultiplier = 2.0f;
         private const float MinWidthMultiplier = 0.5f;
         private const float DefaultSpeed = 18.0f;
@@ -26,19 +27,17 @@ namespace ArBreakout.Game
         private const float WallCollisionBounce = 15.0f;
         private const float BallCollisionBounce = 5.0f;
 
-        private readonly List<bool> _activePowerUps = new List<bool>(TotalPowerUpCount);
-        private readonly List<float> _activePowerUpTimes = new List<float>(TotalPowerUpCount);
+        [SerializeField] private PlayerInput _playerInput;
+        
+        private readonly List<bool> _activePowerUps = new(TotalPowerUpCount);
+        private readonly List<float> _activePowerUpTimes = new(TotalPowerUpCount);
 
         private Vector3 _localVelocity;
         private BallBehaviour _ballBehaviour;
-
         private Vector3 _parentStartPosition;
         private Vector3 _defaultScale;
         private Transform _parentTransform;
         private float _speed;
-        private bool _moveLeft;
-        private bool _moveRight;
-        private bool _fire;
 
         public void StoreCurrentPositionAsStartPosition()
         {
@@ -98,22 +97,7 @@ namespace ArBreakout.Game
         {
             AnchoredBallBehaviour = _parentTransform.GetComponentInChildren<BallBehaviour>();
         }
-
-        public void MoveLeft()
-        {
-            _moveLeft = true;
-        }
-
-        public void MoveRight()
-        {
-            _moveRight = true;
-        }
-
-        public void Fire()
-        {
-            _fire = true;
-        }
-
+        
         public void ResetToDefaults()
         {
             _parentTransform.DOMove(_parentStartPosition, 0.6f);
@@ -139,17 +123,17 @@ namespace ArBreakout.Game
             var localAcceleration = Vector3.zero;
             var controlSwitchIsActive = _activePowerUps[(int) PowerUp.ControlSwitch];
 
-            if (_moveLeft || Input.GetAxis("Horizontal") < 0)
+            if (_playerInput.Left || Input.GetAxis("Horizontal") < 0)
             {
                 localAcceleration.x += controlSwitchIsActive ? 1.0f : -1.0f;
             }
 
-            if (_moveRight || Input.GetAxis("Horizontal") > 0)
+            if (_playerInput.Right || Input.GetAxis("Horizontal") > 0)
             {
                 localAcceleration.x += controlSwitchIsActive ? -1.0f : 1.0f;
             }
 
-            if (_fire && _ballBehaviour)
+            if (_playerInput.Fire && _ballBehaviour)
             {
                 _ballBehaviour.Release(_localVelocity.magnitude);
                 _ballBehaviour = null;
@@ -161,9 +145,7 @@ namespace ArBreakout.Game
             _localVelocity += BreakoutPhysics.CalculateVelocityDelta(localAcceleration);
             // We move the parent transform instead of the paddle. This is a workaround used to avoid unwanted scale of the ball.
             transform.parent.localPosition += BreakoutPhysics.CalculateMovementDelta(localAcceleration, _localVelocity);
-
-            _fire = _moveRight = _moveLeft = false;
-
+            
             UpdatePowerUpStates();
         }
 

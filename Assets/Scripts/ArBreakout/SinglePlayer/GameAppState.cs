@@ -150,7 +150,7 @@ namespace ArBreakout.SinglePlayer
             }
 
             _timeLeftText.text = GamePlayUtils.FormatTime(_timeLeftInSeconds);
-
+#if false
             if (_leftButton.PointerDown || Input.GetAxis("Horizontal") < 0)
             {
                 _levelRoot.Paddle.MoveLeft();
@@ -165,11 +165,11 @@ namespace ArBreakout.SinglePlayer
             {
                 _levelRoot.Paddle.Fire();
             }
+#endif
         }
 
         private void InitializeLevel()
         {
-            Assert.IsFalse(_levelRoot.Initialized);
 #if UNITY_EDITOR
             if (_currLevel == null)
             {
