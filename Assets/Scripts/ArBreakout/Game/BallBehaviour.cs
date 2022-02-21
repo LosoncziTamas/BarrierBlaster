@@ -20,6 +20,7 @@ namespace ArBreakout.Game
         [SerializeField] private PowerUpMapping _powerUpMappings;
         [SerializeField] private MeshRenderer _renderer;
         [SerializeField] private Bobbing _bobbing;
+        [SerializeField] private GameEntities _gameEntities;
 
         private Vector3 _launchLocalDirection = Vector3.forward;
         private Vector3 _localVelocity;
@@ -45,6 +46,12 @@ namespace ArBreakout.Game
         private void Awake()
         {
             _gameWorldRoot = GameObject.Find(LevelRoot.ObjectName);
+            _gameEntities.Add(this);
+        }
+
+        private void OnDestroy()
+        {
+            _gameEntities.Remove(this);
         }
 
         private void Start()

@@ -38,6 +38,13 @@ namespace ArBreakout.Game
         private Vector3 _defaultScale;
         private Transform _parentTransform;
         private float _speed;
+        
+        [SerializeField] private GameEntities _gameEntities;
+        
+        private void OnDestroy()
+        {
+            _gameEntities.Remove(this);
+        }
 
         public void StoreCurrentPositionAsStartPosition()
         {
@@ -83,6 +90,7 @@ namespace ArBreakout.Game
 
         private void Awake()
         {
+            _gameEntities.Add(this);
             _defaultScale = transform.localScale;
             _parentTransform = transform.parent;
             _speed = DefaultSpeed;

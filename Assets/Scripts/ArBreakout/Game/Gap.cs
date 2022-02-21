@@ -11,6 +11,18 @@ namespace ArBreakout.Game
 
         public static event EventHandler<BallHasLeftTheGameArgs> BallHasLeftTheGameEvent;
 
+        [SerializeField] private GameEntities _gameEntities;
+
+
+        private void Awake()
+        {
+            _gameEntities.Add(this);
+        }
+
+        private void OnDestroy()
+        {
+            _gameEntities.Remove(this);
+        }
 
         private void OnTriggerExit(Collider other)
         {

@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInput: {fileID: 11400000, guid: 521c6db7527eb4102a1816768ff7e8d9, type: 2}
+  _gameEntities: {fileID: 11400000, guid: 2b277d97f28f149a08c9dfadf311be98, type: 2}
 --- !u!1 &9189816665348010839
 GameObject:
   m_ObjectHideFlags: 0

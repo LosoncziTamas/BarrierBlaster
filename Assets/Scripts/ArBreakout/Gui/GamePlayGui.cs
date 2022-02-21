@@ -29,7 +29,7 @@ namespace ArBreakout.Gui
         public override void OnEnter(AppState fromState)
         {
             base.OnEnter(fromState);
-            _levelRoot.InitNewLevel();
+            _levelRoot.InitLevel(_levels.Selected);
         }
 
         private void OnEnable()

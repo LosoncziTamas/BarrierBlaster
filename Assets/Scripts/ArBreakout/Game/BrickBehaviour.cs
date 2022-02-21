@@ -27,6 +27,7 @@ namespace ArBreakout.Game
 
         [SerializeField] private ChangeMeshColor _changeMeshColor;
         [SerializeField] private PowerUpMapping _powerUpMappings;
+        [SerializeField] private GameEntities _gameEntities;
 
         private Renderer _renderer;
         private Collider _collider;
@@ -35,10 +36,15 @@ namespace ArBreakout.Game
 
         private void Awake()
         {
-            // TODO: add self to list
+            _gameEntities.Add(this);
             _renderer = GetComponent<MeshRenderer>();
             _collider = GetComponent<Collider>();
             _originalScale = transform.localScale;
+        }
+
+        private void OnDestroy()
+        {
+            _gameEntities.Remove(this);
         }
 
         public void Init(LevelLoader.BrickProps brickProps, Color color, int lineCount)

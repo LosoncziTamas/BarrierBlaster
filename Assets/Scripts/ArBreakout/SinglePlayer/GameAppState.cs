@@ -224,7 +224,7 @@ namespace ArBreakout.SinglePlayer
                     _levelCompleteModal.OpenWindow();
                 }
 
-                GamePlayUtils.AnchorBallToPaddle(_levelRoot.BallBehaviour, _levelRoot.Paddle);
+                // GamePlayUtils.AnchorBallToPaddle(_levelRoot.BallBehaviour, _levelRoot.Paddle);
                 GameTime.paused = true;
             }
         }
@@ -234,7 +234,7 @@ namespace ArBreakout.SinglePlayer
             _lifeCounter.UpdateLives(--_totalLives);
             if (_totalLives > 0)
             {
-                GamePlayUtils.AnchorBallToPaddle(_levelRoot.BallBehaviour, _levelRoot.Paddle);
+                // GamePlayUtils.AnchorBallToPaddle(_levelRoot.BallBehaviour, _levelRoot.Paddle);
             }
         }
     }

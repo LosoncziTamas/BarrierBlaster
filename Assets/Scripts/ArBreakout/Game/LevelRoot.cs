@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using ArBreakout.Levels;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
@@ -17,16 +16,92 @@ namespace ArBreakout.Game
         [SerializeField] private WallBehaviour _wallBehaviourPrefab;
         [SerializeField] private Gap _gapPrefab;
         [SerializeField] private ColorPalette _colorPalette;
-        [SerializeField] private Levels.Levels _levels;
         [SerializeField] private BrickPool _brickPool;
         
-        private readonly List<BrickBehaviour> _brickReferences = new();
-
-        public BallBehaviour BallBehaviour { get; private set; }
-        public PaddleBehaviour Paddle { get; private set; }
-        public int InitialBrickCount => _brickReferences.Count;
+        public int InitialBrickCount => 5;//_brickReferences.Count;
         
-        #if false
+        private void Awake()
+        {
+            gameObject.name = ObjectName;
+        }
+
+        public void InitLevel(LevelData selected)
+        {
+            InitWallsAndGap();
+            var paddle = InitPaddle();
+            InitBall(paddle.transform);
+            
+            var cells = selected.Layout.GetCells();
+            var rowCount = cells.GetLength(0);
+            for (var row = 0; row < rowCount; row++) 
+            {
+                for (var col = 0; col < cells.GetLength(1); col++)
+                {
+                    // Starts at top left, goes to bottom right.
+                    var c = cells[row, col];
+                    if (char.IsWhiteSpace(c))
+                    {
+                        continue;
+                    }
+                    
+                    var pos = new Vector3
+                    {
+                        x = -0.5f * LevelDimension + col + 0.5f,
+                        y = 0.5f,
+                        z = 0.5f * LevelDimension - row + 3.0f
+                    };
+                        
+                    var brick = _brickPool.GetBrick();
+                    brick.gameObject.name = $"Brick [{col}, {row}]";
+                    var brickTransform = brick.transform;
+                    brickTransform.SetParent(transform, false);
+                    brickTransform.localPosition = pos;
+                    brickTransform.localRotation = Quaternion.identity;
+
+                    var bricksProp = new LevelLoader.BrickProps
+                    {
+                        HitPoints = 3,
+                        LineIdx = row,
+                        PowerUp = PowerUp.None
+                    };
+                    
+                    // Scale of the brick is set with the animation.
+                    var lineIndex = bricksProp.LineIdx;
+                    var color = _colorPalette.Colors[lineIndex % 5];
+                    brick.Init(bricksProp, color, rowCount);
+                }
+            }
+        }
+        
+        private BallBehaviour InitBall(Transform paddleTransform)
+        {
+            var ballInstance = Instantiate(_ballPrefab, transform);
+            GamePlayUtils.CenterAboveObject(ballInstance.transform, paddleTransform);
+            ballInstance.transform.SetParent(paddleTransform.parent);
+
+            return ballInstance;
+        }
+
+        private PaddleBehaviour InitPaddle()
+        {
+            var paddleParent = Instantiate(_paddleParentPrefab, transform);
+            var playerInstance = paddleParent.GetComponentInChildren<PaddleBehaviour>();
+
+            // Placing player at the bottom of the scene.
+            var playerOffset = Vector3.forward * Mathf.Floor(LevelDimY * 0.5f) + Vector3.down * 0.5f;
+            playerInstance.transform.Translate(playerInstance.transform.TransformVector(playerOffset), Space.Self);
+            playerInstance.StoreCurrentPositionAsStartPosition();
+
+            return playerInstance;
+        }
+
+        private void InitWallsAndGap()
+        {
+            Instantiate(_wallBehaviourPrefab, transform);
+            Instantiate(_gapPrefab, transform);
+        }
+        
+#if false
         public void InitWithLevel(Transform levelParent, LevelLoader.ParsedLevel level)
         {
             Assert.IsNull(_gameWorldRoot);
@@ -101,88 +176,6 @@ namespace ArBreakout.Game
             Paddle.ResetToDefaults();
             GamePlayUtils.AnchorBallToPaddle(BallBehaviour, Paddle);
         }
-        
-        
-        #endif
-
-        private void Awake()
-        {
-            gameObject.name = ObjectName;
-        }
-
-        public void InitNewLevel()
-        {
-            InitWallsAndGap();
-            Paddle = InitPaddle();
-            BallBehaviour = InitBall(Paddle.transform);
-            
-            var toBeInitialized = _levels.Selected;
-            var cells = toBeInitialized.Layout.GetCells();
-            var rowCount = cells.GetLength(0);
-            for (var row = 0; row < rowCount; row++) 
-            {
-                for (var col = 0; col < cells.GetLength(1); col++)
-                {
-                    // Starts at top left, goes to bottom right.
-                    var c = cells[row, col];
-                    if (!char.IsWhiteSpace(c))
-                    {
-                        var pos = new Vector3
-                        {
-                            x = -0.5f * LevelDimension + col + 0.5f,
-                            y = 0.5f,
-                            z = 0.5f * LevelDimension - row + 3.0f
-                        };
-                        
-                        var brick = _brickPool.GetBrick();
-                        brick.gameObject.name = $"Brick {pos}";
-                        var brickTransform = brick.transform;
-                        brickTransform.SetParent(transform, false);
-                        brickTransform.localPosition = pos;
-                        brickTransform.localRotation = Quaternion.identity;
-
-                        var bricksProp = new LevelLoader.BrickProps
-                        {
-                            HitPoints = 3,
-                            LineIdx = row,
-                            PowerUp = PowerUp.None
-                        };
-                        // Scale of the brick is set with the animation.
-                        var lineIndex = bricksProp.LineIdx;
-                        var color = _colorPalette.Colors[lineIndex % 5];
-                        brick.Init(bricksProp, color, rowCount);
-                        _brickReferences.Add(brick);
-                    }
-                }
-            }
-        }
-        
-        private BallBehaviour InitBall(Transform paddleTransform)
-        {
-            var ballInstance = Instantiate(_ballPrefab, transform);
-            GamePlayUtils.CenterAboveObject(ballInstance.transform, paddleTransform);
-            ballInstance.transform.SetParent(paddleTransform.parent);
-
-            return ballInstance;
-        }
-
-        private PaddleBehaviour InitPaddle()
-        {
-            var paddleParent = Instantiate(_paddleParentPrefab, transform);
-            var playerInstance = paddleParent.GetComponentInChildren<PaddleBehaviour>();
-
-            // Placing player at the bottom of the scene.
-            var playerOffset = Vector3.forward * Mathf.Floor(LevelDimY * 0.5f) + Vector3.down * 0.5f;
-            playerInstance.transform.Translate(playerInstance.transform.TransformVector(playerOffset), Space.Self);
-            playerInstance.StoreCurrentPositionAsStartPosition();
-
-            return playerInstance;
-        }
-
-        private void InitWallsAndGap()
-        {
-            var wall = Instantiate(_wallBehaviourPrefab, transform);
-            var gap = Instantiate(_gapPrefab, transform);
-        }
+#endif
     }
 }
