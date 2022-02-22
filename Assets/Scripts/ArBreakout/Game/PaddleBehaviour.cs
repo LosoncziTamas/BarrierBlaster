@@ -5,6 +5,7 @@ using ArBreakout.GamePhysics;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
 using DG.Tweening;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace ArBreakout.Game
@@ -131,12 +132,12 @@ namespace ArBreakout.Game
             var localAcceleration = Vector3.zero;
             var controlSwitchIsActive = _activePowerUps[(int) PowerUp.ControlSwitch];
 
-            if (_playerInput.Left || Input.GetAxis("Horizontal") < 0)
+            if (_playerInput.Left)
             {
                 localAcceleration.x += controlSwitchIsActive ? 1.0f : -1.0f;
             }
 
-            if (_playerInput.Right || Input.GetAxis("Horizontal") > 0)
+            if (_playerInput.Right)
             {
                 localAcceleration.x += controlSwitchIsActive ? -1.0f : 1.0f;
             }
@@ -360,6 +361,15 @@ namespace ArBreakout.Game
                 newVelocity.Scale(Vector3.right);
                 _localVelocity = newVelocity;
             }
+        }
+
+        [UsedImplicitly]
+        public void ReAnchorBall()
+        {
+            // Assuming there is only one ball
+            var ball = _gameEntities.Balls[0];
+            GamePlayUtils.AnchorBallToPaddle(ball, this);
+
         }
     }
 }

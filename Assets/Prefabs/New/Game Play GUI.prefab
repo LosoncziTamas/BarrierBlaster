@@ -576,6 +576,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7879810527705700885}
   - component: {fileID: 7879810527705700883}
+  - component: {fileID: 4943634639615437043}
   m_Layer: 5
   m_Name: Game Play GUI
   m_TagString: Untagged
@@ -625,6 +626,22 @@ MonoBehaviour:
   _backButton: {fileID: 6794177858715247484}
   _powerUpPanel: {fileID: 546713856001666913}
   _levels: {fileID: 11400000, guid: a6463425b499d472dad9a769b384e936, type: 2}
+--- !u!114 &4943634639615437043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7879810527705700884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d27256d7c05495c97818cef431dc0ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: 18a64065f1b6347d9a55f8dc36534d09, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7879810527887228565
 GameObject:
   m_ObjectHideFlags: 0

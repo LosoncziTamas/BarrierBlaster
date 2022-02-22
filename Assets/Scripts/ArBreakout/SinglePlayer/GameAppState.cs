@@ -63,7 +63,7 @@ namespace ArBreakout.SinglePlayer
 
         private void OnEnable()
         {
-            Gap.BallHasLeftTheGameEvent += OnBallHasLeftTheGameEvent;
+            // Gap.BallHasLeftTheGameEvent += OnBallHasLeftTheGameEvent;
             BrickBehaviour.BrickDestroyedEvent += OnBrickDestroyedEvent;
             PaddleBehaviour.PowerUpStateChangeEvent += OnPowerUpStateChangeEvent;
 
@@ -76,7 +76,7 @@ namespace ArBreakout.SinglePlayer
 
         private void OnDisable()
         {
-            Gap.BallHasLeftTheGameEvent -= OnBallHasLeftTheGameEvent;
+            // Gap.BallHasLeftTheGameEvent -= OnBallHasLeftTheGameEvent;
             BrickBehaviour.BrickDestroyedEvent -= OnBrickDestroyedEvent;
             PaddleBehaviour.PowerUpStateChangeEvent -= OnPowerUpStateChangeEvent;
 
@@ -229,6 +229,7 @@ namespace ArBreakout.SinglePlayer
             }
         }
 
+        #if false
         private void OnBallHasLeftTheGameEvent(object sender, Gap.BallHasLeftTheGameArgs e)
         {
             _lifeCounter.UpdateLives(--_totalLives);
@@ -237,5 +238,6 @@ namespace ArBreakout.SinglePlayer
                 // GamePlayUtils.AnchorBallToPaddle(_levelRoot.BallBehaviour, _levelRoot.Paddle);
             }
         }
+        #endif
     }
 }

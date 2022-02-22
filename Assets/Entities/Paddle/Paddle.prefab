@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7892694060711817346}
   - component: {fileID: 8749768205540356925}
   - component: {fileID: 3356878027785562754}
+  - component: {fileID: 1011918296105213254}
   m_Layer: 8
   m_Name: Paddle
   m_TagString: Paddle
@@ -130,6 +131,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerInput: {fileID: 11400000, guid: 521c6db7527eb4102a1816768ff7e8d9, type: 2}
   _gameEntities: {fileID: 11400000, guid: 2b277d97f28f149a08c9dfadf311be98, type: 2}
+--- !u!114 &1011918296105213254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587357747351723532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d27256d7c05495c97818cef431dc0ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: 18a64065f1b6347d9a55f8dc36534d09, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3356878027785562754}
+        m_TargetAssemblyTypeName: ArBreakout.Game.PaddleBehaviour, Assembly-CSharp
+        m_MethodName: ReAnchorBall
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &9189816665348010839
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,19 +1,13 @@
-using System;
+using ArBreakout.Misc;
 using UnityEngine;
 
 namespace ArBreakout.Game
 {
     public class Gap : MonoBehaviour
     {
-        public class BallHasLeftTheGameArgs : EventArgs
-        {
-        }
-
-        public static event EventHandler<BallHasLeftTheGameArgs> BallHasLeftTheGameEvent;
-
         [SerializeField] private GameEntities _gameEntities;
-
-
+        [SerializeField] private GameEvent _ballMissedEvent;
+        
         private void Awake()
         {
             _gameEntities.Add(this);
@@ -28,8 +22,7 @@ namespace ArBreakout.Game
         {
             if (other.gameObject.CompareTag(BallBehaviour.GameObjectTag))
             {
-                var eventHandler = BallHasLeftTheGameEvent;
-                eventHandler?.Invoke(this, new BallHasLeftTheGameArgs());
+                _ballMissedEvent.Raise();
             }
         }
     }

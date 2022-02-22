@@ -2,6 +2,7 @@ using ArBreakout.Game;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
 using ArBreakout.Tutorial;
+using JetBrains.Annotations;
 using Possible.AppController;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,7 +16,7 @@ namespace ArBreakout.Gui
         [SerializeField] private Button _backButton;
         [SerializeField] private PowerUpPanel _powerUpPanel;
         [SerializeField] private Levels.Levels _levels;
-
+        
         private TutorialOverlay _tutorialOverlay;
         private LevelRoot _levelRoot;
 
@@ -40,6 +41,17 @@ namespace ArBreakout.Gui
         private void OnDisable()
         {
             _backButton.onClick.RemoveListener(OnPause);
+        }
+
+        [UsedImplicitly]
+        public void OnBallMissed()
+        {
+            /*
+            _lifeCounter.UpdateLives(--_totalLives);
+            if (_totalLives > 0)
+            {
+                GamePlayUtils.AnchorBallToPaddle(_levelRoot.BallBehaviour, _levelRoot.Paddle);
+            }*/
         }
 
         private async void OnPause()
