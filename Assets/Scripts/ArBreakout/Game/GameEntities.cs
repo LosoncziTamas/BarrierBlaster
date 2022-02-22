@@ -33,12 +33,6 @@ namespace ArBreakout.Game
             Debug.Assert(Gap == null);
             Gap = gap;
         }
-
-        public void Remove(Gap gap)
-        {
-            Debug.Assert(gap == Gap);
-            Gap = null;
-        }
         
         public void Add(PaddleBehaviour paddleBehaviour)
         {
@@ -46,24 +40,35 @@ namespace ArBreakout.Game
             Paddle = paddleBehaviour;
         }
 
+        public void Remove(Gap gap)
+        {
+            Debug.Log($"[GameEntities] remove {gap.name}");
+            Debug.Assert(gap == Gap);
+            Gap = null;
+        }
+
         public void Remove(PaddleBehaviour paddleBehaviour)
         {
+            Debug.Log($"[GameEntities] remove {paddleBehaviour.name}");
             Debug.Assert(paddleBehaviour == Paddle);
             Paddle = null;
         }
         
         public void Remove(WallBehaviour wallBehaviour)
         {
+            Debug.Log($"[GameEntities] remove {wallBehaviour.name}");
             Walls.Remove(wallBehaviour);
         }
         
         public void Remove(BallBehaviour ballBehaviour)
         {
+            Debug.Log($"[GameEntities] remove {ballBehaviour.name}");
             Balls.Remove(ballBehaviour);
         }
         
         public void Remove(BrickBehaviour brickBehaviour)
         {
+            Debug.Log($"[GameEntities] remove {brickBehaviour.name}");
             Bricks.Remove(brickBehaviour);
         }
     }

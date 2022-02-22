@@ -7,7 +7,7 @@ namespace ArBreakout.Game
     {
         [SerializeField] private BrickBehaviour _brickPrefab;
 
-        private readonly Stack<BrickBehaviour> _pooledBricks = new Stack<BrickBehaviour>();
+        private readonly Stack<BrickBehaviour> _pooledBricks = new();
 
         public BrickBehaviour GetBrick()
         {

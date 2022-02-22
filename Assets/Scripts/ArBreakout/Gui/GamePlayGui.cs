@@ -49,6 +49,7 @@ namespace ArBreakout.Gui
             GameTime.paused = false;
             if (returnTo == TutorialOverlay.ReturnState.MainMenu)
             {
+                _levelRoot.ClearLevel();
                 Controller.TransitionTo(typeof(MainMenu));
             }
         }

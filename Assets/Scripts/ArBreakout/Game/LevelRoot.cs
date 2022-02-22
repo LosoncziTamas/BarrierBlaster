@@ -17,6 +17,7 @@ namespace ArBreakout.Game
         [SerializeField] private Gap _gapPrefab;
         [SerializeField] private ColorPalette _colorPalette;
         [SerializeField] private BrickPool _brickPool;
+        [SerializeField] private GameEntities _gameEntities;
         
         public int InitialBrickCount => 5;//_brickReferences.Count;
         
@@ -71,6 +72,29 @@ namespace ArBreakout.Game
                     brick.Init(bricksProp, color, rowCount);
                 }
             }
+        }
+
+        public void ClearLevel()
+        {
+            foreach (var brick in _gameEntities.Bricks)
+            {
+                _brickPool.ReturnBrick(brick);
+            }
+
+            // TODO: consider polling these as well
+            foreach (var ball in _gameEntities.Balls)
+            {
+                Destroy(ball.gameObject);
+            }
+            
+            foreach (var wall in _gameEntities.Walls)
+            {
+                Destroy(wall.gameObject);
+            }
+            
+            Destroy(_gameEntities.Gap.gameObject);
+            // Paddle has a parent GO.
+            Destroy(_gameEntities.Paddle.transform.parent.gameObject);
         }
         
         private BallBehaviour InitBall(Transform paddleTransform)

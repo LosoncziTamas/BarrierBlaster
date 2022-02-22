@@ -1268,8 +1268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c50cf307f2f47ac863543337740ff92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _brickPoolPrefab: {fileID: 8822343065976666617, guid: 8123771aac975491d99111a57219f421,
-    type: 3}
   _ballPrefab: {fileID: 7102717554571487894, guid: e55b5f4bd7ef14c43af9d89758daa71f,
     type: 3}
   _paddleParentPrefab: {fileID: 9189816665348010839, guid: d313a618b74e344adafeee1edb453140,
@@ -1279,8 +1277,8 @@ MonoBehaviour:
   _gapPrefab: {fileID: 3228544412225583249, guid: e46a87f38612f446dbce686215ece893,
     type: 3}
   _colorPalette: {fileID: 11400000, guid: c7bd3695bf3a54c58913042ab0f9cff9, type: 2}
-  _levels: {fileID: 11400000, guid: a6463425b499d472dad9a769b384e936, type: 2}
   _brickPool: {fileID: 1250186865}
+  _gameEntities: {fileID: 11400000, guid: 2b277d97f28f149a08c9dfadf311be98, type: 2}
 --- !u!1001 &2047420843
 PrefabInstance:
   m_ObjectHideFlags: 0
