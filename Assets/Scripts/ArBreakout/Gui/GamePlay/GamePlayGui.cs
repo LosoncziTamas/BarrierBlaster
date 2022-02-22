@@ -17,6 +17,8 @@ namespace ArBreakout.Gui
         [SerializeField] private PowerUpPanel _powerUpPanel;
         [SerializeField] private Levels.Levels _levels;
         
+        [SerializeField] private IntVariable _lifeCount;
+        
         private TutorialOverlay _tutorialOverlay;
         private LevelRoot _levelRoot;
 
@@ -31,6 +33,7 @@ namespace ArBreakout.Gui
         {
             base.OnEnter(fromState);
             _levelRoot.InitLevel(_levels.Selected);
+            _lifeCount.Value = 3;
         }
 
         private void OnEnable()
@@ -46,12 +49,11 @@ namespace ArBreakout.Gui
         [UsedImplicitly]
         public void OnBallMissed()
         {
-            /*
-            _lifeCounter.UpdateLives(--_totalLives);
-            if (_totalLives > 0)
+            _lifeCount.Value--;
+            if (_lifeCount.Value < 0)
             {
-                GamePlayUtils.AnchorBallToPaddle(_levelRoot.BallBehaviour, _levelRoot.Paddle);
-            }*/
+                // TODO: display modal   
+            }
         }
 
         private async void OnPause()

@@ -626,6 +626,7 @@ MonoBehaviour:
   _backButton: {fileID: 6794177858715247484}
   _powerUpPanel: {fileID: 546713856001666913}
   _levels: {fileID: 11400000, guid: a6463425b499d472dad9a769b384e936, type: 2}
+  _lifeCount: {fileID: 11400000, guid: 58fbcde8c389844039137e7aa4a8cf3e, type: 2}
 --- !u!114 &4943634639615437043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -641,7 +642,19 @@ MonoBehaviour:
   _event: {fileID: 11400000, guid: 18a64065f1b6347d9a55f8dc36534d09, type: 2}
   _response:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7879810527705700883}
+        m_TargetAssemblyTypeName: ArBreakout.Gui.GamePlayGui, Assembly-CSharp
+        m_MethodName: OnBallMissed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7879810527887228565
 GameObject:
   m_ObjectHideFlags: 0

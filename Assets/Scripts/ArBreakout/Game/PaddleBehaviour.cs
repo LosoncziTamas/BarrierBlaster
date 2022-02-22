@@ -369,7 +369,6 @@ namespace ArBreakout.Game
             // Assuming there is only one ball
             var ball = _gameEntities.Balls[0];
             GamePlayUtils.AnchorBallToPaddle(ball, this);
-
         }
     }
 }
