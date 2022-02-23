@@ -5,6 +5,11 @@ namespace ArBreakout.Misc
     [CreateAssetMenu]
     public class IntVariable : ScriptableObject
     {
-        public int Value;
+        [SerializeField] private int _value;
+        public int Value
+        {
+            get => _value;
+            set => _value = value;
+        }
     }
 }

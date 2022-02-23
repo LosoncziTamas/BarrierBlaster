@@ -20,6 +20,7 @@ namespace ArBreakout.Gui
         [SerializeField] private IntVariable _lifeCount;
         
         private TutorialOverlay _tutorialOverlay;
+        private GameOverModal _gameOverModal;
         private LevelRoot _levelRoot;
 
         protected override void Awake()
@@ -27,6 +28,7 @@ namespace ArBreakout.Gui
             base.Awake();
             _tutorialOverlay = FindObjectOfType<TutorialOverlay>();
             _levelRoot = FindObjectOfType<LevelRoot>();
+            _gameOverModal = FindObjectOfType<GameOverModal>(includeInactive: true);
         }
         
         public override void OnEnter(AppState fromState)
@@ -47,12 +49,19 @@ namespace ArBreakout.Gui
         }
 
         [UsedImplicitly]
-        public void OnBallMissed()
+        public async void OnBallMissed()
         {
             _lifeCount.Value--;
             if (_lifeCount.Value < 0)
             {
-                // TODO: display modal   
+                GameTime.paused = true;
+                var retry = await _gameOverModal.Show();
+                GameTime.paused = false;
+                if (!retry)
+                {
+                    _levelRoot.ClearLevel();
+                    Controller.TransitionTo(typeof(MainMenu));
+                }
             }
         }
 
