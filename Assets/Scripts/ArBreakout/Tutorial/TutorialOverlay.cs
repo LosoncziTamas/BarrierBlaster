@@ -20,6 +20,7 @@ namespace ArBreakout.Tutorial
         [SerializeField] private Button _prevButton;
         [SerializeField] private Button _nextButton;
         [SerializeField] private Button _backButton;
+        [SerializeField] private Button _closeButton;
         [SerializeField] private TextMeshProUGUI _descriptionText;
         [SerializeField] private Canvas _tutorialCanvas;
         [SerializeField] private PowerUpMapping _powerUpMappings;
@@ -40,6 +41,7 @@ namespace ArBreakout.Tutorial
             _backButton.onClick.AddListener(OnBackButtonClick);
             _prevButton.onClick.AddListener(OnPrevButtonClick);
             _nextButton.onClick.AddListener(OnNextButtonClick);
+            _closeButton.onClick.AddListener(DismissAndResume);
         }
 
         private void OnDisable()
@@ -47,6 +49,7 @@ namespace ArBreakout.Tutorial
             _backButton.onClick.RemoveListener(OnBackButtonClick);
             _prevButton.onClick.RemoveListener(OnPrevButtonClick);
             _nextButton.onClick.RemoveListener(OnNextButtonClick);
+            _closeButton.onClick.RemoveListener(DismissAndResume);
         }
 
         public Task<ReturnState> Show()
@@ -88,7 +91,7 @@ namespace ArBreakout.Tutorial
             _objectSwapper.SwapToPowerUpObject(prevObject.powerUp, -120);
             DisplayItemAtIndex(prevIdx);
         }
-
+        
         private void DisplayItemAtIndex(int index)
         {
             Assert.IsTrue(index > -1 && index < _powerUpMappings.mappings.Length);
