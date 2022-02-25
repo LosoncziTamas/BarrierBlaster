@@ -16,7 +16,4 @@ MonoBehaviour:
     type: 3}
   powerUp: 5
   icon: {fileID: 21300000, guid: 6a6c1fd5a6f374d1d9199bfcc43ec9b7, type: 3}
-  descriptionText: If you catch a ball which has cleared an <b>Emerald</b> your paddle
-    will shrink.
-  material: {fileID: 2100000, guid: b676c9f3f722b4d8cb4a69e9b6179aba, type: 2}
-  color: {r: 0.16078432, g: 0.5764706, b: 0.44705883, a: 1}
+  descriptionText: A scissor truncates the paddle.

@@ -16,7 +16,4 @@ MonoBehaviour:
     type: 3}
   powerUp: 4
   icon: {fileID: 21300000, guid: 5ebd07fbd38ce49aabc5aa27259f95d9, type: 3}
-  descriptionText: If you catch a ball which has cleared an <b>Solidate</b> your
-    paddle will grow.
-  material: {fileID: 2100000, guid: 79e7605ec93594f5e9dd5024f244add5, type: 2}
-  color: {r: 0.23529412, g: 0.29803923, b: 0.53333336, a: 0}
+  descriptionText: Mario must know something.

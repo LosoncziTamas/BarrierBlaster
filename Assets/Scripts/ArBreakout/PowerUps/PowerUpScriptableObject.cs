@@ -9,7 +9,5 @@ namespace ArBreakout.PowerUps
         public PowerUp powerUp;
         public Sprite icon;
         public string descriptionText;
-        public Material material;
-        public Color color;
     }
 }

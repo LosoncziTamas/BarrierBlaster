@@ -16,6 +16,4 @@ MonoBehaviour:
     type: 3}
   powerUp: 2
   icon: {fileID: 21300000, guid: bb0ffe9bef17c48ca847a37226098d68, type: 3}
-  descriptionText: By clearing an <b>Apatite</b> the paddle becomes slower.
-  material: {fileID: 2100000, guid: e1b6277adc16d4f10a6fd30febad387c, type: 2}
-  color: {r: 0.023529412, g: 0.45490196, b: 0.78431374, a: 1}
+  descriptionText: It's a heavy weight to carry and makes your paddle slow.

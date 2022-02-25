@@ -16,6 +16,4 @@ MonoBehaviour:
     type: 3}
   powerUp: 6
   icon: {fileID: 21300000, guid: e21d13fe6dc284df3a0444145c5ca594, type: 3}
-  descriptionText: A <b>Ruby</b> magnetizes the paddle.
-  material: {fileID: 2100000, guid: 8765d5241d2d149f7a7f325e67837e27, type: 2}
-  color: {r: 0.94509804, g: 0.20392157, b: 0.29411766, a: 1}
+  descriptionText: You can magnetize your paddle if you catch one of these guys.
