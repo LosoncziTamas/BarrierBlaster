@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using ArBreakout.Game.Bricks;
 using ArBreakout.Levels;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
@@ -22,7 +23,6 @@ namespace ArBreakout.Game
         private static readonly int HighlightIntensity = Shader.PropertyToID("_HighlightIntensity");
         private Collectable _collectableInstance;
 
-        public PowerUp PowerUp { private set; get; }
         public BrickPool Pool { set; get; }
 
         [SerializeField] private ChangeMeshColor _changeMeshColor;
@@ -33,6 +33,7 @@ namespace ArBreakout.Game
         private Collider _collider;
         private int _hitPoints;
         private Vector3 _originalScale;
+        
 
         private void Awake()
         {
@@ -47,17 +48,17 @@ namespace ArBreakout.Game
             _gameEntities.Remove(this);
         }
 
-        public void Init(LevelLoader.BrickProps brickProps, Color color, int lineCount)
+        public void Init(BrickAttributes brickAttributes, int totalRowCount)
         {
-            _hitPoints = brickProps.HitPoints;
-            _changeMeshColor.SetColor(color);
+            _hitPoints = brickAttributes.HitPoints;
+            _changeMeshColor.SetColor(brickAttributes.Color);
             _collider.enabled = false;
-            var scale01 = Mathf.Sin(((float) brickProps.LineIdx / lineCount) * Mathf.PI);
+            var scale01 = Mathf.Sin(((float) brickAttributes.RowIndex / totalRowCount) * Mathf.PI);
 
             var initialAnimScale = Mathf.Clamp(0.5f + (1 - scale01) * 0.5f, 0.5f, 1.0f);
             transform.localScale = _originalScale * initialAnimScale;
 
-            SetupCollectable(brickProps.PowerUp);
+            SetupCollectable(brickAttributes.PowerUp);
 
             Invoke(nameof(AnimateAppear), scale01);
         }
@@ -71,14 +72,16 @@ namespace ArBreakout.Game
 
         private void SetupCollectable(PowerUp powerUp)
         {
-            if (powerUp != PowerUp.None)
+            if (powerUp == PowerUp.None)
             {
-                var powerUpSo = _powerUpMappings.GetPowerUpDescriptor(powerUp);
-                _collectableInstance = Instantiate(powerUpSo.collectablePrefab, transform.parent);
-                _collectableInstance.transform.position = transform.position;
-                _collectableInstance.Init(powerUp);
-                _collectableInstance.gameObject.SetActive(false);
+                return;
             }
+            
+            var powerUpSo = _powerUpMappings.GetPowerUpDescriptor(powerUp);
+            _collectableInstance = Instantiate(powerUpSo.collectablePrefab, transform.parent);
+            _collectableInstance.transform.position = transform.position;
+            _collectableInstance.Init(powerUp);
+            _collectableInstance.gameObject.SetActive(false);
         }
 
         public void Smash()

@@ -69,7 +69,7 @@ namespace ArBreakout.Game
 
         private void ActivatePowerUp(BrickBehaviour smashedBrick)
         {
-            var powerUp = smashedBrick.PowerUp;
+            // TODO: consider some powerup here
         }
 
         private void DrawContactLine(BreakoutPhysics.Contact contact, Color color)

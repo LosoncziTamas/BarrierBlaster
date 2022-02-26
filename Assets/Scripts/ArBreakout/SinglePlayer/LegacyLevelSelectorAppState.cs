@@ -16,16 +16,12 @@ namespace ArBreakout.SinglePlayer
         [SerializeField] private LevelSelector _levelSelector;
         [SerializeField] private NotificationManager _permissionNotification;
         [SerializeField] private CanvasGroup _canvas;
-
-        private static Level _selectedLevel;
-        public static Level SelectedLevel => _selectedLevel;
-
-        private LevelProgression _levelProgression;
+        
 
         protected override void Awake()
         {
             base.Awake();
-            _levelProgression = LevelProgression.Instance;
+            // _levelProgression = LevelProgression.Instance;
             GameTime.paused = false;
             if (Application.platform == RuntimePlatform.Android)
             {
@@ -50,10 +46,10 @@ namespace ArBreakout.SinglePlayer
 
         private void ResetLevelSelector()
         {
-            var levelSelectorItems = _levelProgression.Levels
+            /*var levelSelectorItems = _levelProgression.Levels
                 .Select((info => new LevelSelector.ItemData(OnLevelSelected, info.displayedName, info.unlocked, info)))
                 .ToList();
-            _levelSelector.SetItems(levelSelectorItems);
+            _levelSelector.SetItems(levelSelectorItems);*/
         }
 
         private void OnEnable()
@@ -69,7 +65,7 @@ namespace ArBreakout.SinglePlayer
         private void OnGUI()
         {
             GUILayout.Space(100);
-            if (_levelProgression.LevelsCompleted)
+            /*if (_levelProgression.LevelsCompleted)
             {
                 if (GUILayout.Button("Clear level progress"))
                 {
@@ -81,12 +77,12 @@ namespace ArBreakout.SinglePlayer
             {
                 _levelProgression.UnlockAllLevels();
                 ResetLevelSelector();
-            }
+            }*/
         }
 
         private void OnLevelSelected(Main.LevelSelector.ItemData level)
         {
-            _selectedLevel = (Level) level.dataRef;
+            /*_selectedLevel = (Level) level.dataRef;
             if (NativePermissions.IsPermissionGranted(Permission.Camera))
             {
                 Controller.TransitionTo(typeof(CheckARAvailabilityState));
@@ -94,7 +90,7 @@ namespace ArBreakout.SinglePlayer
             else
             {
                 NativePermissions.RequestPermission(Permission.Camera);
-            }
+            }*/
         }
 
         private void OnPermissionRequestResult(object sender, RequestResultArgs requestResult)

@@ -36,8 +36,6 @@ namespace ArBreakout.SinglePlayer
         [SerializeField] private TutorialOverlay _tutorialOverlay;
 
         private GameObject _levelParent;
-        private LevelLoader.ParsedLevel _currLevel;
-        private LevelProgression _levelProgression;
 
         private int _totalLives;
         private float _timeLeftInSeconds;
@@ -46,7 +44,6 @@ namespace ArBreakout.SinglePlayer
         public override void OnEnter(AppState fromState)
         {
             base.OnEnter(fromState);
-            _levelProgression = LevelProgression.Instance;
             _levelParent = GameObject.Find("LevelParent");
             Assert.IsNotNull(_levelParent, "No level parent was found");
 
@@ -56,8 +53,8 @@ namespace ArBreakout.SinglePlayer
             // editorCam.position = _levelParent.transform.position + Vector3.up * BreakoutPhysics.LevelSizeInMeter * 2.0f;
             // editorCam.localRotation =  Quaternion.Euler(new Vector3(90.0f, 0.0f, 0f));            
 #endif
-            _currLevel = LegacyLevelSelectorAppState.SelectedLevel.parsedLevel;
-            Assert.IsNotNull(_currLevel, "No level selected.");
+            //_currLevel = LegacyLevelSelectorAppState.SelectedLevel.parsedLevel;
+            //Assert.IsNotNull(_currLevel, "No level selected.");
             InitializeLevel();
         }
 
@@ -93,7 +90,7 @@ namespace ArBreakout.SinglePlayer
         {
             // _levelRoot.SetupLevel(_currLevel);
 
-            _timeLeftInSeconds = _currLevel.timeLimitInSeconds;
+            // _timeLeftInSeconds = _currLevel.timeLimitInSeconds;
             _timeLeftText.text = GamePlayUtils.FormatTime(_timeLeftInSeconds);
             _totalLives = InitialLifeCount;
             _brickCount = _levelRoot.InitialBrickCount;
@@ -171,14 +168,12 @@ namespace ArBreakout.SinglePlayer
         private void InitializeLevel()
         {
 #if UNITY_EDITOR
-            if (_currLevel == null)
-            {
-                _currLevel = _levelProgression.GetDefaultLevel().parsedLevel;
-            }
+
+            
 #endif
             // _levelRoot.InitWithLevel(_levelParent.transform, _currLevel);
 
-            _timeLeftInSeconds = _currLevel.timeLimitInSeconds;
+            // _timeLeftInSeconds = _currLevel.timeLimitInSeconds;
             _timeLeftText.text = GamePlayUtils.FormatTime(_timeLeftInSeconds);
             _totalLives = InitialLifeCount;
             _brickCount = _levelRoot.InitialBrickCount;
@@ -187,7 +182,7 @@ namespace ArBreakout.SinglePlayer
 
         private void SetupNextLevel()
         {
-            var allLevels = _levelProgression.Levels;
+            /*var allLevels = _levelProgression.Levels;
 
             Assert.IsTrue(_currLevel.LevelIndex + 1 < allLevels.Count);
             Assert.IsTrue(_totalLives > 0);
@@ -197,7 +192,7 @@ namespace ArBreakout.SinglePlayer
 
             _timeLeftInSeconds = _currLevel.timeLimitInSeconds;
             _timeLeftText.text = GamePlayUtils.FormatTime(_timeLeftInSeconds);
-            _brickCount = _levelRoot.InitialBrickCount;
+            _brickCount = _levelRoot.InitialBrickCount;*/
         }
 
         private void OnPowerUpStateChangeEvent(object sender, PaddleBehaviour.PowerUpState e)
@@ -212,7 +207,7 @@ namespace ArBreakout.SinglePlayer
             _brickCount--;
             if (_brickCount == 0)
             {
-                _levelProgression.UnlockNextLevel(_currLevel.LevelIndex);
+                /*_levelProgression.UnlockNextLevel(_currLevel.LevelIndex);
 
                 if (_currLevel.LevelIndex == _levelProgression.Levels.Count - 1)
                 {
@@ -222,7 +217,7 @@ namespace ArBreakout.SinglePlayer
                 {
                     _completionModalText.text = $"Time: {GamePlayUtils.FormatTime(_timeLeftInSeconds)}";
                     _levelCompleteModal.OpenWindow();
-                }
+                }*/
 
                 // GamePlayUtils.AnchorBallToPaddle(_levelRoot.BallBehaviour, _levelRoot.Paddle);
                 GameTime.paused = true;

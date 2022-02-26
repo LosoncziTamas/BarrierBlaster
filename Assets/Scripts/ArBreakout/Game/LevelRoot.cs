@@ -1,3 +1,4 @@
+using ArBreakout.Game.Bricks;
 using ArBreakout.Levels;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
@@ -59,17 +60,16 @@ namespace ArBreakout.Game
                     brickTransform.localPosition = pos;
                     brickTransform.localRotation = Quaternion.identity;
 
-                    var bricksProp = new LevelLoader.BrickProps
+                    var brickAttributes = new BrickAttributes()
                     {
                         HitPoints = 3,
-                        LineIdx = row,
+                        RowIndex = row,
+                        Color = _colorPalette.Colors[row % 5],
                         PowerUp = PowerUp.None
                     };
                     
                     // Scale of the brick is set with the animation.
-                    var lineIndex = bricksProp.LineIdx;
-                    var color = _colorPalette.Colors[lineIndex % 5];
-                    brick.Init(bricksProp, color, rowCount);
+                    brick.Init(brickAttributes, rowCount);
                 }
             }
         }
