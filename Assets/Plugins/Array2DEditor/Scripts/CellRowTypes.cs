@@ -22,4 +22,7 @@ namespace Array2DEditor
     
     [System.Serializable]
     public class CellRowChar : CellRow<char> { }
+    
+    [System.Serializable]
+    public class CellRowColor : CellRow<Color> { }
 }

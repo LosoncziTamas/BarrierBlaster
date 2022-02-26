@@ -5,7 +5,11 @@ namespace Array2DEditor
     [System.Serializable]
     public abstract class Array2D<T>
     {
-        public Vector2Int GridSize => gridSize;
+        public Vector2Int GridSize
+        {
+            get => gridSize;
+            set => gridSize = value;
+        }
         
         [SerializeField]
         private Vector2Int gridSize = Vector2Int.one * Consts.defaultGridSize;
