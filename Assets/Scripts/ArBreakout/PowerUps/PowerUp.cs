@@ -11,36 +11,31 @@ namespace ArBreakout.PowerUps
         Magnet
     }
 
-    static class PowerUpUtils
+    public static class PowerUpUtils
     {
         public static PowerUp ParseLevelElement(string element)
         {
-            if (element.Equals("a"))
+            if (element.Contains("-"))
             {
                 return PowerUp.Decelerator;
             }
-
-            if (element.Equals("c"))
+            if (element.Contains("+"))
             {
                 return PowerUp.Accelerator;
             }
-
-            if (element.Equals("r"))
+            if (element.Contains("o"))
             {
                 return PowerUp.Minifier;
             }
-
-            if (element.Equals("e"))
+            if (element.Contains("O"))
             {
                 return PowerUp.Magnifier;
             }
-
-            if (element.Equals("s"))
+            if (element.Contains("%"))
             {
                 return PowerUp.ControlSwitch;
             }
-
-            if (element.Equals("m"))
+            if (element.Contains("="))
             {
                 return PowerUp.Magnet;
             }

@@ -33,19 +33,24 @@ namespace ArBreakout.Game
             var paddle = InitPaddle();
             InitBall(paddle.transform);
             
-            var cells = selected.Layout.GetCells();
-            var rowCount = cells.GetLength(0);
+            var layoutCells = selected.Layout.GetCells();
+            var colorCells = selected.Colors.GetCells();
+            var rowCount = layoutCells.GetLength(0);
+
+            const float rowPadding = 1.0f;
+            
             for (var row = 0; row < rowCount; row++) 
             {
-                for (var col = 0; col < cells.GetLength(1); col++)
+                for (var col = 0; col < layoutCells.GetLength(1); col++)
                 {
                     // Starts at top left, goes to bottom right.
-                    var c = cells[row, col];
-                    if (char.IsWhiteSpace(c))
+                    var c = layoutCells[row, col];
+                    if (string.IsNullOrWhiteSpace(c))
                     {
                         continue;
                     }
                     
+                    // TODO: add padding
                     var pos = new Vector3
                     {
                         x = -0.5f * LevelDimension + col + 0.5f,
@@ -60,12 +65,13 @@ namespace ArBreakout.Game
                     brickTransform.localPosition = pos;
                     brickTransform.localRotation = Quaternion.identity;
 
+                    int.TryParse(c, out var hitPoints);
                     var brickAttributes = new BrickAttributes()
                     {
-                        HitPoints = 3,
+                        HitPoints = hitPoints,
                         RowIndex = row,
-                        Color = _colorPalette.Colors[row % 5],
-                        PowerUp = PowerUp.None
+                        Color = colorCells[row, col],
+                        PowerUp = PowerUpUtils.ParseLevelElement(c)
                     };
                     
                     // Scale of the brick is set with the animation.
