@@ -20,8 +20,6 @@ namespace ArBreakout.Game
         [SerializeField] private BrickPool _brickPool;
         [SerializeField] private GameEntities _gameEntities;
         
-        public int InitialBrickCount => 5;//_brickReferences.Count;
-        
         private void Awake()
         {
             gameObject.name = ObjectName;
@@ -65,7 +63,7 @@ namespace ArBreakout.Game
                     brickTransform.localPosition = pos;
                     brickTransform.localRotation = Quaternion.identity;
 
-                    int.TryParse(c, out var hitPoints);
+                    int.TryParse(c[..1], out var hitPoints);
                     var brickAttributes = new BrickAttributes()
                     {
                         HitPoints = hitPoints,

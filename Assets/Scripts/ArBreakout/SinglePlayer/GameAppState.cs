@@ -93,7 +93,7 @@ namespace ArBreakout.SinglePlayer
             // _timeLeftInSeconds = _currLevel.timeLimitInSeconds;
             _timeLeftText.text = GamePlayUtils.FormatTime(_timeLeftInSeconds);
             _totalLives = InitialLifeCount;
-            _brickCount = _levelRoot.InitialBrickCount;
+            // _brickCount = _levelRoot.InitialBrickCount;
             _lifeCounter.UpdateLives(_totalLives);
         }
 
@@ -176,7 +176,7 @@ namespace ArBreakout.SinglePlayer
             // _timeLeftInSeconds = _currLevel.timeLimitInSeconds;
             _timeLeftText.text = GamePlayUtils.FormatTime(_timeLeftInSeconds);
             _totalLives = InitialLifeCount;
-            _brickCount = _levelRoot.InitialBrickCount;
+            // _brickCount = _levelRoot.InitialBrickCount;
             _lifeCounter.UpdateLives(_totalLives);
         }
 

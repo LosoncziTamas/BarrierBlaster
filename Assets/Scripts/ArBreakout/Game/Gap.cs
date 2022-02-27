@@ -1,4 +1,5 @@
 using ArBreakout.Misc;
+using ArBreakout.PowerUps;
 using UnityEngine;
 
 namespace ArBreakout.Game
@@ -23,6 +24,11 @@ namespace ArBreakout.Game
             if (other.gameObject.CompareTag(BallBehaviour.GameObjectTag))
             {
                 _ballMissedEvent.Raise();
+            }
+            else if (other.gameObject.CompareTag(Collectable.GameObjectTag))
+            {
+                var collectable = other.gameObject.GetComponentInParent<Collectable>();
+                collectable.Destroy();
             }
         }
     }
