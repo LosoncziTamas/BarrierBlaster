@@ -11,8 +11,6 @@ namespace ArBreakout.Gui
 {
     public class GamePlayGui : AppState
     {
-        [SerializeField] private LifeCounter _lifeCounter;
-        [SerializeField] private Text _timeLeftText;
         [SerializeField] private Button _backButton;
         [SerializeField] private PowerUpPanel _powerUpPanel;
         [SerializeField] private Levels.Levels _levels;
