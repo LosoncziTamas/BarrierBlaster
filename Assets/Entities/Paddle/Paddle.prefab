@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8749768205540356925}
   - component: {fileID: 3356878027785562754}
   - component: {fileID: 1011918296105213254}
+  - component: {fileID: 7034805691892276277}
   m_Layer: 8
   m_Name: Paddle
   m_TagString: Paddle
@@ -162,6 +163,34 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7034805691892276277}
+        m_TargetAssemblyTypeName: ArBreakout.Game.Paddle.PaddleHitPoints, Assembly-CSharp
+        m_MethodName: OnBallMissed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7034805691892276277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587357747351723532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce80e640394b4c0695e0ff95f31c8a17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hitPoints:
+  - {fileID: 9106025071284231657}
+  - {fileID: 5170644878373728321}
+  - {fileID: 1376764186592241367}
 --- !u!1 &9189816665348010839
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,6 +298,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1279437285075405058}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &9106025071284231657 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8042972503493956843, guid: a73d5c0dbee9a459187a7e56a7ab398c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1279437285075405058}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2909240695876576426
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -338,6 +373,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a73d5c0dbee9a459187a7e56a7ab398c, type: 3}
+--- !u!1 &5170644878373728321 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8042972503493956843, guid: a73d5c0dbee9a459187a7e56a7ab398c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2909240695876576426}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6672195683006643539 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8414927940605975033, guid: a73d5c0dbee9a459187a7e56a7ab398c,
@@ -416,6 +457,12 @@ PrefabInstance:
 --- !u!4 &595191190310529989 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8414927940605975033, guid: a73d5c0dbee9a459187a7e56a7ab398c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8972682678557127228}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1376764186592241367 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8042972503493956843, guid: a73d5c0dbee9a459187a7e56a7ab398c,
     type: 3}
   m_PrefabInstance: {fileID: 8972682678557127228}
   m_PrefabAsset: {fileID: 0}
