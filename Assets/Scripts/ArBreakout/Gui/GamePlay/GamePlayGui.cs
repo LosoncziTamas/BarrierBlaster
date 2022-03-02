@@ -50,7 +50,7 @@ namespace ArBreakout.Gui
         public async void OnBallMissed()
         {
             _lifeCount.Value--;
-            if (_lifeCount.Value < 0)
+            if (_lifeCount.Value < 1)
             {
                 GameTime.paused = true;
                 var retry = await _gameOverModal.Show();
