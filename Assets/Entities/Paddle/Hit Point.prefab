@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8414927940605975033}
   - component: {fileID: 1497088613979027734}
   - component: {fileID: 7870486786934756935}
+  - component: {fileID: 379038868352505149}
+  - component: {fileID: 6291370081237032737}
   m_Layer: 8
   m_Name: Hit Point
   m_TagString: Untagged
@@ -83,3 +85,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &379038868352505149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8042972503493956843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61bf62332f04954968f460e8501b344, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _meshRenderer: {fileID: 7870486786934756935}
+--- !u!114 &6291370081237032737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8042972503493956843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9df260fa17940b1b83c493498499d4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _changeMeshColor: {fileID: 379038868352505149}
