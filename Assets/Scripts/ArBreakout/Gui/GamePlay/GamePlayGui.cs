@@ -55,7 +55,12 @@ namespace ArBreakout.Gui
                 GameTime.paused = true;
                 var retry = await _gameOverModal.Show();
                 GameTime.paused = false;
-                if (!retry)
+                if (retry)
+                {
+                    _lifeCount.Value = 3;
+                    _levelRoot.ContinueWithLevel(_levels.Selected);
+                }
+                else
                 {
                     _levelRoot.ClearLevel();
                     Controller.TransitionTo(typeof(MainMenu));

@@ -30,12 +30,14 @@ namespace ArBreakout.Game
             InitWallsAndGap();
             var paddle = InitPaddle();
             InitBall(paddle.transform);
-            
+            InitBricks(selected);
+        }
+
+        private void InitBricks(LevelData selected)
+        {
             var layoutCells = selected.Layout.GetCells();
             var colorCells = selected.Colors.GetCells();
             var rowCount = layoutCells.GetLength(0);
-
-            const float rowPadding = 1.0f;
             
             for (var row = 0; row < rowCount; row++) 
             {
@@ -76,6 +78,16 @@ namespace ArBreakout.Game
                     brick.Init(brickAttributes, rowCount);
                 }
             }
+        }
+
+        public void ContinueWithLevel(LevelData levelData)
+        {
+            foreach (var brick in _gameEntities.Bricks)
+            {
+                _brickPool.ReturnBrick(brick);
+            }
+
+            InitBricks(levelData);
         }
 
         public void ClearLevel()
