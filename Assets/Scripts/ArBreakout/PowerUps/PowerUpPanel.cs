@@ -47,8 +47,9 @@ namespace ArBreakout.PowerUps
                 var data = _powerUpMappings.GetPowerUpDescriptor(powerUp);
                 var item = _pool.GetItem().GetComponent<PowerUpItem>();
 
-                item.transform.SetParent(transform);
-                item.transform.localScale = Vector3.one;
+                Transform itemTransform;
+                (itemTransform = item.transform).SetParent(transform);
+                itemTransform.localScale = Vector3.one;
                 item.Init(data.icon, powerUpTime);
             }
         }

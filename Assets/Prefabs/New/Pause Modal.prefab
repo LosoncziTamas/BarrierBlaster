@@ -1440,6 +1440,7 @@ GameObject:
   - component: {fileID: 9100463286765856863}
   - component: {fileID: 9100463286765856862}
   - component: {fileID: 9100463286765856859}
+  - component: {fileID: 7963868730538722697}
   m_Layer: 5
   m_Name: Pause Modal
   m_TagString: Untagged
@@ -1538,6 +1539,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9100463286765856861}
   m_CullTransparentMesh: 0
+--- !u!114 &7963868730538722697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9100463286765856861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.019607844}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &9100463286773496578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,6 +1682,7 @@ MonoBehaviour:
   _descriptionText: {fileID: 5026593169768454043}
   _tutorialCanvas: {fileID: 9100463286765856856}
   _powerUpMappings: {fileID: 11400000, guid: 478a13d953ece489bb6546344ea15e2f, type: 2}
+  _panel: {fileID: 9100463286773496579}
 --- !u!1 &9100463286800220692
 GameObject:
   m_ObjectHideFlags: 0

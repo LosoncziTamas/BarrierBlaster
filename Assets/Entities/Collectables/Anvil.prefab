@@ -48,6 +48,7 @@ MonoBehaviour:
   _movementProperties: {fileID: 11400000, guid: 4721bce2e5fff4d869c538f83a526c5a,
     type: 2}
   _rotateAnimation: 0
+  _gameEntities: {fileID: 11400000, guid: 2b277d97f28f149a08c9dfadf311be98, type: 2}
 --- !u!1 &8772468243805709773
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,6 +33,7 @@ namespace ArBreakout.Game
         private Collider _collider;
         private int _hitPoints;
         private Vector3 _originalScale;
+        private PowerUpScriptableObject _powerUpProperties;
         
 
         private void Awake()
@@ -74,14 +75,10 @@ namespace ArBreakout.Game
         {
             if (powerUp == PowerUp.None)
             {
+                _powerUpProperties = null;
                 return;
             }
-            
-            var powerUpSo = _powerUpMappings.GetPowerUpDescriptor(powerUp);
-            _collectableInstance = Instantiate(powerUpSo.collectablePrefab, transform.parent);
-            _collectableInstance.transform.position = transform.position;
-            _collectableInstance.Init(powerUp);
-            _collectableInstance.gameObject.SetActive(false);
+            _powerUpProperties = _powerUpMappings.GetPowerUpDescriptor(powerUp);
         }
 
         public void Smash()
@@ -122,11 +119,12 @@ namespace ArBreakout.Game
 
         private void EmitCollectable()
         {
-            if (_collectableInstance)
+            if (_powerUpProperties)
             {
-                _collectableInstance.gameObject.SetActive(true);
+                _collectableInstance = Instantiate(_powerUpProperties.collectablePrefab, transform.parent);
+                _collectableInstance.transform.position = transform.position;
+                _collectableInstance.Init(_powerUpProperties.powerUp);
                 _collectableInstance.AnimateAppearance();
-                _collectableInstance = null;
             }
         }
     }

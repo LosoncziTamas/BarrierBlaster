@@ -145,3 +145,4 @@ MonoBehaviour:
   _movementProperties: {fileID: 11400000, guid: 4721bce2e5fff4d869c538f83a526c5a,
     type: 2}
   _rotateAnimation: 1
+  _gameEntities: {fileID: 11400000, guid: 2b277d97f28f149a08c9dfadf311be98, type: 2}

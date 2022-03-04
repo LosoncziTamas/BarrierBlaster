@@ -24,6 +24,7 @@ namespace ArBreakout.Tutorial
         [SerializeField] private TextMeshProUGUI _descriptionText;
         [SerializeField] private Canvas _tutorialCanvas;
         [SerializeField] private PowerUpMapping _powerUpMappings;
+        [SerializeField] private RectTransform _panel;
 
         private ObjectSwapper _objectSwapper;
         private TaskCompletionSource<ReturnState> _taskCompletionSource;
@@ -54,6 +55,7 @@ namespace ArBreakout.Tutorial
 
         public Task<ReturnState> Show()
         {
+            _panel.DOPunchScale(Vector3.one * 0.1f, 0.6f);
             Debug.Assert(_taskCompletionSource == null);
             _taskCompletionSource = new TaskCompletionSource<ReturnState>();
             _tutorialCanvas.enabled = true;

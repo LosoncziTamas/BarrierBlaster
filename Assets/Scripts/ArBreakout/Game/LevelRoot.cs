@@ -87,6 +87,11 @@ namespace ArBreakout.Game
                 _brickPool.ReturnBrick(brick);
             }
 
+            foreach (var collectable in _gameEntities.Collectables)
+            {
+                collectable.Destroy();
+            }
+
             InitBricks(levelData);
         }
 
@@ -95,6 +100,11 @@ namespace ArBreakout.Game
             foreach (var brick in _gameEntities.Bricks)
             {
                 _brickPool.ReturnBrick(brick);
+            }
+            
+            foreach (var collectable in _gameEntities.Collectables)
+            {
+                collectable.Destroy();
             }
 
             // TODO: consider polling these as well

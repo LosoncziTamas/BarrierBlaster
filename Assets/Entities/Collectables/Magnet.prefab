@@ -30,6 +30,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -53,6 +54,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -98,6 +100,7 @@ MonoBehaviour:
   _movementProperties: {fileID: 11400000, guid: 4721bce2e5fff4d869c538f83a526c5a,
     type: 2}
   _rotateAnimation: 1
+  _gameEntities: {fileID: 11400000, guid: 2b277d97f28f149a08c9dfadf311be98, type: 2}
 --- !u!65 &3714541662912069266
 BoxCollider:
   m_ObjectHideFlags: 0

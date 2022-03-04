@@ -14,7 +14,6 @@ namespace ArBreakout.Gui
         [SerializeField] private Button _backButton;
         [SerializeField] private PowerUpPanel _powerUpPanel;
         [SerializeField] private Levels.Levels _levels;
-        
         [SerializeField] private IntVariable _lifeCount;
         
         private TutorialOverlay _tutorialOverlay;
@@ -39,11 +38,18 @@ namespace ArBreakout.Gui
         private void OnEnable()
         {
             _backButton.onClick.AddListener(OnPause);
+            PaddleBehaviour.PowerUpStateChangeEvent += OnPowerUpStateChangeEvent;
         }
-
+        
         private void OnDisable()
         {
             _backButton.onClick.RemoveListener(OnPause);
+            PaddleBehaviour.PowerUpStateChangeEvent -= OnPowerUpStateChangeEvent;
+        }
+
+        private void OnPowerUpStateChangeEvent(object sender, PaddleBehaviour.PowerUpState e)
+        {
+            _powerUpPanel.Refresh(e.ActivePowerUps, e.ActivePowerUpTimes);
         }
 
         [UsedImplicitly]

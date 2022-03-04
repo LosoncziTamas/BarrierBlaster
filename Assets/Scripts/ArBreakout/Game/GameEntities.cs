@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ArBreakout.PowerUps;
 using UnityEngine;
 
 namespace ArBreakout.Game
@@ -9,8 +10,8 @@ namespace ArBreakout.Game
         public List<BrickBehaviour> Bricks { get; } = new();
         public List<BallBehaviour> Balls { get; } = new();
         public List<WallBehaviour> Walls { get; } = new();
+        public List<Collectable> Collectables { get; } = new();
         public Gap Gap { get; private set;}
-        
         public PaddleBehaviour Paddle { get; private set;}
 
         public void Add(BrickBehaviour brickBehaviour)
@@ -38,6 +39,17 @@ namespace ArBreakout.Game
         {
             Debug.Assert(Paddle == null);
             Paddle = paddleBehaviour;
+        }
+        
+        public void Add(Collectable collectable)
+        {
+            Collectables.Add(collectable);
+        }
+        
+        public void Remove(Collectable collectable)
+        {
+            Debug.Log($"[GameEntities] remove {collectable.name}");
+            Collectables.Remove(collectable);
         }
 
         public void Remove(Gap gap)

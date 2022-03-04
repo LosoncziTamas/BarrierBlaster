@@ -1,3 +1,4 @@
+using ArBreakout.Game;
 using ArBreakout.GamePhysics;
 using ArBreakout.Misc;
 using DG.Tweening;
@@ -13,6 +14,7 @@ namespace ArBreakout.PowerUps
 
         [SerializeField] private MovementProperties _movementProperties;
         [SerializeField] private bool _rotateAnimation;
+        [SerializeField] private GameEntities _gameEntities;
 
         private Vector3 _velocity;
         private Vector3 _acceleration;
@@ -23,6 +25,7 @@ namespace ArBreakout.PowerUps
         private void Awake()
         {
             _originalScale = transform.localScale;
+            _gameEntities.Add(this);
         }
 
         public void Init(PowerUp powerUp)
@@ -72,6 +75,11 @@ namespace ArBreakout.PowerUps
             }
 
             _destroyed = true;
+        }
+
+        private void OnDestroy()
+        {
+            _gameEntities.Remove(this);
         }
     }
 }
