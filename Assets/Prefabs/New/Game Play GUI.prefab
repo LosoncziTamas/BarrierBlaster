@@ -284,6 +284,7 @@ GameObject:
   - component: {fileID: 7879810527705700885}
   - component: {fileID: 7879810527705700883}
   - component: {fileID: 4943634639615437043}
+  - component: {fileID: 5749538003932268389}
   m_Layer: 5
   m_Name: Game Play GUI
   m_TagString: Untagged
@@ -351,6 +352,34 @@ MonoBehaviour:
       - m_Target: {fileID: 7879810527705700883}
         m_TargetAssemblyTypeName: ArBreakout.Gui.GamePlayGui, Assembly-CSharp
         m_MethodName: OnBallMissed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5749538003932268389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7879810527705700884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d27256d7c05495c97818cef431dc0ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: dab4fa4d34c1045c2859e04096d22a3f, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7879810527705700883}
+        m_TargetAssemblyTypeName: ArBreakout.Gui.GamePlay.GamePlayGui, Assembly-CSharp
+        m_MethodName: OnActiveBricksCleared
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

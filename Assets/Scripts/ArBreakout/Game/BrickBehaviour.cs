@@ -35,7 +35,6 @@ namespace ArBreakout.Game
         private Vector3 _originalScale;
         private PowerUpScriptableObject _powerUpProperties;
         
-
         private void Awake()
         {
             _gameEntities.Add(this);
@@ -113,7 +112,7 @@ namespace ArBreakout.Game
             {
                 EmitCollectable();
                 _collider.enabled = true;
-                Pool.ReturnBrick(this);
+                Pool.ReturnBrick(this, raiseEvent: true);
             }
         }
 

@@ -268,7 +268,7 @@ namespace ArBreakout.Game
         {
             for (var i = 0; i < TotalPowerUpCount; i++)
             {
-                if (_activePowerUps[i] && PowerUpUtils.EffectsPaddle(i))
+                if (_activePowerUps[i])
                 {
                     var timeLeft = _activePowerUpTimes[i];
                     if (Mathf.Approximately(timeLeft, 0.0f) || timeLeft < 0.0f)

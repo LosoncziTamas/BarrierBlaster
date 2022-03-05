@@ -7,7 +7,7 @@ using Possible.AppController;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ArBreakout.Gui
+namespace ArBreakout.Gui.GamePlay
 {
     public class GamePlayGui : AppState
     {
@@ -18,6 +18,7 @@ namespace ArBreakout.Gui
         
         private TutorialOverlay _tutorialOverlay;
         private GameOverModal _gameOverModal;
+        private LevelCompleteModal _levelCompleteModal;
         private LevelRoot _levelRoot;
 
         protected override void Awake()
@@ -26,6 +27,7 @@ namespace ArBreakout.Gui
             _tutorialOverlay = FindObjectOfType<TutorialOverlay>();
             _levelRoot = FindObjectOfType<LevelRoot>();
             _gameOverModal = FindObjectOfType<GameOverModal>(includeInactive: true);
+            _levelCompleteModal = FindObjectOfType<LevelCompleteModal>(includeInactive: true);
         }
         
         public override void OnEnter(AppState fromState)
@@ -64,13 +66,36 @@ namespace ArBreakout.Gui
                 if (retry)
                 {
                     _lifeCount.Value = 3;
-                    _levelRoot.ContinueWithLevel(_levels.Selected);
+                    _levelRoot.ContinueWithLevel(_levels.Selected, reset: true);
                 }
                 else
                 {
                     _levelRoot.ClearLevel();
                     Controller.TransitionTo(typeof(MainMenu));
                 }
+            }
+        }
+
+        public async void OnActiveBricksCleared()
+        {
+            GameTime.paused = true;
+            var result = await _levelCompleteModal.Show();
+            GameTime.paused = false;
+            if (result.GoBackToMenu)
+            {
+                _levelRoot.ClearLevel();
+                Controller.TransitionTo(typeof(MainMenu));
+            } 
+            else if (result.AllLevelsComplete)
+            {
+                // TODO: show credits or something
+                Debug.Log("All levels complete!");
+                _levelRoot.ClearLevel();
+                Controller.TransitionTo(typeof(MainMenu));
+            }
+            else if (result.Level != null)
+            {
+                _levelRoot.ContinueWithLevel(_levels.Selected, reset: false);
             }
         }
 

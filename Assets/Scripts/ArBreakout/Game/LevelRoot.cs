@@ -1,3 +1,4 @@
+using System.Linq;
 using ArBreakout.Game.Bricks;
 using ArBreakout.Levels;
 using ArBreakout.Misc;
@@ -80,7 +81,7 @@ namespace ArBreakout.Game
             }
         }
 
-        public void ContinueWithLevel(LevelData levelData)
+        public void ContinueWithLevel(LevelData levelData, bool reset)
         {
             foreach (var brick in _gameEntities.Bricks)
             {
@@ -93,6 +94,12 @@ namespace ArBreakout.Game
             }
 
             InitBricks(levelData);
+            var ball = _gameEntities.Balls.First();
+            GamePlayUtils.AnchorBallToPaddle(ball, _gameEntities.Paddle);
+            if (reset)
+            {
+                _gameEntities.Paddle.ResetToDefaults();
+            }
         }
 
         public void ClearLevel()

@@ -48,15 +48,6 @@ namespace ArBreakout.PowerUps
             transform.localPosition += BreakoutPhysics.CalculateMovementDelta(_acceleration, _velocity);
         }
 
-        private void OnGUI()
-        {
-            GUILayout.Space(100);
-            if (GUILayout.Button("Animate"))
-            {
-                AnimateAppearance();
-            }
-        }
-
         public void AnimateAppearance()
         {
             transform.localScale = Vector3.one * 0.1f;
