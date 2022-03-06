@@ -1,9 +1,11 @@
+using System;
 using System.Linq;
 using ArBreakout.Game.Bricks;
 using ArBreakout.Levels;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static ArBreakout.GamePhysics.BreakoutPhysics;
 
 namespace ArBreakout.Game
@@ -51,10 +53,25 @@ namespace ArBreakout.Game
                         continue;
                     }
                     
-                    // TODO: add padding
+                    const float defaultScaleX = 0.9f;
+                    var scale = Vector3.one * defaultScaleX;
+                    if (c.Length > 2)
+                    {
+                        int.TryParse(c.Substring(2, 1), out var multiplier);
+                        if (multiplier == 1)
+                        {
+                            scale = new Vector3(scale.x * 0.5f, scale.y * 0.5f, scale.z);
+                        }
+                        else if (multiplier == 2)
+                        {
+                            scale = new Vector3(scale.x, scale.y * 2.0f, scale.z * 2.0f);
+                        }
+                    }
+                    
+                    var padding = col * defaultScaleX;
                     var pos = new Vector3
                     {
-                        x = -0.5f * LevelDimension + col + 0.5f,
+                        x = -defaultScaleX * LevelDimension + col + defaultScaleX * 0.5f + padding,
                         y = 0.5f,
                         z = 0.5f * LevelDimension - row + 3.0f
                     };
@@ -67,17 +84,28 @@ namespace ArBreakout.Game
                     brickTransform.localRotation = Quaternion.identity;
 
                     int.TryParse(c[..1], out var hitPoints);
+
                     var brickAttributes = new BrickAttributes()
                     {
                         HitPoints = hitPoints,
                         RowIndex = row,
                         Color = colorCells[row, col],
-                        PowerUp = PowerUpUtils.ParseLevelElement(c)
+                        PowerUp = PowerUpUtils.ParseLevelElement(c),
+                        Scale = scale
                     };
                     
                     // Scale of the brick is set with the animation.
                     brick.Init(brickAttributes, rowCount);
                 }
+            }
+        }
+
+        private void OnGUI()
+        {
+            GUILayout.Space(200);
+            if (GUILayout.Button("Load additive"))
+            {
+                SceneManager.LoadScene("Additive Scene", LoadSceneMode.Additive);
             }
         }
 

@@ -9,5 +9,7 @@ namespace ArBreakout.Game.Bricks
         public int HitPoints { get; set; }
         public PowerUp PowerUp { get; set; }
         public int RowIndex { get; set; }
+        
+        public Vector3 Scale { get; set; }
     }
 }

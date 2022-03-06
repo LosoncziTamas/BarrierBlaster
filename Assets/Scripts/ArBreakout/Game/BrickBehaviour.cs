@@ -32,15 +32,14 @@ namespace ArBreakout.Game
         private Renderer _renderer;
         private Collider _collider;
         private int _hitPoints;
-        private Vector3 _originalScale;
         private PowerUpScriptableObject _powerUpProperties;
+        private Vector3 _targetScale;
         
         private void Awake()
         {
             _gameEntities.Add(this);
             _renderer = GetComponent<MeshRenderer>();
             _collider = GetComponent<Collider>();
-            _originalScale = transform.localScale;
         }
 
         private void OnDestroy()
@@ -51,12 +50,13 @@ namespace ArBreakout.Game
         public void Init(BrickAttributes brickAttributes, int totalRowCount)
         {
             _hitPoints = brickAttributes.HitPoints;
+            _targetScale = brickAttributes.Scale;
             _changeMeshColor.SetColor(brickAttributes.Color);
             _collider.enabled = false;
             var scale01 = Mathf.Sin(((float) brickAttributes.RowIndex / totalRowCount) * Mathf.PI);
 
             var initialAnimScale = Mathf.Clamp(0.5f + (1 - scale01) * 0.5f, 0.5f, 1.0f);
-            transform.localScale = _originalScale * initialAnimScale;
+            transform.localScale = _targetScale * initialAnimScale;
 
             SetupCollectable(brickAttributes.PowerUp);
 
@@ -66,7 +66,7 @@ namespace ArBreakout.Game
         private void AnimateAppear()
         {
             // Use smaller scale, so it's not tightly packed.
-            transform.AnimatePunchScale(_originalScale * 0.9f, Ease.Linear, 0.4f);
+            transform.AnimatePunchScale(_targetScale * 0.9f, Ease.Linear, 0.4f);
             _collider.enabled = true;
         }
 
