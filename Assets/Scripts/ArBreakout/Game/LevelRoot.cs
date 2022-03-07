@@ -33,7 +33,24 @@ namespace ArBreakout.Game
             InitWallsAndGap();
             var paddle = InitPaddle();
             InitBall(paddle.transform);
-            InitBricks(selected);
+            InitBricksNew(selected);
+        }
+
+        private void InitBricksNew(LevelData selected)
+        {
+            var idx = 0;
+            foreach (var brickAttribute in selected.BrickAttributes)
+            {
+                ++idx;
+                var brick = _brickPool.GetBrick();
+                brick.gameObject.name = $"Brick [{idx}]";
+                var brickTransform = brick.transform;
+                brickTransform.SetParent(transform, false);
+                brickTransform.localPosition = brickAttribute.Position;
+                brickTransform.localRotation = brickAttribute.Rotation;
+                // Scale of the brick is set with the animation.
+                brick.Init(brickAttribute, selected.BrickAttributes.Count);
+            }
         }
 
         private void InitBricks(LevelData selected)

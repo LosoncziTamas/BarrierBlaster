@@ -1,15 +1,18 @@
+using System;
 using ArBreakout.PowerUps;
 using UnityEngine;
 
 namespace ArBreakout.Game.Bricks
 {
+    [Serializable]
     public class BrickAttributes
     {
-        public Color Color { get; set; }
-        public int HitPoints { get; set; }
-        public PowerUp PowerUp { get; set; }
-        public int RowIndex { get; set; }
-        
-        public Vector3 Scale { get; set; }
+        public Color Color;
+        public int HitPoints; 
+        public PowerUp PowerUp;
+        public int RowIndex;
+        public Vector3 Scale;
+        public Vector3 Position;
+        public Quaternion Rotation;
     }
 }

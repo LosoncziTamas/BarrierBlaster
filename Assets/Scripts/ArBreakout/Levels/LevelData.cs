@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ArBreakout.Game.Bricks;
 using Array2DEditor;
 using UnityEngine;
 
@@ -26,6 +27,8 @@ namespace ArBreakout.Levels
         public Array2DColor Colors => _colors;
 
         public int Id => GetInstanceID();
+
+        public List<BrickAttributes> BrickAttributes = new();
 
         private void OnValidate()
         {

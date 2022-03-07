@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f98185594b42a296b14f4be3d2a904, type: 3}
+  m_Name: Built Level
+  m_EditorClassIdentifier: 
+  _layout:
+    gridSize: {x: 3, y: 3}
+    cellSize: {x: 20, y: 16}
+    cells:
+    - row:
+      - 
+      - 
+      - 
+    - row:
+      - 
+      - 
+      - 
+    - row:
+      - 
+      - 
+      - 
+  _colors:
+    gridSize: {x: 3, y: 3}
+    cellSize: {x: 32, y: 16}
+    cells:
+    - row:
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+    - row:
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+    - row:
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+  _timeLimit: 0
+  _name: A
+  _unlocked: 1
+  _referenceColors: []
+  BrickAttributes: []
