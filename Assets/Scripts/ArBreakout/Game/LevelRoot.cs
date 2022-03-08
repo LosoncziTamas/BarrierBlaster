@@ -1,11 +1,10 @@
-using System;
 using System.Linq;
 using ArBreakout.Game.Bricks;
 using ArBreakout.Levels;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 using static ArBreakout.GamePhysics.BreakoutPhysics;
 
 namespace ArBreakout.Game
@@ -33,7 +32,7 @@ namespace ArBreakout.Game
             InitWallsAndGap();
             var paddle = InitPaddle();
             InitBall(paddle.transform);
-            InitBricksNew(selected);
+            InitBricks(selected);
         }
 
         private void InitBricksNew(LevelData selected)
@@ -116,16 +115,7 @@ namespace ArBreakout.Game
                 }
             }
         }
-
-        private void OnGUI()
-        {
-            GUILayout.Space(200);
-            if (GUILayout.Button("Load additive"))
-            {
-                SceneManager.LoadScene("Additive Scene", LoadSceneMode.Additive);
-            }
-        }
-
+        
         public void ContinueWithLevel(LevelData levelData, bool reset)
         {
             foreach (var brick in _gameEntities.Bricks)
