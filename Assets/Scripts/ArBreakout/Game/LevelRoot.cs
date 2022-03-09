@@ -32,7 +32,7 @@ namespace ArBreakout.Game
             InitWallsAndGap();
             var paddle = InitPaddle();
             InitBall(paddle.transform);
-            InitBricks(selected);
+            InitBricksNew(selected);
         }
 
         private void InitBricksNew(LevelData selected)

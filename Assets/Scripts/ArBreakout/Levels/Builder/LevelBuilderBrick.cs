@@ -21,7 +21,7 @@ namespace ArBreakout.Levels.Builder
             {
                 Color = GetColor(),
                 HitPoints = _hitPoints,
-                Position = brickTransform.localPosition,
+                Position = brickTransform.position,
                 Rotation = brickTransform.rotation,
                 Scale = brickTransform.localScale,
                 PowerUp = _powerUp
