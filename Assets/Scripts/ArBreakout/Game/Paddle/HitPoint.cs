@@ -5,8 +5,8 @@ namespace ArBreakout.Game.Paddle
 {
     public class HitPoint : MonoBehaviour
     {
-        private static readonly Color OnColor = new Color(1.0f, 0.0f, 0.0f, 1.0f);
-        private static readonly Color OffColor = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+        [SerializeField] private Color OnColor = new(1.0f, 0.0f, 0.0f, 1.0f);
+        [SerializeField] private Color OffColor = new(0.0f, 0.0f, 0.0f, 1.0f);
         
         [SerializeField] private ChangeMeshColor _changeMeshColor;
 
