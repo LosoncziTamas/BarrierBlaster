@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 namespace ArBreakout.Levels.Builder
@@ -18,6 +19,9 @@ namespace ArBreakout.Levels.Builder
                     var attribute = brick.GetBrickAttributes();
                     _destLevel.BrickAttributes.Add(attribute);
                 }
+                EditorUtility.SetDirty(_destLevel);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
             }
         }
     }
