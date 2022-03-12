@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ArBreakout.Game;
 using ArBreakout.Misc;
 using DG.Tweening;
@@ -94,7 +95,8 @@ namespace ArBreakout.PowerUps
                     var powerUp = (PowerUp) i;
                     if (powerUp == PowerUp.Minifier || powerUp == PowerUp.Magnifier)
                     {
-                        AnimateScale(_defaultScale.x, _defaultScale.y, _defaultScale.z);
+                        var ball = _gameEntities.Balls.First();
+                        ball.ScaleDown();
                     }
                     else if (powerUp == PowerUp.Accelerator || powerUp == PowerUp.Decelerator)
                     {
@@ -114,67 +116,69 @@ namespace ArBreakout.PowerUps
             }
         }
 
+        private void ScaleUpBall(int powerUpIdx)
+        {
+            const int minifierIdx = (int) PowerUp.Minifier;
+            var ball = _gameEntities.Balls.First();
+            
+            // TODO: remove minifier
+            if (_activePowerUps[minifierIdx])
+            {
+                _activePowerUps[powerUpIdx] = _activePowerUps[minifierIdx] = false;
+                _activePowerUpTimes[powerUpIdx] = _activePowerUpTimes[minifierIdx] = 0.0f;
+                ball.ScaleDown();
+            }
+            else
+            {
+                _activePowerUpTimes[powerUpIdx] = PowerUpEffectDuration;
+                _activePowerUps[powerUpIdx] = true;
+                ball.ScaleUp();
+            }
+        }
+
+        public void ScaleDownBall(int powerUpIdx)
+        {
+            const int magnifierIdx = (int) PowerUp.Magnifier;
+            var ball = _gameEntities.Balls.First();
+            if (_activePowerUps[magnifierIdx])
+            {
+                // Magnifiers and minifiers are complementary to each other.
+                _activePowerUps[powerUpIdx] = _activePowerUps[magnifierIdx] = false;
+                _activePowerUpTimes[powerUpIdx] = _activePowerUpTimes[magnifierIdx] = 0.0f;
+                ball.ScaleDown();
+            }
+            else
+            {
+                _activePowerUpTimes[powerUpIdx] = PowerUpEffectDuration;
+                _activePowerUps[powerUpIdx] = true;
+                ball.ScaleDown();
+            }
+        }
+
+        private void OnGUI()
+        {
+            GUILayout.Space(100);
+            if (GUILayout.Button("Scale up"))
+            {
+                ActivatePowerUp(PowerUp.Magnifier);
+            }
+            if (GUILayout.Button("Scale down"))
+            {
+                ActivatePowerUp(PowerUp.Minifier);
+            }
+        }
+
         public void ActivatePowerUp(PowerUp powerUp)
         {
             var powerUpIdx = (int) powerUp;
 
             if (powerUp == PowerUp.Minifier)
             {
-                const int magnifierIdx = (int) PowerUp.Magnifier;
-
-                if (_activePowerUps[magnifierIdx])
-                {
-                    // Magnifiers and minifiers are complementary to each other.
-                    _activePowerUps[powerUpIdx] = _activePowerUps[magnifierIdx] = false;
-                    _activePowerUpTimes[powerUpIdx] = _activePowerUpTimes[magnifierIdx] = 0.0f;
-                    AnimateScale(_defaultScale.x, _defaultScale.y, _defaultScale.z);
-                }
-                else
-                {
-                    _activePowerUpTimes[powerUpIdx] = PowerUpEffectDuration;
-                    _activePowerUps[powerUpIdx] = true;
-                    var newWidth = Mathf.Max(MinWidthMultiplier * _defaultScale.x,
-                        transform.localScale.x * MinWidthMultiplier);
-                    AnimateScale(newWidth, _defaultScale.y, _defaultScale.z);
-                }
+                ScaleDownBall(powerUpIdx);
             }
             else if (powerUp == PowerUp.Magnifier)
             {
-                const int minifierIdx = (int) PowerUp.Minifier;
-
-                if (_activePowerUps[minifierIdx])
-                {
-                    _activePowerUps[powerUpIdx] = _activePowerUps[minifierIdx] = false;
-                    _activePowerUpTimes[powerUpIdx] = _activePowerUpTimes[minifierIdx] = 0.0f;
-                    AnimateScale(_defaultScale.x, _defaultScale.y, _defaultScale.z);
-                }
-                else
-                {
-                    _activePowerUpTimes[powerUpIdx] = PowerUpEffectDuration;
-                    _activePowerUps[powerUpIdx] = true;
-
-                    var localSclX = transform.localScale.x;
-                    var newWidth = Mathf.Min(MaxWidthMultiplier * _defaultScale.x, localSclX * MaxWidthMultiplier);
-                    var widthChanged = !Mathf.Approximately(newWidth, localSclX);
-
-                    // Do not perform scaling and jumping when scale hasn't actually changed.
-                    if (widthChanged)
-                    {
-                        AnimateScale(newWidth, _defaultScale.y, _defaultScale.z);
-
-                        // Moving paddle away from the walls
-                        var offsetX = newWidth * 0.25f;
-                        /*var localPosX = _parentTransform.localPosition.x;
-                        if (localPosX > 0)
-                        {
-                            _parentTransform.DOLocalMoveX(localPosX - offsetX, 0.6f);
-                        }
-                        else
-                        {
-                            _parentTransform.DOLocalMoveX(localPosX + offsetX, 0.6f);
-                        }*/
-                    }
-                }
+                ScaleUpBall(powerUpIdx);
             }
             else if (powerUp == PowerUp.Accelerator)
             {

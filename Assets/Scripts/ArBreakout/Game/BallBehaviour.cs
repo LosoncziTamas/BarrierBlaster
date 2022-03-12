@@ -1,7 +1,7 @@
 using ArBreakout.Game.Course;
 using ArBreakout.GamePhysics;
 using ArBreakout.Misc;
-using ArBreakout.PowerUps;
+using DG.Tweening;
 using UnityEngine;
 
 namespace ArBreakout.Game
@@ -10,7 +10,7 @@ namespace ArBreakout.Game
     {
         public const string GameObjectTag = "Ball";
 
-        private const float DefaultSpeed = 22.0f;
+        private const float DefaultSpeed = 26.0f;
         private const float Drag = 2.0f;
 
         private static readonly float NegativeMaxZ = Mathf.Sin(Mathf.Deg2Rad * -15.0f);
@@ -20,6 +20,7 @@ namespace ArBreakout.Game
         
         [SerializeField] private Bobbing _bobbing;
         [SerializeField] private GameEntities _gameEntities;
+        [SerializeField] private BobbingProperties _bobbingProperties;
 
         private Vector3 _launchLocalDirection = Vector3.forward;
         private Vector3 _localVelocity;
@@ -41,11 +42,14 @@ namespace ArBreakout.Game
             }
             get => _localVelocity;
         }
+        
+        public Vector3 DefaultScale { get; private set; }
 
         private void Awake()
         {
             _gameWorldRoot = GameObject.Find(LevelRoot.ObjectName);
             _gameEntities.Add(this);
+            DefaultScale = transform.localScale;
         }
 
         private void OnDestroy()
@@ -66,43 +70,49 @@ namespace ArBreakout.Game
             _bobbing.Disable();
         }
 
-        private void ActivatePowerUp(BrickBehaviour smashedBrick)
+        public void ScaleUp()
         {
-            // TODO: consider some powerup here
+            transform.DOScale(Vector3.one * 2.0f, 0.6f);
+            if (!_released)
+            {
+                var paddle = _gameEntities.Paddle;
+                _bobbing.Disable();
+                var target = paddle.transform.position.z + 2.0f + _bobbingProperties.startOffsetZ;
+                transform.DOMoveZ(target, 0.6f).OnComplete(() =>
+                {
+                    if (!_released)
+                    {
+                        _bobbing.Enable(addOffset: false);
+                    }
+                });
+            }
+        }
+
+        public void ScaleDown()
+        {
+            transform.DOScale(DefaultScale, 0.6f);
+            if (!_released)
+            {
+                var paddle = _gameEntities.Paddle;
+                _bobbing.Disable();
+                var target = paddle.transform.position.z + DefaultScale.z + _bobbingProperties.startOffsetZ;
+                transform.DOMoveZ(target, 0.6f).OnComplete(() =>
+                {
+                    if (!_released)
+                    {
+                        _bobbing.Enable(addOffset: false);
+                    }
+                });
+            }
         }
 
         private void DrawContactLine(BreakoutPhysics.Contact contact, Color color)
         {
             Debug.DrawRay(contact.Point, contact.Normal, color, 2, false);
         }
-
-        private bool _mouseControlEnabled = false;
-
-        private void OnGUI()
-        {
-            if (!_mouseControlEnabled)
-            {
-                if (GUILayout.Button("Enable ball control"))
-                {
-                    _mouseControlEnabled = true;
-                }
-            }
-            else
-            {
-                if (GUILayout.Button("Disable ball control"))
-                {
-                    _mouseControlEnabled = false;
-                }
-            }
-        }
-
+        
         private void ApplyMouseControl()
         {
-            if (!_mouseControlEnabled)
-            {
-                return;
-            }
-
             if (Input.GetMouseButton(0))
             {
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -238,7 +248,6 @@ namespace ArBreakout.Game
 
             var brick = brickCollision.gameObject.GetComponent<BrickBehaviour>();
             brick.Smash();
-            ActivatePowerUp(brick);
         }
 
         private void ChangeDirection(Vector3 newDirInWorldSpace)
