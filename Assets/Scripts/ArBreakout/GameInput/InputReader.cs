@@ -15,16 +15,19 @@ namespace ArBreakout.GameInput
             if (_leftButton.PointerDown || Input.GetAxis("Horizontal") < 0)
             {
                 _playerInput.Left = true;
+                _leftButton.Highlight();
             }
 
             if (_rightButton.PointerDown || Input.GetAxis("Horizontal") > 0)
             {
                 _playerInput.Right = true;
+                _rightButton.Highlight();
             }
 
             if (_fireButton.PointerDown || Input.GetButton("Jump"))
             {
                 _playerInput.Fire = true;
+                _fireButton.Highlight();
             }
         }
     }

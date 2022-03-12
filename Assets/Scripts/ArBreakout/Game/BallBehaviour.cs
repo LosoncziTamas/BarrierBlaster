@@ -1,3 +1,4 @@
+using ArBreakout.Game.Course;
 using ArBreakout.GamePhysics;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;

@@ -12,8 +12,6 @@ namespace ArBreakout.Game
     [RequireComponent(typeof(MeshRenderer))]
     public class BrickBehaviour : MonoBehaviour
     {
-        public static event EventHandler<BrickDestroyedArgs> BrickDestroyedEvent;
-
         public class BrickDestroyedArgs : EventArgs
         {
         }
@@ -28,6 +26,7 @@ namespace ArBreakout.Game
         [SerializeField] private ChangeMeshColor _changeMeshColor;
         [SerializeField] private PowerUpMapping _powerUpMappings;
         [SerializeField] private GameEntities _gameEntities;
+        [SerializeField] private GameEvent _brickSmashed;
 
         private Renderer _renderer;
         private Collider _collider;
@@ -86,7 +85,7 @@ namespace ArBreakout.Game
 
             if (_hitPoints == 0)
             {
-                BrickDestroyedEvent?.Invoke(this, new BrickDestroyedArgs());
+                _brickSmashed.Raise();
                 // Temporarily disable collision until the animation finishes off.
                 _collider.enabled = false;
                 transform.AnimatePunchScale(transform.localScale, Ease.Linear, 0.2f);

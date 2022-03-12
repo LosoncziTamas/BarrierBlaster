@@ -14,7 +14,6 @@ namespace ArBreakout.Levels
         [SerializeField] private float _timeLimit;
         [SerializeField] private string _name;
         [SerializeField] private bool _unlocked;
-        [SerializeField] private List<Color> _referenceColors;
 
         public Array2DString Layout => _layout;
 
@@ -29,32 +28,5 @@ namespace ArBreakout.Levels
         public int Id => GetInstanceID();
 
         public List<BrickAttributes> BrickAttributes = new();
-
-        private void OnValidate()
-        {
-            // TODO: figure out if this can be enforced somehow
-            if (_layout.GridSize == _colors.GridSize)
-            {
-                var layoutCells = _layout.GetCells();
-                var colorCells = _colors.GetCells();
-                var rowCount = layoutCells.GetLength(0);
-                for (var row = 0; row < rowCount; row++)
-                {
-                    for (var col = 0; col < layoutCells.GetLength(1); col++)
-                    {
-                        var c = layoutCells[row, col];
-                        if (string.IsNullOrWhiteSpace(c))
-                        {
-                            colorCells[row, col] = Color.black;
-                            colorCells[row, col].a = 0;
-                        }
-                        else
-                        {
-                            colorCells[row, col].a = 1;
-                        }
-                    }
-                }
-            }
-        }
     }
 }

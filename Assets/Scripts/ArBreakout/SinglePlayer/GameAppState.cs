@@ -1,4 +1,5 @@
 using ArBreakout.Game;
+using ArBreakout.Game.Course;
 using ArBreakout.GameInput;
 using ArBreakout.Levels;
 using ArBreakout.Misc;
@@ -61,7 +62,7 @@ namespace ArBreakout.SinglePlayer
         private void OnEnable()
         {
             // Gap.BallHasLeftTheGameEvent += OnBallHasLeftTheGameEvent;
-            BrickBehaviour.BrickDestroyedEvent += OnBrickDestroyedEvent;
+            // BrickBehaviour.BrickDestroyedEvent += OnBrickDestroyedEvent;
             PaddleBehaviour.PowerUpStateChangeEvent += OnPowerUpStateChangeEvent;
 
             _gameOverModal.onCancel.AddListener(OnBackToMain);
@@ -74,7 +75,7 @@ namespace ArBreakout.SinglePlayer
         private void OnDisable()
         {
             // Gap.BallHasLeftTheGameEvent -= OnBallHasLeftTheGameEvent;
-            BrickBehaviour.BrickDestroyedEvent -= OnBrickDestroyedEvent;
+            // BrickBehaviour.BrickDestroyedEvent -= OnBrickDestroyedEvent;
             PaddleBehaviour.PowerUpStateChangeEvent -= OnPowerUpStateChangeEvent;
 
             _gameOverModal.onCancel.RemoveListener(OnBackToMain);

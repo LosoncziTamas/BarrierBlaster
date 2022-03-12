@@ -4,10 +4,9 @@ using ArBreakout.Levels;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
 using UnityEngine;
-
 using static ArBreakout.GamePhysics.BreakoutPhysics;
 
-namespace ArBreakout.Game
+namespace ArBreakout.Game.Course
 {
     public class LevelRoot : MonoBehaviour
     {
