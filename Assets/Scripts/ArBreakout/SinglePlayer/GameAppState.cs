@@ -63,7 +63,7 @@ namespace ArBreakout.SinglePlayer
         {
             // Gap.BallHasLeftTheGameEvent += OnBallHasLeftTheGameEvent;
             // BrickBehaviour.BrickDestroyedEvent += OnBrickDestroyedEvent;
-            PaddleBehaviour.PowerUpStateChangeEvent += OnPowerUpStateChangeEvent;
+            // PaddleBehaviour.PowerUpStateChangeEvent += OnPowerUpStateChangeEvent;
 
             _gameOverModal.onCancel.AddListener(OnBackToMain);
             _gameOverModal.onConfirm.AddListener(OnRetry);
@@ -76,7 +76,7 @@ namespace ArBreakout.SinglePlayer
         {
             // Gap.BallHasLeftTheGameEvent -= OnBallHasLeftTheGameEvent;
             // BrickBehaviour.BrickDestroyedEvent -= OnBrickDestroyedEvent;
-            PaddleBehaviour.PowerUpStateChangeEvent -= OnPowerUpStateChangeEvent;
+            // PaddleBehaviour.PowerUpStateChangeEvent -= OnPowerUpStateChangeEvent;
 
             _gameOverModal.onCancel.RemoveListener(OnBackToMain);
             _gameOverModal.onConfirm.RemoveListener(OnRetry);
@@ -196,10 +196,10 @@ namespace ArBreakout.SinglePlayer
             _brickCount = _levelRoot.InitialBrickCount;*/
         }
 
-        private void OnPowerUpStateChangeEvent(object sender, PaddleBehaviour.PowerUpState e)
+        /*private void OnPowerUpStateChangeEvent(object sender, PaddleBehaviour.PowerUpState e)
         {
             _powerUpPanel.Refresh(e.ActivePowerUps, e.ActivePowerUpTimes);
-        }
+        }*/
 
         private void OnBrickDestroyedEvent(object sender, BrickBehaviour.BrickDestroyedArgs e)
         {

@@ -10,16 +10,14 @@ namespace ArBreakout.Game
     {
         public const string GameObjectTag = "Ball";
 
-        private const float DefaultSpeed = 18.0f;
+        private const float DefaultSpeed = 22.0f;
         private const float Drag = 2.0f;
 
         private static readonly float NegativeMaxZ = Mathf.Sin(Mathf.Deg2Rad * -15.0f);
         private static readonly float PositiveMinZ = Mathf.Sin(Mathf.Deg2Rad * 15.0f);
         private static readonly float NegativeMaxX = Mathf.Cos(Mathf.Deg2Rad * 165.0f);
         private static readonly float PositiveMinX = Mathf.Cos(Mathf.Deg2Rad * 15.0f);
-
-        [SerializeField] private PowerUpMapping _powerUpMappings;
-        [SerializeField] private MeshRenderer _renderer;
+        
         [SerializeField] private Bobbing _bobbing;
         [SerializeField] private GameEntities _gameEntities;
 

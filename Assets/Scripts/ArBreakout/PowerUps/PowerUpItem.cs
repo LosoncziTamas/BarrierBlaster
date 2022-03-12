@@ -22,7 +22,7 @@ namespace ArBreakout.PowerUps
         {
             if (_timeLeft > 0)
             {
-                _greyFill.fillAmount = 1.0f - _timeLeft / PaddleBehaviour.PowerUpEffectDuration;
+                _greyFill.fillAmount = 1.0f - _timeLeft / PowerUpActivator.PowerUpEffectDuration;
                 _timeLeft -= GameTime.delta;
             }
         }

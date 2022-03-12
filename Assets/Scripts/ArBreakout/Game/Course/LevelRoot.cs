@@ -1,8 +1,6 @@
 using System.Linq;
-using ArBreakout.Game.Bricks;
 using ArBreakout.Levels;
 using ArBreakout.Misc;
-using ArBreakout.PowerUps;
 using UnityEngine;
 using static ArBreakout.GamePhysics.BreakoutPhysics;
 
@@ -11,7 +9,6 @@ namespace ArBreakout.Game.Course
     public class LevelRoot : MonoBehaviour
     {
         public const string ObjectName = "Level Root";
-        private const int LevelDimension = 9;
 
         [SerializeField] private BallBehaviour _ballPrefab;
         [SerializeField] private GameObject _paddleParentPrefab;
@@ -31,10 +28,10 @@ namespace ArBreakout.Game.Course
             InitWallsAndGap();
             var paddle = InitPaddle();
             InitBall(paddle.transform);
-            InitBricksNew(selected);
+            InitBricks(selected);
         }
 
-        private void InitBricksNew(LevelData selected)
+        private void InitBricks(LevelData selected)
         {
             var idx = 0;
             foreach (var brickAttribute in selected.BrickAttributes)
@@ -51,70 +48,6 @@ namespace ArBreakout.Game.Course
             }
         }
 
-        private void InitBricks(LevelData selected)
-        {
-            var layoutCells = selected.Layout.GetCells();
-            var colorCells = selected.Colors.GetCells();
-            var rowCount = layoutCells.GetLength(0);
-            
-            for (var row = 0; row < rowCount; row++) 
-            {
-                for (var col = 0; col < layoutCells.GetLength(1); col++)
-                {
-                    // Starts at top left, goes to bottom right.
-                    var c = layoutCells[row, col];
-                    if (string.IsNullOrWhiteSpace(c))
-                    {
-                        continue;
-                    }
-                    
-                    const float defaultScaleX = 0.9f;
-                    var scale = Vector3.one * defaultScaleX;
-                    if (c.Length > 2)
-                    {
-                        int.TryParse(c.Substring(2, 1), out var multiplier);
-                        if (multiplier == 1)
-                        {
-                            scale = new Vector3(scale.x * 0.5f, scale.y * 0.5f, scale.z);
-                        }
-                        else if (multiplier == 2)
-                        {
-                            scale = new Vector3(scale.x, scale.y * 2.0f, scale.z * 2.0f);
-                        }
-                    }
-                    
-                    var padding = col * defaultScaleX;
-                    var pos = new Vector3
-                    {
-                        x = -defaultScaleX * LevelDimension + col + defaultScaleX * 0.5f + padding,
-                        y = 0.5f,
-                        z = 0.5f * LevelDimension - row + 3.0f
-                    };
-                        
-                    var brick = _brickPool.GetBrick();
-                    brick.gameObject.name = $"Brick [{col}, {row}]";
-                    var brickTransform = brick.transform;
-                    brickTransform.SetParent(transform, false);
-                    brickTransform.localPosition = pos;
-                    brickTransform.localRotation = Quaternion.identity;
-
-                    int.TryParse(c[..1], out var hitPoints);
-
-                    var brickAttributes = new BrickAttributes()
-                    {
-                        HitPoints = hitPoints,
-                        RowIndex = row,
-                        Color = colorCells[row, col],
-                        PowerUp = PowerUpUtils.ParseLevelElement(c),
-                        Scale = scale
-                    };
-                    
-                    // Scale of the brick is set with the animation.
-                    brick.Init(brickAttributes, rowCount);
-                }
-            }
-        }
-        
         public void ContinueWithLevel(LevelData levelData, bool reset)
         {
             foreach (var brick in _gameEntities.Bricks)

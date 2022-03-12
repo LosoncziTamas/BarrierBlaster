@@ -41,16 +41,16 @@ namespace ArBreakout.Gui.GamePlay
         private void OnEnable()
         {
             _backButton.onClick.AddListener(OnPause);
-            PaddleBehaviour.PowerUpStateChangeEvent += OnPowerUpStateChangeEvent;
+            PowerUpActivator.PowerUpStateChangeEvent += OnPowerUpStateChangeEvent;
         }
         
         private void OnDisable()
         {
             _backButton.onClick.RemoveListener(OnPause);
-            PaddleBehaviour.PowerUpStateChangeEvent -= OnPowerUpStateChangeEvent;
+            PowerUpActivator.PowerUpStateChangeEvent -= OnPowerUpStateChangeEvent;
         }
 
-        private void OnPowerUpStateChangeEvent(object sender, PaddleBehaviour.PowerUpState e)
+        private void OnPowerUpStateChangeEvent(object sender, PowerUpActivator.PowerUpState e)
         {
             _powerUpPanel.Refresh(e.ActivePowerUps, e.ActivePowerUpTimes);
         }
