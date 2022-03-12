@@ -111,5 +111,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OnColor: {r: 0.8509804, g: 0.2627451, b: 0.2627451, a: 1}
-  OffColor: {r: 1, g: 1, b: 1, a: 1}
+  OffColor: {r: 0.5411765, g: 0.7490196, b: 0.6509804, a: 1}
   _changeMeshColor: {fileID: 379038868352505149}
