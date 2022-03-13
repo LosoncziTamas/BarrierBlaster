@@ -19,9 +19,11 @@ namespace ArBreakout.Levels.Builder
                     var attribute = brick.GetBrickAttributes();
                     _destLevel.BrickAttributes.Add(attribute);
                 }
+#if UNITY_EDITOR
                 EditorUtility.SetDirty(_destLevel);
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
+#endif
             }
         }
     }

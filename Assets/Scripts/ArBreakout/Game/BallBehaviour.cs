@@ -110,25 +110,9 @@ namespace ArBreakout.Game
         {
             Debug.DrawRay(contact.Point, contact.Normal, color, 2, false);
         }
-        
-        private void ApplyMouseControl()
-        {
-            if (Input.GetMouseButton(0))
-            {
-                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out var info))
-                {
-                    var offset = info.point - transform.position;
-                    Debug.DrawLine(transform.position, transform.position + offset);
-                    ChangeDirection(offset);
-                }
-            }
-        }
 
         private void FixedUpdate()
         {
-            ApplyMouseControl();
-
             if (!_released)
             {
                 return;
@@ -270,6 +254,7 @@ namespace ArBreakout.Game
 
         public void ResetPowerUpToDefaults()
         {
+            ScaleDown();
         }
     }
 }
