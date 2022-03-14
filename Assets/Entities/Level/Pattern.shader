@@ -10,12 +10,12 @@ Shader "Custom/Pattern"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
-        LOD 200
+        Tags { "Queue"="Transparent" "RenderType" = "Opaque" }
+        // TODO: consider removing alpha support
 
         CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
-        #pragma surface surf Standard fullforwardshadows
+        #pragma surface surf Standard fullforwardshadows alpha
 
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0

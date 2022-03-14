@@ -15,5 +15,3 @@ MonoBehaviour:
   extent: 0.15
   speed: 5
   startOffsetZ: 0.5
-  rotationAxis: {x: 1, y: 0, z: 0}
-  rotationValue: 1
