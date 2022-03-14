@@ -168,6 +168,23 @@ namespace ArBreakout.PowerUps
             }
         }
 
+        public void DeActivatePowerUp(PowerUp powerUp)
+        {
+            var powerUpIdx = (int) powerUp;
+            
+            if (powerUp == PowerUp.Magnifier)
+            {
+                if (_activePowerUps[powerUpIdx])
+                {
+                    _activePowerUps[powerUpIdx] = _activePowerUps[powerUpIdx] = false;
+                    _activePowerUpTimes[powerUpIdx] = _activePowerUpTimes[powerUpIdx] = 0.0f;
+                    var ball = _gameEntities.Balls.First();
+                    ball.ScaleDown();
+                    PublishPowerUpState();
+                }
+            }
+        }
+
         public void ActivatePowerUp(PowerUp powerUp)
         {
             var powerUpIdx = (int) powerUp;

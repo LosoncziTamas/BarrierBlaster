@@ -1,6 +1,7 @@
 using ArBreakout.Game.Course;
 using ArBreakout.GamePhysics;
 using ArBreakout.Misc;
+using ArBreakout.PowerUps;
 using DG.Tweening;
 using UnityEngine;
 
@@ -26,6 +27,7 @@ namespace ArBreakout.Game
         private Vector3 _localVelocity;
         private Vector3 _localAcceleration;
         private GameObject _gameWorldRoot;
+        private PowerUpActivator _powerUpActivator;
 
         private bool _released;
         private bool _collidedWithBrickInFrame;
@@ -50,6 +52,7 @@ namespace ArBreakout.Game
             _gameWorldRoot = GameObject.Find(LevelRoot.ObjectName);
             _gameEntities.Add(this);
             DefaultScale = transform.localScale;
+            _powerUpActivator = FindObjectOfType<PowerUpActivator>();
         }
 
         private void OnDestroy()
@@ -254,7 +257,7 @@ namespace ArBreakout.Game
 
         public void ResetPowerUpToDefaults()
         {
-            ScaleDown();
+            _powerUpActivator.DeActivatePowerUp(PowerUp.Magnifier);
         }
     }
 }
