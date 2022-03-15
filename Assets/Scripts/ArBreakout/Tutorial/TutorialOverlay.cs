@@ -17,6 +17,11 @@ namespace ArBreakout.Tutorial
             MainMenu
         }
 
+        public Vector3 ShowPunch;
+        public float ShowAnimDuration;
+        public int Vibrato;
+        public float Elasticity;
+
         [SerializeField] private Button _prevButton;
         [SerializeField] private Button _nextButton;
         [SerializeField] private Button _backButton;
@@ -29,6 +34,11 @@ namespace ArBreakout.Tutorial
         private ObjectSwapper _objectSwapper;
         private TaskCompletionSource<ReturnState> _taskCompletionSource;
         private int _currentIdx;
+
+        private void Awake()
+        {
+            // _panel.anchoredPosition = HiddenPosition;
+        }
 
         private void Start()
         {
@@ -55,25 +65,28 @@ namespace ArBreakout.Tutorial
 
         public Task<ReturnState> Show()
         {
-            _panel.DOPunchScale(Vector3.one * 0.1f, 0.6f);
+            _tutorialCanvas.enabled = true;
+            _panel.DOPunchScale(ShowPunch, ShowAnimDuration, Vibrato, Elasticity);
             Debug.Assert(_taskCompletionSource == null);
             _taskCompletionSource = new TaskCompletionSource<ReturnState>();
-            _tutorialCanvas.enabled = true;
             return _taskCompletionSource.Task;
+        }
+
+        private void Hide()
+        {
+            _panel.DOPunchScale(ShowPunch, ShowAnimDuration, Vibrato, Elasticity).OnComplete(() => _tutorialCanvas.enabled = false);
         }
 
         public void DismissAndResume()
         {
-            _tutorialCanvas.enabled = false;
-
+            Hide();
             _taskCompletionSource.SetResult(ReturnState.Game);
             _taskCompletionSource = null;
         }
 
         private void OnBackButtonClick()
         {
-            _tutorialCanvas.enabled = false;
-
+            Hide();
             _taskCompletionSource.SetResult(ReturnState.MainMenu);
             _taskCompletionSource = null;
         }

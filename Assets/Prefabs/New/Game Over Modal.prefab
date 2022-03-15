@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9529412, g: 0.9411765, b: 0.8862745, a: 1}
+  m_Color: {r: 0.5411765, g: 0.7490196, b: 0.6509804, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -219,8 +219,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4283842896
-  m_fontColor: {r: 0.3137255, g: 0.25490198, b: 0.3372549, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -680,17 +680,17 @@ PrefabInstance:
     - target: {fileID: 1484296745928257595, guid: f3cd61d12d5754815898824ced7a2c26,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.8039216
+      value: 0.5254902
       objectReference: {fileID: 0}
     - target: {fileID: 1484296745928257595, guid: f3cd61d12d5754815898824ced7a2c26,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.85490197
+      value: 0.6039216
       objectReference: {fileID: 0}
     - target: {fileID: 1484296745928257595, guid: f3cd61d12d5754815898824ced7a2c26,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.87058824
+      value: 0.43529412
       objectReference: {fileID: 0}
     - target: {fileID: 3571387856529341081, guid: f3cd61d12d5754815898824ced7a2c26,
         type: 3}

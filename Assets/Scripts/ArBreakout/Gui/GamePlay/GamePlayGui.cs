@@ -52,7 +52,7 @@ namespace ArBreakout.Gui.GamePlay
 
         private void OnPowerUpStateChangeEvent(object sender, PowerUpActivator.PowerUpState e)
         {
-            _powerUpPanel.Refresh(e.ActivePowerUps, e.ActivePowerUpTimes);
+            // _powerUpPanel.Refresh(e.ActivePowerUps, e.ActivePowerUpTimes);
         }
 
         [UsedImplicitly]

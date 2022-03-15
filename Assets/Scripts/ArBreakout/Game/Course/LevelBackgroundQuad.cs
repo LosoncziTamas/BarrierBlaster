@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -21,13 +22,26 @@ namespace ArBreakout.Game.Course
             _defaultColor = _renderer.material.GetColor(PrimaryColor);
         }
 
-        [UsedImplicitly]
-        public void OnBrickSmashed()
+        private void OnGUI()
+        {
+            if (GUILayout.Button("Highlight"))
+            {
+                DoHighlightAnimation();
+            }
+        }
+
+        private void DoHighlightAnimation()
         {
             DOTween.Sequence()
                 .Insert(0, _renderer.material.DOColor(_hitColor, HitAnimDuration))
                 .Insert(HitAnimDuration, _renderer.material.DOColor(_defaultColor, HitAnimDuration))
                 .Play();
+        }
+
+        [UsedImplicitly]
+        public void OnBrickSmashed()
+        {
+            DoHighlightAnimation();
         }
         
         [UsedImplicitly]
