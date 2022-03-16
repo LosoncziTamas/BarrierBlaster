@@ -16,11 +16,8 @@ namespace ArBreakout.GamePhysics
         private Ray _ray;
         private RaycastHit _hit;
         private Vector3 _direction;
-        private float _multiplier = 1.0f;
-        
         private float _accumulator;
         
-
         private void Update()
         {
             _accumulator += Time.deltaTime;
