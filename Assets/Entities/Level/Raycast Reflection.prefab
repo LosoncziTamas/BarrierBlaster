@@ -45,11 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 922340fefc4344398a32ec9c02a6532b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reflections: 3
-  maxLength: 30
+  reflections: 1
+  maxLength: 15
   minAngle: -30
   maxAngle: 30
-  maxTime: 5
+  maxTime: 3
   _lineRenderer: {fileID: 2971086468074937686}
 --- !u!120 &2971086468074937686
 LineRenderer:

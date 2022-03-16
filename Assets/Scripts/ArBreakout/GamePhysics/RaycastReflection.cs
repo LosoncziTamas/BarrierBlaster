@@ -1,3 +1,4 @@
+using ArBreakout.Game;
 using UnityEngine;
 
 namespace ArBreakout.GamePhysics
@@ -18,6 +19,7 @@ namespace ArBreakout.GamePhysics
         private float _multiplier = 1.0f;
         
         private float _accumulator;
+        
 
         private void Update()
         {
@@ -28,12 +30,13 @@ namespace ArBreakout.GamePhysics
                 t = 0;
                 _accumulator = 0;
             }
-            transform.rotation = Quaternion.Euler(0f, Mathf.Lerp(minAngle, maxAngle, t), 0f);
-            
-            _ray = new Ray(transform.position, transform.forward);
+
+            Transform transform1;
+            (transform1 = transform).rotation = Quaternion.Euler(0f, Mathf.Lerp(minAngle, maxAngle, t), 0f);
+            _ray = new Ray(transform1.position, transform1.forward);
 
             _lineRenderer.positionCount = 1;
-            _lineRenderer.SetPosition(0, transform.position);
+            _lineRenderer.SetPosition(0, transform1.position);
             var remainingLength = maxLength;
 
             for (var i = 0; i < reflections; i++)
@@ -46,7 +49,12 @@ namespace ArBreakout.GamePhysics
                     _lineRenderer.SetPosition(positionCount - 1, _hit.point);
                     remainingLength -= Vector3.Distance(_ray.origin, _hit.point);
                     _ray = new Ray(_hit.point - _ray.direction * 0.01f, Vector3.Reflect(_ray.direction, _hit.normal));
-                    if (!_hit.collider.CompareTag("Brick") && !_hit.collider.CompareTag("Wall"))
+                    var hitCollider = _hit.collider;
+                    if (hitCollider.CompareTag("Brick"))
+                    {
+                        hitCollider.GetComponent<BrickBehaviour>().Smash();
+                    }
+                    else if (!hitCollider.CompareTag("Brick") && !hitCollider.CompareTag("Wall"))
                     {
                         break;
                     }
