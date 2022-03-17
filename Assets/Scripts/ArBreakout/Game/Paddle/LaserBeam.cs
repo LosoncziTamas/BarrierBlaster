@@ -1,3 +1,5 @@
+using System;
+using ArBreakout.Misc;
 using UnityEngine;
 
 namespace ArBreakout.Game.Paddle
@@ -6,11 +8,57 @@ namespace ArBreakout.Game.Paddle
     {
         [SerializeField] private LaserBeamProperties _beamProperties;
         [SerializeField] private LineRenderer _lineRenderer;
+
+        private float _activeTime;
+        private float _degreeSign;
+        private Quaternion _defaultRotation;
+
+        private void OnGUI()
+        {
+            if (GUILayout.Button("Launch Beam"))
+            {
+                BeginLaunching();
+            }
+        }
+
+        private void Awake()
+        {
+            _defaultRotation = transform.rotation;
+        }
+
+        public void BeginLaunching()
+        {
+            if (Mathf.Approximately(_activeTime, 0) || _activeTime < 0)
+            {
+                _activeTime = 0;
+                _degreeSign = 1.0f;
+                transform.rotation = _defaultRotation;
+            }
+            _activeTime += _beamProperties.Duration;
+        }
+
+        private void Rotate()
+        {
+            var currentAngle = transform.rotation.eulerAngles.y;
+            if (currentAngle >= _beamProperties.MaxAngle)
+            {
+                _degreeSign = -1.0f;
+            }
+            else if (currentAngle <= _beamProperties.MinAngle)
+            {
+                _degreeSign = 1.0f;
+            }
+            transform.Rotate(Quaternion.Euler(0, _degreeSign * _beamProperties.RotationDegree, 0).eulerAngles);
+        }
         
         private void FixedUpdate()
         {
-            // TODO: add movement
-            LaunchRay();
+            if (_activeTime > 0f)
+            {
+                _activeTime -= GameTime.fixedDelta;
+                Rotate();
+                LaunchRay();
+            }
         }
 
         private void LaunchRay()

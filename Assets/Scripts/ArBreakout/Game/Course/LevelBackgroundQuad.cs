@@ -21,15 +21,7 @@ namespace ArBreakout.Game.Course
         {
             _defaultColor = _renderer.material.GetColor(PrimaryColor);
         }
-
-        private void OnGUI()
-        {
-            if (GUILayout.Button("Highlight"))
-            {
-                DoHighlightAnimation();
-            }
-        }
-
+        
         private void DoHighlightAnimation()
         {
             DOTween.Sequence()
