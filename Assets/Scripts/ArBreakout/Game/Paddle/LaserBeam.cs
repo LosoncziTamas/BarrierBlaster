@@ -37,18 +37,10 @@ namespace ArBreakout.Game.Paddle
             _activeTime += _beamProperties.Duration;
         }
 
-        private void Rotate()
+        private void Animate()
         {
-            var currentAngle = transform.rotation.eulerAngles.y;
-            if (currentAngle >= _beamProperties.MaxAngle)
-            {
-                _degreeSign = -1.0f;
-            }
-            else if (currentAngle <= _beamProperties.MinAngle)
-            {
-                _degreeSign = 1.0f;
-            }
-            transform.Rotate(Quaternion.Euler(0, _degreeSign * _beamProperties.RotationDegree, 0).eulerAngles);
+            var scaleX = Time.time * _beamProperties.Speed;
+            _lineRenderer.material.mainTextureOffset = new Vector2(scaleX, 0);
         }
         
         private void FixedUpdate()
@@ -56,7 +48,7 @@ namespace ArBreakout.Game.Paddle
             if (_activeTime > 0f)
             {
                 _activeTime -= GameTime.fixedDelta;
-                Rotate();
+                Animate();
                 LaunchRay();
                 return;
             }

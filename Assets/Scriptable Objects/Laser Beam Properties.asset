@@ -17,3 +17,4 @@ MonoBehaviour:
   MinAngle: -30
   MaxAngle: 30
   RotationDegree: 0
+  Speed: -1.6

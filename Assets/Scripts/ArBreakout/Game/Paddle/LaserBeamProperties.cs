@@ -7,8 +7,6 @@ namespace ArBreakout.Game.Paddle
     {
         public float Length;
         public float Duration;
-        public float MinAngle;
-        public float MaxAngle;
-        public float RotationDegree;
+        public float Speed;
     }
 }
