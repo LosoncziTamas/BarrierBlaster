@@ -58,7 +58,9 @@ namespace ArBreakout.Game.Paddle
                 _activeTime -= GameTime.fixedDelta;
                 Rotate();
                 LaunchRay();
+                return;
             }
+            _lineRenderer.positionCount = 0;
         }
 
         private void LaunchRay()

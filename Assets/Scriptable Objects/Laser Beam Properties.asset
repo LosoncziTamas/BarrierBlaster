@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Laser Beam Properties
   m_EditorClassIdentifier: 
   Length: 15
-  Duration: 3
+  Duration: 10000
   MinAngle: -30
   MaxAngle: 30
-  RotationDegree: 0.1
+  RotationDegree: 0
