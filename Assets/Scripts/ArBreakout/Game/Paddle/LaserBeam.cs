@@ -10,7 +10,7 @@ namespace ArBreakout.Game.Paddle
         [SerializeField] private LineRenderer _lineRenderer;
 
         private float _activeTime;
-        private float _degreeSign;
+        private float _textureOffset;
         private Quaternion _defaultRotation;
 
         private void OnGUI()
@@ -30,8 +30,8 @@ namespace ArBreakout.Game.Paddle
         {
             if (Mathf.Approximately(_activeTime, 0) || _activeTime < 0)
             {
-                _activeTime = 0;
-                _degreeSign = 1.0f;
+                _activeTime = 0f;
+                _textureOffset = 0f;
                 transform.rotation = _defaultRotation;
             }
             _activeTime += _beamProperties.Duration;
@@ -39,8 +39,8 @@ namespace ArBreakout.Game.Paddle
 
         private void Animate()
         {
-            var scaleX = Time.time * _beamProperties.Speed;
-            _lineRenderer.material.mainTextureOffset = new Vector2(scaleX, 0);
+            _textureOffset += Time.fixedDeltaTime * _beamProperties.Speed;
+            _lineRenderer.material.mainTextureOffset = new Vector2(_textureOffset, 0);
         }
         
         private void FixedUpdate()
@@ -50,9 +50,18 @@ namespace ArBreakout.Game.Paddle
                 _activeTime -= GameTime.fixedDelta;
                 Animate();
                 LaunchRay();
-                return;
+                if (_activeTime < 0.5f)
+                {
+                    // TODO: alter alpha
+                    var gradient = _lineRenderer.colorGradient;
+                    gradient.alphaKeys[0].alpha = 0.5f;
+                    _lineRenderer.colorGradient = gradient;
+                }
             }
-            _lineRenderer.positionCount = 0;
+            else
+            {
+                _lineRenderer.positionCount = 0;
+            }
         }
 
         private void LaunchRay()
