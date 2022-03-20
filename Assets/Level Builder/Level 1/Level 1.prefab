@@ -629,7 +629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitPoints: 1
-  _powerUp: 0
+  _powerUp: 7
 --- !u!1001 &2501937672941082352
 PrefabInstance:
   m_ObjectHideFlags: 0

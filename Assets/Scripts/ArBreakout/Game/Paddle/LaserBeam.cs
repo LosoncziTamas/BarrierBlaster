@@ -1,4 +1,3 @@
-using System;
 using ArBreakout.Misc;
 using UnityEngine;
 
@@ -11,19 +10,11 @@ namespace ArBreakout.Game.Paddle
 
         private float _activeTime;
         private float _textureOffset;
-        private Quaternion _defaultRotation;
-
-        private void OnGUI()
-        {
-            if (GUILayout.Button("Launch Beam"))
-            {
-                BeginLaunching();
-            }
-        }
-
+        private Gradient _originalGradient;
+        
         private void Awake()
         {
-            _defaultRotation = transform.rotation;
+            _originalGradient = _lineRenderer.colorGradient;
         }
 
         public void BeginLaunching()
@@ -32,9 +23,16 @@ namespace ArBreakout.Game.Paddle
             {
                 _activeTime = 0f;
                 _textureOffset = 0f;
-                transform.rotation = _defaultRotation;
             }
             _activeTime += _beamProperties.Duration;
+            _lineRenderer.colorGradient = _originalGradient;
+        }
+
+        public void EndLaunching()
+        {
+            _activeTime = 0;
+            _lineRenderer.positionCount = 0;
+            _textureOffset = 0f;
         }
 
         private void Animate()
@@ -52,9 +50,13 @@ namespace ArBreakout.Game.Paddle
                 LaunchRay();
                 if (_activeTime < 0.5f)
                 {
-                    // TODO: alter alpha
                     var gradient = _lineRenderer.colorGradient;
-                    gradient.alphaKeys[0].alpha = 0.5f;
+                    var alphaKeys = gradient.alphaKeys;
+                    alphaKeys[0] = new GradientAlphaKey(_activeTime, 0.0f);
+                    gradient.SetKeys(
+                        gradient.colorKeys,
+                        alphaKeys
+                    );
                     _lineRenderer.colorGradient = gradient;
                 }
             }
@@ -72,21 +74,16 @@ namespace ArBreakout.Game.Paddle
             
             _lineRenderer.positionCount = 2;
             _lineRenderer.SetPosition(0, startPos);
-
+            
             if (Physics.Raycast(ray.origin, ray.direction, out var hit, _beamProperties.Length))
             {
-                _lineRenderer.SetPosition(1, hit.point);
-                
                 var hitCollider = hit.collider;
                 if (hitCollider.CompareTag(BrickBehaviour.GameObjectTag))
                 {
                     hitCollider.GetComponent<BrickBehaviour>().Smash();
                 }
             }
-            else
-            {
-                _lineRenderer.SetPosition(1, ray.origin + ray.direction * _beamProperties.Length);
-            }
+            _lineRenderer.SetPosition(1, ray.origin + ray.direction * _beamProperties.Length);
         }
     }
 }

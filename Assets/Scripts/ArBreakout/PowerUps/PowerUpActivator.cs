@@ -155,19 +155,6 @@ namespace ArBreakout.PowerUps
             }
         }
 
-        private void OnGUI()
-        {
-            GUILayout.Space(100);
-            if (GUILayout.Button("Scale up"))
-            {
-                ActivatePowerUp(PowerUp.Magnifier);
-            }
-            if (GUILayout.Button("Scale down"))
-            {
-                ActivatePowerUp(PowerUp.Minifier);
-            }
-        }
-
         public void DeActivatePowerUp(PowerUp powerUp)
         {
             var powerUpIdx = (int) powerUp;
@@ -237,13 +224,12 @@ namespace ArBreakout.PowerUps
                 _activePowerUpTimes[powerUpIdx] = PowerUpEffectDuration;
                 _activePowerUps[powerUpIdx] = true;
             }
+            else if (powerUp == PowerUp.Laser)
+            {
+                _gameEntities.Paddle.SetLaserBeamEnabled(true);
+            }
 
             PublishPowerUpState();
-        }
-        
-        private void AnimateScale(float x, float y, float z)
-        {
-            transform.DOScale(new Vector3(x, y, z), 0.6f);
         }
     }
 }

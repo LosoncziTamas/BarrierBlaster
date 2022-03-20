@@ -22,6 +22,7 @@ namespace ArBreakout.Game
 
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private PaddleHitPoints _hitPoints;
+        [SerializeField] private LaserBeam _laserBeam;
         
         private Vector3 _localVelocity;
         private BallBehaviour _ballBehaviour;
@@ -72,6 +73,19 @@ namespace ArBreakout.Game
             _parentTransform.DOMove(_parentStartPosition, 0.6f);
             transform.DOScale(_defaultScale, 0.6f);
             _speed = DefaultSpeed;
+            SetLaserBeamEnabled(false);
+        }
+
+        public void SetLaserBeamEnabled(bool laserBeamEnabled)
+        {
+            if (laserBeamEnabled)
+            {
+                _laserBeam.BeginLaunching();
+            }
+            else
+            {
+                _laserBeam.EndLaunching();
+            }
         }
 
         private void FixedUpdate()
@@ -102,7 +116,6 @@ namespace ArBreakout.Game
             // We move the parent transform instead of the paddle. This is a workaround used to avoid unwanted scale of the ball.
             transform.parent.localPosition += BreakoutPhysics.CalculateMovementDelta(localAcceleration, _localVelocity);
         }
-
 
         private void OnCollisionEnter(Collision other)
         {
