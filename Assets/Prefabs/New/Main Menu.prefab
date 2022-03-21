@@ -456,6 +456,7 @@ MonoBehaviour:
   uiParent: {fileID: 3701554624543546101}
   _levelItemContainer: {fileID: 3701554623483727742}
   _levels: {fileID: 11400000, guid: a6463425b499d472dad9a769b384e936, type: 2}
+  _canvasGroup: {fileID: 2070967607189946207}
 --- !u!1 &3701554624829190349
 GameObject:
   m_ObjectHideFlags: 0

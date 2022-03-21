@@ -43,6 +43,7 @@ namespace ArBreakout.Game.Course
                 brickTransform.SetParent(transform, false);
                 brickTransform.localPosition = brickAttribute.Position;
                 brickTransform.localRotation = brickAttribute.Rotation;
+                brickAttribute.RowIndex = idx;
                 // Scale of the brick is set with the animation.
                 brick.Init(brickAttribute, selected.BrickAttributes.Count);
             }
@@ -124,82 +125,5 @@ namespace ArBreakout.Game.Course
             Instantiate(_wallBehaviourPrefab, transform);
             Instantiate(_gapPrefab, transform);
         }
-        
-#if false
-        public void InitWithLevel(Transform levelParent, LevelLoader.ParsedLevel level)
-        {
-            Assert.IsNull(_gameWorldRoot);
-
-            _gameWorldRoot = new GameObject(ObjectName);
-            _gameWorldRoot.transform.SetParent(levelParent);
-            _gameWorldRoot.transform.localScale = Vector3.one;
-            _gameWorldRoot.transform.localRotation = Quaternion.identity;
-            _gameWorldRoot.transform.localPosition = Vector3.zero;
-
-            _brickPool = Instantiate(_brickPoolPrefab, levelParent);
-            _brickPool.gameObject.SetActive(false);
-
-            InitWallsAndGap();
-            Paddle = InitPaddle();
-            BallBehaviour = InitBall(Paddle.transform);
-            InitBricks(level);
-
-            Initialized = true;
-        }
-        
-        public void DestroySelf()
-        {
-            Assert.IsNotNull(_gameWorldRoot, "Trying to destroy a non-existing game world.");
-
-            _brickReferences.Clear();
-            Initialized = false;
-            Paddle = null;
-            BallBehaviour = null;
-
-            Destroy(_gameWorldRoot);
-            Destroy(_brickPool);
-        }
-        
-        
-        private void InitBricks(LevelLoader.ParsedLevel parsedLevel)
-        {
-            var count = parsedLevel.bricksProps.Count;
-            var paletteColorCount = _colorPalette.Colors.Length;
-            foreach (var bricksProp in parsedLevel.bricksProps)
-            {
-                var brick = _brickPool.GetBrick();
-                brick.gameObject.name = $"Brick {bricksProp.Location}";
-                var brickTransform = brick.transform;
-                brickTransform.SetParent(_gameWorldRoot.transform, false);
-                brickTransform.localPosition = bricksProp.Location;
-                brickTransform.localRotation = Quaternion.identity;
-                // Scale of the brick is set with the animation.
-                var lineIndex = bricksProp.LineIdx;
-                var color = _colorPalette.Colors[lineIndex % paletteColorCount];
-                brick.Init(bricksProp, color, count);
-                _brickReferences.Add(brick);
-            }
-        }
-                
-        public void SetupLevel(LevelLoader.ParsedLevel level)
-        {
-            Assert.IsTrue(Initialized);
-            Assert.IsNotNull(Paddle);
-            Assert.IsNotNull(BallBehaviour);
-
-            foreach (var brick in _brickReferences)
-            {
-                if (brick)
-                {
-                    _brickPool.ReturnBrick(brick);
-                }
-            }
-
-            _brickReferences.Clear();
-            InitBricks(level);
-            Paddle.ResetToDefaults();
-            GamePlayUtils.AnchorBallToPaddle(BallBehaviour, Paddle);
-        }
-#endif
     }
 }

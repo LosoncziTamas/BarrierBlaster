@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ namespace ArBreakout.Gui.LevelSelector
         [SerializeField] private GameObject _lockedIcon;
         [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] private Stars _stars;
+        [SerializeField] private RectTransform _rectTransform;
 
         private Action<LevelModel> _onClickAction;
         private LevelModel _levelModel;
@@ -34,6 +36,11 @@ namespace ArBreakout.Gui.LevelSelector
 
                 _unlocked = value;
             }
+        }
+
+        private void Start()
+        {
+            _rectTransform.DOPunchScale(Vector3.one, 0.6f);
         }
 
         private void OnEnable()

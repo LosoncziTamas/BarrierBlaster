@@ -4,6 +4,7 @@ using System.Linq;
 using ArBreakout.Gui.GamePlay;
 using ArBreakout.Gui.LevelSelector;
 using ArBreakout.Levels;
+using DG.Tweening;
 using Possible.AppController;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace ArBreakout.Gui
     {
         [SerializeField] private RectTransform _levelItemContainer;
         [SerializeField] private Levels.Levels _levels;
+        [SerializeField] private CanvasGroup _canvasGroup;
 
         private List<LevelItem> _items;
 
