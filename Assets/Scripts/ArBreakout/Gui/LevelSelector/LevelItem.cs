@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace ArBreakout.Gui.LevelSelector
 {
     public class LevelItem : MonoBehaviour
     {
+        [SerializeField] private Color _disabledColor;
         [SerializeField] private Button _button;
         [SerializeField] private GameObject _shadow;
         [SerializeField] private GameObject _lockedIcon;
@@ -19,6 +21,7 @@ namespace ArBreakout.Gui.LevelSelector
         private LevelModel _levelModel;
 
         private bool _unlocked;
+        private bool _invoking;
 
         public bool Unlocked
         {
@@ -37,12 +40,7 @@ namespace ArBreakout.Gui.LevelSelector
                 _unlocked = value;
             }
         }
-
-        private void Start()
-        {
-            _rectTransform.DOPunchScale(Vector3.one, 0.6f);
-        }
-
+        
         private void OnEnable()
         {
             _button.onClick.AddListener(OnButtonClick);
@@ -53,9 +51,33 @@ namespace ArBreakout.Gui.LevelSelector
             _button.onClick.AddListener(OnButtonClick);
         }
 
+        private IEnumerator AnimateAndInvokeClickEvent()
+        {
+            _invoking = true;
+            const float animationDuration = 0.3f;
+            transform.DOPunchScale(Vector3.one * 0.3f , animationDuration);
+            yield return new WaitForSeconds(animationDuration);
+            _invoking = false;
+            _onClickAction?.Invoke(_levelModel);
+        }
+
         private void OnButtonClick()
         {
-            _onClickAction?.Invoke(_levelModel);
+            if (_unlocked)
+            {
+                if (_invoking)
+                {
+                    return;
+                }
+                StartCoroutine(AnimateAndInvokeClickEvent());
+            }
+            else
+            {
+                transform.DOPunchRotation(Vector3.forward * 5.0f , 0.3f).OnComplete(() =>
+                {
+                    transform.DOLocalRotate(Vector3.zero, 0.2f);
+                });
+            }
         }
 
         public void Bind(LevelModel data, Action<LevelModel> click)
@@ -69,7 +91,7 @@ namespace ArBreakout.Gui.LevelSelector
         private void Lock()
         {
             _stars.gameObject.SetActive(false);
-            _button.interactable = false;
+            _button.image.color = _disabledColor;
             _shadow.SetActive(false);
             _text.gameObject.SetActive(false);
             _lockedIcon.SetActive(true);
@@ -78,7 +100,8 @@ namespace ArBreakout.Gui.LevelSelector
         private void Unlock()
         {
             _stars.gameObject.SetActive(true);
-            _button.interactable = true;
+            _stars.transform.DOPunchScale(Vector3.one * 0.3f, 0.6f);
+            _button.image.color = Color.white;
             _shadow.SetActive(true);
             _text.gameObject.SetActive(true);
             _lockedIcon.SetActive(false);

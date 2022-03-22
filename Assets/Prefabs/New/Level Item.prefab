@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35e4ab8cdd4b400182c13b8435ec966c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _disabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
   _button: {fileID: 4255531847226736338}
   _shadow: {fileID: 4255531847981278920}
   _lockedIcon: {fileID: 4617031015847638950}

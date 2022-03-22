@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c29ff4be7e54ff986f621c6c6ce17b8, type: 3}
   m_Name: Laser Beam Properties
   m_EditorClassIdentifier: 
-  Length: 15
+  Length: 17.5
   Duration: 3
   Speed: -1.6
