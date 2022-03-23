@@ -17,11 +17,10 @@ namespace ArBreakout.Tutorial
             MainMenu
         }
 
-        public Vector3 ShowPunch;
-        public float ShowAnimDuration;
-        public int Vibrato;
-        public float Elasticity;
-
+        public Vector3 HiddenPosition;
+        public float AnimDuration;
+        public Ease Ease;
+        
         [SerializeField] private Button _prevButton;
         [SerializeField] private Button _nextButton;
         [SerializeField] private Button _backButton;
@@ -37,7 +36,7 @@ namespace ArBreakout.Tutorial
 
         private void Awake()
         {
-            // _panel.anchoredPosition = HiddenPosition;
+            _panel.anchoredPosition = HiddenPosition;
         }
 
         private void Start()
@@ -66,29 +65,30 @@ namespace ArBreakout.Tutorial
         public Task<ReturnState> Show()
         {
             _tutorialCanvas.enabled = true;
-            _panel.DOPunchScale(ShowPunch, ShowAnimDuration, Vibrato, Elasticity);
+            _panel.DOLocalMove(Vector3.zero, AnimDuration).SetEase(Ease);
             Debug.Assert(_taskCompletionSource == null);
             _taskCompletionSource = new TaskCompletionSource<ReturnState>();
             return _taskCompletionSource.Task;
         }
-
-        private void Hide()
-        {
-            _panel.DOPunchScale(ShowPunch, ShowAnimDuration, Vibrato, Elasticity).OnComplete(() => _tutorialCanvas.enabled = false);
-        }
-
+        
         public void DismissAndResume()
         {
-            Hide();
-            _taskCompletionSource.SetResult(ReturnState.Game);
-            _taskCompletionSource = null;
+            _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() =>
+            {
+                _tutorialCanvas.enabled = false;
+                _taskCompletionSource.SetResult(ReturnState.Game);
+                _taskCompletionSource = null;
+            });
         }
 
         private void OnBackButtonClick()
         {
-            Hide();
-            _taskCompletionSource.SetResult(ReturnState.MainMenu);
-            _taskCompletionSource = null;
+            _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() =>
+            {
+                _tutorialCanvas.enabled = false;
+                _taskCompletionSource.SetResult(ReturnState.MainMenu);
+                _taskCompletionSource = null;
+            });
         }
 
         private void OnNextButtonClick()
