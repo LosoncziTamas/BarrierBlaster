@@ -7,9 +7,9 @@ namespace ArBreakout.PowerUps
 {
     public class PowerUpMapping : ScriptableObject
     {
-        public PowerUpScriptableObject[] mappings;
+        public PowerUpDescriptor[] mappings;
 
-        public PowerUpScriptableObject GetPowerUpDescriptor(PowerUp powerUp)
+        public PowerUpDescriptor GetPowerUpDescriptor(PowerUp powerUp)
         {
             foreach (var item in mappings)
             {

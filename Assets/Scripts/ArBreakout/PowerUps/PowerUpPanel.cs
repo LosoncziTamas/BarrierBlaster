@@ -50,7 +50,7 @@ namespace ArBreakout.PowerUps
                 Transform itemTransform;
                 (itemTransform = item.transform).SetParent(transform);
                 itemTransform.localScale = Vector3.one;
-                item.Init(data.icon, powerUpTime);
+                // item.Init(data.icon, powerUpTime);
             }
         }
     }

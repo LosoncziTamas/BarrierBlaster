@@ -31,7 +31,7 @@ namespace ArBreakout.Game
         private Renderer _renderer;
         private Collider _collider;
         private int _hitPoints;
-        private PowerUpScriptableObject _powerUpProperties;
+        private PowerUpDescriptor _powerUpProperties;
         private Vector3 _targetScale;
         
         private void Awake()

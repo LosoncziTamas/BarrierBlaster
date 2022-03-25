@@ -114,7 +114,7 @@ namespace ArBreakout.Tutorial
             DOTween.Sequence().Append(_descriptionText.DOFade(0.0f, 0.3f)).AppendCallback(() =>
             {
                 _descriptionText.DOFade(1.0f, 0.3f);
-                _descriptionText.text = _powerUpMappings.mappings[index].descriptionText;
+                // _descriptionText.text = _powerUpMappings.mappings[index].descriptionText;
             });
         }
     }
