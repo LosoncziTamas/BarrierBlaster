@@ -46,6 +46,7 @@ namespace ArBreakout.PowerUps
 
             _velocity += BreakoutPhysics.CalculateVelocityDelta(_acceleration);
             transform.localPosition += BreakoutPhysics.CalculateMovementDelta(_acceleration, _velocity);
+            transform.Rotate(Vector3.right, _movementProperties.rotation, Space.Self);
         }
 
         public void AnimateAppearance()

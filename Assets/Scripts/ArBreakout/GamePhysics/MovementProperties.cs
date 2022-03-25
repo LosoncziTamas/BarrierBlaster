@@ -7,5 +7,6 @@ namespace ArBreakout.GamePhysics
     {
         public float speed;
         public float drag;
+        public float rotation;
     }
 }
