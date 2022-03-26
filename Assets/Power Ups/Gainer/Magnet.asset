@@ -15,5 +15,6 @@ MonoBehaviour:
   collectablePrefab: {fileID: 3302268168767692754, guid: 0ae32a615a413460e99d510b6ba704ba,
     type: 3}
   powerUp: 6
-  icon: {fileID: 21300000, guid: e21d13fe6dc284df3a0444145c5ca594, type: 3}
-  descriptionText: You can magnetize your paddle if you catch one of these guys.
+  letter: M
+  insideColor: {r: 0, g: 0, b: 0, a: 0}
+  outsideColor: {r: 0, g: 0, b: 0, a: 0}

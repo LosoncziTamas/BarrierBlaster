@@ -276,7 +276,7 @@ MonoBehaviour:
     Rotation: {x: -0, y: -0, z: -0, w: 1}
   - Color: {r: 0.9490196, g: 0.41960785, b: 0.41960785, a: 1}
     HitPoints: 1
-    PowerUp: 4
+    PowerUp: 7
     RowIndex: 0
     Scale: {x: 0.80999994, y: 0.80999994, z: 0.80999994}
     Position: {x: 3.7500005, y: 0.5, z: 1.5}
@@ -374,7 +374,7 @@ MonoBehaviour:
     Rotation: {x: -0, y: -0, z: -0, w: 1}
   - Color: {r: 0.9490196, g: 0.41960785, b: 0.41960785, a: 1}
     HitPoints: 1
-    PowerUp: 4
+    PowerUp: 7
     RowIndex: 0
     Scale: {x: 0.80999994, y: 0.80999994, z: 0.80999994}
     Position: {x: -3.846, y: 0.5, z: 1.5}
@@ -423,7 +423,7 @@ MonoBehaviour:
     Rotation: {x: -0, y: -0, z: -0, w: 1}
   - Color: {r: 0.9490196, g: 0.41960785, b: 0.41960785, a: 1}
     HitPoints: 1
-    PowerUp: 4
+    PowerUp: 6
     RowIndex: 0
     Scale: {x: 0.80999994, y: 0.80999994, z: 0.80999994}
     Position: {x: -7.6499996, y: 0.5, z: 1.5}

@@ -15,6 +15,6 @@ MonoBehaviour:
   collectablePrefab: {fileID: 7407027738639250661, guid: 1076466e174e140bb85832dce561a949,
     type: 3}
   powerUp: 7
-  letter: 
+  letter: L
   insideColor: {r: 0, g: 0, b: 0, a: 0}
   outsideColor: {r: 0, g: 0, b: 0, a: 0}

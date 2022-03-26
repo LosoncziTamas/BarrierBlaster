@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using ArBreakout.Game.Bricks;
-using ArBreakout.Levels;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
 using DG.Tweening;
@@ -121,7 +120,7 @@ namespace ArBreakout.Game
             {
                 _collectableInstance = Instantiate(_powerUpProperties.collectablePrefab, transform.parent);
                 _collectableInstance.transform.position = transform.position;
-                _collectableInstance.Init(_powerUpProperties.powerUp);
+                _collectableInstance.Init(_powerUpProperties);
                 _collectableInstance.AnimateAppearance();
             }
         }

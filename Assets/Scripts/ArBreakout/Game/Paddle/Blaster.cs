@@ -32,22 +32,8 @@ namespace ArBreakout.Game.Paddle
             _originalLocalY = transform.localPosition.y;
             _originalLeftRotation = _leftBlaster.localRotation.eulerAngles;
             _originalRightRotation = _rightBlaster.localRotation.eulerAngles;
-            gameObject.SetActive(false);
         }
-
-        private void OnGUI()
-        {
-            if (GUILayout.Button("Activate Blaster"))
-            {
-                Activate();
-            }
-
-            if (GUILayout.Button("Deactivate Blaster"))
-            {
-                Deactivate();
-            }
-        }
-
+        
         private Sequence CreateAnimSequence()
         {
             return DOTween.Sequence()
@@ -78,7 +64,6 @@ namespace ArBreakout.Game.Paddle
                 .OnComplete(() =>
                 {
                     _deactivateSequence = null;
-                    gameObject.SetActive(false);
                 });
         }
         

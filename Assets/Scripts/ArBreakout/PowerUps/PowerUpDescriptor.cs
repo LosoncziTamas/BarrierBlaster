@@ -10,5 +10,6 @@ namespace ArBreakout.PowerUps
         public string letter;
         public Color insideColor;
         public Color outsideColor;
+        public Color textColor;
     }
 }
