@@ -32,6 +32,7 @@ namespace ArBreakout.Game.Paddle
             _originalLocalY = transform.localPosition.y;
             _originalLeftRotation = _leftBlaster.localRotation.eulerAngles;
             _originalRightRotation = _rightBlaster.localRotation.eulerAngles;
+            gameObject.SetActive(false);
         }
 
         private void OnGUI()
@@ -74,7 +75,11 @@ namespace ArBreakout.Game.Paddle
                         .DOLocalRotate(_originalLeftRotation, _duration * 0.5f)
                         .SetEase(_ease))
                 .Insert(_duration * 0.5f, transform.DOLocalMoveY(_originalLocalY, _duration).SetEase(_ease))
-                .OnComplete(() => _deactivateSequence = null);
+                .OnComplete(() =>
+                {
+                    _deactivateSequence = null;
+                    gameObject.SetActive(false);
+                });
         }
         
         public void Activate()
@@ -84,7 +89,8 @@ namespace ArBreakout.Game.Paddle
             {
                 return;
             }
-
+            
+            gameObject.SetActive(true);
             _activateSequence = CreateAnimSequence();
         }
 

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b3aa9a68fff6496eaf9a7846ea19f35, type: 3}
   m_Name: Laser
   m_EditorClassIdentifier: 
-  collectablePrefab: {fileID: 372531413280450799, guid: 9dffb793873e64370ae0d3d9ac25084d,
+  collectablePrefab: {fileID: 7407027738639250661, guid: 1076466e174e140bb85832dce561a949,
     type: 3}
   powerUp: 7
-  icon: {fileID: 0}
-  descriptionText: 
+  letter: 
+  insideColor: {r: 0, g: 0, b: 0, a: 0}
+  outsideColor: {r: 0, g: 0, b: 0, a: 0}

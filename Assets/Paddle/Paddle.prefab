@@ -136,7 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerInput: {fileID: 11400000, guid: 521c6db7527eb4102a1816768ff7e8d9, type: 2}
   _hitPoints: {fileID: 7034805691892276277}
-  _blaster: {fileID: 0}
+  _blaster: {fileID: 6379820879089796230}
   _gameEntities: {fileID: 11400000, guid: 2b277d97f28f149a08c9dfadf311be98, type: 2}
 --- !u!114 &1011918296105213254
 MonoBehaviour:
@@ -490,6 +490,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3065710223150052819}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6379820879089796230 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8215192979625800021, guid: 395ae86fc29c44ffe8d913e89e22f9df,
+    type: 3}
+  m_PrefabInstance: {fileID: 3065710223150052819}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c497446876274ecab41251934380bb69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8972682678557127228
 PrefabInstance:
   m_ObjectHideFlags: 0
