@@ -22,7 +22,7 @@ namespace ArBreakout.Game
 
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private PaddleHitPoints _hitPoints;
-        [SerializeField] private LaserBeam _laserBeam;
+        [SerializeField] private Blaster _blaster;
         
         private Vector3 _localVelocity;
         private BallBehaviour _ballBehaviour;
@@ -80,11 +80,11 @@ namespace ArBreakout.Game
         {
             if (laserBeamEnabled)
             {
-                _laserBeam.BeginLaunching();
+                _blaster.Activate();
             }
             else
             {
-                _laserBeam.EndLaunching();
+                _blaster.Deactivate();
             }
         }
 

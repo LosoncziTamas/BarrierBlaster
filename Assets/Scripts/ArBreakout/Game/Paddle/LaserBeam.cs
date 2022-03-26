@@ -11,6 +11,8 @@ namespace ArBreakout.Game.Paddle
         private float _activeTime;
         private float _textureOffset;
         private Gradient _originalGradient;
+
+        public bool Launching => _activeTime > 0f;
         
         private void Awake()
         {
