@@ -80,7 +80,7 @@ namespace ArBreakout.Gui.GamePlay
         public async void OnActiveBricksCleared()
         {
             GameTime.paused = true;
-            var result = await _levelCompleteModal.Show();
+            var result = await _levelCompleteModal.Show(_levels.Selected.Name);
             GameTime.paused = false;
             if (result.GoBackToMenu)
             {
