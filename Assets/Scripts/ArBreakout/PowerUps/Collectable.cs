@@ -48,6 +48,7 @@ namespace ArBreakout.PowerUps
         {
             PowerUp = powerUpDescriptor.powerUp;
             _text.text = powerUpDescriptor.letter;
+            _text.color = powerUpDescriptor.textColor;
             _powerUpDescriptor = powerUpDescriptor;
         }
 

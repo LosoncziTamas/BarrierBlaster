@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b3aa9a68fff6496eaf9a7846ea19f35, type: 3}
-  m_Name: Magnet
+  m_Name: Laser
   m_EditorClassIdentifier: 
-  collectablePrefab: {fileID: 3302268168767692754, guid: 0ae32a615a413460e99d510b6ba704ba,
+  collectablePrefab: {fileID: 7407027738639250661, guid: 1076466e174e140bb85832dce561a949,
     type: 3}
-  powerUp: 6
-  letter: M
+  powerUp: 7
+  letter: L
   insideColor: {r: 0, g: 0, b: 0, a: 0}
   outsideColor: {r: 0, g: 0, b: 0, a: 0}
+  textColor: {r: 0.8509804, g: 0.2627451, b: 0.2627451, a: 0}
