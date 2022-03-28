@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using ArBreakout.Levels;
 using DG.Tweening;
@@ -13,8 +14,10 @@ namespace ArBreakout.Gui
         [SerializeField] private Button _closeButton;
         [SerializeField] private Button _nextLevelButton;
         [SerializeField] private Button _goToMenuButton;
+        [SerializeField] private Button _replayButton;
         [SerializeField] private RectTransform _panel;
         [SerializeField] private TextMeshProUGUI _stageText; 
+        [SerializeField] private Canvas _canvas; 
         
         private TaskCompletionSource<Result> _taskCompletionSource;
 
@@ -30,6 +33,7 @@ namespace ArBreakout.Gui
             _nextLevelButton.onClick.AddListener(OnNextLevelButtonClick);
             _closeButton.onClick.AddListener(OnNextLevelButtonClick);
             _goToMenuButton.onClick.AddListener(OnGoToMenuButtonClick);
+            _replayButton.onClick.AddListener(OnReplayButtonClick);
         }
         
         private void OnDisable()
@@ -37,11 +41,12 @@ namespace ArBreakout.Gui
             _nextLevelButton.onClick.RemoveListener(OnNextLevelButtonClick);
             _closeButton.onClick.RemoveListener(OnNextLevelButtonClick);
             _goToMenuButton.onClick.RemoveListener(OnGoToMenuButtonClick);
+            _replayButton.onClick.RemoveListener(OnReplayButtonClick);
         }
         
         private void OnGoToMenuButtonClick()
         {
-            gameObject.SetActive(false);
+            _canvas.enabled = false;
             _taskCompletionSource.SetResult(new Result
             {
                 Level = null,
@@ -67,7 +72,7 @@ namespace ArBreakout.Gui
                 _levels.Selected = nextLevel;
             }
             
-            gameObject.SetActive(false);
+            _canvas.enabled = false;
             _taskCompletionSource.SetResult(new Result
             {
                 Level = _levels.Selected,
@@ -77,10 +82,17 @@ namespace ArBreakout.Gui
             _taskCompletionSource = null;
         }
 
-        // TODO: replay?
+        private async void OnGUI()
+        {
+            if (GUILayout.Button("Show"))
+            {
+                await Show("I");
+            }
+        }
+
         private void OnReplayButtonClick()
         {
-            gameObject.SetActive(false);
+            _canvas.enabled = false;
             _taskCompletionSource.SetResult(new Result
             {
                 Level = _levels.Selected,
@@ -94,7 +106,7 @@ namespace ArBreakout.Gui
         {
             Debug.Assert(_taskCompletionSource == null);
             _stageText.text = $"STAGE {stageName}";
-            gameObject.SetActive(true);
+            _canvas.enabled = true;
             _panel.DOPunchScale(Vector3.one * 0.2f, 0.4f);
             _taskCompletionSource = new TaskCompletionSource<Result>();
             return _taskCompletionSource.Task;

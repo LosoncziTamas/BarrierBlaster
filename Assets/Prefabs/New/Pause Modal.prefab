@@ -1804,7 +1804,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HiddenPosition: {x: 2500, y: 0, z: 0}
   AnimDuration: 0.3
-  Ease: 0
+  Ease: 4
   _backButton: {fileID: 5026593171248269164}
   _closeButton: {fileID: 5670778363407874193}
   _continueButton: {fileID: 3592518176967428099}

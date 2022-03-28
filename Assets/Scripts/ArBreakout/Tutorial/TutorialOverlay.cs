@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,6 +46,15 @@ namespace ArBreakout.Tutorial
             _backButton.onClick.RemoveListener(OnBackButtonClick);
             _closeButton.onClick.RemoveListener(DismissAndResume);
             _continueButton.onClick.RemoveListener(DismissAndResume);
+        }
+
+        private async void OnGUI()
+        {
+            GUILayout.Space(100);
+            if (GUILayout.Button("Show Pause"))
+            {
+                await Show();
+            }
         }
 
         public Task<ReturnState> Show()
