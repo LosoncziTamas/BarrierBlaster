@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +24,7 @@ namespace ArBreakout.Tutorial
         [SerializeField] private Button _soundToggle;
         [SerializeField] private Canvas _tutorialCanvas;
         [SerializeField] private RectTransform _panel;
+        [SerializeField] private Image _overlay;
 
         private TaskCompletionSource<ReturnState> _taskCompletionSource;
         private int _currentIdx;
@@ -61,6 +61,7 @@ namespace ArBreakout.Tutorial
         {
             _tutorialCanvas.enabled = true;
             _panel.DOLocalMove(Vector3.zero, AnimDuration).SetEase(Ease);
+            _overlay.DOFade(0.5f, AnimDuration).SetEase(Ease);
             Debug.Assert(_taskCompletionSource == null);
             _taskCompletionSource = new TaskCompletionSource<ReturnState>();
             return _taskCompletionSource.Task;
@@ -68,6 +69,7 @@ namespace ArBreakout.Tutorial
         
         public void DismissAndResume()
         {
+            _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);
             _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() =>
             {
                 _tutorialCanvas.enabled = false;
@@ -78,6 +80,7 @@ namespace ArBreakout.Tutorial
 
         private void OnBackButtonClick()
         {
+            _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);
             _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() =>
             {
                 _tutorialCanvas.enabled = false;

@@ -1717,7 +1717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.019607844}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1802,9 +1802,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5de8b63edfa7a4e168454de3fb23d3d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HiddenPosition: {x: 2500, y: 0, z: 0}
-  AnimDuration: 0.3
-  Ease: 4
+  HiddenPosition: {x: 0, y: 2000, z: 0}
+  AnimDuration: 0.4
+  Ease: 28
   _backButton: {fileID: 5026593171248269164}
   _closeButton: {fileID: 5670778363407874193}
   _continueButton: {fileID: 3592518176967428099}
@@ -1812,6 +1812,7 @@ MonoBehaviour:
   _soundToggle: {fileID: 4377946580607451840}
   _tutorialCanvas: {fileID: 9100463286765856856}
   _panel: {fileID: 9100463286773496579}
+  _overlay: {fileID: 7963868730538722697}
 --- !u!1 &9100463287293964014
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using ArBreakout.Levels;
 using DG.Tweening;
@@ -18,14 +17,26 @@ namespace ArBreakout.Gui
         [SerializeField] private RectTransform _panel;
         [SerializeField] private TextMeshProUGUI _stageText; 
         [SerializeField] private Canvas _canvas; 
+        [SerializeField] private RectTransform _shadow; 
+        [SerializeField] private Image _overlay; 
         
         private TaskCompletionSource<Result> _taskCompletionSource;
+        
+        public Vector3 HiddenPosition;
+        public float AnimDuration;
+        public Ease Ease;
 
         public class Result
         {
             public LevelData Level { get; set; }
             public bool AllLevelsComplete { get; set; }
             public bool GoBackToMenu { get; set; }
+        }
+
+        private void Awake()
+        {
+            _panel.anchoredPosition = HiddenPosition;
+            _shadow.anchoredPosition = HiddenPosition;
         }
 
         private void OnEnable()
@@ -46,14 +57,19 @@ namespace ArBreakout.Gui
         
         private void OnGoToMenuButtonClick()
         {
-            _canvas.enabled = false;
-            _taskCompletionSource.SetResult(new Result
+            _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);
+            _shadow.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease);
+            _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() =>
             {
-                Level = null,
-                AllLevelsComplete = false,
-                GoBackToMenu = true
+                _canvas.enabled = false;
+                _taskCompletionSource.SetResult(new Result
+                {
+                    Level = null,
+                    AllLevelsComplete = false,
+                    GoBackToMenu = true
+                });
+                _taskCompletionSource = null;
             });
-            _taskCompletionSource = null;
         }
 
         private void OnNextLevelButtonClick()
@@ -71,15 +87,21 @@ namespace ArBreakout.Gui
                 var nextLevel = _levels.All[currLevelIdx + 1];
                 _levels.Selected = nextLevel;
             }
-            
-            _canvas.enabled = false;
-            _taskCompletionSource.SetResult(new Result
+
+            _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);
+            _shadow.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease);
+            _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() =>
             {
-                Level = _levels.Selected,
-                AllLevelsComplete = allLevelComplete,
-                GoBackToMenu = false
+                _canvas.enabled = false;
+                _taskCompletionSource.SetResult(new Result
+                {
+                    Level = _levels.Selected,
+                    AllLevelsComplete = allLevelComplete,
+                    GoBackToMenu = false
+                });
+                _taskCompletionSource = null;
             });
-            _taskCompletionSource = null;
+
         }
 
         private async void OnGUI()
@@ -92,22 +114,29 @@ namespace ArBreakout.Gui
 
         private void OnReplayButtonClick()
         {
-            _canvas.enabled = false;
-            _taskCompletionSource.SetResult(new Result
+            _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);
+            _shadow.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease);
+            _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() =>
             {
-                Level = _levels.Selected,
-                AllLevelsComplete = false,
-                GoBackToMenu = false
+                _canvas.enabled = false;
+                _taskCompletionSource.SetResult(new Result
+                {
+                    Level = _levels.Selected,
+                    AllLevelsComplete = false,
+                    GoBackToMenu = false
+                });
+                _taskCompletionSource = null;
             });
-            _taskCompletionSource = null;
         }
 
         public Task<Result> Show(string stageName)
         {
             Debug.Assert(_taskCompletionSource == null);
+            _overlay.DOFade(0.5f, AnimDuration).SetEase(Ease);
+            _shadow.DOLocalMove(Vector3.down * 20.0f, AnimDuration).SetEase(Ease);
+            _panel.DOLocalMove(Vector3.zero, AnimDuration).SetEase(Ease);
             _stageText.text = $"STAGE {stageName}";
             _canvas.enabled = true;
-            _panel.DOPunchScale(Vector3.one * 0.2f, 0.4f);
             _taskCompletionSource = new TaskCompletionSource<Result>();
             return _taskCompletionSource.Task;
         }

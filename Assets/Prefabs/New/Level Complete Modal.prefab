@@ -1682,6 +1682,11 @@ MonoBehaviour:
   _panel: {fileID: 5557218653908524435}
   _stageText: {fileID: 3890800923812697849}
   _canvas: {fileID: 5557218654427962105}
+  _shadow: {fileID: 5557218654855968238}
+  _overlay: {fileID: 5557218655272853914}
+  HiddenPosition: {x: 0, y: 2000, z: 0}
+  AnimDuration: 0.4
+  Ease: 28
 --- !u!1 &5557218654855968239
 GameObject:
   m_ObjectHideFlags: 0
@@ -1838,7 +1843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.019607844}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
