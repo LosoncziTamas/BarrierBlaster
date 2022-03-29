@@ -62,7 +62,7 @@ namespace ArBreakout.Gui.GamePlay
             if (_lifeCount.Value < 1)
             {
                 GameTime.paused = true;
-                var retry = await _gameOverModal.Show();
+                var retry = await _gameOverModal.Show(_levels.Selected.Name);
                 GameTime.paused = false;
                 if (retry)
                 {
