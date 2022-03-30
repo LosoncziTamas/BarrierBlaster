@@ -91,16 +91,15 @@ namespace ArBreakout.Game
         private void FixedUpdate()
         {
             var localAcceleration = Vector3.zero;
-            var controlSwitchIsActive = _powerUpActivator.IsActive(PowerUp.ControlSwitch);
 
             if (_playerInput.Left)
             {
-                localAcceleration.x += controlSwitchIsActive ? 1.0f : -1.0f;
+                localAcceleration.x += -1.0f;
             }
 
             if (_playerInput.Right)
             {
-                localAcceleration.x += controlSwitchIsActive ? -1.0f : 1.0f;
+                localAcceleration.x += 1.0f;
             }
 
             if (_playerInput.Fire && _ballBehaviour)

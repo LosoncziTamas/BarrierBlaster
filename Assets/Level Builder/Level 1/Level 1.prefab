@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitPoints: 1
-  _powerUp: 0
+  _powerUp: 2
 --- !u!1 &7865151572428640822
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitPoints: 1
-  _powerUp: 0
+  _powerUp: 4
 --- !u!1 &7865151572605286186
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,7 +405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitPoints: 1
-  _powerUp: 0
+  _powerUp: 3
 --- !u!1 &7865151572968732256
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,7 +517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitPoints: 1
-  _powerUp: 0
+  _powerUp: 4
 --- !u!1 &7865151573985573681
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,7 +629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitPoints: 1
-  _powerUp: 7
+  _powerUp: 1
 --- !u!1001 &2501937672941082352
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1916,6 +1916,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Brick 2X (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3237617121101469473, guid: 8d774e60225e145b8a6c749cfcf3e021,
+        type: 3}
+      propertyPath: _powerUp
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6663543909458692895, guid: 8d774e60225e145b8a6c749cfcf3e021,
         type: 3}

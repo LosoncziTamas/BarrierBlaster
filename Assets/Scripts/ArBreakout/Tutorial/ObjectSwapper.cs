@@ -22,12 +22,8 @@ namespace ArBreakout.Tutorial
 
         private void Awake()
         {
-            _powerUpObjects.Add(PowerUp.Accelerator, _arrow);
             _powerUpObjects.Add(PowerUp.Magnet, _magnet);
             _powerUpObjects.Add(PowerUp.Magnifier, _mushroom);
-            _powerUpObjects.Add(PowerUp.Decelerator, _anvil);
-            _powerUpObjects.Add(PowerUp.Minifier, _scissor);
-            _powerUpObjects.Add(PowerUp.ControlSwitch, _beer);
         }
 
         public void SwapToPowerUpObject(PowerUp powerUp, float rotationDegree)
