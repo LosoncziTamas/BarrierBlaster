@@ -17,7 +17,7 @@ namespace ArBreakout.Gui.GamePlay
         [SerializeField] private Levels.Levels _levels;
         [SerializeField] private IntVariable _lifeCount;
         
-        private TutorialOverlay _tutorialOverlay;
+        private PauseModal _pauseModal;
         private GameOverModal _gameOverModal;
         private LevelCompleteModal _levelCompleteModal;
         private LevelRoot _levelRoot;
@@ -25,7 +25,7 @@ namespace ArBreakout.Gui.GamePlay
         protected override void Awake()
         {
             base.Awake();
-            _tutorialOverlay = FindObjectOfType<TutorialOverlay>();
+            _pauseModal = FindObjectOfType<PauseModal>();
             _levelRoot = FindObjectOfType<LevelRoot>();
             _gameOverModal = FindObjectOfType<GameOverModal>(includeInactive: true);
             _levelCompleteModal = FindObjectOfType<LevelCompleteModal>(includeInactive: true);
@@ -103,9 +103,9 @@ namespace ArBreakout.Gui.GamePlay
         private async void OnPause()
         {
             GameTime.paused = true;
-            var returnTo = await _tutorialOverlay.Show();
+            var returnTo = await _pauseModal.Show();
             GameTime.paused = false;
-            if (returnTo == TutorialOverlay.ReturnState.MainMenu)
+            if (returnTo == PauseModal.ReturnState.MainMenu)
             {
                 _levelRoot.ClearLevel();
                 Controller.TransitionTo(typeof(MainMenu));

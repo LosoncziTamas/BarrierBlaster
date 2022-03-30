@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collectablePrefab: {fileID: 7407027738639250661, guid: 1076466e174e140bb85832dce561a949,
     type: 3}
-  powerUp: 4
+  powerUp: 1
   letter: G
   insideColor: {r: 0.9490196, g: 0.7372549, b: 0.105882354, a: 0.5019608}
   outsideColor: {r: 0.9490196, g: 0.5411765, b: 0.105882354, a: 1}

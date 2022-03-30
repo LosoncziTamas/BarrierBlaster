@@ -1,13 +1,9 @@
-using System;
-using ArBreakout.Game;
 using ArBreakout.GamePhysics;
 using ArBreakout.Misc;
-using ArBreakout.SinglePlayer;
 using DG.Tweening;
 using Michsky.UI.ModernUIPack;
 using Possible.AppController;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.XR.ARSubsystems;
 using Plane = UnityEngine.Plane;
@@ -145,7 +141,7 @@ namespace ArBreakout.PlaneDetection
         private void OnDoubleTapRecognized(TKTapRecognizer recognizer)
         {
             UIMessageController.Instance.ClearMessages();
-            _levelGhost.SwapToLevelBase((() => { Controller.TransitionTo(typeof(GameAppState)); }));
+            // _levelGhost.SwapToLevelBase((() => { Controller.TransitionTo(typeof(GameAppState)); }));
         }
 
         private GameObject GetLevelParent()
@@ -175,7 +171,7 @@ namespace ArBreakout.PlaneDetection
         {
             Destroy(_levelGhost.gameObject);
             UIMessageController.Instance.ClearMessages();
-            Controller.TransitionTo(typeof(LegacyLevelSelectorAppState));
+            // Controller.TransitionTo(typeof(LegacyLevelSelectorAppState));
             ARService.Instance.ResetAR();
         }
 
