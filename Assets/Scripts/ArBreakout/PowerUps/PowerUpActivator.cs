@@ -9,7 +9,6 @@ namespace ArBreakout.PowerUps
 {
     public class PowerUpActivator : MonoBehaviour
     {
-        
         public static event EventHandler<PowerUpState> PowerUpStateChangeEvent;
         public class PowerUpState : EventArgs
         {
@@ -27,19 +26,19 @@ namespace ArBreakout.PowerUps
         
         private static readonly int TotalPowerUpCount = Enum.GetNames(typeof(PowerUp)).Length;
         
-        private const float MaxWidthMultiplier = 2.0f;
-        private const float MinWidthMultiplier = 0.5f;
-        private const float MaxSpeed = 36.0f;
-        private const float MinSpeed = 9.0f;
-                
         private readonly List<bool> _activePowerUps = new(TotalPowerUpCount);
         private readonly List<float> _activePowerUpTimes = new(TotalPowerUpCount);
 
         [SerializeField] private GameEntities _gameEntities;
+        [SerializeField] private BallBehaviour _ballPrefab;
         
         private Vector3 _defaultScale;
-        
-        public bool IsActive(PowerUp powerUp) => false;
+
+        public bool IsActive(PowerUp powerUp)
+        {
+            var idx = (int)powerUp;
+            return idx < _activePowerUps.Count && _activePowerUps[idx];
+        }
         
         private void PublishPowerUpState()
         {
@@ -88,21 +87,8 @@ namespace ArBreakout.PowerUps
                 var timeLeft = _activePowerUpTimes[i];
                 if (Mathf.Approximately(timeLeft, 0.0f) || timeLeft < 0.0f)
                 {
-                    _activePowerUpTimes[i] = 0.0f;
-                    _activePowerUps[i] = false;
-
                     var powerUp = (PowerUp) i;
-                    if (powerUp == PowerUp.Magnifier)
-                    {
-                        var ball = _gameEntities.Balls.First();
-                        ball.ScaleDown();
-                    }
-                    else if (powerUp == PowerUp.Magnet) // && _ballBehaviour
-                    {
-                        // _ballBehaviour.Release(_localVelocity.magnitude);
-                    }
-
-                    PublishPowerUpState();
+                    DeActivatePowerUp(powerUp);
                 }
                 else
                 {
@@ -113,26 +99,67 @@ namespace ArBreakout.PowerUps
 
         private void ScaleUpBall(int powerUpIdx)
         {
-            var ball = _gameEntities.Balls.First();
+            var balls = _gameEntities.Balls;
             _activePowerUpTimes[powerUpIdx] = PowerUpEffectDuration;
             _activePowerUps[powerUpIdx] = true;
-            ball.ScaleUp();
+            foreach (var ball in balls)
+            {
+                ball.ScaleUp();
+            }
+        }
+
+        private void MagnetizePaddle()
+        {
+            const int idx = (int) PowerUp.Magnet;
+            _activePowerUpTimes[idx] = PowerUpEffectDuration;
+            _activePowerUps[idx] = true;
         }
 
         public void DeActivatePowerUp(PowerUp powerUp)
         {
             var powerUpIdx = (int) powerUp;
+            var isActive = _activePowerUps[powerUpIdx];
+            if (!isActive)
+            {
+                return;
+            }
             
             if (powerUp == PowerUp.Magnifier)
             {
-                if (_activePowerUps[powerUpIdx])
+                var balls = _gameEntities.Balls;
+                foreach (var ball in balls)
                 {
-                    _activePowerUps[powerUpIdx] = _activePowerUps[powerUpIdx] = false;
-                    _activePowerUpTimes[powerUpIdx] = _activePowerUpTimes[powerUpIdx] = 0.0f;
-                    var ball = _gameEntities.Balls.First();
                     ball.ScaleDown();
-                    PublishPowerUpState();
                 }
+            }
+            else if (powerUp == PowerUp.Magnet)
+            {
+                // TODO: disable magnet
+            }
+            
+            _activePowerUps[powerUpIdx] = _activePowerUps[powerUpIdx] = false;
+            _activePowerUpTimes[powerUpIdx] = _activePowerUpTimes[powerUpIdx] = 0.0f;
+            PublishPowerUpState();
+        }
+
+        private void OnGUI()
+        {
+            GUILayout.Space(20);
+            if (GUILayout.Button("Spawn ball"))
+            {
+                SpawnBall();
+            }
+        }
+
+        private void SpawnBall()
+        {
+            var ball = _gameEntities.Balls.First();
+            //foreach (var ball in _gameEntities.Balls)
+            {
+                var spawnedBall = Instantiate(_ballPrefab, ball.transform.parent);
+                spawnedBall.transform.position = ball.transform.position;
+                var newDir = Vector3.Scale(ball.LocalVelocity.sqrMagnitude > 0 ? ball.LocalVelocity : Vector3.forward, Vector3.left);
+                spawnedBall.Release(0, newDir);
             }
         }
 
@@ -140,15 +167,26 @@ namespace ArBreakout.PowerUps
         {
             var powerUpIdx = (int) powerUp;
             
-            if (powerUp == PowerUp.Magnifier)
+            switch (powerUp)
             {
-                ScaleUpBall(powerUpIdx);
+                case PowerUp.Magnifier:
+                    ScaleUpBall(powerUpIdx);
+                    break;
+                case PowerUp.Laser:
+                    _gameEntities.Paddle.SetLaserBeamEnabled(true);
+                    break;
+                case PowerUp.BallSpawner:
+                    SpawnBall();
+                    break;
+                case PowerUp.Magnet:
+                    MagnetizePaddle();
+                    break;
+                case PowerUp.None:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(powerUp), powerUp, null);
             }
-            else if (powerUp == PowerUp.Laser)
-            {
-                _gameEntities.Paddle.SetLaserBeamEnabled(true);
-            }
-
+            
             PublishPowerUpState();
         }
     }

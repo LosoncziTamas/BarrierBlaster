@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ArBreakout.Game.Course
+namespace ArBreakout.Game.Stage
 {
     public class WallBehaviour : MonoBehaviour
     {

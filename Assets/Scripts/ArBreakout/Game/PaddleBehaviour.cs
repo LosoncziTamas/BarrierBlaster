@@ -1,5 +1,5 @@
-using ArBreakout.Game.Course;
 using ArBreakout.Game.Paddle;
+using ArBreakout.Game.Stage;
 using ArBreakout.GameInput;
 using ArBreakout.GamePhysics;
 using ArBreakout.Misc;
@@ -104,7 +104,7 @@ namespace ArBreakout.Game
 
             if (_playerInput.Fire && _ballBehaviour)
             {
-                _ballBehaviour.Release(_localVelocity.magnitude);
+                _ballBehaviour.Release(_localVelocity.magnitude, Vector3.forward);
                 _ballBehaviour = null;
             }
 

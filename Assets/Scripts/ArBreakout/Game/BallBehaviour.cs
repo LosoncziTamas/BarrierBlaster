@@ -1,4 +1,4 @@
-using ArBreakout.Game.Course;
+using ArBreakout.Game.Stage;
 using ArBreakout.GamePhysics;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
@@ -23,7 +23,6 @@ namespace ArBreakout.Game
         [SerializeField] private GameEntities _gameEntities;
         [SerializeField] private BobbingProperties _bobbingProperties;
 
-        private Vector3 _launchLocalDirection = Vector3.forward;
         private Vector3 _localVelocity;
         private Vector3 _localAcceleration;
         private GameObject _gameWorldRoot;
@@ -35,7 +34,7 @@ namespace ArBreakout.Game
         /*
          * Property for the velocity component. Y value is intentionally not set, so the ball doesn't bounce out of the level due to the physics calculations.
          */
-        private Vector3 LocalVelocity
+        public Vector3 LocalVelocity
         {
             set
             {
@@ -65,11 +64,11 @@ namespace ArBreakout.Game
             _bobbing.Enable();
         }
 
-        public void Release(float additionalForce)
+        public void Release(float additionalForce, Vector3 direction)
         {
             transform.SetParent(_gameWorldRoot.transform);
             _released = true;
-            LocalVelocity = _launchLocalDirection.normalized * (DefaultSpeed + additionalForce);
+            LocalVelocity = direction * (DefaultSpeed + additionalForce);
             _bobbing.Disable();
         }
 
@@ -250,7 +249,6 @@ namespace ArBreakout.Game
         {
             _bobbing.Enable();
             _released = false;
-            _launchLocalDirection = Vector3.forward;
             _localVelocity = new Vector3();
             _localAcceleration = new Vector3();
         }

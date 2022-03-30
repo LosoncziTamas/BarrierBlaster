@@ -2,7 +2,7 @@ using ArBreakout.Misc;
 using ArBreakout.PowerUps;
 using UnityEngine;
 
-namespace ArBreakout.Game
+namespace ArBreakout.Game.Stage
 {
     public class Gap : MonoBehaviour
     {

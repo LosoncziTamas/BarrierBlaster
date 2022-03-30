@@ -4,7 +4,7 @@ using ArBreakout.Misc;
 using UnityEngine;
 using static ArBreakout.GamePhysics.BreakoutPhysics;
 
-namespace ArBreakout.Game.Course
+namespace ArBreakout.Game.Stage
 {
     public class LevelRoot : MonoBehaviour
     {

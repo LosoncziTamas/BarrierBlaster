@@ -1,9 +1,8 @@
-using System;
 using DG.Tweening;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace ArBreakout.Game.Course
+namespace ArBreakout.Game.Stage
 {
     public class LevelBackgroundQuad : MonoBehaviour
     {

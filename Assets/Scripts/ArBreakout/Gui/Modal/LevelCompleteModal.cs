@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ArBreakout.Gui
+namespace ArBreakout.Gui.Modal
 {
     public class LevelCompleteModal : MonoBehaviour
     {

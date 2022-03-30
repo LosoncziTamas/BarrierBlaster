@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using ArBreakout.Game.Course;
+using ArBreakout.Game.Stage;
 using ArBreakout.PowerUps;
 using UnityEngine;
 

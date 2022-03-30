@@ -1,8 +1,8 @@
 using ArBreakout.Game;
-using ArBreakout.Game.Course;
+using ArBreakout.Game.Stage;
+using ArBreakout.Gui.Modal;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
-using ArBreakout.Tutorial;
 using JetBrains.Annotations;
 using Possible.AppController;
 using UnityEngine;

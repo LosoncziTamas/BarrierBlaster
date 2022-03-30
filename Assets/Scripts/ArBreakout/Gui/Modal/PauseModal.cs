@@ -3,7 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ArBreakout.Tutorial
+namespace ArBreakout.Gui.Modal
 {
     public class PauseModal : MonoBehaviour
     {
@@ -27,7 +27,6 @@ namespace ArBreakout.Tutorial
         [SerializeField] private Image _overlay;
 
         private TaskCompletionSource<ReturnState> _taskCompletionSource;
-        private int _currentIdx;
 
         private void Awake()
         {
@@ -67,7 +66,7 @@ namespace ArBreakout.Tutorial
             return _taskCompletionSource.Task;
         }
         
-        public void DismissAndResume()
+        private void DismissAndResume()
         {
             _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);
             _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() =>
