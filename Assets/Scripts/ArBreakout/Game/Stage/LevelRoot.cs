@@ -103,7 +103,7 @@ namespace ArBreakout.Game.Stage
             var ballInstance = Instantiate(_ballPrefab, transform);
             GamePlayUtils.CenterAboveObject(ballInstance.transform, paddleTransform);
             ballInstance.transform.SetParent(paddleTransform.parent);
-
+            ballInstance.ResetToDefaults();
             return ballInstance;
         }
 

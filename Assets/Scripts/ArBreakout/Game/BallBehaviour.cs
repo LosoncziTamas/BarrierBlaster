@@ -58,12 +58,7 @@ namespace ArBreakout.Game
         {
             _gameEntities.Remove(this);
         }
-
-        private void Start()
-        {
-            _bobbing.Enable();
-        }
-
+        
         public void Release(float additionalForce, Vector3 direction)
         {
             transform.SetParent(_gameWorldRoot.transform);

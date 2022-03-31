@@ -158,8 +158,8 @@ namespace ArBreakout.PowerUps
             {
                 var spawnedBall = Instantiate(_ballPrefab, ball.transform.parent);
                 spawnedBall.transform.position = ball.transform.position;
-                var newDir = Vector3.Scale(ball.LocalVelocity.sqrMagnitude > 0 ? ball.LocalVelocity : Vector3.forward, Vector3.left);
-                spawnedBall.Release(0, newDir);
+                var newDir = Vector3.Scale(Mathf.Approximately(0, ball.LocalVelocity.sqrMagnitude) ? Vector3.forward : ball.LocalVelocity, new Vector3(-1.0f, 1.0f, 1.0f));
+                spawnedBall.Release(0, newDir.normalized);
             }
         }
 

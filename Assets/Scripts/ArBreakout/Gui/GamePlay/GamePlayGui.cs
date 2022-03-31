@@ -16,7 +16,8 @@ namespace ArBreakout.Gui.GamePlay
         [SerializeField] private PowerUpPanel _powerUpPanel;
         [SerializeField] private Levels.Levels _levels;
         [SerializeField] private IntVariable _lifeCount;
-        
+        [SerializeField] private GameEntities _entities;
+
         private PauseModal _pauseModal;
         private GameOverModal _gameOverModal;
         private LevelCompleteModal _levelCompleteModal;
