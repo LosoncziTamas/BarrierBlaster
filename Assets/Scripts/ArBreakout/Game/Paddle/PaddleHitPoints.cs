@@ -17,17 +17,14 @@ namespace ArBreakout.Game.Paddle
         [UsedImplicitly]
         public void OnBallMissed()
         {
-            // TODO: fix me
-            for (var index = 0; index < _hitPoints.Length; index++)
+            var livesLeft = _lifeCount.Value;
+            var hitPointCount = _hitPoints.Length;
+            Debug.Assert(_lifeCount.Value <= _hitPoints.Length);
+            
+            for (var index = livesLeft - 1; index < hitPointCount; index++)
             {
                 var hitPoint = _hitPoints[index];
-                if (!hitPoint.IsOn)
-                {
-                    continue;
-                }
-
                 hitPoint.IsOn = false;
-                return;
             }
         }
 

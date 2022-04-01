@@ -59,6 +59,20 @@ namespace ArBreakout.Gui.GamePlay
         [UsedImplicitly]
         public async void OnBallMissed()
         {
+            var activeBallCount = 0;
+            foreach (var ball in _entities.Balls)
+            {
+                if (!ball.IsMissed)
+                {
+                    activeBallCount++;
+                }
+            }
+
+            if (activeBallCount > 0)
+            {
+                return;
+            }
+            
             _lifeCount.Value--;
             if (_lifeCount.Value < 1)
             {

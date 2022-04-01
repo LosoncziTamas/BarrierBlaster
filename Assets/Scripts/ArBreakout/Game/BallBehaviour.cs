@@ -45,6 +45,8 @@ namespace ArBreakout.Game
         }
         
         public Vector3 DefaultScale { get; private set; }
+        
+        public bool IsMissed { get; set; }
 
         private void Awake()
         {
@@ -246,6 +248,7 @@ namespace ArBreakout.Game
             _released = false;
             _localVelocity = new Vector3();
             _localAcceleration = new Vector3();
+            IsMissed = false;
         }
 
         public void ResetPowerUpToDefaults()

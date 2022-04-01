@@ -194,7 +194,7 @@ MonoBehaviour:
   - {fileID: 5084025974046594595}
   - {fileID: 9156061303913200523}
   - {fileID: 3155387927498190109}
-  _entities: {fileID: 11400000, guid: 2b277d97f28f149a08c9dfadf311be98, type: 2}
+  _lifeCount: {fileID: 11400000, guid: 58fbcde8c389844039137e7aa4a8cf3e, type: 2}
 --- !u!1 &9189816665348010839
 GameObject:
   m_ObjectHideFlags: 0
