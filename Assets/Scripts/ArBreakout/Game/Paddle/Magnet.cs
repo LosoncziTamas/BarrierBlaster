@@ -10,60 +10,50 @@ namespace ArBreakout.Game.Paddle
         [SerializeField] private Transform _rightTurret;
         [SerializeField] private LineRenderer _lineRenderer;
         [SerializeField] private MagnetProperties _magnetProperties;
+        [SerializeField] private FloatVariable _magnetActiveTime;
 
-        private float _activeTime;
         private float _textureOffset;
         private float _originalLocalY;
         private Gradient _originalGradient;
-        private Sequence _activateSequence;
-        private Sequence _deactivateSequence;
         
         private void Awake()
         {
             _originalGradient = _lineRenderer.colorGradient;
-            _originalLocalY = transform.localPosition.y;
+            _originalLocalY = _leftTurret.localPosition.y;
         }
 
-        private Sequence CreateTurretReleaseAnimation()
+        private void CreateTurretReleaseAnimation()
         {
-            return DOTween.Sequence()
+            DOTween.Sequence()
                 .Insert(0,
                     _leftTurret.DOLocalMoveY(_originalLocalY + _magnetProperties.OffsetY, _magnetProperties.AnimDuration)
                         .SetEase(_magnetProperties.Ease))
                 .Insert(0,
                     _rightTurret.DOLocalMoveY(_originalLocalY + _magnetProperties.OffsetY, _magnetProperties.AnimDuration)
                         .SetEase(_magnetProperties.Ease))
-                .OnComplete(() => _activateSequence = null);
+                .OnComplete(() => _lineRenderer.enabled = true);
         }
 
-        private Sequence AnimateTurretWithdrawal()
+        private void AnimateTurretWithdrawal()
         {
-            return DOTween.Sequence()
+            DOTween.Sequence()
                 .Insert(0,
                     _leftTurret.DOLocalMoveY(_originalLocalY, _magnetProperties.AnimDuration)
                         .SetEase(_magnetProperties.Ease))
                 .Insert(0,
                     _rightTurret.DOLocalMoveY(_originalLocalY, _magnetProperties.AnimDuration)
-                        .SetEase(_magnetProperties.Ease))
-                .OnComplete(() => _deactivateSequence = null);
+                        .SetEase(_magnetProperties.Ease));
         }
         
         public void Activate()
         {
-            if (Mathf.Approximately(_activeTime, 0) || _activeTime < 0)
-            {
-                _activeTime = 0f;
-                _textureOffset = 0f;
-                CreateTurretReleaseAnimation();
-            }
-            _lineRenderer.enabled = true;
-            _activeTime += _magnetProperties.Duration;
+            _textureOffset = 0f;
+            CreateTurretReleaseAnimation();
             _lineRenderer.colorGradient = _originalGradient;
         }
 
         public void Deactivate()
         {
-            _activeTime = 0;
             _lineRenderer.enabled = false;
             _textureOffset = 0f;
             AnimateTurretWithdrawal();
@@ -77,15 +67,15 @@ namespace ArBreakout.Game.Paddle
         
         private void FixedUpdate()
         {
-            if (_activeTime > 0f)
+            var activeTime = _magnetActiveTime.Value;
+            if (activeTime > 0f)
             {
-                _activeTime -= GameTime.fixedDelta;
                 Animate();
-                if (_activeTime < 0.5f)
+                if (activeTime < 0.5f)
                 {
                     var gradient = _lineRenderer.colorGradient;
                     var alphaKeys = gradient.alphaKeys;
-                    alphaKeys[0] = new GradientAlphaKey(_activeTime, 0.0f);
+                    alphaKeys[0] = new GradientAlphaKey(activeTime, 0.0f);
                     gradient.SetKeys(
                         gradient.colorKeys,
                         alphaKeys
@@ -93,10 +83,6 @@ namespace ArBreakout.Game.Paddle
                     _lineRenderer.colorGradient = gradient;
                 }
             }
-            /*else if (_lineRenderer.enabled)
-            {
-                Deactivate();
-            }*/
         }
     }
 }

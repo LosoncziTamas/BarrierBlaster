@@ -31,7 +31,8 @@ namespace ArBreakout.PowerUps
 
         [SerializeField] private GameEntities _gameEntities;
         [SerializeField] private BallBehaviour _ballPrefab;
-        
+        [SerializeField] private FloatVariable _magnetActiveTime;
+
         private Vector3 _defaultScale;
 
         public bool IsActive(PowerUp powerUp)
@@ -85,15 +86,20 @@ namespace ArBreakout.PowerUps
                 }
                 
                 var timeLeft = _activePowerUpTimes[i];
+                var powerUp = (PowerUp) i;
                 if (Mathf.Approximately(timeLeft, 0.0f) || timeLeft < 0.0f)
                 {
-                    var powerUp = (PowerUp) i;
                     DeActivatePowerUp(powerUp);
                 }
                 else
                 {
                     _activePowerUpTimes[i] -= GameTime.fixedDelta;
+                    if (powerUp == PowerUp.Magnet)
+                    {
+                        _magnetActiveTime.Value = _activePowerUpTimes[i];
+                    }
                 }
+                
             }
         }
 
@@ -111,9 +117,10 @@ namespace ArBreakout.PowerUps
         private void MagnetizePaddle()
         {
             const int idx = (int) PowerUp.Magnet;
+            _gameEntities.Paddle.SetMagnetEnabled(true);
+            _magnetActiveTime.Value = PowerUpEffectDuration;
             _activePowerUpTimes[idx] = PowerUpEffectDuration;
             _activePowerUps[idx] = true;
-            _gameEntities.Paddle.SetMagnetEnabled(true);
         }
 
         public void DeActivatePowerUp(PowerUp powerUp)
@@ -135,7 +142,8 @@ namespace ArBreakout.PowerUps
             }
             else if (powerUp == PowerUp.Magnet)
             {
-                _gameEntities.Paddle.SetMagnetEnabled(false); 
+                _magnetActiveTime.Value = 0;
+                _gameEntities.Paddle.SetMagnetEnabled(false);
             }
             
             _activePowerUps[powerUpIdx] = _activePowerUps[powerUpIdx] = false;

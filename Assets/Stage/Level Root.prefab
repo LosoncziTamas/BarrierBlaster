@@ -47,6 +47,7 @@ MonoBehaviour:
   _gameEntities: {fileID: 11400000, guid: 2b277d97f28f149a08c9dfadf311be98, type: 2}
   _ballPrefab: {fileID: 7102717554571487894, guid: e55b5f4bd7ef14c43af9d89758daa71f,
     type: 3}
+  _magnetActiveTime: {fileID: 11400000, guid: 3f3b950bfb62945119f9c400dbc46eef, type: 2}
 --- !u!1 &6875092282068427509
 GameObject:
   m_ObjectHideFlags: 0
