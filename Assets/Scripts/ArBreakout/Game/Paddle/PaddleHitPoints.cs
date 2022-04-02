@@ -15,13 +15,13 @@ namespace ArBreakout.Game.Paddle
         }
 
         [UsedImplicitly]
-        public void OnBallMissed()
+        public void OnLifeLost()
         {
             var livesLeft = _lifeCount.Value;
             var hitPointCount = _hitPoints.Length;
             Debug.Assert(_lifeCount.Value <= _hitPoints.Length);
             
-            for (var index = livesLeft - 1; index < hitPointCount; index++)
+            for (var index = livesLeft; index < hitPointCount; index++)
             {
                 var hitPoint = _hitPoints[index];
                 hitPoint.IsOn = false;

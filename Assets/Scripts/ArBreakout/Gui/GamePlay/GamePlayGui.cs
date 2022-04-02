@@ -17,6 +17,7 @@ namespace ArBreakout.Gui.GamePlay
         [SerializeField] private Levels.Levels _levels;
         [SerializeField] private IntVariable _lifeCount;
         [SerializeField] private GameEntities _entities;
+        [SerializeField] private GameEvent _onLifeLost;
 
         private PauseModal _pauseModal;
         private GameOverModal _gameOverModal;
@@ -74,6 +75,8 @@ namespace ArBreakout.Gui.GamePlay
             }
             
             _lifeCount.Value--;
+            _onLifeLost.Raise();
+            
             if (_lifeCount.Value < 1)
             {
                 GameTime.paused = true;

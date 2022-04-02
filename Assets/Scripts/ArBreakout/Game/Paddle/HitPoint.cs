@@ -16,14 +16,12 @@ namespace ArBreakout.Game.Paddle
             get => _isOn;
             set
             {
-                if (value)
+                if (_isOn == value)
                 {
-                    StartCoroutine(ColorFade(OffColor, OnColor, 0.6f));
+                    return;
                 }
-                else
-                {
-                    StartCoroutine(ColorFade(OnColor, OffColor, 0.6f));
-                }
+
+                StartCoroutine(value ? ColorFade(OffColor, OnColor, 0.6f) : ColorFade(OnColor, OffColor, 0.6f));
                 _isOn = value;
             }
         }

@@ -150,13 +150,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d27256d7c05495c97818cef431dc0ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _event: {fileID: 11400000, guid: 18a64065f1b6347d9a55f8dc36534d09, type: 2}
+  _event: {fileID: 11400000, guid: 48713d6f099e84bbcac9d547ae3bb5cb, type: 2}
   _response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3356878027785562754}
-        m_TargetAssemblyTypeName: ArBreakout.Game.PaddleBehaviour, Assembly-CSharp
-        m_MethodName: ReAnchorBall
+      - m_Target: {fileID: 7034805691892276277}
+        m_TargetAssemblyTypeName: ArBreakout.Game.Paddle.PaddleHitPoints, Assembly-CSharp
+        m_MethodName: OnLifeLost
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -166,9 +166,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7034805691892276277}
-        m_TargetAssemblyTypeName: ArBreakout.Game.Paddle.PaddleHitPoints, Assembly-CSharp
-        m_MethodName: OnBallMissed
+      - m_Target: {fileID: 3356878027785562754}
+        m_TargetAssemblyTypeName: ArBreakout.Game.PaddleBehaviour, Assembly-CSharp
+        m_MethodName: ReAnchorBall
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

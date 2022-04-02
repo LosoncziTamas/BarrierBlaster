@@ -334,6 +334,7 @@ MonoBehaviour:
   _levels: {fileID: 11400000, guid: a6463425b499d472dad9a769b384e936, type: 2}
   _lifeCount: {fileID: 11400000, guid: 58fbcde8c389844039137e7aa4a8cf3e, type: 2}
   _entities: {fileID: 11400000, guid: 2b277d97f28f149a08c9dfadf311be98, type: 2}
+  _onLifeLost: {fileID: 11400000, guid: 48713d6f099e84bbcac9d547ae3bb5cb, type: 2}
 --- !u!114 &4943634639615437043
 MonoBehaviour:
   m_ObjectHideFlags: 0

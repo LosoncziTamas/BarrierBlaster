@@ -23,8 +23,8 @@ namespace ArBreakout.Game.Stage
         {
             if (other.gameObject.CompareTag(BallBehaviour.GameObjectTag))
             {
-                _ballMissedEvent.Raise();
                 other.gameObject.GetComponent<BallBehaviour>().IsMissed = true;
+                _ballMissedEvent.Raise();
             }
             else if (other.gameObject.CompareTag(Collectable.GameObjectTag))
             {
