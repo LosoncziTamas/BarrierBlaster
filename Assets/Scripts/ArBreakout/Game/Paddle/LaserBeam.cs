@@ -82,7 +82,7 @@ namespace ArBreakout.Game.Paddle
                 var hitCollider = hit.collider;
                 if (hitCollider.CompareTag(BrickBehaviour.GameObjectTag))
                 {
-                    hitCollider.GetComponent<BrickBehaviour>().Smash();
+                    hitCollider.GetComponent<BrickBehaviour>().Smash(times: 1);
                 }
             }
             _lineRenderer.SetPosition(1, ray.origin + ray.direction * _beamProperties.Length);

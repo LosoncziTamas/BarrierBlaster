@@ -230,7 +230,8 @@ namespace ArBreakout.Game
             Debug.DrawRay(transform.position, LocalVelocity.normalized, Color.magenta, 2, false);
 
             var brick = brickCollision.gameObject.GetComponent<BrickBehaviour>();
-            brick.Smash();
+            var hitTimes = brick.transform.localScale != DefaultScale ? 2 : 1;
+            brick.Smash(hitTimes);
         }
 
         private void ChangeDirection(Vector3 newDirInWorldSpace)

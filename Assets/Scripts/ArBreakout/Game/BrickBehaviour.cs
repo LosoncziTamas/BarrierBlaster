@@ -78,9 +78,9 @@ namespace ArBreakout.Game
             _powerUpProperties = _powerUpMappings.GetPowerUpDescriptor(powerUp);
         }
 
-        public void Smash()
+        public void Smash(int times)
         {
-            --_hitPoints;
+            _hitPoints = Math.Max(0, _hitPoints - times);
 
             if (_hitPoints == 0)
             {

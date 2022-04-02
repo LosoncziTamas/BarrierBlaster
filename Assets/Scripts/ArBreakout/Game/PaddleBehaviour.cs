@@ -23,6 +23,7 @@ namespace ArBreakout.Game
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private PaddleHitPoints _hitPoints;
         [SerializeField] private Blaster _blaster;
+        [SerializeField] private Magnet _magnet;
         
         private Vector3 _localVelocity;
         private BallBehaviour _ballBehaviour;
@@ -85,6 +86,18 @@ namespace ArBreakout.Game
             else
             {
                 _blaster.Deactivate();
+            }
+        }
+
+        public void SetMagnetEnabled(bool magnetEnabled)
+        {
+            if (magnetEnabled)
+            {
+                _magnet.Activate();
+            }
+            else
+            {
+                _magnet.Deactivate();
             }
         }
 

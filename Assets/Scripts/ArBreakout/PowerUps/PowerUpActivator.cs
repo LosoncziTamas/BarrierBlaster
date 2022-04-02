@@ -113,6 +113,7 @@ namespace ArBreakout.PowerUps
             const int idx = (int) PowerUp.Magnet;
             _activePowerUpTimes[idx] = PowerUpEffectDuration;
             _activePowerUps[idx] = true;
+            _gameEntities.Paddle.SetMagnetEnabled(true);
         }
 
         public void DeActivatePowerUp(PowerUp powerUp)
@@ -134,7 +135,7 @@ namespace ArBreakout.PowerUps
             }
             else if (powerUp == PowerUp.Magnet)
             {
-                // TODO: disable magnet
+                _gameEntities.Paddle.SetMagnetEnabled(false); 
             }
             
             _activePowerUps[powerUpIdx] = _activePowerUps[powerUpIdx] = false;
@@ -145,22 +146,21 @@ namespace ArBreakout.PowerUps
         private void OnGUI()
         {
             GUILayout.Space(20);
-            if (GUILayout.Button("Spawn ball"))
+            if (GUILayout.Button("Magnetize"))
             {
-                SpawnBall();
+                MagnetizePaddle();
             }
         }
 
         private void SpawnBall()
         {
             var ball = _gameEntities.Balls.First();
-            //foreach (var ball in _gameEntities.Balls)
-            {
-                var spawnedBall = Instantiate(_ballPrefab, ball.transform.parent);
-                spawnedBall.transform.position = ball.transform.position;
-                var newDir = Vector3.Scale(Mathf.Approximately(0, ball.LocalVelocity.sqrMagnitude) ? Vector3.forward : ball.LocalVelocity, new Vector3(-1.0f, 1.0f, 1.0f));
-                spawnedBall.Release(0, newDir.normalized);
-            }
+            var ballTrans = ball.transform;
+            var spawnedBall = Instantiate(_ballPrefab, ballTrans.parent);
+            
+            spawnedBall.transform.position = ballTrans.position;
+            var newDir = Vector3.Scale(Mathf.Approximately(0, ball.LocalVelocity.sqrMagnitude) ? Vector3.forward : ball.LocalVelocity, new Vector3(-1.0f, 1.0f, 1.0f));
+            spawnedBall.Release(0, newDir.normalized);
         }
 
         public void ActivatePowerUp(PowerUp powerUp)
