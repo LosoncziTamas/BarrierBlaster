@@ -12,7 +12,7 @@ namespace ArBreakout.Misc
             ballBehaviour.transform.SetParent(paddle.transform.parent);
             ballBehaviour.ResetToDefaults();
             ballBehaviour.ResetPowerUpToDefaults();
-            paddle.AnchoredBallBehaviour = ballBehaviour;
+            paddle.AnchoredBallBehaviours.Add(ballBehaviour);
         }
 
         public static void ApplyMagnet(BallBehaviour ballBehaviour, PaddleBehaviour paddle)
@@ -23,15 +23,7 @@ namespace ArBreakout.Misc
             ballTrans.position = paddleTrans.position + ballTrans.TransformVector(Vector3.forward);
             ballTrans.SetParent(paddleTrans.parent);
             ballBehaviour.ResetToDefaults();
-            paddle.AnchoredBallBehaviour = ballBehaviour;
-#if false
-            DOTween.Sequence().Append(ballTrans.DOMove(paddleTrans.position + ballTrans.TransformVector(Vector3.forward), 0.3f)).AppendCallback(() =>
-            {
-                ballTrans.SetParent(paddle.transform);
-                ballBehaviour.ResetToDefaults();
-                paddle.AnchoredBallBehaviour = ballBehaviour;
-            });
-#endif
+            paddle.AnchoredBallBehaviours.Add(ballBehaviour);
         }
 
         public static void CenterAboveObject(Transform target, Transform anchorObject)

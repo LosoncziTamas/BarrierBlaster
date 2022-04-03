@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using ArBreakout.Game.Paddle;
 using ArBreakout.Game.Stage;
 using ArBreakout.GameInput;
@@ -26,7 +27,6 @@ namespace ArBreakout.Game
         [SerializeField] private Magnet _magnet;
         
         private Vector3 _localVelocity;
-        private BallBehaviour _ballBehaviour;
         private Vector3 _parentStartPosition;
         private Vector3 _defaultScale;
         private Transform _parentTransform;
@@ -45,10 +45,7 @@ namespace ArBreakout.Game
             _parentStartPosition = transform.parent.position;
         }
 
-        public BallBehaviour AnchoredBallBehaviour
-        {
-            set => _ballBehaviour = value;
-        }
+        public List<BallBehaviour> AnchoredBallBehaviours { set; get; } = new();
 
         public bool Magnetized => _powerUpActivator.IsActive(PowerUp.Magnet);
 
@@ -64,7 +61,7 @@ namespace ArBreakout.Game
 
         private void Start()
         {
-            AnchoredBallBehaviour = _parentTransform.GetComponentInChildren<BallBehaviour>();
+            AnchoredBallBehaviours.Add(_parentTransform.GetComponentInChildren<BallBehaviour>());
         }
         
         public void ResetToDefaults()
@@ -115,10 +112,16 @@ namespace ArBreakout.Game
                 localAcceleration.x += 1.0f;
             }
 
-            if (_playerInput.Fire && _ballBehaviour)
+            if (_playerInput.Fire && AnchoredBallBehaviours.Count > 0)
             {
-                _ballBehaviour.Release(_localVelocity.magnitude, Vector3.forward);
-                _ballBehaviour = null;
+                foreach (var anchoredBallBehaviour in AnchoredBallBehaviours)
+                {
+                    var direction = anchoredBallBehaviour.LocalVelocity.magnitude < 0.01f
+                        ? Vector3.forward
+                        : anchoredBallBehaviour.LocalVelocity.normalized;
+                    anchoredBallBehaviour.Release(_localVelocity.magnitude, direction);
+                }
+                AnchoredBallBehaviours.Clear();
             }
 
             localAcceleration *= _speed;
