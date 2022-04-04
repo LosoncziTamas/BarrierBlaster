@@ -45,7 +45,7 @@ namespace ArBreakout.Game
             _parentStartPosition = transform.parent.position;
         }
 
-        public List<BallBehaviour> AnchoredBallBehaviours { set; get; } = new();
+        public List<BallBehaviour> AnchoredBallBehaviours { get; } = new();
 
         public bool Magnetized => _powerUpActivator.IsActive(PowerUp.Magnet);
 
@@ -116,10 +116,7 @@ namespace ArBreakout.Game
             {
                 foreach (var anchoredBallBehaviour in AnchoredBallBehaviours)
                 {
-                    var direction = anchoredBallBehaviour.LocalVelocity.magnitude < 0.01f
-                        ? Vector3.forward
-                        : anchoredBallBehaviour.LocalVelocity.normalized;
-                    anchoredBallBehaviour.Release(_localVelocity.magnitude, direction);
+                    anchoredBallBehaviour.Release(_localVelocity.magnitude, anchoredBallBehaviour.LaunchDirection);
                 }
                 AnchoredBallBehaviours.Clear();
             }

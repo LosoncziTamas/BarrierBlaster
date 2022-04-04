@@ -11,6 +11,5 @@ namespace ArBreakout.Game.Paddle
         public Ease Ease;
         public float OffsetY;
         public float AnimDuration;
-
     }
 }

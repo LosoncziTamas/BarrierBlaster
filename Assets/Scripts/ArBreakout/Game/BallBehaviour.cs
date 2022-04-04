@@ -44,6 +44,8 @@ namespace ArBreakout.Game
             get => _localVelocity;
         }
         
+        public Vector3 LaunchDirection { get; set; } = Vector3.forward;
+        
         public Vector3 DefaultScale { get; private set; }
         
         public bool IsMissed { get; set; }
@@ -249,6 +251,7 @@ namespace ArBreakout.Game
             _released = false;
             _localVelocity = new Vector3();
             _localAcceleration = new Vector3();
+            LaunchDirection = _localVelocity.magnitude > 0.01 ? _localVelocity.normalized : Vector3.forward;
             IsMissed = false;
         }
 
