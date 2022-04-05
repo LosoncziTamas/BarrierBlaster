@@ -8,11 +8,31 @@ namespace ArBreakout.Game.Paddle
     public class Aimer : MonoBehaviour
     {
         [SerializeField] private Transform _transform;
+        [SerializeField] private AimerProperties _aimerProperties;
 
-        private void Start()
+        private Sequence _sequence;
+        
+        private Sequence CreateFromProperties()
         {
-            var path = new List<Vector3> { new Vector3(-1.0f, 1.0f, 0.0f), new Vector3(0.0f, 2.0f, 0.0f), new Vector3(1.0f, 1.0f, 0.0f) };
-            _transform.DOLocalPath(path.ToArray(), 2.0f).SetLoops(-1, LoopType.Yoyo);
+            return DOTween.Sequence().Append(
+                _transform.DOLocalPath(_aimerProperties.Vectors, 
+                    _aimerProperties.Duration, 
+                    _aimerProperties.PathType, 
+                    _aimerProperties.PathMode)
+                    .SetEase(_aimerProperties.Ease)
+                    .SetLoops(-1, _aimerProperties.LoopType)
+            );
+        }
+
+        private void OnGUI()
+        {
+            GUILayout.Space(400);
+            if (GUILayout.Button("Refresh"))
+            {
+                _sequence?.Goto(0);
+                _sequence?.Kill();
+                _sequence = CreateFromProperties();
+            }
         }
     }
 }

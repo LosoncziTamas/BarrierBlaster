@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 52
+  controlID: 18
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 116
+  controlID: 52
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -289,7 +289,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 1282, y: 1648}
+  m_TargetSize: {x: 1282, y: 801}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -298,7 +298,7 @@ MonoBehaviour:
   m_VSyncEnabled: 0
   m_Gizmos: 0
   m_Stats: 0
-  m_SelectedSizes: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
+  m_SelectedSizes: 02000000000000000000000000000000000000000000000000000000000000000000000000000000
   m_ZoomArea:
     m_HRangeLocked: 0
     m_VRangeLocked: 0
@@ -306,8 +306,8 @@ MonoBehaviour:
     vZoomLockedByDefault: 0
     m_HBaseRangeMin: -320.5
     m_HBaseRangeMax: 320.5
-    m_VBaseRangeMin: -412
-    m_VBaseRangeMax: 412
+    m_VBaseRangeMin: -200.25
+    m_VBaseRangeMax: 200.25
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -378,7 +378,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 77432
+  m_LastSelectedObjectID: -15272
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -749,7 +749,7 @@ MonoBehaviour:
   m_Size:
     m_Target: 3.6645465
     speed: 2
-    m_Value: 3.6618001
+    m_Value: 3.6645465
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -874,21 +874,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Paddle/Magnet
+    - Assets
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Paddle/Magnet
+  - Assets
   m_LastFoldersGridSize: 16
   m_LastProjectPath: /Users/tamaslosonczi/Development/Unity3D/BrickBreakerAR
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 99.99939}
-    m_SelectedIDs: 6a570000
-    m_LastClickedID: 22378
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: 30570000
+    m_LastClickedID: 22320
     m_ExpandedIDs: 0000000030570000325700003457000036570000385700003a5700003c5700003e57000040570000425700004457000046570000485700004a5700004c5700004e570000505700005257000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -944,8 +944,8 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
-    m_ExpandedInstanceIDs: d0650000ce650000c4650000ba010000b8550000c8650000ca650000b6550000c2540000a85400005e5400001c5c0000465b00004268000000000000c85b00003c90000034560000
+    m_HadKeyboardFocusLastEvent: 1
+    m_ExpandedInstanceIDs: d0650000ce650000c4650000ba010000b8550000c8650000ca650000b6550000c2540000a85400005e5400001c5c0000465b000042680000c85b00003c9000003456000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
