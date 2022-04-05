@@ -25,6 +25,7 @@ namespace ArBreakout.Game
         [SerializeField] private PaddleHitPoints _hitPoints;
         [SerializeField] private Blaster _blaster;
         [SerializeField] private Magnet _magnet;
+        [SerializeField] private Aimer _aimer;
         
         private Vector3 _localVelocity;
         private Vector3 _parentStartPosition;
@@ -45,7 +46,7 @@ namespace ArBreakout.Game
             _parentStartPosition = transform.parent.position;
         }
 
-        public List<BallBehaviour> AnchoredBallBehaviours { get; } = new();
+        private List<BallBehaviour> AnchoredBallBehaviours { get; } = new();
 
         public bool Magnetized => _powerUpActivator.IsActive(PowerUp.Magnet);
 
@@ -62,6 +63,7 @@ namespace ArBreakout.Game
         private void Start()
         {
             AnchoredBallBehaviours.Add(_parentTransform.GetComponentInChildren<BallBehaviour>());
+            _aimer.gameObject.SetActive(true);
         }
         
         public void ResetToDefaults()
@@ -72,6 +74,12 @@ namespace ArBreakout.Game
             transform.DOScale(_defaultScale, 0.6f);
             _speed = DefaultSpeed;
             SetLaserBeamEnabled(false);
+        }
+
+        public void SetBall(BallBehaviour ball)
+        {
+            AnchoredBallBehaviours.Add(ball);
+            _aimer.gameObject.SetActive(true);
         }
 
         public void SetLaserBeamEnabled(bool laserBeamEnabled)
@@ -114,11 +122,14 @@ namespace ArBreakout.Game
 
             if (_playerInput.Fire && AnchoredBallBehaviours.Count > 0)
             {
-                foreach (var anchoredBallBehaviour in AnchoredBallBehaviours)
+                var ball = AnchoredBallBehaviours[0];
+                AnchoredBallBehaviours.RemoveAt(0);
+                var direction = (_aimer.transform.position - ball.transform.position).normalized;
+                ball.Release(_localVelocity.magnitude, direction);
+                if (AnchoredBallBehaviours.Count == 0)
                 {
-                    anchoredBallBehaviour.Release(_localVelocity.magnitude, anchoredBallBehaviour.LaunchDirection);
+                    _aimer.gameObject.SetActive(false);
                 }
-                AnchoredBallBehaviours.Clear();
             }
 
             localAcceleration *= _speed;
@@ -198,6 +209,7 @@ namespace ArBreakout.Game
             // Assuming there is only one ball
             var ball = _gameEntities.Balls[0];
             GamePlayUtils.AnchorBallToPaddle(ball, this);
+            _aimer.gameObject.SetActive(true);
         }
     }
 }

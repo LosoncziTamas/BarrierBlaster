@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
@@ -10,29 +8,31 @@ namespace ArBreakout.Game.Paddle
         [SerializeField] private Transform _transform;
         [SerializeField] private AimerProperties _aimerProperties;
 
-        private Sequence _sequence;
-        
-        private Sequence CreateFromProperties()
+        private Tweener _tweener;
+
+        private void Start()
         {
-            return DOTween.Sequence().Append(
-                _transform.DOLocalPath(_aimerProperties.Vectors, 
-                    _aimerProperties.Duration, 
-                    _aimerProperties.PathType, 
-                    _aimerProperties.PathMode)
-                    .SetEase(_aimerProperties.Ease)
-                    .SetLoops(-1, _aimerProperties.LoopType)
-            );
+            _tweener = DOVirtual.Float(_aimerProperties.StartAngle, _aimerProperties.EndAngle, _aimerProperties.Duration, OnFloatChange)
+                .SetEase(_aimerProperties.Ease)
+                .SetLoops(-1, _aimerProperties.LoopType);
         }
 
-        private void OnGUI()
+        private void OnDisable()
         {
-            GUILayout.Space(400);
-            if (GUILayout.Button("Refresh"))
-            {
-                _sequence?.Goto(0);
-                _sequence?.Kill();
-                _sequence = CreateFromProperties();
-            }
+            _tweener.Pause();
+        }
+
+        private void OnEnable()
+        {
+            _tweener.Restart();
+        }
+
+        private void OnFloatChange(float newValue)
+        {
+            Debug.Log("OnFloatChange" + newValue);
+            var x = Mathf.Cos(newValue * Mathf.Deg2Rad);
+            var y = Mathf.Sin(newValue * Mathf.Deg2Rad);
+            transform.localPosition = new Vector3(x, y, 0) * _aimerProperties.Length;
         }
     }
 }

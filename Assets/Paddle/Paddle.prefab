@@ -140,6 +140,7 @@ MonoBehaviour:
   _hitPoints: {fileID: 7034805691892276277}
   _blaster: {fileID: 6379820879089796230}
   _magnet: {fileID: 830852613070084852}
+  _aimer: {fileID: 4596394804383055884}
   _gameEntities: {fileID: 11400000, guid: 2b277d97f28f149a08c9dfadf311be98, type: 2}
 --- !u!114 &1011918296105213254
 MonoBehaviour:
@@ -692,6 +693,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Aimer
       objectReference: {fileID: 0}
+    - target: {fileID: 2669252707943271383, guid: 930d5109a62444877a9227cf7349baf9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5348896575908550793, guid: 930d5109a62444877a9227cf7349baf9,
         type: 3}
       propertyPath: m_RootOrder
@@ -755,3 +761,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 9199505615485503892}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4596394804383055884 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4639438950514919832, guid: 930d5109a62444877a9227cf7349baf9,
+    type: 3}
+  m_PrefabInstance: {fileID: 9199505615485503892}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f692b7a9270845e58b0eb827262f95a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

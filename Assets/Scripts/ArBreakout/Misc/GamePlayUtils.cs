@@ -12,7 +12,7 @@ namespace ArBreakout.Misc
             ballBehaviour.transform.SetParent(paddle.transform.parent);
             ballBehaviour.ResetToDefaults();
             ballBehaviour.ResetPowerUpToDefaults();
-            paddle.AnchoredBallBehaviours.Add(ballBehaviour);
+            paddle.SetBall(ballBehaviour);
         }
 
         public static void ApplyMagnet(BallBehaviour ballBehaviour, PaddleBehaviour paddle)
@@ -23,7 +23,7 @@ namespace ArBreakout.Misc
             ballTrans.position = paddleTrans.position + ballTrans.TransformVector(Vector3.forward);
             ballTrans.SetParent(paddleTrans.parent);
             ballBehaviour.ResetToDefaults();
-            paddle.AnchoredBallBehaviours.Add(ballBehaviour);
+            paddle.SetBall(ballBehaviour);
         }
 
         public static void CenterAboveObject(Transform target, Transform anchorObject)

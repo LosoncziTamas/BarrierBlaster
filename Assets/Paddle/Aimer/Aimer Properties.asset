@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ed3b7d4b244099b0b6d86add223a37, type: 3}
   m_Name: Aimer Properties
   m_EditorClassIdentifier: 
-  Vectors:
-  - {x: -1, y: 1, z: 0}
-  - {x: 0, y: 2, z: 0}
-  Duration: 2
-  LoopType: 0
-  PathType: 0
-  PathMode: 0
+  Duration: 1.2
+  LoopType: 1
+  Length: 2.5
+  Ease: 1
+  StartAngle: 150
+  EndAngle: 30
