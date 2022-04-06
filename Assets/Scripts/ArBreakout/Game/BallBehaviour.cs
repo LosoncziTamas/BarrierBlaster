@@ -73,12 +73,12 @@ namespace ArBreakout.Game
 
         public void ScaleUp()
         {
-            transform.DOScale(Vector3.one * 2.0f, 0.6f);
+            transform.DOScale(Vector3.one * 1.5f, 0.6f);
             if (!_released)
             {
                 var paddle = _gameEntities.Paddle;
                 _bobbing.Disable();
-                var target = paddle.transform.position.z + 2.0f + _bobbingProperties.startOffsetZ;
+                var target = paddle.transform.position.z + 1.0f + _bobbingProperties.startOffsetZ;
                 transform.DOMoveZ(target, 0.6f).OnComplete(() =>
                 {
                     if (!_released)

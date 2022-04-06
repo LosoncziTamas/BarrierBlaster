@@ -103,8 +103,9 @@ namespace ArBreakout.PowerUps
             }
         }
 
-        private void ScaleUpBall(int powerUpIdx)
+        private void ScaleUpBall()
         {
+            var powerUpIdx = (int) PowerUp.Magnifier;
             var balls = _gameEntities.Balls;
             _activePowerUpTimes[powerUpIdx] = PowerUpEffectDuration;
             _activePowerUps[powerUpIdx] = true;
@@ -158,6 +159,14 @@ namespace ArBreakout.PowerUps
             {
                 MagnetizePaddle();
             }
+            if (GUILayout.Button("Spawn"))
+            {
+                SpawnBall();
+            }
+            if (GUILayout.Button("Scale"))
+            {
+                ScaleUpBall();
+            }
         }
 
         private void SpawnBall()
@@ -178,7 +187,7 @@ namespace ArBreakout.PowerUps
             switch (powerUp)
             {
                 case PowerUp.Magnifier:
-                    ScaleUpBall(powerUpIdx);
+                    ScaleUpBall();
                     break;
                 case PowerUp.Laser:
                     _gameEntities.Paddle.SetLaserBeamEnabled(true);
