@@ -180,6 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _aimerProperties: {fileID: 11400000, guid: 615c1eb24118549ad890bec7a7e3f8fc, type: 2}
+  _background: {fileID: 2546224122531627465}
 --- !u!1 &5893940095058017572
 GameObject:
   m_ObjectHideFlags: 0

@@ -78,7 +78,7 @@ namespace ArBreakout.Game
             {
                 var paddle = _gameEntities.Paddle;
                 _bobbing.Disable();
-                var target = paddle.transform.position.z + 1.0f + _bobbingProperties.startOffsetZ;
+                var target = paddle.transform.position.z + 1.5f + _bobbingProperties.startOffsetZ;
                 transform.DOMoveZ(target, 0.6f).OnComplete(() =>
                 {
                     if (!_released)

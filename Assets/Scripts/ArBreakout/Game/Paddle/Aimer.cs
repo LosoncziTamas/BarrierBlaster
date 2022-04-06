@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -7,6 +6,7 @@ namespace ArBreakout.Game.Paddle
     public class Aimer : MonoBehaviour
     {
         [SerializeField] private AimerProperties _aimerProperties;
+        [SerializeField] private MeshRenderer _background;
 
         private Tweener _tweener;
 
@@ -17,25 +17,16 @@ namespace ArBreakout.Game.Paddle
                 .SetLoops(-1, _aimerProperties.LoopType);
         }
 
-        private void OnGUI()
-        {
-            if (GUILayout.Button("Recreate anim"))
-            {
-                _tweener?.Kill();
-                _tweener = DOVirtual.Float(_aimerProperties.StartAngle, _aimerProperties.EndAngle, _aimerProperties.Duration, OnFloatChange)
-                    .SetEase(_aimerProperties.Ease)
-                    .SetLoops(-1, _aimerProperties.LoopType);
-            }
-        }
-
         private void OnDisable()
         {
             _tweener.Pause();
+            _background.material.DOFade(0.0f, _aimerProperties.FadeDuration);
         }
 
         private void OnEnable()
         {
             _tweener.Restart();
+            _background.material.DOFade(0.06f, _aimerProperties.FadeDuration);
         }
 
         private void OnFloatChange(float newValue)

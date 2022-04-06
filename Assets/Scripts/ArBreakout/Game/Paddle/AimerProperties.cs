@@ -12,6 +12,7 @@ namespace ArBreakout.Game.Paddle
         public Ease Ease;
         public float StartAngle;
         public float EndAngle;
+        public float FadeDuration;
         
     }
 }
