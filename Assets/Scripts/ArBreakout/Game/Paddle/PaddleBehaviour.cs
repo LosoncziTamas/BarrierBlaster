@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using ArBreakout.Game.Paddle;
 using ArBreakout.Game.Stage;
 using ArBreakout.GameInput;
 using ArBreakout.GamePhysics;
@@ -9,7 +8,7 @@ using DG.Tweening;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace ArBreakout.Game
+namespace ArBreakout.Game.Paddle
 {
     [RequireComponent(typeof(Collider))]
     public class PaddleBehaviour : MonoBehaviour

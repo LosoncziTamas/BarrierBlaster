@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98ed3b7d4b244099b0b6d86add223a37, type: 3}
-  m_Name: Aimer Properties
+  m_Script: {fileID: 11500000, guid: bfb7ca5da610499cbf1c96930c78ce9f, type: 3}
+  m_Name: Camera Tween Properties
   m_EditorClassIdentifier: 
-  Duration: 2
-  LoopType: 1
-  Length: 2.5
-  Ease: 4
-  StartAngle: 160
-  EndAngle: 20
-  FadeDuration: 0.6
+  Duration: 0.4
+  Ease: 0
+  Strength: 2
+  Vibrato: 20
+  Randomness: 90

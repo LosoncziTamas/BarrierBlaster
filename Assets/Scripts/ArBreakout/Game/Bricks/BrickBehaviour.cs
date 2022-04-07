@@ -1,20 +1,15 @@
 using System;
 using System.Collections;
-using ArBreakout.Game.Bricks;
 using ArBreakout.Misc;
 using ArBreakout.PowerUps;
 using DG.Tweening;
 using UnityEngine;
 
-namespace ArBreakout.Game
+namespace ArBreakout.Game.Bricks
 {
     [RequireComponent(typeof(MeshRenderer))]
     public class BrickBehaviour : MonoBehaviour
     {
-        public class BrickDestroyedArgs : EventArgs
-        {
-        }
-
         public const string GameObjectTag = "Brick";
 
         private static readonly int HighlightIntensity = Shader.PropertyToID("_HighlightIntensity");

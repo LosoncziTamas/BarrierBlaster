@@ -135,6 +135,8 @@ GameObject:
   m_Component:
   - component: {fileID: 223791873}
   - component: {fileID: 223791872}
+  - component: {fileID: 223791875}
+  - component: {fileID: 223791874}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -200,6 +202,49 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 58, y: 0, z: 0}
+--- !u!114 &223791874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223791871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba6027402e9415f95219f930def6ccf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 223791872}
+  _cameraTweenProperties: {fileID: 11400000, guid: c1ee29143029141da87ffeed5615ff9d,
+    type: 2}
+--- !u!114 &223791875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223791871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d27256d7c05495c97818cef431dc0ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: d9ed22a4cb6694c49b0513713e6bda82, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 223791874}
+        m_TargetAssemblyTypeName: ArBreakout.Game.CameraMovement, Assembly-CSharp
+        m_MethodName: ShakeCamera
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &543486342
 GameObject:
   m_ObjectHideFlags: 0

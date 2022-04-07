@@ -1,4 +1,5 @@
 using ArBreakout.Game;
+using ArBreakout.Game.Paddle;
 using DG.Tweening;
 using UnityEngine;
 

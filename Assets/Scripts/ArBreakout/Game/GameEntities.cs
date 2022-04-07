@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using ArBreakout.Game.Bricks;
+using ArBreakout.Game.Paddle;
 using ArBreakout.Game.Stage;
 using ArBreakout.PowerUps;
 using UnityEngine;

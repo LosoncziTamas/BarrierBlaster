@@ -1,4 +1,6 @@
 using System.Linq;
+using ArBreakout.Game.Bricks;
+using ArBreakout.Game.Paddle;
 using ArBreakout.Levels;
 using ArBreakout.Misc;
 using UnityEngine;
@@ -14,7 +16,6 @@ namespace ArBreakout.Game.Stage
         [SerializeField] private GameObject _paddleParentPrefab;
         [SerializeField] private WallBehaviour _wallBehaviourPrefab;
         [SerializeField] private Gap _gapPrefab;
-        [SerializeField] private ColorPalette _colorPalette;
         [SerializeField] private BrickPool _brickPool;
         [SerializeField] private GameEntities _gameEntities;
         

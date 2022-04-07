@@ -1,3 +1,4 @@
+using ArBreakout.Game.Bricks;
 using ArBreakout.Misc;
 using UnityEngine;
 

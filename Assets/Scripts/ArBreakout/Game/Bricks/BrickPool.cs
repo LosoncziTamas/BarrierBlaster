@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using ArBreakout.Misc;
 using UnityEngine;
 
-namespace ArBreakout.Game
+namespace ArBreakout.Game.Bricks
 {
     public class BrickPool : MonoBehaviour
     {
