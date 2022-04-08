@@ -46,14 +46,13 @@ namespace ArBreakout.Game.Bricks
             _targetScale = brickAttributes.Scale;
             _changeMeshColor.SetColor(brickAttributes.Color);
             _collider.enabled = false;
-            var scale01 = Mathf.Sin(((float) brickAttributes.RowIndex / totalRowCount) * Mathf.PI);
 
-            var initialAnimScale = Mathf.Clamp(0.5f + (1 - scale01) * 0.5f, 0.5f, 1.0f);
-            transform.localScale = _targetScale * initialAnimScale;
+            transform.localScale = Vector3.zero;
 
             SetupCollectable(brickAttributes.PowerUp);
 
-            Invoke(nameof(AnimateAppear), scale01);
+            var animAppearDelay = Mathf.Sin((float) brickAttributes.RowIndex / totalRowCount * Mathf.PI);
+            Invoke(nameof(AnimateAppear), animAppearDelay);
         }
 
         private void AnimateAppear()

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f98185594b42a296b14f4be3d2a904, type: 3}
+  m_Name: 02
+  m_EditorClassIdentifier: 
+  _timeLimit: 0
+  _name: 0
+  _unlocked: 1
+  BrickAttributes:
+  - Color: {r: 0.9490196, g: 0.41960785, b: 0.41960785, a: 1}
+    HitPoints: 1
+    PowerUp: 3
+    RowIndex: 0
+    Scale: {x: 0.80999994, y: 0.80999994, z: 0.80999994}
+    Position: {x: -0.092, y: 0.5, z: 1.5}
+    Rotation: {x: -0, y: -0, z: -0, w: 1}

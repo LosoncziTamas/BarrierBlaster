@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb7ca5da610499cbf1c96930c78ce9f, type: 3}
   m_Name: Camera Tween Properties
   m_EditorClassIdentifier: 
-  Duration: 0.4
+  Duration: 0.2
   Ease: 0
-  Strength: 2
-  Vibrato: 20
+  Strength: 0.1
+  Vibrato: 10
   Randomness: 90
