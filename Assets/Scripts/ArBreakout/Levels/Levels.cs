@@ -13,7 +13,7 @@ namespace ArBreakout.Levels
         
         public LevelData Selected { get; set; }
 
-        public LevelData GetById(int id)
+        public LevelData GetById(string id)
         {
             return _levels.FirstOrDefault((data => data.Id.Equals(id)));
         }

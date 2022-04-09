@@ -4,7 +4,6 @@ using System.Linq;
 using ArBreakout.Gui.GamePlay;
 using ArBreakout.Gui.LevelSelector;
 using ArBreakout.Levels;
-using DG.Tweening;
 using Possible.AppController;
 using UnityEngine;
 
@@ -27,9 +26,8 @@ namespace ArBreakout.Gui
         public override void OnEnter(AppState fromState)
         {
             base.OnEnter(fromState);
-            for (var i = 0; i < _items.Count; i++)
+            foreach (var item in _items)
             {
-                var item = _items[i];
                 item.Unlocked = false;
             }
             SetData(_levels.All);

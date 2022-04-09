@@ -86,6 +86,8 @@ namespace ArBreakout.Gui.LevelSelector
             _onClickAction = click;
             _text.text = _levelModel.Text;
             Unlocked = data.Unlocked;
+            var starCount = PlayerPrefs.GetInt(data.Id, 0);
+            _stars.SetFilledCount(starCount);
         }
 
         private void Lock()

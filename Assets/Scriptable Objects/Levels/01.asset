@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f98185594b42a296b14f4be3d2a904, type: 3}
   m_Name: 01
   m_EditorClassIdentifier: 
-  _timeLimit: 60
+  _timeLimitFor3Stars: 60
   _name: I
-  _unlocked: 1
+  _unlocked: 0
   BrickAttributes:
   - Color: {r: 0.8509804, g: 0.2627451, b: 0.2627451, a: 1}
     HitPoints: 1

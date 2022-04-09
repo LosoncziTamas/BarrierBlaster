@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -21,6 +22,10 @@ namespace ArBreakout.Levels.Builder
                 }
 #if UNITY_EDITOR
                 EditorUtility.SetDirty(_destLevel);
+                if (string.IsNullOrEmpty(_destLevel.Id))
+                {
+                    _destLevel.Id = Guid.NewGuid().ToString();
+                }
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
 #endif

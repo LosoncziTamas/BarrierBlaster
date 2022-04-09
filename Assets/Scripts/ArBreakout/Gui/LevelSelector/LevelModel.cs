@@ -4,7 +4,7 @@ namespace ArBreakout.Gui.LevelSelector
 {
     public class LevelModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Text { get; set; }
         public bool Unlocked { get; set; }
 

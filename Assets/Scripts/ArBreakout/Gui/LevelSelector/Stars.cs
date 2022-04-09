@@ -9,9 +9,15 @@ namespace ArBreakout.Gui.LevelSelector
 
         private void Start()
         {
-            _stars[0].SetFilled(true);
-            _stars[1].SetFilled(false);
-            _stars[2].SetFilled(false);
+            SetFilledCount(0);
+        }
+
+        public void SetFilledCount(int filledCount)
+        {
+            for (var i = 0; i < _stars.Count; i++)
+            {
+                _stars[i].SetFilled(i < filledCount);
+            }
         }
     }
 }
