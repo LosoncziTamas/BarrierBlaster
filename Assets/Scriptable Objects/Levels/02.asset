@@ -18,8 +18,8 @@ MonoBehaviour:
   BrickAttributes:
   - Color: {r: 0.9490196, g: 0.41960785, b: 0.41960785, a: 1}
     HitPoints: 1
-    PowerUp: 3
-    RowIndex: 0
+    PowerUp: 0
+    RowIndex: 1
     Scale: {x: 0.80999994, y: 0.80999994, z: 0.80999994}
     Position: {x: -0.092, y: 0.5, z: 1.5}
     Rotation: {x: -0, y: -0, z: -0, w: 1}

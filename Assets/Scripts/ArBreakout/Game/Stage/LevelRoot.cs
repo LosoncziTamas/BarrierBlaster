@@ -63,8 +63,20 @@ namespace ArBreakout.Game.Stage
             }
 
             InitBricks(levelData);
-            var ball = _gameEntities.Balls.First();
-            GamePlayUtils.AnchorBallToPaddle(ball, _gameEntities.Paddle);
+
+            for (var i = 0; i < _gameEntities.Balls.Count; i++)
+            {
+                var ball = _gameEntities.Balls[i];
+                if (i == 0)
+                {
+                    GamePlayUtils.AnchorBallToPaddle(ball, _gameEntities.Paddle);
+                }
+                else
+                {
+                    Destroy(ball.gameObject);
+                }
+            }
+
             if (reset)
             {
                 _gameEntities.Paddle.ResetToDefaults();
