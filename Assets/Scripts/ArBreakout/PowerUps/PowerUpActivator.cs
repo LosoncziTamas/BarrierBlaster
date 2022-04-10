@@ -72,7 +72,6 @@ namespace ArBreakout.PowerUps
                 _activePowerUps[i] = false;
                 _activePowerUpTimes[i] = 0.0f;
             }
-
             PublishPowerUpState();
         }
 
@@ -99,12 +98,12 @@ namespace ArBreakout.PowerUps
                         _magnetActiveTime.Value = _activePowerUpTimes[i];
                     }
                 }
-                
             }
         }
 
         private void ScaleUpBall()
         {
+            UIMessageController.Instance.DisplayMessage("amplified", 1.0f, 0);
             var powerUpIdx = (int) PowerUp.Magnifier;
             var balls = _gameEntities.Balls;
             _activePowerUpTimes[powerUpIdx] = PowerUpEffectDuration;
@@ -117,6 +116,7 @@ namespace ArBreakout.PowerUps
 
         private void MagnetizePaddle()
         {
+            UIMessageController.Instance.DisplayMessage("magnetized", 1.0f, 0);
             const int idx = (int) PowerUp.Magnet;
             _gameEntities.Paddle.SetMagnetEnabled(true);
             _magnetActiveTime.Value = PowerUpEffectDuration;
@@ -171,6 +171,7 @@ namespace ArBreakout.PowerUps
 
         private void SpawnBall()
         {
+            UIMessageController.Instance.DisplayMessage("extra ball", 1.0f, 0);
             var ball = _gameEntities.Balls.First();
             var ballTrans = ball.transform;
             var spawnedBall = Instantiate(_ballPrefab, ballTrans.parent);
@@ -178,6 +179,12 @@ namespace ArBreakout.PowerUps
             spawnedBall.transform.position = ballTrans.position;
             var newDir = Vector3.Scale(Mathf.Approximately(0, ball.LocalVelocity.sqrMagnitude) ? Vector3.forward : ball.LocalVelocity, new Vector3(-1.0f, 1.0f, 1.0f));
             spawnedBall.Release(0, newDir.normalized);
+        }
+
+        private void ActivateLaserBeam()
+        {
+            UIMessageController.Instance.DisplayMessage("laser beam", 1.0f, 0);
+            _gameEntities.Paddle.SetLaserBeamEnabled(true);
         }
 
         public void ActivatePowerUp(PowerUp powerUp)
@@ -190,7 +197,7 @@ namespace ArBreakout.PowerUps
                     ScaleUpBall();
                     break;
                 case PowerUp.Laser:
-                    _gameEntities.Paddle.SetLaserBeamEnabled(true);
+                    ActivateLaserBeam();
                     break;
                 case PowerUp.BallSpawner:
                     SpawnBall();

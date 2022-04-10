@@ -30,7 +30,7 @@ namespace ArBreakout.Misc
         private RectTransform _rectTransform;
 
         // Queue for scheduled messages
-        private readonly Queue<Message> _messageQueue = new Queue<Message>();
+        private readonly Queue<Message> _messageQueue = new();
 
         // Reference to the currently displayed message
         private TextMeshProUGUI _currentMessageInstance;
