@@ -49,7 +49,7 @@ namespace ArBreakout.Game.Scoring
             return result;
         }
 
-        public static int GetStarCountForStage(string levelId)
+        public static int GetStarCountForStage(string levelId) 
         {
             var jsonPerformance = PlayerPrefs.GetString(levelId, null);
             if (string.IsNullOrEmpty(jsonPerformance))

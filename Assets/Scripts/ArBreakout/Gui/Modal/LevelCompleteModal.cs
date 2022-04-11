@@ -20,6 +20,7 @@ namespace ArBreakout.Gui.Modal
         [SerializeField] private Canvas _canvas; 
         [SerializeField] private RectTransform _shadow; 
         [SerializeField] private Image _overlay; 
+        [SerializeField] private LevelCompleteStar _levelCompleteStar; 
         
         private TaskCompletionSource<Result> _taskCompletionSource;
         
@@ -102,7 +103,6 @@ namespace ArBreakout.Gui.Modal
                 });
                 _taskCompletionSource = null;
             });
-
         }
 
         private async void OnGUI()
@@ -133,9 +133,11 @@ namespace ArBreakout.Gui.Modal
         public Task<Result> Show(string stageName, StagePerformance stagePerformance)
         {
             Debug.Assert(_taskCompletionSource == null);
+            
             _overlay.DOFade(0.5f, AnimDuration).SetEase(Ease);
             _shadow.DOLocalMove(Vector3.down * 20.0f, AnimDuration).SetEase(Ease);
             _panel.DOLocalMove(Vector3.zero, AnimDuration).SetEase(Ease);
+            
             _stageText.text = $"STAGE {stageName}";
             _canvas.enabled = true;
             _taskCompletionSource = new TaskCompletionSource<Result>();

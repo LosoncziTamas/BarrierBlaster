@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.7529412, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.7529412, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -531,6 +531,7 @@ GameObject:
   - component: {fileID: 7704268797050044726}
   - component: {fileID: 6391101817035189371}
   - component: {fileID: 3781855242492915500}
+  - component: {fileID: 8246411345745842333}
   m_Layer: 5
   m_Name: Star
   m_TagString: Untagged
@@ -598,6 +599,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8246411345745842333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860770158859915165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9d044e548a14f9da938c1cb72fd0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _filledStar: {fileID: 7677527246323768739}
+  _punchScaleProperties: {fileID: 11400000, guid: e2f02abf64bdb40c491b91c2df4f217c,
+    type: 2}
 --- !u!1 &2337945695960449853
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,6 +1482,7 @@ MonoBehaviour:
   _canvas: {fileID: 5557218654427962105}
   _shadow: {fileID: 5557218654855968238}
   _overlay: {fileID: 5557218655272853914}
+  _levelCompleteStar: {fileID: 0}
   HiddenPosition: {x: 0, y: 2000, z: 0}
   AnimDuration: 0.4
   Ease: 28
