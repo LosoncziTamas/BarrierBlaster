@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using ArBreakout.Game.Scoring;
 using ArBreakout.Levels;
 using DG.Tweening;
 using TMPro;
@@ -108,7 +109,7 @@ namespace ArBreakout.Gui.Modal
         {
             if (GUILayout.Button("Show"))
             {
-                await Show("I");
+                await Show("I", new StagePerformance{Stars = 1});
             }
         }
 
@@ -129,7 +130,7 @@ namespace ArBreakout.Gui.Modal
             });
         }
 
-        public Task<Result> Show(string stageName)
+        public Task<Result> Show(string stageName, StagePerformance stagePerformance)
         {
             Debug.Assert(_taskCompletionSource == null);
             _overlay.DOFade(0.5f, AnimDuration).SetEase(Ease);

@@ -1,4 +1,5 @@
 using ArBreakout.Game;
+using ArBreakout.Game.Scoring;
 using ArBreakout.Game.Stage;
 using ArBreakout.Gui.Modal;
 using ArBreakout.Misc;
@@ -13,7 +14,6 @@ namespace ArBreakout.Gui.GamePlay
     public class GamePlayGui : AppState
     {
         [SerializeField] private Button _backButton;
-        [SerializeField] private PowerUpPanel _powerUpPanel;
         [SerializeField] private Levels.Levels _levels;
         [SerializeField] private IntVariable _lifeCount;
         [SerializeField] private GameEntities _entities;
@@ -23,12 +23,14 @@ namespace ArBreakout.Gui.GamePlay
         private GameOverModal _gameOverModal;
         private LevelCompleteModal _levelCompleteModal;
         private LevelRoot _levelRoot;
+        private StagePerformanceTracker _stagePerformanceTracker;
 
         protected override void Awake()
         {
             base.Awake();
             _pauseModal = FindObjectOfType<PauseModal>();
             _levelRoot = FindObjectOfType<LevelRoot>();
+            _stagePerformanceTracker = FindObjectOfType<StagePerformanceTracker>();
             _gameOverModal = FindObjectOfType<GameOverModal>(includeInactive: true);
             _levelCompleteModal = FindObjectOfType<LevelCompleteModal>(includeInactive: true);
         }
@@ -38,6 +40,7 @@ namespace ArBreakout.Gui.GamePlay
             base.OnEnter(fromState);
             _levelRoot.InitLevel(_levels.Selected);
             _lifeCount.Value = 3;
+            _stagePerformanceTracker.BeginTracking(_levels.Selected);
         }
 
         private void OnEnable()
@@ -98,7 +101,8 @@ namespace ArBreakout.Gui.GamePlay
         public async void OnActiveBricksCleared()
         {
             GameTime.paused = true;
-            var result = await _levelCompleteModal.Show(_levels.Selected.Name);
+            var performance = _stagePerformanceTracker.EndTracking();
+            var result = await _levelCompleteModal.Show(_levels.Selected.Name, performance);
             GameTime.paused = false;
             if (result.GoBackToMenu)
             {
