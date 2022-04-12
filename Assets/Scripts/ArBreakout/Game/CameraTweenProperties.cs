@@ -1,4 +1,5 @@
-using ArBreakout.Misc;
+using ArBreakout.Common;
+using ArBreakout.Common.Tween;
 using UnityEngine;
 
 namespace ArBreakout.Game

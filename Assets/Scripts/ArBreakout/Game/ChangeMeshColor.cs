@@ -1,4 +1,3 @@
-using ArBreakout.Misc;
 using UnityEngine;
 
 namespace ArBreakout.Game

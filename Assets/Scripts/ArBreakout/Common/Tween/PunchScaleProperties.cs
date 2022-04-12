@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ArBreakout.Misc
+namespace ArBreakout.Common.Tween
 {
     [CreateAssetMenu]
     public class PunchScaleProperties : TweenProperties

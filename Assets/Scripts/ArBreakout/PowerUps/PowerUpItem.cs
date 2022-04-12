@@ -1,5 +1,5 @@
-﻿using ArBreakout.Game;
-using ArBreakout.Misc;
+﻿using ArBreakout.Common;
+using ArBreakout.Game;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,7 +23,7 @@ namespace ArBreakout.PowerUps
             if (_timeLeft > 0)
             {
                 _greyFill.fillAmount = 1.0f - _timeLeft / PowerUpActivator.PowerUpEffectDuration;
-                _timeLeft -= GameTime.delta;
+                _timeLeft -= GameTime.Delta;
             }
         }
     }

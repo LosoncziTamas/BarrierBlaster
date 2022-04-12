@@ -1,8 +1,10 @@
+using ArBreakout.Common;
+using ArBreakout.Common.Events;
+using ArBreakout.Common.Variables;
 using ArBreakout.Game;
 using ArBreakout.Game.Scoring;
 using ArBreakout.Game.Stage;
 using ArBreakout.Gui.Modal;
-using ArBreakout.Misc;
 using ArBreakout.PowerUps;
 using JetBrains.Annotations;
 using Possible.AppController;
@@ -82,9 +84,9 @@ namespace ArBreakout.Gui.GamePlay
             
             if (_lifeCount.Value < 1)
             {
-                GameTime.paused = true;
+                GameTime.Paused = true;
                 var retry = await _gameOverModal.Show(_levels.Selected.Name);
-                GameTime.paused = false;
+                GameTime.Paused = false;
                 if (retry)
                 {
                     _lifeCount.Value = 3;
@@ -100,10 +102,10 @@ namespace ArBreakout.Gui.GamePlay
 
         public async void OnActiveBricksCleared()
         {
-            GameTime.paused = true;
+            GameTime.Paused = true;
             var performance = _stagePerformanceTracker.EndTracking();
             var result = await _levelCompleteModal.Show(_levels.Selected.Name, performance);
-            GameTime.paused = false;
+            GameTime.Paused = false;
             if (result.GoBackToMenu)
             {
                 _levelRoot.ClearLevel();
@@ -124,9 +126,9 @@ namespace ArBreakout.Gui.GamePlay
 
         private async void OnPause()
         {
-            GameTime.paused = true;
+            GameTime.Paused = true;
             var returnTo = await _pauseModal.Show();
-            GameTime.paused = false;
+            GameTime.Paused = false;
             if (returnTo == PauseModal.ReturnState.MainMenu)
             {
                 _levelRoot.ClearLevel();

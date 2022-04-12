@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-namespace ArBreakout.Misc
+namespace ArBreakout.Common
 {
     public static class Extensions
     {

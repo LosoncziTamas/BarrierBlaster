@@ -9,12 +9,17 @@ namespace ArBreakout.Levels
     {
         [SerializeField] private string _name;
         [SerializeField] private bool _unlocked;
+        [SerializeField] private string _id;
         
         public string Name => _name;
 
         public bool Unlocked => _unlocked;
-        
-        public string Id { get; set; }
+
+        public string Id
+        {
+            get => _id;
+            set => _id = value;
+        }
 
         public List<BrickAttributes> BrickAttributes = new();
     }

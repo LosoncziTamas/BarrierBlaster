@@ -2,7 +2,6 @@ using System.Linq;
 using ArBreakout.Game.Bricks;
 using ArBreakout.Game.Paddle;
 using ArBreakout.Levels;
-using ArBreakout.Misc;
 using UnityEngine;
 using static ArBreakout.GamePhysics.BreakoutPhysics;
 

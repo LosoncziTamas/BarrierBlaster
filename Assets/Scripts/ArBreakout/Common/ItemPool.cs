@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ArBreakout.Misc
+namespace ArBreakout.Common
 {
     public class ItemPool : MonoBehaviour
     {

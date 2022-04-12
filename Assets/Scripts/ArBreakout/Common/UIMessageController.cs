@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ArBreakout.Misc
+namespace ArBreakout.Common
 {
     [RequireComponent(typeof(RectTransform))]
     public class UIMessageController : DisposableManager<UIMessageController>

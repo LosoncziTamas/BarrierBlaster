@@ -1,9 +1,7 @@
-using ArBreakout.Game;
 using ArBreakout.Game.Paddle;
-using DG.Tweening;
 using UnityEngine;
 
-namespace ArBreakout.Misc
+namespace ArBreakout.Game
 {
     public static class GamePlayUtils
     {

@@ -2,7 +2,6 @@ using ArBreakout.Game.Bricks;
 using ArBreakout.Game.Paddle;
 using ArBreakout.Game.Stage;
 using ArBreakout.GamePhysics;
-using ArBreakout.Misc;
 using ArBreakout.PowerUps;
 using DG.Tweening;
 using UnityEngine;

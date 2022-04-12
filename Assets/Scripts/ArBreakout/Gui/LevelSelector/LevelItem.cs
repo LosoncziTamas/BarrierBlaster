@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using ArBreakout.Game.Scoring;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -25,7 +26,6 @@ namespace ArBreakout.Gui.LevelSelector
 
         public bool Unlocked
         {
-            get => _unlocked;
             set
             {
                 if (value)
@@ -86,7 +86,7 @@ namespace ArBreakout.Gui.LevelSelector
             _onClickAction = click;
             _text.text = _levelModel.Text;
             Unlocked = data.Unlocked;
-            var starCount = PlayerPrefs.GetInt(data.Id, 0);
+            var starCount = StagePerformanceTracker.GetStarCountForStage(data.Id);
             _stars.SetFilledCount(starCount);
         }
 

@@ -1,5 +1,6 @@
+using ArBreakout.Common;
+using ArBreakout.Common.Variables;
 using ArBreakout.Levels;
-using ArBreakout.Misc;
 using UnityEngine;
 
 namespace ArBreakout.Game.Scoring
@@ -51,6 +52,11 @@ namespace ArBreakout.Game.Scoring
 
         public static int GetStarCountForStage(string levelId) 
         {
+            if (string.IsNullOrEmpty(levelId))
+            {
+                Debug.LogError("Empty level id.");
+                return 0;
+            }
             var jsonPerformance = PlayerPrefs.GetString(levelId, null);
             if (string.IsNullOrEmpty(jsonPerformance))
             {

@@ -1,7 +1,7 @@
 using System;
+using ArBreakout.Common;
 using ArBreakout.Game;
 using ArBreakout.GamePhysics;
-using ArBreakout.Misc;
 using DG.Tweening;
 using UnityEngine;
 
@@ -49,8 +49,8 @@ namespace ArBreakout.PlaneDetection
 
         private void Update()
         {
-            outer.Rotate(Vector3.up, outerSpeed * GameTime.delta, Space.Self);
-            inner.Rotate(Vector3.up, innerSpeed * GameTime.delta, Space.Self);
+            outer.Rotate(Vector3.up, outerSpeed * GameTime.Delta, Space.Self);
+            inner.Rotate(Vector3.up, innerSpeed * GameTime.Delta, Space.Self);
         }
 
         public void Drag()

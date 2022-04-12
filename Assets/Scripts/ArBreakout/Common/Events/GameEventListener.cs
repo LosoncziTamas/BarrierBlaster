@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace ArBreakout.Misc
+namespace ArBreakout.Common.Events
 {
     public class GameEventListener : MonoBehaviour 
     {

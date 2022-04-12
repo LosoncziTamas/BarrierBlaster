@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ArBreakout.Common;
+using ArBreakout.Common.Variables;
 using ArBreakout.Game;
-using ArBreakout.Misc;
 using UnityEngine;
 
 namespace ArBreakout.PowerUps
@@ -92,7 +93,7 @@ namespace ArBreakout.PowerUps
                 }
                 else
                 {
-                    _activePowerUpTimes[i] -= GameTime.fixedDelta;
+                    _activePowerUpTimes[i] -= GameTime.FixedDelta;
                     if (powerUp == PowerUp.Magnet)
                     {
                         _magnetActiveTime.Value = _activePowerUpTimes[i];

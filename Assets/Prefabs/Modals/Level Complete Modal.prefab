@@ -614,6 +614,8 @@ MonoBehaviour:
   _filledStar: {fileID: 7677527246323768739}
   _punchScaleProperties: {fileID: 11400000, guid: e2f02abf64bdb40c491b91c2df4f217c,
     type: 2}
+  _shakePositionProperties: {fileID: 11400000, guid: 72f3f9e088b8049d187164808b0f0666,
+    type: 2}
 --- !u!1 &2337945695960449853
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,5 @@
+using ArBreakout.Common;
 using ArBreakout.Game.Bricks;
-using ArBreakout.Misc;
 using UnityEngine;
 
 namespace ArBreakout.Game.Paddle
@@ -48,7 +48,7 @@ namespace ArBreakout.Game.Paddle
         {
             if (_activeTime > 0f)
             {
-                _activeTime -= GameTime.fixedDelta;
+                _activeTime -= GameTime.FixedDelta;
                 Animate();
                 LaunchRay();
                 if (_activeTime < 0.5f)

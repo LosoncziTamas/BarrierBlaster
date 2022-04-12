@@ -14,13 +14,5 @@ namespace ArBreakout.Game
         {
             _camera.DOShakePosition(_cameraTweenProperties.Duration, _cameraTweenProperties.Strength, _cameraTweenProperties.Vibrato, _cameraTweenProperties.Randomness);
         }
-
-        private void OnGUI()
-        {
-            if (GUILayout.Button("        Shake camera"))
-            {
-                ShakeCamera();
-            }
-        }
     }
 }

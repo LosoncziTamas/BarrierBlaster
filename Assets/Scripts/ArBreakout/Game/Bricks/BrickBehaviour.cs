@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
-using ArBreakout.Misc;
+using ArBreakout.Common;
+using ArBreakout.Common.Events;
 using ArBreakout.PowerUps;
 using DG.Tweening;
 using UnityEngine;

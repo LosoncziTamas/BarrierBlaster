@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ArBreakout.Misc
+namespace ArBreakout.Common.Variables
 {
     [CreateAssetMenu]
     public class IntVariable : ScriptableObject

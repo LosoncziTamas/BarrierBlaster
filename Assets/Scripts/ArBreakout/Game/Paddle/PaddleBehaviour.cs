@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using ArBreakout.Game.Stage;
 using ArBreakout.GameInput;
 using ArBreakout.GamePhysics;
-using ArBreakout.Misc;
 using ArBreakout.PowerUps;
 using DG.Tweening;
 using JetBrains.Annotations;

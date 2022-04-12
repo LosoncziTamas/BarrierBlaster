@@ -1,4 +1,5 @@
-using ArBreakout.Misc;
+using ArBreakout.Common;
+using ArBreakout.Common.Variables;
 using DG.Tweening;
 using UnityEngine;
 

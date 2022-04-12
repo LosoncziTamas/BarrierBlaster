@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ArBreakout.Misc
+namespace ArBreakout.Common.Events
 {
     [CreateAssetMenu]
     public class GameEvent : ScriptableObject
     {
-        private readonly List<GameEventListener> _listeners = new List<GameEventListener>();
+        private readonly List<GameEventListener> _listeners = new();
 
         public void Raise()
         {

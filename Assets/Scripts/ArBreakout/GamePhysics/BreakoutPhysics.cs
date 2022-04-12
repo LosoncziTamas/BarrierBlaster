@@ -1,4 +1,4 @@
-using ArBreakout.Misc;
+using ArBreakout.Common;
 using UnityEngine;
 
 namespace ArBreakout.GamePhysics
@@ -44,7 +44,7 @@ namespace ArBreakout.GamePhysics
 
         public static Vector3 CalculateVelocityDelta(Vector3 acceleration, float maxVelocity = MaxVelocity)
         {
-            return Vector3.ClampMagnitude(acceleration * GameTime.fixedDelta, maxVelocity);
+            return Vector3.ClampMagnitude(acceleration * GameTime.FixedDelta, maxVelocity);
         }
 
         /*
@@ -52,7 +52,7 @@ namespace ArBreakout.GamePhysics
          */
         public static Vector3 CalculateMovementDelta(Vector3 acceleration, Vector3 velocity)
         {
-            return (0.5f * acceleration * Mathf.Pow(GameTime.fixedDelta, 2.0f) + velocity * GameTime.fixedDelta);
+            return (0.5f * acceleration * Mathf.Pow(GameTime.FixedDelta, 2.0f) + velocity * GameTime.FixedDelta);
         }
     }
 }
