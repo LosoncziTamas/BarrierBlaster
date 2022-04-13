@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using ArBreakout.Common.Tween;
 using ArBreakout.Game.Scoring;
 using ArBreakout.Levels;
 using DG.Tweening;
@@ -19,8 +20,15 @@ namespace ArBreakout.Gui.Modal
         [SerializeField] private TextMeshProUGUI _stageText; 
         [SerializeField] private Canvas _canvas; 
         [SerializeField] private RectTransform _shadow; 
+        [SerializeField] private RectTransform _modalTrans; 
         [SerializeField] private Image _overlay; 
-        [SerializeField] private LevelCompleteStar _levelCompleteStar; 
+        
+        [SerializeField] private LevelCompleteStar _levelCompleteStar1; 
+        [SerializeField] private LevelCompleteStar _levelCompleteStar2; 
+        [SerializeField] private LevelCompleteStar _levelCompleteStar3; 
+        
+        [SerializeField] private PunchScaleProperties _punchScaleProperties;
+        [SerializeField] private ShakePositionProperties _shakePositionProperties;
         
         private TaskCompletionSource<Result> _taskCompletionSource;
         
@@ -109,7 +117,7 @@ namespace ArBreakout.Gui.Modal
         {
             if (GUILayout.Button("Show"))
             {
-                await Show("I", new StagePerformance{Stars = 1});
+                await Show("I", new StagePerformance{Stars = 3});
             }
         }
 
@@ -130,13 +138,73 @@ namespace ArBreakout.Gui.Modal
             });
         }
 
+        private Sequence CreateShowAnimation()
+        {
+            return DOTween.Sequence()
+                .Append(_overlay.DOFade(0.5f, AnimDuration).SetEase(Ease))
+                .Insert(0, _overlay.DOFade(0.5f, AnimDuration).SetEase(Ease))
+                .Insert(0, _panel.DOLocalMove(Vector3.zero, AnimDuration).SetEase(Ease));
+        }
+
+        private Tween CreateStarFadeTween(Image filledStar)
+        {
+            var fadeTime = 0.4f;
+            return filledStar.DOFade(1.0f, fadeTime).SetEase(_punchScaleProperties.Ease);
+        }
+
+        private Tween CreateModalShaleTween()
+        {
+            return _modalTrans.DOShakePosition(_shakePositionProperties.Duration, _shakePositionProperties.Strength, _shakePositionProperties.Vibrato, _shakePositionProperties.Randomness);
+        }
+
+        private Tween CreateStarPunchTween(Image filledStar)
+        {
+            return filledStar.transform.DOPunchScale(_punchScaleProperties.Punch, _punchScaleProperties.Duration, _punchScaleProperties.Vibrato, _punchScaleProperties.Elasticity).SetEase(_punchScaleProperties.Ease);
+        }
+        
+        private void AnimateStars(int filledStarCount)
+        {
+            if (filledStarCount == 0)
+            {
+                return;
+            }
+            
+            var sequence = DOTween.Sequence();
+            var timeDiff = _shakePositionProperties.Duration;
+            var fadeTime = 0.4f;
+            
+            if (filledStarCount >= 1)
+            {
+                sequence.Insert(0, CreateStarFadeTween(_levelCompleteStar1.FilledStar))
+                    .Insert(fadeTime, CreateModalShaleTween())
+                    .Insert(fadeTime, CreateStarPunchTween(_levelCompleteStar1.FilledStar));
+            }
+
+            if (filledStarCount >= 2)
+            {
+                sequence.Insert(fadeTime + timeDiff, CreateStarFadeTween(_levelCompleteStar2.FilledStar))
+                    .Insert(2 * fadeTime + timeDiff, CreateModalShaleTween())
+                    .Insert(2 * fadeTime + timeDiff, CreateStarPunchTween(_levelCompleteStar2.FilledStar));
+            }
+
+            if (filledStarCount == 3)
+            {
+                sequence.Insert(2 * fadeTime + 2 * timeDiff, CreateStarFadeTween(_levelCompleteStar3.FilledStar))
+                    .Insert(3 * fadeTime + 2 * timeDiff, CreateModalShaleTween())
+                    .Insert(3 * fadeTime + 2 * timeDiff, CreateStarPunchTween(_levelCompleteStar3.FilledStar));
+            }
+        }
+        
         public Task<Result> Show(string stageName, StagePerformance stagePerformance)
         {
             Debug.Assert(_taskCompletionSource == null);
+
+            _levelCompleteStar1.FilledStar.DOFade(0, 0);
+            _levelCompleteStar2.FilledStar.DOFade(0, 0);
+            _levelCompleteStar3.FilledStar.DOFade(0, 0);
             
-            _overlay.DOFade(0.5f, AnimDuration).SetEase(Ease);
-            _shadow.DOLocalMove(Vector3.down * 20.0f, AnimDuration).SetEase(Ease);
-            _panel.DOLocalMove(Vector3.zero, AnimDuration).SetEase(Ease);
+            var show = CreateShowAnimation();
+            show.OnComplete(() => AnimateStars(stagePerformance.Stars));
             
             _stageText.text = $"STAGE {stageName}";
             _canvas.enabled = true;
