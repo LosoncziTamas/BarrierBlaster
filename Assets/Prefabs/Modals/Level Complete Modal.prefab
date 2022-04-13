@@ -32,11 +32,11 @@ RectTransform:
   - {fileID: 2726181920116831710}
   - {fileID: 7253947014816040381}
   m_Father: {fileID: 5557218653908524435}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -28, y: -50}
+  m_AnchoredPosition: {x: -28, y: -65}
   m_SizeDelta: {x: 255, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3595919499420984100
@@ -294,7 +294,7 @@ RectTransform:
   - {fileID: 4073506086988660729}
   - {fileID: 5776588954519917437}
   m_Father: {fileID: 5557218653908524435}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -901,9 +901,9 @@ RectTransform:
   - {fileID: 4299965709133029469}
   - {fileID: 6594892531517614028}
   - {fileID: 417016643127847010}
-  - {fileID: 4791776158074237716}
   - {fileID: 6334153844114246079}
   - {fileID: 5216264556642676122}
+  - {fileID: 4791776158074237716}
   - {fileID: 7300331196882903790}
   - {fileID: 4145479104519514483}
   m_Father: {fileID: 5557218654427962104}
@@ -1294,11 +1294,11 @@ RectTransform:
   - {fileID: 2285362413971870063}
   - {fileID: 6171889573217097919}
   m_Father: {fileID: 5557218653908524435}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 28, y: -50}
+  m_AnchoredPosition: {x: 28, y: -65}
   m_SizeDelta: {x: 260.74, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8935549906523649694
@@ -2206,6 +2206,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Complete Star (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7624122784919334966, guid: 528613ce8b2604b3f8dee92160f7840c,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 7624122784919334966, guid: 528613ce8b2604b3f8dee92160f7840c,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 8331865796639872492, guid: 528613ce8b2604b3f8dee92160f7840c,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2244,12 +2254,12 @@ PrefabInstance:
     - target: {fileID: 8331865796639872492, guid: 528613ce8b2604b3f8dee92160f7840c,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 8331865796639872492, guid: 528613ce8b2604b3f8dee92160f7840c,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 8331865796639872492, guid: 528613ce8b2604b3f8dee92160f7840c,
         type: 3}

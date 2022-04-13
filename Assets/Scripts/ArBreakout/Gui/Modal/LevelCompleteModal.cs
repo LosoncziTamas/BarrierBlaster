@@ -148,7 +148,7 @@ namespace ArBreakout.Gui.Modal
 
         private Tween CreateStarFadeTween(Image filledStar)
         {
-            var fadeTime = 0.4f;
+            var fadeTime = 1.0f;
             return filledStar.DOFade(1.0f, fadeTime).SetEase(_punchScaleProperties.Ease);
         }
 
@@ -199,10 +199,10 @@ namespace ArBreakout.Gui.Modal
         {
             Debug.Assert(_taskCompletionSource == null);
 
-            _levelCompleteStar1.FilledStar.DOFade(0, 0);
-            _levelCompleteStar2.FilledStar.DOFade(0, 0);
-            _levelCompleteStar3.FilledStar.DOFade(0, 0);
-            
+            var color = _levelCompleteStar1.FilledStar.color;
+            color.a = 0.0f;
+            _levelCompleteStar1.FilledStar.color = _levelCompleteStar2.FilledStar.color = _levelCompleteStar3.FilledStar.color = color;
+
             var show = CreateShowAnimation();
             show.OnComplete(() => AnimateStars(stagePerformance.Stars));
             
