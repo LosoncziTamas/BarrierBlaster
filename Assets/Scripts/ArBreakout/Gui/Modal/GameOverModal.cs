@@ -15,7 +15,6 @@ namespace ArBreakout.Gui.Modal
         [SerializeField] private RectTransform _panel;
         [SerializeField] private Button _retryButton;
         [SerializeField] private Button _backToMenuButton;
-        [SerializeField] private Button _closeButton;
         [SerializeField] private Canvas _canvas;
         [SerializeField] private Image _overlay;
         [SerializeField] private RectTransform _root;
@@ -32,14 +31,12 @@ namespace ArBreakout.Gui.Modal
         {
             _backToMenuButton.onClick.AddListener(OnBackToMenuClick);
             _retryButton.onClick.AddListener(OnRetryClick);
-            _closeButton.onClick.AddListener(OnRetryClick);
         }
 
         private void OnDisable()
         {
             _backToMenuButton.onClick.RemoveListener(OnBackToMenuClick);
             _retryButton.onClick.RemoveListener(OnRetryClick);
-            _closeButton.onClick.RemoveListener(OnRetryClick);
         }
 
         private async void OnGUI()

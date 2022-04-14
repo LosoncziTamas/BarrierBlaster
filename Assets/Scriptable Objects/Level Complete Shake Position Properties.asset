@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc5e98ca692d4647841a32de68d61504, type: 3}
   m_Name: Level Complete Shake Position Properties
   m_EditorClassIdentifier: 
-  Duration: 0.4
+  Duration: 0.2
   Ease: 25
-  Strength: 10
+  Strength: 25
   Vibrato: 20
-  FadeOut: 1
+  FadeOut: 0
   Randomness: 90
