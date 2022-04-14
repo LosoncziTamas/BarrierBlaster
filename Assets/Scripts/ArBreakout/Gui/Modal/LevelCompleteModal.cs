@@ -12,7 +12,6 @@ namespace ArBreakout.Gui.Modal
     public class LevelCompleteModal : MonoBehaviour
     {
         [SerializeField] private Levels.Levels _levels;
-        [SerializeField] private Button _closeButton;
         [SerializeField] private Button _nextLevelButton;
         [SerializeField] private Button _goToMenuButton;
         [SerializeField] private Button _replayButton;
@@ -31,6 +30,8 @@ namespace ArBreakout.Gui.Modal
         [SerializeField] private ShakePositionProperties _shakePositionProperties;
         
         private TaskCompletionSource<Result> _taskCompletionSource;
+        private Sequence _showAnimation;
+        private Sequence _starAnimation;
         
         public Vector3 HiddenPosition;
         public float AnimDuration;
@@ -52,7 +53,6 @@ namespace ArBreakout.Gui.Modal
         private void OnEnable()
         {
             _nextLevelButton.onClick.AddListener(OnNextLevelButtonClick);
-            _closeButton.onClick.AddListener(OnNextLevelButtonClick);
             _goToMenuButton.onClick.AddListener(OnGoToMenuButtonClick);
             _replayButton.onClick.AddListener(OnReplayButtonClick);
         }
@@ -60,28 +60,39 @@ namespace ArBreakout.Gui.Modal
         private void OnDisable()
         {
             _nextLevelButton.onClick.RemoveListener(OnNextLevelButtonClick);
-            _closeButton.onClick.RemoveListener(OnNextLevelButtonClick);
             _goToMenuButton.onClick.RemoveListener(OnGoToMenuButtonClick);
             _replayButton.onClick.RemoveListener(OnReplayButtonClick);
+        }
+        
+        public Task<Result> Show(string stageName, StagePerformance stagePerformance)
+        {
+            Debug.Assert(_taskCompletionSource == null);
+
+            var color = _levelCompleteStar1.FilledStar.color;
+            color.a = 0.0f;
+            _levelCompleteStar1.FilledStar.color = _levelCompleteStar2.FilledStar.color = _levelCompleteStar3.FilledStar.color = color;
+
+            _showAnimation = CreateShowAnimation();
+            _showAnimation.OnComplete(() => AnimateStars(stagePerformance.Stars));
+            
+            _stageText.text = $"STAGE {stageName}";
+            _canvas.enabled = true;
+            _taskCompletionSource = new TaskCompletionSource<Result>();
+            return _taskCompletionSource.Task;
         }
         
         private void OnGoToMenuButtonClick()
         {
             _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);
             _shadow.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease);
-            _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() =>
+            _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() => OnHidden(new Result
             {
-                _canvas.enabled = false;
-                _taskCompletionSource.SetResult(new Result
-                {
-                    Level = null,
-                    AllLevelsComplete = false,
-                    GoBackToMenu = true
-                });
-                _taskCompletionSource = null;
-            });
+                Level = null,
+                AllLevelsComplete = false,
+                GoBackToMenu = true
+            }));
         }
-
+        
         private void OnNextLevelButtonClick()
         {
             var currentLevel = _levels.Selected;
@@ -100,42 +111,42 @@ namespace ArBreakout.Gui.Modal
 
             _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);
             _shadow.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease);
-            _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() =>
+            _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() => OnHidden(new Result
             {
-                _canvas.enabled = false;
-                _taskCompletionSource.SetResult(new Result
-                {
-                    Level = _levels.Selected,
-                    AllLevelsComplete = allLevelComplete,
-                    GoBackToMenu = false
-                });
-                _taskCompletionSource = null;
-            });
+                Level = _levels.Selected,
+                AllLevelsComplete = allLevelComplete,
+                GoBackToMenu = false
+            }));
         }
-
+        
+        private void OnReplayButtonClick()
+        {
+            _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);
+            _shadow.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease);
+            _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() => OnHidden(new Result
+            {
+                Level = _levels.Selected,
+                AllLevelsComplete = false,
+                GoBackToMenu = false
+            }));
+        }
+        
+        private void OnHidden(Result result)
+        {
+            _canvas.enabled = false;
+            _taskCompletionSource.SetResult(result);
+            _taskCompletionSource = null;
+            _showAnimation?.Kill();
+            _starAnimation?.Kill();
+            _showAnimation = _starAnimation = null;
+        }
+        
         private async void OnGUI()
         {
             if (GUILayout.Button("Show"))
             {
                 await Show("I", new StagePerformance{Stars = 3});
             }
-        }
-
-        private void OnReplayButtonClick()
-        {
-            _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);
-            _shadow.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease);
-            _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() =>
-            {
-                _canvas.enabled = false;
-                _taskCompletionSource.SetResult(new Result
-                {
-                    Level = _levels.Selected,
-                    AllLevelsComplete = false,
-                    GoBackToMenu = false
-                });
-                _taskCompletionSource = null;
-            });
         }
 
         private Sequence CreateShowAnimation()
@@ -169,47 +180,30 @@ namespace ArBreakout.Gui.Modal
                 return;
             }
             
-            var sequence = DOTween.Sequence();
+            _starAnimation = DOTween.Sequence();
             var timeDiff = _shakePositionProperties.Duration;
             var fadeTime = 0.4f;
             
             if (filledStarCount >= 1)
             {
-                sequence.Insert(0, CreateStarFadeTween(_levelCompleteStar1.FilledStar))
+                _starAnimation.Insert(0, CreateStarFadeTween(_levelCompleteStar1.FilledStar))
                     .Insert(fadeTime, CreateModalShaleTween())
                     .Insert(fadeTime, CreateStarPunchTween(_levelCompleteStar1.FilledStar));
             }
 
             if (filledStarCount >= 2)
             {
-                sequence.Insert(fadeTime + timeDiff, CreateStarFadeTween(_levelCompleteStar2.FilledStar))
+                _starAnimation.Insert(fadeTime + timeDiff, CreateStarFadeTween(_levelCompleteStar2.FilledStar))
                     .Insert(2 * fadeTime + timeDiff, CreateModalShaleTween())
                     .Insert(2 * fadeTime + timeDiff, CreateStarPunchTween(_levelCompleteStar2.FilledStar));
             }
 
             if (filledStarCount == 3)
             {
-                sequence.Insert(2 * fadeTime + 2 * timeDiff, CreateStarFadeTween(_levelCompleteStar3.FilledStar))
+                _starAnimation.Insert(2 * fadeTime + 2 * timeDiff, CreateStarFadeTween(_levelCompleteStar3.FilledStar))
                     .Insert(3 * fadeTime + 2 * timeDiff, CreateModalShaleTween())
                     .Insert(3 * fadeTime + 2 * timeDiff, CreateStarPunchTween(_levelCompleteStar3.FilledStar));
             }
-        }
-        
-        public Task<Result> Show(string stageName, StagePerformance stagePerformance)
-        {
-            Debug.Assert(_taskCompletionSource == null);
-
-            var color = _levelCompleteStar1.FilledStar.color;
-            color.a = 0.0f;
-            _levelCompleteStar1.FilledStar.color = _levelCompleteStar2.FilledStar.color = _levelCompleteStar3.FilledStar.color = color;
-
-            var show = CreateShowAnimation();
-            show.OnComplete(() => AnimateStars(stagePerformance.Stars));
-            
-            _stageText.text = $"STAGE {stageName}";
-            _canvas.enabled = true;
-            _taskCompletionSource = new TaskCompletionSource<Result>();
-            return _taskCompletionSource.Task;
         }
     }
 }
