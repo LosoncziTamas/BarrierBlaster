@@ -15,6 +15,7 @@ namespace ArBreakout.Gui.Modal
         [SerializeField] private Button _nextLevelButton;
         [SerializeField] private Button _goToMenuButton;
         [SerializeField] private Button _replayButton;
+        [SerializeField] private Button _cancel;
         [SerializeField] private RectTransform _panel;
         [SerializeField] private TextMeshProUGUI _stageText; 
         [SerializeField] private Canvas _canvas; 
@@ -53,6 +54,7 @@ namespace ArBreakout.Gui.Modal
         private void OnEnable()
         {
             _nextLevelButton.onClick.AddListener(OnNextLevelButtonClick);
+            _cancel.onClick.AddListener(OnNextLevelButtonClick);
             _goToMenuButton.onClick.AddListener(OnGoToMenuButtonClick);
             _replayButton.onClick.AddListener(OnReplayButtonClick);
         }
@@ -62,6 +64,7 @@ namespace ArBreakout.Gui.Modal
             _nextLevelButton.onClick.RemoveListener(OnNextLevelButtonClick);
             _goToMenuButton.onClick.RemoveListener(OnGoToMenuButtonClick);
             _replayButton.onClick.RemoveListener(OnReplayButtonClick);
+            _cancel.onClick.RemoveListener(OnNextLevelButtonClick);
         }
         
         public Task<Result> Show(string stageName, StagePerformance stagePerformance)
@@ -71,6 +74,7 @@ namespace ArBreakout.Gui.Modal
             var color = _levelCompleteStar1.FilledStar.color;
             color.a = 0.0f;
             _levelCompleteStar1.FilledStar.color = _levelCompleteStar2.FilledStar.color = _levelCompleteStar3.FilledStar.color = color;
+            _levelCompleteStar1.FilledStar.transform.localScale = _levelCompleteStar2.FilledStar.transform.localScale = _levelCompleteStar3.FilledStar.transform.localScale = Vector3.one;
 
             _showAnimation = CreateShowAnimation();
             _showAnimation.OnComplete(() => AnimateStars(stagePerformance.Stars));

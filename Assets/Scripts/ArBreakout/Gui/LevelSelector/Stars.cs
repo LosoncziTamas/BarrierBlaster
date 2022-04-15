@@ -6,12 +6,7 @@ namespace ArBreakout.Gui.LevelSelector
     public class Stars : MonoBehaviour
     {
         [SerializeField] private List<Star> _stars;
-
-        private void Start()
-        {
-            SetFilledCount(0);
-        }
-
+        
         public void SetFilledCount(int filledCount)
         {
             for (var i = 0; i < _stars.Count; i++)

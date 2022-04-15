@@ -5,7 +5,6 @@ using ArBreakout.Game;
 using ArBreakout.Game.Scoring;
 using ArBreakout.Game.Stage;
 using ArBreakout.Gui.Modal;
-using ArBreakout.PowerUps;
 using JetBrains.Annotations;
 using Possible.AppController;
 using UnityEngine;
@@ -48,18 +47,11 @@ namespace ArBreakout.Gui.GamePlay
         private void OnEnable()
         {
             _backButton.onClick.AddListener(OnPause);
-            PowerUpActivator.PowerUpStateChangeEvent += OnPowerUpStateChangeEvent;
         }
         
         private void OnDisable()
         {
             _backButton.onClick.RemoveListener(OnPause);
-            PowerUpActivator.PowerUpStateChangeEvent -= OnPowerUpStateChangeEvent;
-        }
-
-        private void OnPowerUpStateChangeEvent(object sender, PowerUpActivator.PowerUpState e)
-        {
-            // _powerUpPanel.Refresh(e.ActivePowerUps, e.ActivePowerUpTimes);
         }
 
         [UsedImplicitly]
@@ -127,7 +119,7 @@ namespace ArBreakout.Gui.GamePlay
         private async void OnPause()
         {
             GameTime.Paused = true;
-            var returnTo = await _pauseModal.Show();
+            var returnTo = await _pauseModal.Show(_levels.Selected.Name);
             GameTime.Paused = false;
             if (returnTo == PauseModal.ReturnState.MainMenu)
             {
