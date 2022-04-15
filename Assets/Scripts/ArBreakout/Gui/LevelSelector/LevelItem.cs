@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using ArBreakout.Common.Tween;
 using ArBreakout.Game.Scoring;
 using DG.Tweening;
 using TMPro;
@@ -16,10 +17,11 @@ namespace ArBreakout.Gui.LevelSelector
         [SerializeField] private GameObject _lockedIcon;
         [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] private Stars _stars;
-        [SerializeField] private RectTransform _rectTransform;
+        [SerializeField] private ShakePositionProperties _lockedLevelShake;
 
         private Action<LevelModel> _onClickAction;
         private LevelModel _levelModel;
+        private Tween _lockedAnimTween;
 
         private bool _unlocked;
         private bool _invoking;
@@ -73,10 +75,16 @@ namespace ArBreakout.Gui.LevelSelector
             }
             else
             {
-                transform.DOPunchRotation(Vector3.forward * 5.0f , 0.3f).OnComplete(() =>
+                var isPlaying = _lockedAnimTween?.IsPlaying() ?? false;
+                if (!isPlaying)
                 {
-                    transform.DOLocalRotate(Vector3.zero, 0.2f);
-                });
+                    _lockedAnimTween = transform.DOShakePosition(
+                        _lockedLevelShake.Duration, 
+                        _lockedLevelShake.Strength, 
+                        _lockedLevelShake.Vibrato, 
+                        _lockedLevelShake.Randomness, 
+                        _lockedLevelShake.FadeOut);
+                }
             }
         }
 
@@ -102,7 +110,6 @@ namespace ArBreakout.Gui.LevelSelector
         private void Unlock()
         {
             _stars.gameObject.SetActive(true);
-            _stars.transform.DOPunchScale(Vector3.one * 0.3f, 0.6f);
             _button.image.color = Color.white;
             _shadow.SetActive(true);
             _text.gameObject.SetActive(true);

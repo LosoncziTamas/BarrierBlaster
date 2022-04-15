@@ -67,7 +67,7 @@ MonoBehaviour:
   _lockedIcon: {fileID: 4617031015847638950}
   _text: {fileID: 6583091805401526858}
   _stars: {fileID: 7112322500456958983}
-  _rectTransform: {fileID: 4255531847078762326}
+  _lockedLevelShake: {fileID: 11400000, guid: 4c6f3272c36874aa6b45eac07a3ecf41, type: 2}
 --- !u!1 &4255531847226736348
 GameObject:
   m_ObjectHideFlags: 0
