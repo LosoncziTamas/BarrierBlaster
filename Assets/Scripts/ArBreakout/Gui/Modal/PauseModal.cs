@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace ArBreakout.Gui.Modal
 {
-    public class PauseModal : MonoBehaviour
+    public partial class PauseModal : MonoBehaviour
     {
         public enum ReturnState
         {
@@ -48,16 +48,7 @@ namespace ArBreakout.Gui.Modal
             _continueButton.onClick.RemoveListener(DismissAndResume);
             _cancel.onClick.RemoveListener(DismissAndResume);
         }
-
-        private async void OnGUI()
-        {
-            GUILayout.Space(100);
-            if (GUILayout.Button("Show Pause"))
-            {
-                await Show("I");
-            }
-        }
-
+        
         public Task<ReturnState> Show(string stageName)
         {
             _tutorialCanvas.enabled = true;

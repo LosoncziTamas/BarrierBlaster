@@ -42,15 +42,6 @@ namespace ArBreakout.Gui.Modal
             _cancel.onClick.RemoveListener(OnBackToMenuClick);
         }
 
-        private async void OnGUI()
-        {
-            GUILayout.Space(300);
-            if (GUILayout.Button("GameOverModal"))
-            {
-                await Show("IV");
-            }
-        }
-
         private void OnRetryClick()
         {
             _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);

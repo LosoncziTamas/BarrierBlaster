@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace ArBreakout.PowerUps
 {
-    public class PowerUpActivator : MonoBehaviour
+    public partial class PowerUpActivator : MonoBehaviour
     {
         public static event EventHandler<PowerUpState> PowerUpStateChangeEvent;
         public class PowerUpState : EventArgs
@@ -152,24 +152,7 @@ namespace ArBreakout.PowerUps
             _activePowerUpTimes[powerUpIdx] = _activePowerUpTimes[powerUpIdx] = 0.0f;
             PublishPowerUpState();
         }
-
-        private void OnGUI()
-        {
-            GUILayout.Space(20);
-            if (GUILayout.Button("Magnetize"))
-            {
-                MagnetizePaddle();
-            }
-            if (GUILayout.Button("Spawn"))
-            {
-                SpawnBall();
-            }
-            if (GUILayout.Button("Scale"))
-            {
-                ScaleUpBall();
-            }
-        }
-
+        
         private void SpawnBall()
         {
             UIMessageController.Instance.DisplayMessage("extra ball", 1.0f, 0);

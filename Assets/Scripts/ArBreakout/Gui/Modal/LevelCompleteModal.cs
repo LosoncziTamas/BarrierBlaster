@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace ArBreakout.Gui.Modal
 {
-    public class LevelCompleteModal : MonoBehaviour
+    public partial class LevelCompleteModal : MonoBehaviour
     {
         [SerializeField] private Levels.Levels _levels;
         [SerializeField] private Button _nextLevelButton;
@@ -143,14 +143,6 @@ namespace ArBreakout.Gui.Modal
             _showAnimation?.Kill();
             _starAnimation?.Kill();
             _showAnimation = _starAnimation = null;
-        }
-        
-        private async void OnGUI()
-        {
-            if (GUILayout.Button("Show"))
-            {
-                await Show("I", new StagePerformance{Stars = 3});
-            }
         }
 
         private Sequence CreateShowAnimation()
