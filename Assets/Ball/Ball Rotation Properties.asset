@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 214e27de3c234939afc18f65d7a920ce, type: 3}
   m_Name: Ball Rotation Properties
   m_EditorClassIdentifier: 
-  rotationAxis: {x: 0, y: 1, z: 0}
-  rotationValue: 3
+  RotationAxis: {x: 0, y: 1, z: 0}
+  RotationValue: 0
+  DefaultRotationValue: 4

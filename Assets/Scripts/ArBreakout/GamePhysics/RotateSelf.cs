@@ -8,7 +8,7 @@ namespace ArBreakout.GamePhysics
 
         private void FixedUpdate()
         {
-            transform.Rotate(_rotationProperties.rotationAxis, _rotationProperties.rotationValue, Space.Self);
+            transform.Rotate(_rotationProperties.RotationAxis, _rotationProperties.RotationValue, Space.Self);
         }
     }
 }

@@ -178,6 +178,8 @@ MonoBehaviour:
   _bobbing: {fileID: 5111900321193740430}
   _gameEntities: {fileID: 11400000, guid: 2b277d97f28f149a08c9dfadf311be98, type: 2}
   _bobbingProperties: {fileID: 11400000, guid: 559d5df78ac194d82b638b27bc329345, type: 2}
+  _rotationProperties: {fileID: 11400000, guid: 786954af7d8864e4f87c5a0bbe445ed1,
+    type: 2}
 --- !u!114 &5111900321193740430
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -23,6 +23,7 @@ namespace ArBreakout.Game
         [SerializeField] private Bobbing _bobbing;
         [SerializeField] private GameEntities _gameEntities;
         [SerializeField] private BobbingProperties _bobbingProperties;
+        [SerializeField] private RotationProperties _rotationProperties;
 
         private Vector3 _localVelocity;
         private Vector3 _localAcceleration;
@@ -70,6 +71,7 @@ namespace ArBreakout.Game
             _released = true;
             LocalVelocity = direction * (DefaultSpeed + additionalForce);
             _bobbing.Disable();
+            _rotationProperties.RotationValue = _rotationProperties.DefaultRotationValue * 2.0f;
         }
 
         public void ScaleUp()
@@ -249,6 +251,7 @@ namespace ArBreakout.Game
         public void ResetToDefaults()
         {
             _bobbing.Enable();
+            _rotationProperties.RotationValue = _rotationProperties.DefaultRotationValue;
             _released = false;
             _localVelocity = new Vector3();
             _localAcceleration = new Vector3();
