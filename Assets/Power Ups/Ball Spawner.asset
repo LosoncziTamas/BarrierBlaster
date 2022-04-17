@@ -16,6 +16,6 @@ MonoBehaviour:
     type: 3}
   powerUp: 4
   letter: B
-  insideColor: {r: 0.3137255, g: 0.25490198, b: 0.3372549, a: 0.5019608}
-  outsideColor: {r: 0.77254903, g: 0.7607843, b: 0.7137255, a: 1}
-  textColor: {r: 0.8392157, g: 0.27450982, b: 0.18039216, a: 1}
+  insideColor: {fileID: 2100000, guid: aa88b5ff8e4614be8b9733cad0cd0db6, type: 2}
+  outsideColor: {fileID: 2100000, guid: e7b016839b1114dc88929faeb4785741, type: 2}
+  textColor: {r: 0.34509805, g: 0.49019608, b: 0.42352942, a: 1}
