@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361a54095c384c0080aca2fca15e6dd1, type: 3}
   m_Name: Collectable Movement
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 2
   drag: 0
-  rotation: -1.5
+  rotation: -3

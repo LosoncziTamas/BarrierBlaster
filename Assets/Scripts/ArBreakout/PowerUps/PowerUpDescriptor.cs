@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ArBreakout.PowerUps
 {
@@ -9,8 +8,6 @@ namespace ArBreakout.PowerUps
         public Collectable collectablePrefab;
         public PowerUp powerUp;
         public string letter;
-        public Material insideMaterial;
-        public Material outsideMaterial;
         public Color accentColor;
     }
 }

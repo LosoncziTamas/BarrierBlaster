@@ -16,8 +16,9 @@ namespace ArBreakout.PowerUps
         [SerializeField] private MovementProperties _movementProperties;
         [SerializeField] private GameEntities _gameEntities;
         [SerializeField] private TextMeshPro _text;
+        [SerializeField] private TextMeshPro _textBack;
         [SerializeField] private ScaleProperties _scaleProperties;
-        [SerializeField] private MeshRenderer _meshRenderer;
+        [SerializeField] private ChangeMeshColor _changeMeshColor;
         
         private Vector3 _velocity;
         private Vector3 _acceleration;
@@ -34,14 +35,11 @@ namespace ArBreakout.PowerUps
         public void Init(PowerUpDescriptor powerUpDescriptor)
         {
             PowerUp = powerUpDescriptor.powerUp;
-            _text.text = powerUpDescriptor.letter;
-            _text.color = powerUpDescriptor.accentColor;
+            _textBack.text = _text.text = powerUpDescriptor.letter;
+            _textBack.color = _text.color = powerUpDescriptor.accentColor;
             
-            var insideMat = powerUpDescriptor.insideMaterial;
-            insideMat.color = Color.white;
-            var outsideMat = powerUpDescriptor.outsideMaterial;
-            outsideMat.color = powerUpDescriptor.accentColor;
-            _meshRenderer.materials = new[] {outsideMat, insideMat};
+            _changeMeshColor.SetColorForMaterial(Color.white, 1);
+            _changeMeshColor.SetColorForMaterial(powerUpDescriptor.accentColor, 0);
         }
 
         private void FixedUpdate()

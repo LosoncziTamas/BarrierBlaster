@@ -21,5 +21,12 @@ namespace ArBreakout.Game
             _block.SetColor(ColorProperty, color);
             _meshRenderer.SetPropertyBlock(_block);
         }
+        
+        public void SetColorForMaterial(Color color, int materialIdx)
+        {
+            _meshRenderer.GetPropertyBlock(_block, materialIdx);
+            _block.SetColor(ColorProperty, color);
+            _meshRenderer.SetPropertyBlock(_block, materialIdx);
+        }
     }
 }
