@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using ArBreakout.Common;
 using ArBreakout.Common.Events;
 using UnityEngine;
 
@@ -42,6 +41,7 @@ namespace ArBreakout.Game.Bricks
                 toReturn.Pool = null;
                 toReturn.gameObject.SetActive(false);
                 toReturn.transform.SetParent(transform);
+                toReturn.KillAnimation();
                 _pooledBricks.Push(toReturn);
                 _activeBrickCount--;
             }

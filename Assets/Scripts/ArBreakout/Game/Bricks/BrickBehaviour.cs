@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using ArBreakout.Common;
 using ArBreakout.Common.Events;
+using ArBreakout.Common.Tween;
 using ArBreakout.PowerUps;
 using DG.Tweening;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace ArBreakout.Game.Bricks
         public const string GameObjectTag = "Brick";
 
         private static readonly int HighlightIntensity = Shader.PropertyToID("_HighlightIntensity");
+        private static readonly int MetallicProperty = Shader.PropertyToID("_Metallic");
         private Collectable _collectableInstance;
 
         public BrickPool Pool { set; get; }
@@ -22,12 +24,14 @@ namespace ArBreakout.Game.Bricks
         [SerializeField] private PowerUpMapping _powerUpMappings;
         [SerializeField] private GameEntities _gameEntities;
         [SerializeField] private GameEvent _brickSmashed;
+        [SerializeField] private FloatTweenProperties _powerUpBrickTweenProperties;
 
         private Renderer _renderer;
         private Collider _collider;
         private int _hitPoints;
         private PowerUpDescriptor _powerUpProperties;
         private Vector3 _targetScale;
+        private Tween _powerUpBrickTween;
         
         private void Awake()
         {
@@ -47,13 +51,19 @@ namespace ArBreakout.Game.Bricks
             _targetScale = brickAttributes.Scale;
             _changeMeshColor.SetColor(brickAttributes.Color);
             _collider.enabled = false;
-
             transform.localScale = Vector3.zero;
+            KillAnimation();
 
             SetupCollectable(brickAttributes.PowerUp);
 
             var animAppearDelay = Mathf.Sin((float) brickAttributes.RowIndex / totalRowCount * Mathf.PI);
             Invoke(nameof(AnimateAppear), animAppearDelay);
+        }
+
+        public void KillAnimation()
+        {
+            _powerUpBrickTween?.Kill();
+            _powerUpBrickTween = null;
         }
 
         private void AnimateAppear()
@@ -72,8 +82,16 @@ namespace ArBreakout.Game.Bricks
                 return;
             }
             _powerUpProperties = _powerUpMappings.GetPowerUpDescriptor(powerUp);
+            _powerUpBrickTween = CreateTween();
         }
 
+        private Tween CreateTween()
+        {
+            return _renderer.material.DOFloat(_powerUpBrickTweenProperties.TargetValue, MetallicProperty, _powerUpBrickTweenProperties.Duration)
+                .SetEase(_powerUpBrickTweenProperties.Ease)
+                .SetLoops(_powerUpBrickTweenProperties.LoopCount, _powerUpBrickTweenProperties.LoopType);
+        }
+        
         public void Smash(int times)
         {
             _hitPoints = Math.Max(0, _hitPoints - times);

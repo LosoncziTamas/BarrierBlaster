@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ArBreakout.Common.Tween
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = "Tweens/Shake Position Tween Properties")]
     public class ShakePositionProperties : TweenProperties
     {
         public float Strength = 3.0f;

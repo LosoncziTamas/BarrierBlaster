@@ -116,6 +116,8 @@ MonoBehaviour:
   _powerUpMappings: {fileID: 11400000, guid: 478a13d953ece489bb6546344ea15e2f, type: 2}
   _gameEntities: {fileID: 11400000, guid: 2b277d97f28f149a08c9dfadf311be98, type: 2}
   _brickSmashed: {fileID: 11400000, guid: d9ed22a4cb6694c49b0513713e6bda82, type: 2}
+  _powerUpBrickTweenProperties: {fileID: 11400000, guid: c3bda5a0d9a52425da12990d3264554b,
+    type: 2}
 --- !u!54 &5201822731914409680
 Rigidbody:
   m_ObjectHideFlags: 0

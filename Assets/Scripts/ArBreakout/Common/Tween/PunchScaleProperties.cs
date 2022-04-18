@@ -1,8 +1,9 @@
+using DG.Tweening;
 using UnityEngine;
 
 namespace ArBreakout.Common.Tween
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = "Tweens/Punch Scale Tween Properties")]
     public class PunchScaleProperties : TweenProperties
     {
         public Vector3 Punch;
