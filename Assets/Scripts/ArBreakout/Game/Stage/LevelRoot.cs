@@ -1,4 +1,3 @@
-using System.Linq;
 using ArBreakout.Game.Bricks;
 using ArBreakout.Game.Paddle;
 using ArBreakout.Levels;
