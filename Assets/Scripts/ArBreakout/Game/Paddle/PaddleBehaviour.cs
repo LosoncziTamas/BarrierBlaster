@@ -67,7 +67,6 @@ namespace ArBreakout.Game.Paddle
         public void ResetToDefaults()
         {
             _hitPoints.ResetToFull();
-            _powerUpActivator.ResetToDefaults();
             _parentTransform.DOMove(_parentStartPosition, 0.6f);
             transform.DOScale(_defaultScale, 0.6f);
             _speed = DefaultSpeed;

@@ -5,6 +5,7 @@ using ArBreakout.GamePhysics;
 using ArBreakout.PowerUps;
 using DG.Tweening;
 using UnityEngine;
+using static System.Int32;
 
 namespace ArBreakout.Game
 {
@@ -213,6 +214,13 @@ namespace ArBreakout.Game
 
         private void ResolveBrickCollision(Collision brickCollision)
         {
+            var amplified = transform.localScale != DefaultScale;
+            var brick = brickCollision.gameObject.GetComponent<BrickBehaviour>();
+            if (amplified)
+            {
+                brick.Smash(MaxValue);
+                return;
+            }
             var contact = BreakoutPhysics.ExtractContactPoint(brickCollision);
 
             DrawContactLine(contact, Color.blue);
@@ -234,8 +242,7 @@ namespace ArBreakout.Game
 
             Debug.DrawRay(transform.position, LocalVelocity.normalized, Color.magenta, 2, false);
 
-            var brick = brickCollision.gameObject.GetComponent<BrickBehaviour>();
-            var hitTimes = brick.transform.localScale != DefaultScale ? 2 : 1;
+            var hitTimes = transform.localScale != DefaultScale ? 2 : 1;
             brick.Smash(hitTimes);
         }
 

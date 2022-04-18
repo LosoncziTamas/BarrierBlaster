@@ -10,19 +10,6 @@ namespace ArBreakout.PowerUps
 {
     public partial class PowerUpActivator : MonoBehaviour
     {
-        public static event EventHandler<PowerUpState> PowerUpStateChangeEvent;
-        public class PowerUpState : EventArgs
-        {
-            public readonly List<PowerUp> ActivePowerUps;
-            public readonly List<float> ActivePowerUpTimes;
-
-            public PowerUpState(List<PowerUp> activePowerUps, List<float> activePowerUpTimes)
-            {
-                ActivePowerUps = activePowerUps;
-                ActivePowerUpTimes = activePowerUpTimes;
-            }
-        }       
-        
         public const float PowerUpEffectDuration = 15.0f;
         
         private static readonly int TotalPowerUpCount = Enum.GetNames(typeof(PowerUp)).Length;
@@ -42,21 +29,6 @@ namespace ArBreakout.PowerUps
             return idx < _activePowerUps.Count && _activePowerUps[idx];
         }
         
-        private void PublishPowerUpState()
-        {
-            var activePowerUps = new List<PowerUp>();
-            var activePowerUpTimes = new List<float>();
-            for (var i = 0; i < TotalPowerUpCount; i++)
-            {
-                if (_activePowerUps[i])
-                {
-                    activePowerUps.Add((PowerUp) i);
-                    activePowerUpTimes.Add(_activePowerUpTimes[i]);
-                }
-            }
-            PowerUpStateChangeEvent?.Invoke(this, new PowerUpState(activePowerUps, activePowerUpTimes));
-        }
-
         private void Awake()
         {
             for (var i = 0; i < TotalPowerUpCount; i++)
@@ -68,12 +40,10 @@ namespace ArBreakout.PowerUps
 
         public void ResetToDefaults()
         {
-            for (var i = 0; i < TotalPowerUpCount; i++)
+            foreach (PowerUp powerUp in Enum.GetValues(typeof(PowerUp)))
             {
-                _activePowerUps[i] = false;
-                _activePowerUpTimes[i] = 0.0f;
+                DeActivatePowerUp(powerUp);
             }
-            PublishPowerUpState();
         }
 
         private void FixedUpdate()
@@ -150,7 +120,6 @@ namespace ArBreakout.PowerUps
             
             _activePowerUps[powerUpIdx] = _activePowerUps[powerUpIdx] = false;
             _activePowerUpTimes[powerUpIdx] = _activePowerUpTimes[powerUpIdx] = 0.0f;
-            PublishPowerUpState();
         }
         
         private void SpawnBall()
@@ -173,8 +142,6 @@ namespace ArBreakout.PowerUps
 
         public void ActivatePowerUp(PowerUp powerUp)
         {
-            var powerUpIdx = (int) powerUp;
-            
             switch (powerUp)
             {
                 case PowerUp.Magnifier:
@@ -194,8 +161,6 @@ namespace ArBreakout.PowerUps
                 default:
                     throw new ArgumentOutOfRangeException(nameof(powerUp), powerUp, null);
             }
-            
-            PublishPowerUpState();
         }
     }
 }

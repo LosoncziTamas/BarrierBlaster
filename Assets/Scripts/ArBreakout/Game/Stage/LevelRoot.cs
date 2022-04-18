@@ -2,6 +2,7 @@ using System.Linq;
 using ArBreakout.Game.Bricks;
 using ArBreakout.Game.Paddle;
 using ArBreakout.Levels;
+using ArBreakout.PowerUps;
 using UnityEngine;
 using static ArBreakout.GamePhysics.BreakoutPhysics;
 
@@ -17,6 +18,7 @@ namespace ArBreakout.Game.Stage
         [SerializeField] private Gap _gapPrefab;
         [SerializeField] private BrickPool _brickPool;
         [SerializeField] private GameEntities _gameEntities;
+        [SerializeField] private PowerUpActivator _powerUpActivator;
         
         private void Awake()
         {
@@ -79,6 +81,7 @@ namespace ArBreakout.Game.Stage
             if (reset)
             {
                 _gameEntities.Paddle.ResetToDefaults();
+                _powerUpActivator.ResetToDefaults();
             }
         }
 

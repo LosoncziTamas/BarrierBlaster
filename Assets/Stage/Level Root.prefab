@@ -105,6 +105,7 @@ MonoBehaviour:
     type: 3}
   _brickPool: {fileID: 568251437077063787}
   _gameEntities: {fileID: 11400000, guid: 2b277d97f28f149a08c9dfadf311be98, type: 2}
+  _powerUpActivator: {fileID: 2700273293977741575}
 --- !u!1001 &2818422729302288149
 PrefabInstance:
   m_ObjectHideFlags: 0
