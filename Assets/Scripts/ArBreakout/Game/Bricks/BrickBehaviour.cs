@@ -62,6 +62,7 @@ namespace ArBreakout.Game.Bricks
 
         public void KillAnimation()
         {
+            _powerUpBrickTween?.Rewind(false);
             _powerUpBrickTween?.Kill();
             _powerUpBrickTween = null;
         }
