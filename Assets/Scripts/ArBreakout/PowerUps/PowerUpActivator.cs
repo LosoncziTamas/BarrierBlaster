@@ -12,30 +12,33 @@ namespace ArBreakout.PowerUps
     {
         public const float PowerUpEffectDuration = 15.0f;
         
-        private static readonly int TotalPowerUpCount = Enum.GetNames(typeof(PowerUp)).Length;
-        
-        private readonly List<bool> _activePowerUps = new(TotalPowerUpCount);
-        private readonly List<float> _activePowerUpTimes = new(TotalPowerUpCount);
-
         [SerializeField] private GameEntities _gameEntities;
         [SerializeField] private BallBehaviour _ballPrefab;
         [SerializeField] private FloatVariable _magnetActiveTime;
+        [SerializeField] private FloatVariable _laserBeamActiveTime;
 
         private Vector3 _defaultScale;
 
         public bool IsActive(PowerUp powerUp)
         {
-            var idx = (int)powerUp;
-            return idx < _activePowerUps.Count && _activePowerUps[idx];
+            switch (powerUp)
+            {
+                case PowerUp.Magnet:
+                    return _magnetActiveTime.Value > 0;
+                case PowerUp.Laser:
+                    return _laserBeamActiveTime.Value > 0;
+                case PowerUp.BallSpawner:
+                case PowerUp.None:
+                case PowerUp.Magnifier:
+                default:
+                    return false;
+            }
         }
         
         private void Awake()
         {
-            for (var i = 0; i < TotalPowerUpCount; i++)
-            {
-                _activePowerUps.Add(false);
-                _activePowerUpTimes.Add(0.0f);
-            }
+            _magnetActiveTime.Value = 0;
+            _laserBeamActiveTime.Value = 0;
         }
 
         public void ResetToDefaults()
@@ -46,64 +49,49 @@ namespace ArBreakout.PowerUps
             }
         }
 
+        private bool IsZeroOrLess(float n)
+        {
+            return Mathf.Approximately(n, 0.0f) || n < 0.0f;
+        }
+
         private void FixedUpdate()
         {
-            for (var i = 0; i < TotalPowerUpCount; i++)
+            // TODO: clean this up
+            /*
+            if (!IsZeroOrLess(_magnetActiveTime.Value))
             {
-                if (!_activePowerUps[i])
-                {
-                    continue;
-                }
-                
-                var timeLeft = _activePowerUpTimes[i];
-                var powerUp = (PowerUp) i;
-                if (Mathf.Approximately(timeLeft, 0.0f) || timeLeft < 0.0f)
-                {
-                    DeActivatePowerUp(powerUp);
-                }
-                else
-                {
-                    _activePowerUpTimes[i] -= GameTime.FixedDelta;
-                    if (powerUp == PowerUp.Magnet)
-                    {
-                        _magnetActiveTime.Value = _activePowerUpTimes[i];
-                    }
-                }
+                _magnetActiveTime.Value -= GameTime.FixedDelta;
             }
+            else
+            {
+                DeActivatePowerUp(PowerUp.Magnet);
+            }
+            
+            if (!IsZeroOrLess(_laserBeamActiveTime.Value))
+            {
+                _laserBeamActiveTime.Value -= GameTime.FixedDelta;
+            }
+            else
+            {
+                DeActivatePowerUp(PowerUp.Laser);
+            }
+            */
         }
 
         private void ScaleUpBall()
         {
             UIMessageController.Instance.DisplayMessage("amplified", 1.0f, 0);
-            var powerUpIdx = (int) PowerUp.Magnifier;
             var balls = _gameEntities.Balls;
-            _activePowerUpTimes[powerUpIdx] = PowerUpEffectDuration;
-            _activePowerUps[powerUpIdx] = true;
             foreach (var ball in balls)
             {
                 ball.ScaleUp();
             }
         }
 
-        private void MagnetizePaddle()
-        {
-            UIMessageController.Instance.DisplayMessage("magnetized", 1.0f, 0);
-            const int idx = (int) PowerUp.Magnet;
-            _gameEntities.Paddle.SetMagnetEnabled(true);
-            _magnetActiveTime.Value = PowerUpEffectDuration;
-            _activePowerUpTimes[idx] = PowerUpEffectDuration;
-            _activePowerUps[idx] = true;
-        }
+
 
         public void DeActivatePowerUp(PowerUp powerUp)
         {
-            var powerUpIdx = (int) powerUp;
-            var isActive = _activePowerUps[powerUpIdx];
-            if (!isActive)
-            {
-                return;
-            }
-            
             if (powerUp == PowerUp.Magnifier)
             {
                 var balls = _gameEntities.Balls;
@@ -117,9 +105,11 @@ namespace ArBreakout.PowerUps
                 _magnetActiveTime.Value = 0;
                 _gameEntities.Paddle.SetMagnetEnabled(false);
             }
-            
-            _activePowerUps[powerUpIdx] = _activePowerUps[powerUpIdx] = false;
-            _activePowerUpTimes[powerUpIdx] = _activePowerUpTimes[powerUpIdx] = 0.0f;
+            else if (powerUp == PowerUp.Laser)
+            {
+                _laserBeamActiveTime.Value = 0;
+                _gameEntities.Paddle.SetLaserBeamEnabled(false);
+            }
         }
         
         private void SpawnBall()
@@ -132,6 +122,14 @@ namespace ArBreakout.PowerUps
             spawnedBall.transform.position = ballTrans.position;
             var newDir = Vector3.Scale(Mathf.Approximately(0, ball.LocalVelocity.sqrMagnitude) ? Vector3.forward : ball.LocalVelocity, new Vector3(-1.0f, 1.0f, 1.0f));
             spawnedBall.Release(0, newDir.normalized);
+        }
+        
+        private void MagnetizePaddle()
+        {
+            UIMessageController.Instance.DisplayMessage("magnetized", 1.0f, 0);
+            const int idx = (int) PowerUp.Magnet;
+            _gameEntities.Paddle.SetMagnetEnabled(true);
+            _magnetActiveTime.Value = PowerUpEffectDuration;
         }
 
         private void ActivateLaserBeam()

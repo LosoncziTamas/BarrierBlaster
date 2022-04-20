@@ -81,6 +81,11 @@ namespace ArBreakout.Game.Paddle
 
         public void Deactivate()
         {
+            if (!_shooting)
+            {
+                return;
+            }
+            
             _leftBeam.EndLaunching();
             _rightBeam.EndLaunching();
             _shooting = false;

@@ -82,6 +82,11 @@ namespace ArBreakout.Game.Stage
                 _gameEntities.Paddle.ResetToDefaults();
                 _powerUpActivator.ResetToDefaults();
             }
+            else
+            {
+                // Only deactivate laser beam that's being shot.
+                _powerUpActivator.DeActivatePowerUp(PowerUp.Laser);
+            }
         }
 
         public void ClearLevel()
