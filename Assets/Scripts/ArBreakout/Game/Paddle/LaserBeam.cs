@@ -1,4 +1,4 @@
-using ArBreakout.Common.Variables;
+using ArBreakout.Common;
 using ArBreakout.Game.Bricks;
 using UnityEngine;
 
@@ -8,12 +8,12 @@ namespace ArBreakout.Game.Paddle
     {
         [SerializeField] private LaserBeamProperties _beamProperties;
         [SerializeField] private LineRenderer _lineRenderer;
-        [SerializeField] private FloatVariable _laserBeamActiveTime;
-        
+
+        private float _activeTime;
         private float _textureOffset;
         private Gradient _originalGradient;
 
-        public bool Launching => _laserBeamActiveTime.Value > 0f;
+        public bool Launching => _activeTime > 0f;
         
         private void Awake()
         {
@@ -22,18 +22,18 @@ namespace ArBreakout.Game.Paddle
 
         public void BeginLaunching()
         {
-            var activeTime = _laserBeamActiveTime.Value;
-            if (Mathf.Approximately(activeTime, 0) || activeTime < 0)
+            if (Mathf.Approximately(_activeTime, 0) || _activeTime < 0)
             {
-                _laserBeamActiveTime.Value = 0f;
+                _activeTime = 0f;
                 _textureOffset = 0f;
             }
+            _activeTime += _beamProperties.Duration;
             _lineRenderer.colorGradient = _originalGradient;
         }
 
         public void EndLaunching()
         {
-            _laserBeamActiveTime.Value = 0;
+            _activeTime = 0;
             _lineRenderer.positionCount = 0;
             _textureOffset = 0f;
         }
@@ -46,16 +46,16 @@ namespace ArBreakout.Game.Paddle
         
         private void FixedUpdate()
         {
-            var activeTime = _laserBeamActiveTime.Value;
-            if (activeTime > 0f)
+            if (_activeTime > 0f)
             {
+                _activeTime -= GameTime.FixedDelta;
                 Animate();
                 LaunchRay();
-                if (activeTime < 0.5f)
+                if (_activeTime < 0.5f)
                 {
                     var gradient = _lineRenderer.colorGradient;
                     var alphaKeys = gradient.alphaKeys;
-                    alphaKeys[0] = new GradientAlphaKey(activeTime, 0.0f);
+                    alphaKeys[0] = new GradientAlphaKey(_activeTime, 0.0f);
                     gradient.SetKeys(
                         gradient.colorKeys,
                         alphaKeys
