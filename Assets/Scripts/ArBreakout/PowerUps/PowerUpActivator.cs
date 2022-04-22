@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArBreakout.Common;
-using ArBreakout.Common.Variables;
 using ArBreakout.Game;
 using UnityEngine;
 
@@ -19,14 +18,26 @@ namespace ArBreakout.PowerUps
 
         [SerializeField] private GameEntities _gameEntities;
         [SerializeField] private BallBehaviour _ballPrefab;
-        [SerializeField] private FloatVariable _magnetActiveTime;
 
         private Vector3 _defaultScale;
 
         public bool IsActive(PowerUp powerUp)
         {
             var idx = (int)powerUp;
-            return idx < _activePowerUps.Count && _activePowerUps[idx];
+            Debug.Assert(idx < _activePowerUps.Count);
+            return _activePowerUps[idx];
+        }
+
+        public float GetActiveTimeLeft(PowerUp powerUp)
+        {
+            var idx = (int)powerUp;
+            Debug.Assert(idx < _activePowerUpTimes.Count);
+            var result = _activePowerUpTimes[idx];
+            if (result > 0.0f)
+            {
+                Debug.Assert(IsActive(powerUp));
+            }
+            return result;
         }
         
         private void Awake()
@@ -46,6 +57,8 @@ namespace ArBreakout.PowerUps
             }
         }
 
+        private static bool TimeUp(float time) => Mathf.Approximately(time, 0.0f) || time < 0.0f;
+
         private void FixedUpdate()
         {
             for (var i = 0; i < TotalPowerUpCount; i++)
@@ -57,17 +70,13 @@ namespace ArBreakout.PowerUps
                 
                 var timeLeft = _activePowerUpTimes[i];
                 var powerUp = (PowerUp) i;
-                if (Mathf.Approximately(timeLeft, 0.0f) || timeLeft < 0.0f)
+                if (TimeUp(timeLeft))
                 {
                     DeActivatePowerUp(powerUp);
                 }
                 else
                 {
                     _activePowerUpTimes[i] -= GameTime.FixedDelta;
-                    if (powerUp == PowerUp.Magnet)
-                    {
-                        _magnetActiveTime.Value = _activePowerUpTimes[i];
-                    }
                 }
             }
         }
@@ -90,7 +99,6 @@ namespace ArBreakout.PowerUps
             UIMessageController.Instance.DisplayMessage("magnetized", 1.0f, 0);
             const int idx = (int) PowerUp.Magnet;
             _gameEntities.Paddle.SetMagnetEnabled(true);
-            _magnetActiveTime.Value = PowerUpEffectDuration;
             _activePowerUpTimes[idx] = PowerUpEffectDuration;
             _activePowerUps[idx] = true;
         }
@@ -114,8 +122,11 @@ namespace ArBreakout.PowerUps
             }
             else if (powerUp == PowerUp.Magnet)
             {
-                _magnetActiveTime.Value = 0;
                 _gameEntities.Paddle.SetMagnetEnabled(false);
+            }
+            else if (powerUp == PowerUp.Laser)
+            {
+                _gameEntities.Paddle.SetLaserBeamEnabled(false);
             }
             
             _activePowerUps[powerUpIdx] = _activePowerUps[powerUpIdx] = false;
@@ -138,6 +149,9 @@ namespace ArBreakout.PowerUps
         {
             UIMessageController.Instance.DisplayMessage("laser beam", 1.0f, 0);
             _gameEntities.Paddle.SetLaserBeamEnabled(true);
+            const int idx = (int) PowerUp.Laser;
+            _activePowerUpTimes[idx] = PowerUpEffectDuration;
+            _activePowerUps[idx] = true;
         }
 
         public void ActivatePowerUp(PowerUp powerUp)

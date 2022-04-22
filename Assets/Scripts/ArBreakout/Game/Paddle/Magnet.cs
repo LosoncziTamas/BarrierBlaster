@@ -1,5 +1,6 @@
 using ArBreakout.Common;
 using ArBreakout.Common.Variables;
+using ArBreakout.PowerUps;
 using DG.Tweening;
 using UnityEngine;
 
@@ -11,16 +12,17 @@ namespace ArBreakout.Game.Paddle
         [SerializeField] private Transform _rightTurret;
         [SerializeField] private LineRenderer _lineRenderer;
         [SerializeField] private MagnetProperties _magnetProperties;
-        [SerializeField] private FloatVariable _magnetActiveTime;
 
         private float _textureOffset;
         private float _originalLocalY;
+        private PowerUpActivator _powerUpActivator;
         private Gradient _originalGradient;
         
         private void Awake()
         {
             _originalGradient = _lineRenderer.colorGradient;
             _originalLocalY = _leftTurret.localPosition.y;
+            _powerUpActivator = FindObjectOfType<PowerUpActivator>();
         }
 
         private void CreateTurretReleaseAnimation()
@@ -68,7 +70,7 @@ namespace ArBreakout.Game.Paddle
         
         private void FixedUpdate()
         {
-            var activeTime = _magnetActiveTime.Value;
+            var activeTime = _powerUpActivator.GetActiveTimeLeft(PowerUp.Magnet);
             if (activeTime > 0f)
             {
                 Animate();

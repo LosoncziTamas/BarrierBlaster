@@ -1,4 +1,4 @@
-#undef DEBUG
+#define DEBUG
 #if DEBUG
 
 using ArBreakout.Game.Scoring;
@@ -53,6 +53,11 @@ namespace ArBreakout.PowerUps
             if (GUILayout.Button("Scale"))
             {
                 ScaleUpBall();
+            }
+            
+            if (GUILayout.Button("Laser Beam"))
+            {
+                ActivateLaserBeam();
             }
         }
     }
