@@ -1,3 +1,4 @@
+using ArBreakout.Common;
 using ArBreakout.GameInput;
 using DG.Tweening;
 using UnityEngine;
@@ -102,6 +103,7 @@ namespace ArBreakout.Game.Paddle
             
             if (!_shooting && _gameInput.Fire)
             {
+                AudioPlayer.Instance.PlaySoundLooped(AudioPlayer.SoundType.Laser);
                 _leftBeam.BeginLaunching();
                 _rightBeam.BeginLaunching();
                 _shooting = true;
@@ -109,6 +111,7 @@ namespace ArBreakout.Game.Paddle
             
             if (_shooting && (!_leftBeam.Launching || !_rightBeam.Launching))
             {
+                AudioPlayer.Instance.StopSound(AudioPlayer.SoundType.Laser);
                 Deactivate();
             }
         }

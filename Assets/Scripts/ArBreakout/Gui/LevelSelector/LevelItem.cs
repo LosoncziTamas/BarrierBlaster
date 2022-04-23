@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using ArBreakout.Common;
 using ArBreakout.Common.Tween;
 using ArBreakout.Game.Scoring;
 using DG.Tweening;
@@ -71,6 +72,7 @@ namespace ArBreakout.Gui.LevelSelector
                 {
                     return;
                 }
+                AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
                 StartCoroutine(AnimateAndInvokeClickEvent());
             }
             else
@@ -78,6 +80,7 @@ namespace ArBreakout.Gui.LevelSelector
                 var isPlaying = _lockedAnimTween?.IsPlaying() ?? false;
                 if (!isPlaying)
                 {
+                    AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Hit);
                     _lockedAnimTween = transform.DOShakePosition(
                         _lockedLevelShake.Duration, 
                         _lockedLevelShake.Strength, 

@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using ArBreakout.Common;
 using ArBreakout.Common.Tween;
 using ArBreakout.Game.Scoring;
 using ArBreakout.Levels;
@@ -71,6 +72,8 @@ namespace ArBreakout.Gui.Modal
         {
             Debug.Assert(_taskCompletionSource == null);
 
+            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.ModalAppear);
+            
             var color = _levelCompleteStar1.FilledStar.color;
             color.a = 0.0f;
             _levelCompleteStar1.FilledStar.color = _levelCompleteStar2.FilledStar.color = _levelCompleteStar3.FilledStar.color = color;
@@ -87,6 +90,7 @@ namespace ArBreakout.Gui.Modal
         
         private void OnGoToMenuButtonClick()
         {
+            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
             _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);
             _shadow.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease);
             _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() => OnHidden(new Result
@@ -99,6 +103,7 @@ namespace ArBreakout.Gui.Modal
         
         private void OnNextLevelButtonClick()
         {
+            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
             var currentLevel = _levels.Selected;
             var currLevelIdx = _levels.All.IndexOf(currentLevel);
             var allLevelComplete = false;
@@ -125,6 +130,7 @@ namespace ArBreakout.Gui.Modal
         
         private void OnReplayButtonClick()
         {
+            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
             _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);
             _shadow.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease);
             _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() => OnHidden(new Result
@@ -159,7 +165,7 @@ namespace ArBreakout.Gui.Modal
             return filledStar.DOFade(1.0f, fadeTime).SetEase(_punchScaleProperties.Ease);
         }
 
-        private Tween CreateModalShaleTween()
+        private Tween CreateModalShakeTween()
         {
             return _modalTrans.DOShakePosition(_shakePositionProperties.Duration, _shakePositionProperties.Strength, _shakePositionProperties.Vibrato, _shakePositionProperties.Randomness);
         }
@@ -180,24 +186,28 @@ namespace ArBreakout.Gui.Modal
             var timeDiff = _shakePositionProperties.Duration;
             var fadeTime = 0.4f;
             
+            // TODO: figure out sounds
+            
             if (filledStarCount >= 1)
             {
                 _starAnimation.Insert(0, CreateStarFadeTween(_levelCompleteStar1.FilledStar))
-                    .Insert(fadeTime, CreateModalShaleTween())
+                    .Insert(fadeTime, CreateModalShakeTween())
                     .Insert(fadeTime, CreateStarPunchTween(_levelCompleteStar1.FilledStar));
             }
 
             if (filledStarCount >= 2)
             {
-                _starAnimation.Insert(fadeTime + timeDiff, CreateStarFadeTween(_levelCompleteStar2.FilledStar))
-                    .Insert(2 * fadeTime + timeDiff, CreateModalShaleTween())
+                var delay = fadeTime + timeDiff;
+                _starAnimation.Insert(delay, CreateStarFadeTween(_levelCompleteStar2.FilledStar))
+                    .Insert(2 * fadeTime + timeDiff, CreateModalShakeTween())
                     .Insert(2 * fadeTime + timeDiff, CreateStarPunchTween(_levelCompleteStar2.FilledStar));
             }
 
             if (filledStarCount == 3)
             {
-                _starAnimation.Insert(2 * fadeTime + 2 * timeDiff, CreateStarFadeTween(_levelCompleteStar3.FilledStar))
-                    .Insert(3 * fadeTime + 2 * timeDiff, CreateModalShaleTween())
+                var delay = 2 * fadeTime + 2 * timeDiff;
+                _starAnimation.Insert(delay, CreateStarFadeTween(_levelCompleteStar3.FilledStar))
+                    .Insert(3 * fadeTime + 2 * timeDiff, CreateModalShakeTween())
                     .Insert(3 * fadeTime + 2 * timeDiff, CreateStarPunchTween(_levelCompleteStar3.FilledStar));
             }
         }

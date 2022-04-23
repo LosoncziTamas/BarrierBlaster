@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using ArBreakout.Common;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -40,6 +41,20 @@ namespace ArBreakout.Gui.Modal
             _backButton.onClick.AddListener(OnBackButtonClick);
             _continueButton.onClick.AddListener(DismissAndResume);
             _cancel.onClick.AddListener(DismissAndResume);
+            _musicToggle.onClick.AddListener(OnMusicToggleClick);
+            _soundToggle.onClick.AddListener(OnSoundToggleClick);
+        }
+
+        private void OnMusicToggleClick()
+        {
+            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
+            // TODO: change sprite
+        }
+        
+        private void OnSoundToggleClick()
+        {
+            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
+            // TODO: change sprite
         }
 
         private void OnDisable()
@@ -51,6 +66,7 @@ namespace ArBreakout.Gui.Modal
         
         public Task<ReturnState> Show(string stageName)
         {
+            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.ModalAppear);
             _tutorialCanvas.enabled = true;
             _title.text = $"STAGE {stageName}";
             _panel.DOLocalMove(Vector3.zero, AnimDuration).SetEase(Ease);
@@ -69,6 +85,7 @@ namespace ArBreakout.Gui.Modal
         
         private void DismissAndResume()
         {
+            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
             _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);
             _panel.DOLocalMove(HiddenPosition, AnimDuration)
                 .SetEase(Ease)
@@ -77,6 +94,7 @@ namespace ArBreakout.Gui.Modal
 
         private void OnBackButtonClick()
         {
+            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
             _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);
             _panel.DOLocalMove(HiddenPosition, AnimDuration)
                 .SetEase(Ease)

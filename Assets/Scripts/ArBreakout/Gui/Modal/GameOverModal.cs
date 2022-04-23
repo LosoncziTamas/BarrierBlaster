@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using ArBreakout.Common;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -44,6 +45,7 @@ namespace ArBreakout.Gui.Modal
 
         private void OnRetryClick()
         {
+            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
             _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);
             _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() =>
             {
@@ -53,6 +55,7 @@ namespace ArBreakout.Gui.Modal
 
         private void OnBackToMenuClick()
         {
+            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
             _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);
             _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() =>
             {

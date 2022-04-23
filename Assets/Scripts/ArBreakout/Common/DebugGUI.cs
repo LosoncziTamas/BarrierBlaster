@@ -1,5 +1,5 @@
 #define DEBUG
-#if false
+#if DEBUG
 
 using ArBreakout.Game.Scoring;
 using UnityEngine;

@@ -1,3 +1,4 @@
+using ArBreakout.Common;
 using ArBreakout.Game.Bricks;
 using ArBreakout.Game.Paddle;
 using ArBreakout.Game.Stage;
@@ -73,6 +74,7 @@ namespace ArBreakout.Game
             LocalVelocity = direction * (DefaultSpeed + additionalForce);
             _bobbing.Disable();
             _rotationProperties.RotationValue = _rotationProperties.DefaultRotationValue * 2.0f;
+            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Launch);
         }
 
         public void ScaleUp()
@@ -136,6 +138,7 @@ namespace ArBreakout.Game
         {
             if (other.gameObject.CompareTag(WallBehaviour.GameObjectTag))
             {
+                AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
                 ResolveWallCollision(other);
             }
             else if (other.gameObject.CompareTag(PaddleBehaviour.GameObjectTag) && _released)
@@ -210,10 +213,15 @@ namespace ArBreakout.Game
             {
                 GamePlayUtils.ApplyMagnet(this, paddle);
             }
+            else
+            {
+                AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
+            }
         }
 
         private void ResolveBrickCollision(Collision brickCollision)
         {
+            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Hit);
             var amplified = transform.localScale != DefaultScale;
             var brick = brickCollision.gameObject.GetComponent<BrickBehaviour>();
             if (amplified)

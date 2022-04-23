@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Possible;
 using UnityEngine;
 
 namespace ArBreakout.Common
 {
-    public class AudioPlayer : MonoBehaviour
+    public class AudioPlayer : SingletonBehaviour<AudioPlayer>
     {
         [SerializeField] private AudioSource _backgroundTrack;
         [SerializeField] private List<SoundEntry> _soundBank;
@@ -24,27 +25,12 @@ namespace ArBreakout.Common
             Pop,
             Hit,
             Click,
-            Laser
-        }
-
-        private void OnGUI()
-        {
-            if (GUILayout.Button(SoundType.Click.ToString()))
-            {
-                PlaySound(SoundType.Click);
-            }
-            if (GUILayout.Button(SoundType.Pop.ToString()))
-            {
-                PlaySound(SoundType.Pop);
-            }
-            if (GUILayout.Button(SoundType.Hit.ToString()))
-            {
-                PlaySound(SoundType.Hit);
-            }
-            if (GUILayout.Button(SoundType.Laser.ToString()))
-            {
-                PlaySound(SoundType.Laser);
-            }
+            Laser,
+            Launch,
+            Appear,
+            ModalAppear,
+            Death,
+            Trophy
         }
 
         public void PlaySound(SoundType sound)
@@ -55,7 +41,31 @@ namespace ArBreakout.Common
             }
             
             var entry = _soundBank.Find(entry => entry.SoundType == sound);
+            entry.AudioSource.loop = false;
             entry.AudioSource.Play();
+        }
+
+        public void PlaySoundLooped(SoundType sound)
+        {
+            if (_muteSounds)
+            {
+                return;
+            }
+            
+            var entry = _soundBank.Find(entry => entry.SoundType == sound);
+            entry.AudioSource.loop = true;
+            entry.AudioSource.Play();
+        }
+        
+        public void StopSound(SoundType sound)
+        {
+            if (_muteSounds)
+            {
+                return;
+            }
+            
+            var entry = _soundBank.Find(entry => entry.SoundType == sound);
+            entry.AudioSource.Stop();
         }
 
         public void MuteMusic(bool mute)
@@ -66,6 +76,13 @@ namespace ArBreakout.Common
         public void MuteSound(bool mute)
         {
             _muteSounds = mute;
+            foreach (var entry in _soundBank)
+            {
+                if (entry.AudioSource.isPlaying)
+                {
+                    entry.AudioSource.Stop();
+                }
+            }
         }
     }
 }

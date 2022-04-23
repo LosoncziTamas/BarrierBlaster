@@ -73,6 +73,7 @@ namespace ArBreakout.Game.Bricks
             _renderer.material.SetFloat(HighlightIntensity, 0.0f);
             transform.AnimatePunchScale(_targetScale * 0.9f, Ease.Linear, 0.4f);
             _collider.enabled = true;
+            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Appear);
         }
 
         private void SetupCollectable(PowerUp powerUp)

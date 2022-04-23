@@ -156,6 +156,7 @@ namespace ArBreakout.PowerUps
 
         public void ActivatePowerUp(PowerUp powerUp)
         {
+            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Pop);
             switch (powerUp)
             {
                 case PowerUp.Magnifier:
