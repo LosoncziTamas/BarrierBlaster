@@ -21,8 +21,8 @@ namespace ArBreakout.Gui.Modal
         
         [SerializeField] private Button _backButton;
         [SerializeField] private Button _continueButton;
-        [SerializeField] private Button _musicToggle;
-        [SerializeField] private Button _soundToggle;
+        [SerializeField] private DualStateButton _musicToggle;
+        [SerializeField] private DualStateButton _soundToggle;
         [SerializeField] private Button _cancel;
         [SerializeField] private Canvas _tutorialCanvas;
         [SerializeField] private RectTransform _panel;
@@ -34,6 +34,9 @@ namespace ArBreakout.Gui.Modal
         private void Awake()
         {
             _panel.anchoredPosition = HiddenPosition;
+            var audioPlayer = AudioPlayer.Instance;
+            _musicToggle.SetState(on: !audioPlayer.MusicIsMuted);
+            _soundToggle.SetState(on: !audioPlayer.SoundsAreMuted);
         }
 
         private void OnEnable()
@@ -41,27 +44,34 @@ namespace ArBreakout.Gui.Modal
             _backButton.onClick.AddListener(OnBackButtonClick);
             _continueButton.onClick.AddListener(DismissAndResume);
             _cancel.onClick.AddListener(DismissAndResume);
-            _musicToggle.onClick.AddListener(OnMusicToggleClick);
-            _soundToggle.onClick.AddListener(OnSoundToggleClick);
-        }
-
-        private void OnMusicToggleClick()
-        {
-            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
-            // TODO: change sprite
+            _musicToggle.OnClick.AddListener(OnMusicToggleClick);
+            _soundToggle.OnClick.AddListener(OnSoundToggleClick);
         }
         
-        private void OnSoundToggleClick()
-        {
-            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
-            // TODO: change sprite
-        }
-
         private void OnDisable()
         {
             _backButton.onClick.RemoveListener(OnBackButtonClick);
             _continueButton.onClick.RemoveListener(DismissAndResume);
             _cancel.onClick.RemoveListener(DismissAndResume);
+            _musicToggle.OnClick.RemoveListener(OnMusicToggleClick);
+            _soundToggle.OnClick.RemoveListener(OnSoundToggleClick);
+        }
+
+        private void OnMusicToggleClick()
+        {
+            var audioPlayer = AudioPlayer.Instance;
+            audioPlayer.PlaySound(AudioPlayer.SoundType.Click);
+            audioPlayer.MusicIsMuted = !audioPlayer.MusicIsMuted;
+            _musicToggle.SetState(on: !audioPlayer.MusicIsMuted);
+
+        }
+        
+        private void OnSoundToggleClick()
+        {
+            var audioPlayer = AudioPlayer.Instance;
+            audioPlayer.PlaySound(AudioPlayer.SoundType.Click);
+            audioPlayer.SoundsAreMuted = !audioPlayer.SoundsAreMuted;
+            _soundToggle.SetState(on: !audioPlayer.SoundsAreMuted);
         }
         
         public Task<ReturnState> Show(string stageName)

@@ -7,10 +7,36 @@ namespace ArBreakout.Common
 {
     public class AudioPlayer : SingletonBehaviour<AudioPlayer>
     {
+        private const string MusicIsMutedKey = "music_is_muted";
+        private const string SoundsAreMutedKey = "sounds_are_muted";
+        
         [SerializeField] private AudioSource _backgroundTrack;
         [SerializeField] private List<SoundEntry> _soundBank;
 
-        private bool _muteSounds;
+        public bool MusicIsMuted
+        {
+            set
+            {
+                _backgroundTrack.mute = value;
+                var result = Convert.ToInt32(value);
+                PlayerPrefs.SetInt(MusicIsMutedKey, result);
+            }
+            get => Convert.ToBoolean(PlayerPrefs.GetInt(MusicIsMutedKey, 0));
+        }
+
+        public bool SoundsAreMuted
+        {
+            set
+            {
+                if (value)
+                {
+                    StopPlayingSounds();
+                }
+                var result = Convert.ToInt32(value);
+                PlayerPrefs.SetInt(SoundsAreMutedKey, result);
+            }
+            get => Convert.ToBoolean(PlayerPrefs.GetInt(SoundsAreMutedKey, 0));
+        }
 
         [Serializable]
         public class SoundEntry
@@ -33,9 +59,15 @@ namespace ArBreakout.Common
             Trophy
         }
 
+        protected override void Awake()
+        {
+            base.Awake();
+            _backgroundTrack.mute = MusicIsMuted;
+        }
+
         public void PlaySound(SoundType sound)
         {
-            if (_muteSounds)
+            if (SoundsAreMuted)
             {
                 return;
             }
@@ -47,7 +79,7 @@ namespace ArBreakout.Common
 
         public void PlaySoundLooped(SoundType sound)
         {
-            if (_muteSounds)
+            if (SoundsAreMuted)
             {
                 return;
             }
@@ -59,7 +91,7 @@ namespace ArBreakout.Common
         
         public void StopSound(SoundType sound)
         {
-            if (_muteSounds)
+            if (SoundsAreMuted)
             {
                 return;
             }
@@ -68,14 +100,8 @@ namespace ArBreakout.Common
             entry.AudioSource.Stop();
         }
 
-        public void MuteMusic(bool mute)
+        private void StopPlayingSounds()
         {
-            _backgroundTrack.mute = mute;
-        }
-
-        public void MuteSound(bool mute)
-        {
-            _muteSounds = mute;
             foreach (var entry in _soundBank)
             {
                 if (entry.AudioSource.isPlaying)
