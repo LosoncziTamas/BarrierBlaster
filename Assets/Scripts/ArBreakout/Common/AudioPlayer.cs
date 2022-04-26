@@ -56,7 +56,8 @@ namespace ArBreakout.Common
             Appear,
             ModalAppear,
             Death,
-            Trophy
+            Trophy,
+            WallHit
         }
 
         protected override void Awake()

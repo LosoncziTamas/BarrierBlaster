@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ArBreakout.Common;
 using ArBreakout.Game.Stage;
 using ArBreakout.GameInput;
 using ArBreakout.GamePhysics;
@@ -148,6 +149,7 @@ namespace ArBreakout.Game.Paddle
                                        contact.Separation;
                 // Change the velocity so it is properly bounced back from the wall.
                 _localVelocity = transform.InverseTransformVector(reflectionGlobal) * WallCollisionBounce;
+                AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.WallHit);
             }
             else if (other.gameObject.CompareTag(BallBehaviour.GameObjectTag))
             {

@@ -82,6 +82,7 @@ namespace ArBreakout.Game.Paddle
 
         public void Deactivate()
         {
+            AudioPlayer.Instance.StopSound(AudioPlayer.SoundType.Laser);
             _leftBeam.EndLaunching();
             _rightBeam.EndLaunching();
             _shooting = false;
@@ -111,7 +112,6 @@ namespace ArBreakout.Game.Paddle
             
             if (_shooting && (!_leftBeam.Launching || !_rightBeam.Launching))
             {
-                AudioPlayer.Instance.StopSound(AudioPlayer.SoundType.Laser);
                 Deactivate();
             }
         }

@@ -174,6 +174,11 @@ namespace ArBreakout.Gui.Modal
         {
             return filledStar.transform.DOPunchScale(_punchScaleProperties.Punch, _punchScaleProperties.Duration, _punchScaleProperties.Vibrato, _punchScaleProperties.Elasticity).SetEase(_punchScaleProperties.Ease);
         }
+
+        private static void PlayStarSound()
+        {
+            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Trophy);
+        }
         
         private void AnimateStars(int filledStarCount)
         {
@@ -192,7 +197,7 @@ namespace ArBreakout.Gui.Modal
             {
                 _starAnimation.Insert(0, CreateStarFadeTween(_levelCompleteStar1.FilledStar))
                     .Insert(fadeTime, CreateModalShakeTween())
-                    .Insert(fadeTime, CreateStarPunchTween(_levelCompleteStar1.FilledStar));
+                    .Insert(fadeTime, CreateStarPunchTween(_levelCompleteStar1.FilledStar).OnPlay(PlayStarSound));
             }
 
             if (filledStarCount >= 2)
@@ -200,7 +205,7 @@ namespace ArBreakout.Gui.Modal
                 var delay = fadeTime + timeDiff;
                 _starAnimation.Insert(delay, CreateStarFadeTween(_levelCompleteStar2.FilledStar))
                     .Insert(2 * fadeTime + timeDiff, CreateModalShakeTween())
-                    .Insert(2 * fadeTime + timeDiff, CreateStarPunchTween(_levelCompleteStar2.FilledStar));
+                    .Insert(2 * fadeTime + timeDiff, CreateStarPunchTween(_levelCompleteStar2.FilledStar).OnPlay(PlayStarSound));
             }
 
             if (filledStarCount == 3)
@@ -208,7 +213,7 @@ namespace ArBreakout.Gui.Modal
                 var delay = 2 * fadeTime + 2 * timeDiff;
                 _starAnimation.Insert(delay, CreateStarFadeTween(_levelCompleteStar3.FilledStar))
                     .Insert(3 * fadeTime + 2 * timeDiff, CreateModalShakeTween())
-                    .Insert(3 * fadeTime + 2 * timeDiff, CreateStarPunchTween(_levelCompleteStar3.FilledStar));
+                    .Insert(3 * fadeTime + 2 * timeDiff, CreateStarPunchTween(_levelCompleteStar3.FilledStar).OnPlay(PlayStarSound));
             }
         }
     }
