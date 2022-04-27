@@ -101,6 +101,12 @@ namespace ArBreakout.Common
             entry.AudioSource.Stop();
         }
 
+        public void SetVolume(SoundType sound, float volume)
+        {
+            var entry = _soundBank.Find(entry => entry.SoundType == sound);
+            entry.AudioSource.volume = volume;
+        }
+
         private void StopPlayingSounds()
         {
             foreach (var entry in _soundBank)

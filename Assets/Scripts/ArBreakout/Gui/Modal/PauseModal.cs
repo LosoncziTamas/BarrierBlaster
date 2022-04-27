@@ -76,6 +76,7 @@ namespace ArBreakout.Gui.Modal
         
         public Task<ReturnState> Show(string stageName)
         {
+            AudioPlayer.Instance.SetVolume(AudioPlayer.SoundType.Laser, 0.0f);
             AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.ModalAppear);
             _tutorialCanvas.enabled = true;
             _title.text = $"STAGE {stageName}";
@@ -91,6 +92,7 @@ namespace ArBreakout.Gui.Modal
             _tutorialCanvas.enabled = false;
             _taskCompletionSource.SetResult(returnState);
             _taskCompletionSource = null;
+            AudioPlayer.Instance.SetVolume(AudioPlayer.SoundType.Laser, 1.0f);
         }
         
         private void DismissAndResume()

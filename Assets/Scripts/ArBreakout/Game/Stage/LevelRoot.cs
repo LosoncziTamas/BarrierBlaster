@@ -80,8 +80,8 @@ namespace ArBreakout.Game.Stage
             if (reset)
             {
                 _gameEntities.Paddle.ResetToDefaults();
-                _powerUpActivator.ResetToDefaults();
             }
+            _powerUpActivator.ResetToDefaults();
         }
 
         public void ClearLevel()

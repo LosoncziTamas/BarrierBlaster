@@ -65,12 +65,14 @@ namespace ArBreakout.Gui.Modal
 
         private void Finish(bool retry)
         {
+            AudioPlayer.Instance.SetVolume(AudioPlayer.SoundType.Laser, 1.0f);
             _completionSource.SetResult(retry);
             _canvas.enabled = false;
         }
 
         public Task<bool> Show(string stageName)
         {
+            AudioPlayer.Instance.SetVolume(AudioPlayer.SoundType.Laser, 0.0f);
             _stageText.text = $"STAGE {stageName}";
             _canvas.enabled = true;
             

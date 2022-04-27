@@ -72,6 +72,7 @@ namespace ArBreakout.Gui.Modal
         {
             Debug.Assert(_taskCompletionSource == null);
 
+            AudioPlayer.Instance.SetVolume(AudioPlayer.SoundType.Laser, 0.0f);
             AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.ModalAppear);
             
             var color = _levelCompleteStar1.FilledStar.color;
@@ -149,6 +150,7 @@ namespace ArBreakout.Gui.Modal
             _showAnimation?.Kill();
             _starAnimation?.Kill();
             _showAnimation = _starAnimation = null;
+            AudioPlayer.Instance.SetVolume(AudioPlayer.SoundType.Laser, 1.0f);
         }
 
         private Sequence CreateShowAnimation()
