@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ArBreakout.Common;
 using ArBreakout.Gui.GamePlay;
 using ArBreakout.Gui.LevelSelector;
+using ArBreakout.Gui.Modal;
 using ArBreakout.Levels;
 using Possible.AppController;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ArBreakout.Gui
 {
@@ -15,13 +16,31 @@ namespace ArBreakout.Gui
         [SerializeField] private RectTransform _levelItemContainer;
         [SerializeField] private Levels.Levels _levels;
         [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private Button _settingsButton;
 
         private List<LevelItem> _items;
+        private SettingsModal _settingsModal;
 
         protected override void Awake()
         {
             base.Awake();
             _items = _levelItemContainer.GetComponentsInChildren<LevelItem>().ToList();
+            _settingsModal = FindObjectOfType<SettingsModal>();
+        }
+
+        private void OnEnable()
+        {
+            _settingsButton.onClick.AddListener(OnSettingsClicked);
+        }
+
+        private void OnDisable()
+        {
+            _settingsButton.onClick.RemoveListener(OnSettingsClicked);
+        }
+
+        private async void OnSettingsClicked()
+        {
+            await _settingsModal.Show();
         }
 
         public override void OnEnter(AppState fromState)
