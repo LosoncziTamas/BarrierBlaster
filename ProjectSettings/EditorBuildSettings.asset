@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/No AR Scene.unity
+    path: Assets/Scenes/Game Scene.unity
     guid: 77628774024e94e50ab6282fdffa0df1
   - enabled: 1
     path: Assets/Level Builder/Level Builder.unity
