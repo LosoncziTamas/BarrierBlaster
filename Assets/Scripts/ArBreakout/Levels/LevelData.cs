@@ -13,7 +13,14 @@ namespace ArBreakout.Levels
         
         public string Name => _name;
 
-        public bool Unlocked => _unlocked;
+        public bool Unlocked
+        {
+            get => _unlocked;
+            set
+            {
+                _unlocked = value;
+            }
+        }
 
         public string Id
         {

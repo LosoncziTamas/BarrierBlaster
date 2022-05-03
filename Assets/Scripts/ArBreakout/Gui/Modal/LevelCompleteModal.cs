@@ -116,6 +116,7 @@ namespace ArBreakout.Gui.Modal
             else
             {
                 var nextLevel = _levels.All[currLevelIdx + 1];
+                _levels.Selected.Unlocked = true;
                 _levels.Selected = nextLevel;
             }
 
