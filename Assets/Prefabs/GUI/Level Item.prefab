@@ -68,7 +68,6 @@ MonoBehaviour:
   _text: {fileID: 6583091805401526858}
   _stars: {fileID: 7112322500456958983}
   _lockedLevelShake: {fileID: 11400000, guid: 4c6f3272c36874aa6b45eac07a3ecf41, type: 2}
-  _hoverProperties: {fileID: 11400000, guid: e703d2cf47ede4cb4940e833a2b29e1f, type: 2}
 --- !u!1 &4255531847226736348
 GameObject:
   m_ObjectHideFlags: 0
@@ -81,6 +80,7 @@ GameObject:
   - component: {fileID: 4255531847226736336}
   - component: {fileID: 4255531847226736337}
   - component: {fileID: 4255531847226736338}
+  - component: {fileID: 3341207731513704933}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -192,6 +192,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3341207731513704933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4255531847226736348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ea853874a9e4697b2c0037fa2404482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hoverProperties: {fileID: 11400000, guid: e703d2cf47ede4cb4940e833a2b29e1f, type: 2}
 --- !u!1 &4255531847981278920
 GameObject:
   m_ObjectHideFlags: 0

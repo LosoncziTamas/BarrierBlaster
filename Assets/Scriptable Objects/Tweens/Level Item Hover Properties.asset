@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad493a0e11e4b58bf4c59e9e3a0a8ec, type: 3}
   m_Name: Level Item Hover Properties
   m_EditorClassIdentifier: 
-  Duration: 0
-  Ease: 0
+  Duration: 0.2
+  Ease: 4
   LoopCount: 0
   LoopType: 0
-  Scale: {x: 0, y: 0, z: 0}
+  Scale: {x: 1.1, y: 1.1, z: 1.1}

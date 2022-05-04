@@ -6,12 +6,11 @@ using ArBreakout.Game.Scoring;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Button = UnityEngine.UI.Button;
 
 namespace ArBreakout.Gui.LevelSelector
 {
-    public class LevelItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class LevelItem : MonoBehaviour
     {
         [SerializeField] private Color _disabledColor;
         [SerializeField] private Button _button;
@@ -20,12 +19,10 @@ namespace ArBreakout.Gui.LevelSelector
         [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] private Stars _stars;
         [SerializeField] private ShakePositionProperties _lockedLevelShake;
-        [SerializeField] private ScaleProperties _hoverProperties;
 
         private Action<LevelModel> _onClickAction;
         private LevelModel _levelModel;
         private Tween _lockedAnimTween;
-        private Tween _hoverAnimTween;
 
         private bool _unlocked;
         private bool _invoking;
@@ -120,24 +117,6 @@ namespace ArBreakout.Gui.LevelSelector
             _shadow.SetActive(true);
             _text.gameObject.SetActive(true);
             _lockedIcon.SetActive(false);
-        }
-
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            if (_hoverAnimTween == null)
-            {
-                _hoverAnimTween = _button.transform
-                    .DOScale(_hoverProperties.Scale, _hoverProperties.Duration)
-                    .SetEase(_hoverProperties.Ease)
-                    .SetAutoKill(false);
-            }
-        }
-
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            Debug.Log("OnPointerExit");
-            _hoverAnimTween.PlayBackwards();
-            _hoverAnimTween = null;
         }
     }
 }
