@@ -27,7 +27,6 @@ namespace ArBreakout.Common.Tween
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            Debug.Log("OnPointerExit");
             _hoverAnimTween.PlayBackwards();
         }
     }
