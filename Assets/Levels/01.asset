@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 01
   m_EditorClassIdentifier: 
   _name: I
-  _unlocked: 1
   _id: fc969055-b86c-463d-bbe2-88b55f0dcc6f
+  _unlockedManually: 1
   BrickAttributes:
   - Color: {r: 0.8509804, g: 0.2627451, b: 0.2627451, a: 1}
     HitPoints: 1

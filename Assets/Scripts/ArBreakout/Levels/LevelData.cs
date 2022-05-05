@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ArBreakout.Game.Bricks;
 using UnityEngine;
@@ -8,17 +9,18 @@ namespace ArBreakout.Levels
     public class LevelData : ScriptableObject
     {
         [SerializeField] private string _name;
-        [SerializeField] private bool _unlocked;
         [SerializeField] private string _id;
+        [SerializeField] private bool _unlockedManually;
         
         public string Name => _name;
 
         public bool Unlocked
         {
-            get => _unlocked;
+            get => _unlockedManually || Convert.ToBoolean(PlayerPrefs.GetInt(_id, 0));
             set
             {
-                _unlocked = value;
+                var result = value ? 1 : 0; 
+                PlayerPrefs.SetInt(_id, result);
             }
         }
 
