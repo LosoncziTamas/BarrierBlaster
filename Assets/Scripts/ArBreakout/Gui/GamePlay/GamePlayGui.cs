@@ -118,6 +118,10 @@ namespace ArBreakout.Gui.GamePlay
 
         private async void OnPause()
         {
+            if (Input.anyKey)
+            {
+                return;
+            }
             GameTime.Paused = true;
             var returnTo = await _pauseModal.Show(_levels.Selected.Name);
             GameTime.Paused = false;
