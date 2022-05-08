@@ -66,8 +66,8 @@ sysinfo.txt
 crashlytics-build.properties
 
 iOS-Build/
-osxbuild.app/
 Web-Build/
+Android-Build/
 Assets/notes.md
 Assets/notes.md.meta
 Assets/GoogleARCore/SDK/Plugins/cloud_anchor_manifest.aar

@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using ArBreakout.Common;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,11 +11,22 @@ namespace ArBreakout.Gui.Modal
     {
         private TaskCompletionSource<bool> _tsc;
         
+        public Vector3 HiddenPosition;
+        public float AnimDuration;
+        public Ease Ease;
+        
         [SerializeField] private DualStateButton _musicToggle;
         [SerializeField] private DualStateButton _soundToggle;
         [SerializeField] private Button _backButton;
         [SerializeField] private Button _cancel;
         [SerializeField] private Canvas _canvas;
+        [SerializeField] private RectTransform _panel;
+        [SerializeField] private Image _overlay;
+
+        private void Awake()
+        {
+            _panel.anchoredPosition = HiddenPosition;
+        }
 
         private void OnEnable()
         {
@@ -52,15 +64,22 @@ namespace ArBreakout.Gui.Modal
         {
             _tsc = new TaskCompletionSource<bool>();
             _canvas.enabled = true;
+            
+            _panel.DOLocalMove(Vector3.zero, AnimDuration).SetEase(Ease);
+            _overlay.DOFade(0.5f, AnimDuration).SetEase(Ease);
+            
             return _tsc.Task;
         }
         
         private void DismissAndResume()
         {
-            AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
-            _canvas.enabled = false;
-            _tsc.SetResult(false);
+            _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);
+            _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() =>
+            {
+                AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
+                _canvas.enabled = false;
+                _tsc.SetResult(false);
+            });
         }
-        
     }
 }
