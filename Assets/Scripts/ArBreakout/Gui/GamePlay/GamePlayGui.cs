@@ -82,6 +82,7 @@ namespace ArBreakout.Gui.GamePlay
                 if (retry)
                 {
                     _lifeCount.Value = 3;
+                    _stagePerformanceTracker.BeginTracking(_levels.Selected);
                     _levelRoot.ContinueWithLevel(_levels.Selected, reset: true);
                 }
                 else
@@ -112,6 +113,7 @@ namespace ArBreakout.Gui.GamePlay
             }
             else if (result.Level != null)
             {
+                _stagePerformanceTracker.BeginTracking(_levels.Selected);
                 _levelRoot.ContinueWithLevel(_levels.Selected, reset: false);
             }
         }
