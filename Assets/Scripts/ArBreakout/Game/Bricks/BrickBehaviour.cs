@@ -71,7 +71,7 @@ namespace ArBreakout.Game.Bricks
         {
             // Use smaller scale, so it's not tightly packed.
             _renderer.material.SetFloat(HighlightIntensity, 0.0f);
-            transform.AnimatePunchScale(_targetScale * 0.9f, Ease.Linear, 0.4f);
+            transform.AnimatePunchScale(_targetScale, Ease.Linear, 0.4f);
             _collider.enabled = true;
             AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Appear);
         }
