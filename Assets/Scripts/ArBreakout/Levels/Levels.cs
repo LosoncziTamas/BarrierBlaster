@@ -10,8 +10,22 @@ namespace ArBreakout.Levels
         [SerializeField] private List<LevelData> _levels;
 
         public List<LevelData> All => _levels;
-        
-        public LevelData Selected { get; set; }
+
+        private LevelData _selected;
+
+        public LevelData Selected
+        {
+            get => _selected;
+            set
+            {
+                if (_selected != null)
+                {
+                    Debug.Log($"old: {_selected.Name} idx: {_levels.IndexOf(_selected)}");
+                }
+                _selected = value;
+                Debug.Log($"new: {_selected.Name} idx: {_levels.IndexOf(_selected)}");
+            }
+        }
 
         public LevelData GetById(string id)
         {

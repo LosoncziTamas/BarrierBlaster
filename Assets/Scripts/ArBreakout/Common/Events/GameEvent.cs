@@ -10,7 +10,6 @@ namespace ArBreakout.Common.Events
 
         public void Raise()
         {
-            Debug.Log($"[GameEvent] event raised: {name}");
             // looping backwards: a listener response can include removing the listener.
             for (var i = _listeners.Count - 1; i >= 0; i--)
             {
