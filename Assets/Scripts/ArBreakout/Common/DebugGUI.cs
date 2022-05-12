@@ -59,6 +59,11 @@ namespace ArBreakout.PowerUps
             {
                 ActivateLaserBeam();
             }
+
+            if (GUILayout.Button("Lock all"))
+            {
+                PlayerPrefs.DeleteAll();
+            }
         }
     }
 }

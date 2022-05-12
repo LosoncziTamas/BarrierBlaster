@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: V
   _id: 687407ce-57b8-4cd2-ac97-3b00ac558496
-  _unlockedManually: 1
+  _unlockedManually: 0
   BrickAttributes:
   - Color: {r: 0.5849056, g: 0.20140618, b: 0.20140618, a: 1}
     HitPoints: 1
