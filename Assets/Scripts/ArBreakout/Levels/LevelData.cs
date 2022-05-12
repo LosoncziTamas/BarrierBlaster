@@ -13,7 +13,6 @@ namespace ArBreakout.Levels
         [SerializeField] private string _name;
         [SerializeField] private string _id;
         [SerializeField] private bool _unlockedManually;
-
         
         public string Name => _name;
 

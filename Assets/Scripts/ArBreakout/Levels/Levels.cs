@@ -13,6 +13,15 @@ namespace ArBreakout.Levels
 
         private LevelData _selected;
 
+        public LevelData NextLevel
+        {
+            get
+            {
+                var currentLevelIdx = _levels.IndexOf(_selected);
+                return currentLevelIdx + 1 < _levels.Count ? _levels[currentLevelIdx + 1] : null;
+            }
+        }
+
         public LevelData Selected
         {
             get => _selected;

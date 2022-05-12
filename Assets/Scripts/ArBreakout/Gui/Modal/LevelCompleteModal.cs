@@ -82,6 +82,15 @@ namespace ArBreakout.Gui.Modal
 
             _showAnimation = CreateShowAnimation();
             _showAnimation.OnComplete(() => AnimateStars(stagePerformance.Stars));
+
+            if (stagePerformance != null)
+            {
+                var nextLevel = _levels.NextLevel;
+                if (nextLevel)
+                {
+                    nextLevel.Unlocked = true;
+                }
+            }
             
             _stageText.text = $"STAGE {stageName}";
             _canvas.enabled = true;
@@ -115,9 +124,7 @@ namespace ArBreakout.Gui.Modal
             }
             else
             {
-                var nextLevel = _levels.All[currLevelIdx + 1];
-                nextLevel.Unlocked = true;
-                _levels.Selected = nextLevel;
+                _levels.Selected = _levels.NextLevel;
             }
 
             _overlay.DOFade(0.0f, AnimDuration).SetEase(Ease);
