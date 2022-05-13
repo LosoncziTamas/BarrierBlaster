@@ -1,4 +1,3 @@
-using ArBreakout.Common;
 using ArBreakout.Common.Variables;
 using JetBrains.Annotations;
 using UnityEngine;
