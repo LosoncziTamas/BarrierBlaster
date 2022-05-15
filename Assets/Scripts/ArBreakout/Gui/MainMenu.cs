@@ -25,7 +25,7 @@ namespace ArBreakout.Gui
         {
             base.Awake();
             _items = _levelItemContainer.GetComponentsInChildren<LevelItem>().ToList();
-            _settingsModal = FindObjectOfType<SettingsModal>();
+            _settingsModal = FindObjectOfType<SettingsModal>(includeInactive: true);
         }
 
         private void OnEnable()

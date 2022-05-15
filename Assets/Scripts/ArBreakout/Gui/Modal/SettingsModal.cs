@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using ArBreakout.Common;
 using DG.Tweening;
@@ -19,7 +18,7 @@ namespace ArBreakout.Gui.Modal
         [SerializeField] private DualStateButton _soundToggle;
         [SerializeField] private Button _backButton;
         [SerializeField] private Button _cancel;
-        [SerializeField] private Canvas _canvas;
+        [SerializeField] private GameObject _root;
         [SerializeField] private RectTransform _panel;
         [SerializeField] private Image _overlay;
 
@@ -63,7 +62,7 @@ namespace ArBreakout.Gui.Modal
         public Task Show()
         {
             _tsc = new TaskCompletionSource<bool>();
-            _canvas.enabled = true;
+            _root.SetActive(true);
             
             _panel.DOLocalMove(Vector3.zero, AnimDuration).SetEase(Ease);
             _overlay.DOFade(0.5f, AnimDuration).SetEase(Ease);
@@ -77,7 +76,7 @@ namespace ArBreakout.Gui.Modal
             _panel.DOLocalMove(HiddenPosition, AnimDuration).SetEase(Ease).OnComplete(() =>
             {
                 AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
-                _canvas.enabled = false;
+                _root.SetActive(false);
                 _tsc.SetResult(false);
             });
         }

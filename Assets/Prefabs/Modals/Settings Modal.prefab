@@ -602,7 +602,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3575408915481828456
 RectTransform:
   m_ObjectHideFlags: 0
@@ -632,7 +632,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3575408915481828460}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -766,7 +766,7 @@ MonoBehaviour:
   _soundToggle: {fileID: 8922677070483833326}
   _backButton: {fileID: 727115324298556253}
   _cancel: {fileID: 7306779963598445798}
-  _canvas: {fileID: 3575408915481828457}
+  _root: {fileID: 3575408915481828460}
   _panel: {fileID: 3575408915492933426}
   _overlay: {fileID: 3947523921190482835}
 --- !u!1 &3575408916244952262

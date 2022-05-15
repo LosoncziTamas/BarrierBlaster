@@ -93,7 +93,7 @@ namespace ArBreakout.Gui.Modal
             }
             
             _stageText.text = $"STAGE {stageName}";
-            _canvas.enabled = true;
+            gameObject.SetActive(true);
             _taskCompletionSource = new TaskCompletionSource<Result>();
             return _taskCompletionSource.Task;
         }
@@ -152,7 +152,7 @@ namespace ArBreakout.Gui.Modal
         
         private void OnHidden(Result result)
         {
-            _canvas.enabled = false;
+            gameObject.SetActive(false);
             _taskCompletionSource.SetResult(result);
             _taskCompletionSource = null;
             _showAnimation?.Kill();

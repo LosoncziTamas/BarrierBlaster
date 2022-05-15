@@ -29,9 +29,9 @@ namespace ArBreakout.Gui.GamePlay
         protected override void Awake()
         {
             base.Awake();
-            _pauseModal = FindObjectOfType<PauseModal>();
             _levelRoot = FindObjectOfType<LevelRoot>();
             _stagePerformanceTracker = FindObjectOfType<StagePerformanceTracker>();
+            _pauseModal = FindObjectOfType<PauseModal>(includeInactive: true);
             _gameOverModal = FindObjectOfType<GameOverModal>(includeInactive: true);
             _levelCompleteModal = FindObjectOfType<LevelCompleteModal>(includeInactive: true);
         }

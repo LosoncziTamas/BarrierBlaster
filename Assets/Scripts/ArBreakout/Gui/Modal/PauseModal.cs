@@ -24,7 +24,7 @@ namespace ArBreakout.Gui.Modal
         [SerializeField] private DualStateButton _musicToggle;
         [SerializeField] private DualStateButton _soundToggle;
         [SerializeField] private Button _cancel;
-        [SerializeField] private Canvas _tutorialCanvas;
+        [SerializeField] private GameObject _root;
         [SerializeField] private RectTransform _panel;
         [SerializeField] private Image _overlay;
         [SerializeField] private TextMeshProUGUI _title;
@@ -63,7 +63,6 @@ namespace ArBreakout.Gui.Modal
             audioPlayer.PlaySound(AudioPlayer.SoundType.Click);
             audioPlayer.MusicIsMuted = !audioPlayer.MusicIsMuted;
             _musicToggle.SetState(on: !audioPlayer.MusicIsMuted);
-
         }
         
         private void OnSoundToggleClick()
@@ -78,7 +77,7 @@ namespace ArBreakout.Gui.Modal
         {
             AudioPlayer.Instance.SetVolume(AudioPlayer.SoundType.Laser, 0.0f);
             AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.ModalAppear);
-            _tutorialCanvas.enabled = true;
+            _root.SetActive(true);
             _title.text = $"STAGE {stageName}";
             _panel.DOLocalMove(Vector3.zero, AnimDuration).SetEase(Ease);
             _overlay.DOFade(0.5f, AnimDuration).SetEase(Ease);
@@ -89,10 +88,10 @@ namespace ArBreakout.Gui.Modal
 
         private void OnHidden(ReturnState returnState)
         {
-            _tutorialCanvas.enabled = false;
             _taskCompletionSource.SetResult(returnState);
             _taskCompletionSource = null;
             AudioPlayer.Instance.SetVolume(AudioPlayer.SoundType.Laser, 1.0f);
+            _root.SetActive(false);
         }
         
         private void DismissAndResume()

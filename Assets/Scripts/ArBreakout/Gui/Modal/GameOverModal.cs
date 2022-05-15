@@ -67,14 +67,14 @@ namespace ArBreakout.Gui.Modal
         {
             AudioPlayer.Instance.SetVolume(AudioPlayer.SoundType.Laser, 1.0f);
             _completionSource.SetResult(retry);
-            _canvas.enabled = false;
+            gameObject.SetActive(false);
         }
 
         public Task<bool> Show(string stageName)
         {
             AudioPlayer.Instance.SetVolume(AudioPlayer.SoundType.Laser, 0.0f);
             _stageText.text = $"STAGE {stageName}";
-            _canvas.enabled = true;
+            gameObject.SetActive(true);
             
             _panel.DOLocalMove(Vector3.zero, AnimDuration).SetEase(Ease);
             _overlay.DOFade(0.5f, AnimDuration).SetEase(Ease);
