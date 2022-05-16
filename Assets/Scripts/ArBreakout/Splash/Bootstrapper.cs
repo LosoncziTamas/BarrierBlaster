@@ -12,6 +12,8 @@ namespace ArBreakout.Splash
         private const int GameSceneIndex = 1;
 
         [SerializeField] private CanvasGroup _splash;
+
+        private Tween _fadeTween;
         
         private void Awake()
         {
@@ -20,15 +22,20 @@ namespace ArBreakout.Splash
 
         private IEnumerator Start()
         {
+            _fadeTween = _splash.DOFade(1.0f, 1.0f).SetAutoKill(false);
             var loadScene = SceneManager.LoadSceneAsync(GameSceneIndex, LoadSceneMode.Additive);
             loadScene.allowSceneActivation = false;
             // TODO: fade
             // TODO: fix lights
-            while (loadScene.progress < 0.9f)
+            while (loadScene.progress < 0.9f || _fadeTween.IsPlaying())
             {
                 yield return null;
             }
-            loadScene.allowSceneActivation = true;
+            _fadeTween.PlayBackwards();
+            _fadeTween.OnComplete(() =>
+            {
+                // loadScene.allowSceneActivation = true;
+            }).Rewind();
         }
     }
 }
