@@ -25,17 +25,15 @@ namespace ArBreakout.Splash
             _fadeTween = _splash.DOFade(1.0f, 1.0f).SetAutoKill(false);
             var loadScene = SceneManager.LoadSceneAsync(GameSceneIndex, LoadSceneMode.Additive);
             loadScene.allowSceneActivation = false;
-            // TODO: fade
-            // TODO: fix lights
             while (loadScene.progress < 0.9f || _fadeTween.IsPlaying())
             {
                 yield return null;
             }
             _fadeTween.PlayBackwards();
-            _fadeTween.OnComplete(() =>
+            _fadeTween.OnStepComplete(() =>
             {
-                // loadScene.allowSceneActivation = true;
-            }).Rewind();
+                loadScene.allowSceneActivation = true;
+            });
         }
     }
 }
