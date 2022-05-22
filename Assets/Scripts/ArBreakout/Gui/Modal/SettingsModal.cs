@@ -63,7 +63,10 @@ namespace ArBreakout.Gui.Modal
         {
             _tsc = new TaskCompletionSource<bool>();
             _root.SetActive(true);
-            
+            var audioPlayer = AudioPlayer.Instance;
+            _musicToggle.SetState(on: !audioPlayer.MusicIsMuted);
+            _soundToggle.SetState(on: !audioPlayer.SoundsAreMuted);
+
             _panel.DOLocalMove(Vector3.zero, AnimDuration).SetEase(Ease);
             _overlay.DOFade(0.5f, AnimDuration).SetEase(Ease);
             
