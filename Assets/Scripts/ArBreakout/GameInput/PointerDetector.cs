@@ -37,7 +37,7 @@ namespace ArBreakout.GameInput
         public void Highlight()
         {
             var c = _image.color;
-            c.a = 0.4f;
+            c.a = 0.9f;
             _image.color = c;
             _accumulator = HighlightDuration;
         }
