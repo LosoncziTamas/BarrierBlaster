@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ArBreakout.Common;
 using ArBreakout.Game;
+using ArBreakout.Game.Ball;
 using UnityEngine;
 
 namespace ArBreakout.PowerUps

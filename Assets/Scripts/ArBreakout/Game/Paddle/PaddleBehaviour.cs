@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using ArBreakout.Common;
+using ArBreakout.Game.Ball;
 using ArBreakout.Game.Stage;
 using ArBreakout.GameInput;
 using ArBreakout.GamePhysics;
@@ -15,12 +16,8 @@ namespace ArBreakout.Game.Paddle
     {
         public const string GameObjectTag = "Paddle";
         
-        private const float DefaultSpeed = 18.0f;
-        private const float Drag = 2.0f;
-        private const float WallCollisionBounce = 15.0f;
-        private const float BallCollisionBounce = 5.0f;
-
         [SerializeField] private PlayerInput _playerInput;
+        [SerializeField] private PaddleProperties _paddleProperties;
         [SerializeField] private PaddleHitPoints _hitPoints;
         [SerializeField] private Blaster _blaster;
         [SerializeField] private Magnet _magnet;
@@ -55,7 +52,7 @@ namespace ArBreakout.Game.Paddle
             var transform1 = transform;
             _defaultScale = transform1.localScale;
             _parentTransform = transform1.parent;
-            _speed = DefaultSpeed;
+            _speed = _paddleProperties.DefaultSpeed;
             _powerUpActivator = FindObjectOfType<PowerUpActivator>();
         }
 
@@ -70,7 +67,7 @@ namespace ArBreakout.Game.Paddle
             _hitPoints.ResetToFull();
             _parentTransform.DOMove(_parentStartPosition, 0.6f);
             transform.DOScale(_defaultScale, 0.6f);
-            _speed = DefaultSpeed;
+            _speed = _paddleProperties.DefaultSpeed;
             SetLaserBeamEnabled(false);
         }
 
@@ -131,7 +128,7 @@ namespace ArBreakout.Game.Paddle
             }
 
             localAcceleration *= _speed;
-            localAcceleration += -Drag * _localVelocity;
+            localAcceleration += -_paddleProperties.Drag * _localVelocity;
 
             _localVelocity += BreakoutPhysics.CalculateVelocityDelta(localAcceleration);
             // We move the parent transform instead of the paddle. This is a workaround used to avoid unwanted scale of the ball.
@@ -145,10 +142,9 @@ namespace ArBreakout.Game.Paddle
             if (other.gameObject.CompareTag(WallBehaviour.GameObjectTag))
             {
                 var contact = BreakoutPhysics.ExtractContactPoint(other);
-                var reflectionGlobal = Vector3.Reflect(transform.TransformVector(_localVelocity), contact.Normal) *
-                                       contact.Separation;
+                var reflectionGlobal = Vector3.Reflect(transform.TransformVector(_localVelocity), contact.Normal) * contact.Separation;
                 // Change the velocity so it is properly bounced back from the wall.
-                _localVelocity = transform.InverseTransformVector(reflectionGlobal) * WallCollisionBounce;
+                _localVelocity = transform.InverseTransformVector(reflectionGlobal) * _paddleProperties.WallCollisionBounce;
                 AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.WallHit);
             }
             else if (other.gameObject.CompareTag(BallBehaviour.GameObjectTag))
@@ -157,7 +153,7 @@ namespace ArBreakout.Game.Paddle
                 var reflectionGlobal = Vector3.Reflect(transform.TransformVector(_localVelocity), contact.Normal) *
                                        contact.Separation;
                 // Apply some bounce effect to the paddle in order to avoid tunnelling when the ball is moving between the wall and the paddle.
-                _localVelocity += transform.InverseTransformVector(reflectionGlobal) * BallCollisionBounce;
+                _localVelocity += transform.InverseTransformVector(reflectionGlobal) * _paddleProperties.BallCollisionBounce;
                 // Only apply the reflection force in one dimension.
                 _localVelocity.Scale(Vector3.right);
             }
@@ -194,7 +190,7 @@ namespace ArBreakout.Game.Paddle
                 if (collisionInfo.gameObject.CompareTag(WallBehaviour.GameObjectTag))
                 {
                     // Apply bounce effect for walls
-                    newVelocity += localContactNormal * WallCollisionBounce;
+                    newVelocity += localContactNormal * _paddleProperties.WallCollisionBounce;
                 }
 
                 newVelocity.Scale(Vector3.right);

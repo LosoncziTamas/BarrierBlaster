@@ -1,5 +1,6 @@
 using ArBreakout.Common;
 using ArBreakout.Common.Events;
+using ArBreakout.Game.Ball;
 using ArBreakout.PowerUps;
 using UnityEngine;
 

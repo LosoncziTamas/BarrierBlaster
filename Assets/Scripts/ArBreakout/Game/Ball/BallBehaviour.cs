@@ -8,20 +8,18 @@ using DG.Tweening;
 using UnityEngine;
 using static System.Int32;
 
-namespace ArBreakout.Game
+namespace ArBreakout.Game.Ball
 {
     public class BallBehaviour : MonoBehaviour
     {
         public const string GameObjectTag = "Ball";
 
-        private const float DefaultSpeed = 26.0f;
-        private const float Drag = 2.0f;
-
         private static readonly float NegativeMaxZ = Mathf.Sin(Mathf.Deg2Rad * -15.0f);
         private static readonly float PositiveMinZ = Mathf.Sin(Mathf.Deg2Rad * 15.0f);
         private static readonly float NegativeMaxX = Mathf.Cos(Mathf.Deg2Rad * 165.0f);
         private static readonly float PositiveMinX = Mathf.Cos(Mathf.Deg2Rad * 15.0f);
-        
+
+        [SerializeField] private BallProperties _ballProperties;
         [SerializeField] private Bobbing _bobbing;
         [SerializeField] private GameEntities _gameEntities;
         [SerializeField] private BobbingProperties _bobbingProperties;
@@ -71,7 +69,7 @@ namespace ArBreakout.Game
         {
             transform.SetParent(_gameWorldRoot.transform);
             _released = true;
-            LocalVelocity = direction * (DefaultSpeed + additionalForce);
+            LocalVelocity = direction * (_ballProperties.DefaultSpeed + additionalForce);
             _bobbing.Disable();
             _rotationProperties.RotationValue = _rotationProperties.DefaultRotationValue * 2.0f;
             AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Launch);
@@ -126,8 +124,8 @@ namespace ArBreakout.Game
             }
 
             _localAcceleration = LocalVelocity.normalized;
-            _localAcceleration *= DefaultSpeed;
-            _localAcceleration += -Drag * LocalVelocity;
+            _localAcceleration *= _ballProperties.DefaultSpeed;
+            _localAcceleration += -_ballProperties.Drag * LocalVelocity;
 
             LocalVelocity += BreakoutPhysics.CalculateVelocityDelta(_localAcceleration);
             transform.localPosition += BreakoutPhysics.CalculateMovementDelta(_localAcceleration, LocalVelocity);

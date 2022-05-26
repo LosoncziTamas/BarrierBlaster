@@ -6,7 +6,7 @@ namespace ArBreakout.Common
     {
         private void Awake()
         {
-           gameObject.SetActive(Application.isMobilePlatform);
+           gameObject.SetActive(Application.platform is RuntimePlatform.Android or RuntimePlatform.IPhonePlayer);
         }
     }
 }

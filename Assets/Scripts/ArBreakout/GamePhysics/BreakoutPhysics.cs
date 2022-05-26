@@ -5,8 +5,6 @@ namespace ArBreakout.GamePhysics
 {
     public static class BreakoutPhysics
     {
-        public const float LevelSizeInMeter = 0.3f;
-        public const float LevelDimX = 15.0f;
         public const float LevelDimY = 19.0f;
 
         private const float MaxVelocity = 2.0f;

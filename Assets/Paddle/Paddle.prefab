@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInput: {fileID: 11400000, guid: 521c6db7527eb4102a1816768ff7e8d9, type: 2}
+  _paddleProperties: {fileID: 11400000, guid: 47fadd589d0ba4d139263afdd6542bad, type: 2}
   _hitPoints: {fileID: 7034805691892276277}
   _blaster: {fileID: 6379820879089796230}
   _magnet: {fileID: 830852613070084852}

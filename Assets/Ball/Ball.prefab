@@ -175,6 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7aa47ea85db4daba127253c82a6d456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ballProperties: {fileID: 11400000, guid: c26f1a1268cfd4168aeda062cfc08693, type: 2}
   _bobbing: {fileID: 5111900321193740430}
   _gameEntities: {fileID: 11400000, guid: 2b277d97f28f149a08c9dfadf311be98, type: 2}
   _bobbingProperties: {fileID: 11400000, guid: 559d5df78ac194d82b638b27bc329345, type: 2}

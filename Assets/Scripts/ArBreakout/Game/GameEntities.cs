@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ArBreakout.Game.Ball;
 using ArBreakout.Game.Bricks;
 using ArBreakout.Game.Paddle;
 using ArBreakout.Game.Stage;
@@ -17,42 +18,53 @@ namespace ArBreakout.Game
         public Gap Gap { get; private set;}
         public PaddleBehaviour Paddle { get; private set;}
 
+        private int _entityCount;
+
         public void Add(BrickBehaviour brickBehaviour)
         {
             Bricks.Add(brickBehaviour);
+            _entityCount++;
         }
 
         public void Add(BallBehaviour ballBehaviour)
         {
             Balls.Add(ballBehaviour);
+            _entityCount++;
         }
 
         public void Add(WallBehaviour wallBehaviour)
         {
             Walls.Add(wallBehaviour);
+            _entityCount++;
         }
 
         public void Add(Gap gap)
         {
             Debug.Assert(Gap == null);
             Gap = gap;
+            _entityCount++;
         }
         
         public void Add(PaddleBehaviour paddleBehaviour)
         {
             Debug.Assert(Paddle == null);
             Paddle = paddleBehaviour;
+            _entityCount++;
         }
         
         public void Add(Collectable collectable)
         {
             Collectables.Add(collectable);
+            _entityCount++;
         }
         
         public void Remove(Collectable collectable)
         {
             Debug.Log($"[GameEntities] remove {collectable.name}");
-            Collectables.Remove(collectable);
+            if (Collectables.Remove(collectable))
+            {
+                _entityCount--;
+            }
         }
 
         public void Remove(Gap gap)
@@ -60,6 +72,7 @@ namespace ArBreakout.Game
             Debug.Log($"[GameEntities] remove {gap.name}");
             Debug.Assert(gap == Gap);
             Gap = null;
+            _entityCount--;
         }
 
         public void Remove(PaddleBehaviour paddleBehaviour)
@@ -67,24 +80,34 @@ namespace ArBreakout.Game
             Debug.Log($"[GameEntities] remove {paddleBehaviour.name}");
             Debug.Assert(paddleBehaviour == Paddle);
             Paddle = null;
+            _entityCount--;
         }
         
         public void Remove(WallBehaviour wallBehaviour)
         {
             Debug.Log($"[GameEntities] remove {wallBehaviour.name}");
-            Walls.Remove(wallBehaviour);
+            if (Walls.Remove(wallBehaviour))
+            {
+                _entityCount--;
+            }
         }
         
         public void Remove(BallBehaviour ballBehaviour)
         {
             Debug.Log($"[GameEntities] remove {ballBehaviour.name}");
-            Balls.Remove(ballBehaviour);
+            if (Balls.Remove(ballBehaviour))
+            {
+                _entityCount--;
+            }
         }
         
         public void Remove(BrickBehaviour brickBehaviour)
         {
             Debug.Log($"[GameEntities] remove {brickBehaviour.name}");
-            Bricks.Remove(brickBehaviour);
+            if (Bricks.Remove(brickBehaviour))
+            {
+                _entityCount--;
+            }
         }
     }
 }
