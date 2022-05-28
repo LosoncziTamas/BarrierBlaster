@@ -149,6 +149,10 @@ namespace ArBreakout.Game.Ball
                 _collidedWithBrickInFrame = true;
                 ResolveBrickCollision(other);
             }
+            else if (other.gameObject.CompareTag(Obstacle.Tag))
+            {
+                ResolveObstacleCollision(other);
+            }
         }
 
         private void OnCollisionStay(Collision collisionInfo)
@@ -160,6 +164,48 @@ namespace ArBreakout.Game.Ball
             const float MinCorrection = 0.001f;
             transform.position += contact.Normal * Mathf.Max(MinCorrection, contact.Separation);
             OnCollisionEnter(collisionInfo);
+        }
+
+        // TODO: merge with wall collision code
+        private void ResolveObstacleCollision(Collision obstacleCollision)
+        {
+            var contact = BreakoutPhysics.ExtractContactPoint(obstacleCollision);
+            
+            var reflection = Vector3.Reflect(LocalVelocity, transform.InverseTransformDirection(contact.Normal));
+            var velocityNormal = reflection.normalized;
+
+            var oldVelocity = LocalVelocity;
+            
+            // Take the average of the surface and the current velocity vector in case they are perpendicular.
+            // Otherwise the ball would move the same direction, resulting in a tunnelling effect.
+            if (reflection.Equals(LocalVelocity))
+            {
+                LocalVelocity = (LocalVelocity + transform.InverseTransformDirection(contact.Normal)) * 0.5f;
+                Debug.DrawRay(transform.position, LocalVelocity.normalized, Color.magenta, 2, false);
+                return;
+            }
+
+            // Correcting bounce off from wall
+            if (velocityNormal.z < PositiveMinZ && velocityNormal.z > NegativeMaxZ)
+            {
+                var velocityLen = LocalVelocity.magnitude;
+                var newVelocity = new Vector3
+                {
+                    x = velocityNormal.x < 0 ? NegativeMaxX : PositiveMinX,
+                    y = 0,
+                    z = velocityNormal.z < 0 ? NegativeMaxZ : PositiveMinZ
+                };
+                LocalVelocity = newVelocity * velocityLen;
+                Debug.LogFormat("Correcting ball reflection from wall. Orig: {0} New: {1}", velocityNormal,
+                    newVelocity);
+            }
+            else
+            {
+                LocalVelocity = reflection;
+            }
+            
+            Debug.Log($"Old velocity: {oldVelocity}");
+            Debug.Log($"New velocity: {LocalVelocity}");
         }
 
         private void ResolveWallCollision(Collision wallCollision)
@@ -206,7 +252,10 @@ namespace ArBreakout.Game.Ball
             ChangeDirection(newDir);
 
             var paddle = paddleCollision.gameObject.GetComponent<PaddleBehaviour>();
-
+            if (!paddle)
+            {
+                return;
+            }
             if (paddle.Magnetized)
             {
                 GamePlayUtils.ApplyMagnet(this, paddle);

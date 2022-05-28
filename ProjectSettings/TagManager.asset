@@ -10,6 +10,7 @@ TagManager:
   - Ball
   - LevelGhost
   - Collectable
+  - Obstacle
   layers:
   - Default
   - TransparentFX
