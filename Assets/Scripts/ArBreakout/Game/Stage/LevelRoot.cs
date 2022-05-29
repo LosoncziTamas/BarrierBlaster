@@ -115,7 +115,7 @@ namespace ArBreakout.Game.Stage
                 collectable.Destroy();
             }
 
-            // TODO: consider polling these as well
+            // TODO: consider pooling these as well
             foreach (var ball in _gameEntities.Balls)
             {
                 Destroy(ball.gameObject);
