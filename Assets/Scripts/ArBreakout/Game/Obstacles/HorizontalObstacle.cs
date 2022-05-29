@@ -23,6 +23,7 @@ namespace ArBreakout.Game.Obstacles
             var t = transform;
             t.localScale = obstacleAttributes.Scale;
             t.localRotation = obstacleAttributes.Rotation;
+            t.position = obstacleAttributes.StartPos;
             _obstacleAttributes = obstacleAttributes;
             _tweenProperties = _obstacleAttributes.MoveTweenProperties;
         }

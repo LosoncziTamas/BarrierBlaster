@@ -81,7 +81,8 @@ namespace ArBreakout.Game.Stage
             }
 
             InitBricks(levelData);
-
+            InitObstacles(levelData);
+            
             for (var i = 0; i < _gameEntities.Balls.Count; i++)
             {
                 var ball = _gameEntities.Balls[i];

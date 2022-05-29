@@ -1,5 +1,6 @@
 using ArBreakout.Common;
 using ArBreakout.Game.Bricks;
+using ArBreakout.Game.Obstacles;
 using UnityEngine;
 
 namespace ArBreakout.Game.Paddle
@@ -77,16 +78,22 @@ namespace ArBreakout.Game.Paddle
             
             _lineRenderer.positionCount = 2;
             _lineRenderer.SetPosition(0, startPos);
-            
+
+            var length = _beamProperties.Length;
             if (Physics.Raycast(ray.origin, ray.direction, out var hit, _beamProperties.Length))
             {
                 var hitCollider = hit.collider;
                 if (hitCollider.CompareTag(BrickBehaviour.GameObjectTag))
                 {
                     hitCollider.GetComponent<BrickBehaviour>().Smash(times: 1);
+                    length = hit.distance;
+                }
+                if (hitCollider.CompareTag(HorizontalObstacle.Tag))
+                {
+                    length = hit.distance;
                 }
             }
-            _lineRenderer.SetPosition(1, ray.origin + ray.direction * _beamProperties.Length);
+            _lineRenderer.SetPosition(1, ray.origin + ray.direction * length);
         }
     }
 }
