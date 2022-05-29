@@ -47,7 +47,6 @@ MonoBehaviour:
   _gameEntities: {fileID: 11400000, guid: 2b277d97f28f149a08c9dfadf311be98, type: 2}
   _ballPrefab: {fileID: 7102717554571487894, guid: e55b5f4bd7ef14c43af9d89758daa71f,
     type: 3}
-  _magnetActiveTime: {fileID: 11400000, guid: 3f3b950bfb62945119f9c400dbc46eef, type: 2}
 --- !u!1 &6875092282068427509
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,6 +99,8 @@ MonoBehaviour:
   _paddleParentPrefab: {fileID: 9189816665348010839, guid: d313a618b74e344adafeee1edb453140,
     type: 3}
   _wallBehaviourPrefab: {fileID: 1877202820717941659, guid: 5594dabb1bbc349afb0da7a59151d3ae,
+    type: 3}
+  _obstaclePrefab: {fileID: 325199834641783440, guid: a4f3a2d95e91e48479abc9767072c7cc,
     type: 3}
   _gapPrefab: {fileID: 3228544412225583249, guid: e46a87f38612f446dbce686215ece893,
     type: 3}

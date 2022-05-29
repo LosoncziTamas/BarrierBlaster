@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using ArBreakout.Game.Bricks;
+using ArBreakout.Game.Obstacles;
+using ArBreakout.Levels.Builder;
 using UnityEngine;
 
 namespace ArBreakout.Levels
@@ -35,5 +37,6 @@ namespace ArBreakout.Levels
         }
 
         public List<BrickAttributes> BrickAttributes = new();
+        public List<ObstacleAttributes> ObstacleAttributes = new();
     }
 }

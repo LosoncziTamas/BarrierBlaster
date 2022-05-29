@@ -1,5 +1,6 @@
 using ArBreakout.Game.Ball;
 using ArBreakout.Game.Bricks;
+using ArBreakout.Game.Obstacles;
 using ArBreakout.Game.Paddle;
 using ArBreakout.Levels;
 using ArBreakout.PowerUps;
@@ -15,6 +16,7 @@ namespace ArBreakout.Game.Stage
         [SerializeField] private BallBehaviour _ballPrefab;
         [SerializeField] private GameObject _paddleParentPrefab;
         [SerializeField] private WallBehaviour _wallBehaviourPrefab;
+        [SerializeField] private HorizontalObstacle _obstaclePrefab;
         [SerializeField] private Gap _gapPrefab;
         [SerializeField] private BrickPool _brickPool;
         [SerializeField] private GameEntities _gameEntities;
@@ -31,6 +33,7 @@ namespace ArBreakout.Game.Stage
             var paddle = InitPaddle();
             InitBall(paddle.transform);
             InitBricks(selected);
+            InitObstacles(selected);
         }
 
         private void InitBricks(LevelData selected)
@@ -51,6 +54,15 @@ namespace ArBreakout.Game.Stage
             }
         }
 
+        private void InitObstacles(LevelData levelData)
+        {
+            foreach (var obstacleAttribute in levelData.ObstacleAttributes)
+            {
+                var obstacle = Instantiate(_obstaclePrefab, transform);
+                obstacle.Init(obstacleAttribute);
+            }
+        }
+
         public void ContinueWithLevel(LevelData levelData, bool reset)
         {
             foreach (var brick in _gameEntities.Bricks)
@@ -61,6 +73,11 @@ namespace ArBreakout.Game.Stage
             foreach (var collectable in _gameEntities.Collectables)
             {
                 collectable.Destroy();
+            }
+            
+            foreach (var obstacle in _gameEntities.Obstacles)
+            {
+                Destroy(obstacle.gameObject);
             }
 
             InitBricks(levelData);
@@ -106,6 +123,11 @@ namespace ArBreakout.Game.Stage
             foreach (var wall in _gameEntities.Walls)
             {
                 Destroy(wall.gameObject);
+            }
+
+            foreach (var obstacle in _gameEntities.Obstacles)
+            {
+                Destroy(obstacle.gameObject);
             }
             
             Destroy(_gameEntities.Gap.gameObject);

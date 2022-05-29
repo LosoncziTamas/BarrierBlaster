@@ -20,6 +20,14 @@ namespace ArBreakout.Levels.Builder
                     var attribute = brick.GetBrickAttributes();
                     _destLevel.BrickAttributes.Add(attribute);
                 }
+
+                var obstacles = FindObjectsOfType<LevelBuilderObstacle>();
+                _destLevel.ObstacleAttributes.Clear();
+                foreach (var obstacle in obstacles)
+                {
+                    var attribute = obstacle.GetObstacleAttributes();
+                    _destLevel.ObstacleAttributes.Add(attribute);
+                }
 #if UNITY_EDITOR
                 EditorUtility.SetDirty(_destLevel);
                 if (string.IsNullOrEmpty(_destLevel.Id))

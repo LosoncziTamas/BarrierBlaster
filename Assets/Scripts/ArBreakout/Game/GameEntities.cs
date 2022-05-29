@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using ArBreakout.Game.Ball;
 using ArBreakout.Game.Bricks;
+using ArBreakout.Game.Obstacles;
 using ArBreakout.Game.Paddle;
 using ArBreakout.Game.Stage;
 using ArBreakout.PowerUps;
@@ -17,6 +18,7 @@ namespace ArBreakout.Game
         public List<Collectable> Collectables { get; } = new();
         public Gap Gap { get; private set;}
         public PaddleBehaviour Paddle { get; private set;}
+        public List<Obstacle> Obstacles { get; } = new();
 
         private int _entityCount;
 
@@ -56,6 +58,20 @@ namespace ArBreakout.Game
         {
             Collectables.Add(collectable);
             _entityCount++;
+        }
+
+        public void Add(Obstacle obstacle)
+        {
+            Obstacles.Add(obstacle);
+            _entityCount++;
+        }
+        
+        public void Remove(Obstacle obstacle)
+        {
+            if (Obstacles.Remove(obstacle))
+            {
+                _entityCount--;
+            }
         }
         
         public void Remove(Collectable collectable)

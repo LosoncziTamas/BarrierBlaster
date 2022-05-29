@@ -1,5 +1,6 @@
 using ArBreakout.Common;
 using ArBreakout.Game.Bricks;
+using ArBreakout.Game.Obstacles;
 using ArBreakout.Game.Paddle;
 using ArBreakout.Game.Stage;
 using ArBreakout.GamePhysics;
@@ -31,7 +32,7 @@ namespace ArBreakout.Game.Ball
         private PowerUpActivator _powerUpActivator;
 
         private bool _released;
-        private bool _collidedWithBrickInFrame;
+        private bool _collidedInFrame;
 
         /*
          * Property for the velocity component. Y value is intentionally not set, so the ball doesn't bounce out of the level due to the physics calculations.
@@ -118,6 +119,8 @@ namespace ArBreakout.Game.Ball
 
         private void FixedUpdate()
         {
+            ApplyMouseControl();
+            
             if (!_released)
             {
                 return;
@@ -129,7 +132,21 @@ namespace ArBreakout.Game.Ball
 
             LocalVelocity += BreakoutPhysics.CalculateVelocityDelta(_localAcceleration);
             transform.localPosition += BreakoutPhysics.CalculateMovementDelta(_localAcceleration, LocalVelocity);
-            _collidedWithBrickInFrame = false;
+            _collidedInFrame = false;
+        }
+        
+        private void ApplyMouseControl()
+        {
+            if (Input.GetMouseButton(0))
+            {
+                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out var info))
+                {
+                    var offset = info.point - transform.position;
+                    Debug.DrawLine(transform.position, transform.position + offset);
+                    ChangeDirection(offset);
+                }            
+            }
         }
 
         private void OnCollisionEnter(Collision other)
@@ -143,15 +160,17 @@ namespace ArBreakout.Game.Ball
             {
                 ResolvePaddleCollision(other);
             }
-            else if (other.gameObject.CompareTag(BrickBehaviour.GameObjectTag) && !_collidedWithBrickInFrame)
+            else if (other.gameObject.CompareTag(BrickBehaviour.GameObjectTag) && !_collidedInFrame)
             {
                 // It is possible that the ball collides with multiple objects (bricks) in a frame. But we want to resolve only one at a time.
-                _collidedWithBrickInFrame = true;
+                _collidedInFrame = true;
                 ResolveBrickCollision(other);
             }
-            else if (other.gameObject.CompareTag(Obstacle.Tag))
+            else if (other.gameObject.CompareTag(HorizontalObstacle.Tag) && !_collidedInFrame)
             {
-                ResolveObstacleCollision(other);
+                AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
+                _collidedInFrame = true;
+                ReflectFromRectangularShape(other);
             }
         }
 
@@ -166,46 +185,26 @@ namespace ArBreakout.Game.Ball
             OnCollisionEnter(collisionInfo);
         }
 
-        // TODO: merge with wall collision code
-        private void ResolveObstacleCollision(Collision obstacleCollision)
+        private void ReflectFromRectangularShape(Collision collision)
         {
-            var contact = BreakoutPhysics.ExtractContactPoint(obstacleCollision);
-            
-            var reflection = Vector3.Reflect(LocalVelocity, transform.InverseTransformDirection(contact.Normal));
-            var velocityNormal = reflection.normalized;
+            var contact = BreakoutPhysics.ExtractContactPoint(collision);
+            DrawContactLine(contact, Color.blue);
+            Debug.DrawRay(transform.position, LocalVelocity.normalized, Color.cyan, 2, false);
+            var normalInLocalSpace = transform.InverseTransformDirection(contact.Normal);
+            var reflection = Vector3.Reflect(LocalVelocity, normalInLocalSpace);
 
-            var oldVelocity = LocalVelocity;
-            
-            // Take the average of the surface and the current velocity vector in case they are perpendicular.
-            // Otherwise the ball would move the same direction, resulting in a tunnelling effect.
-            if (reflection.Equals(LocalVelocity))
+            // If angle between velocity and reflection is very low, bouncing may seem unnatural in the game.            
+            var angle = Vector3.Angle(LocalVelocity, reflection);
+            Debug.Log(angle);
+            if (angle < 30.0f)
             {
-                LocalVelocity = (LocalVelocity + transform.InverseTransformDirection(contact.Normal)) * 0.5f;
-                Debug.DrawRay(transform.position, LocalVelocity.normalized, Color.magenta, 2, false);
-                return;
-            }
-
-            // Correcting bounce off from wall
-            if (velocityNormal.z < PositiveMinZ && velocityNormal.z > NegativeMaxZ)
-            {
-                var velocityLen = LocalVelocity.magnitude;
-                var newVelocity = new Vector3
-                {
-                    x = velocityNormal.x < 0 ? NegativeMaxX : PositiveMinX,
-                    y = 0,
-                    z = velocityNormal.z < 0 ? NegativeMaxZ : PositiveMinZ
-                };
-                LocalVelocity = newVelocity * velocityLen;
-                Debug.LogFormat("Correcting ball reflection from wall. Orig: {0} New: {1}", velocityNormal,
-                    newVelocity);
+                LocalVelocity = contact.Normal * LocalVelocity.magnitude;
             }
             else
             {
                 LocalVelocity = reflection;
             }
-            
-            Debug.Log($"Old velocity: {oldVelocity}");
-            Debug.Log($"New velocity: {LocalVelocity}");
+            Debug.DrawRay(transform.position, LocalVelocity.normalized, Color.magenta, 2, false);
         }
 
         private void ResolveWallCollision(Collision wallCollision)
@@ -276,35 +275,15 @@ namespace ArBreakout.Game.Ball
                 brick.Smash(MaxValue);
                 return;
             }
-            var contact = BreakoutPhysics.ExtractContactPoint(brickCollision);
 
-            DrawContactLine(contact, Color.blue);
-            Debug.DrawRay(transform.position, LocalVelocity.normalized, Color.cyan, 2, false);
-            var normalInLocalSpace = transform.InverseTransformDirection(contact.Normal);
-            var reflection = Vector3.Reflect(LocalVelocity, normalInLocalSpace);
-
-            // If angle between velocity and reflection is very low, bouncing may seem unnatural in the game.            
-            var angle = Vector3.Angle(LocalVelocity, reflection);
-            Debug.Log(angle);
-            if (angle < 30.0f)
-            {
-                LocalVelocity = contact.Normal * LocalVelocity.magnitude;
-            }
-            else
-            {
-                LocalVelocity = reflection;
-            }
-
-            Debug.DrawRay(transform.position, LocalVelocity.normalized, Color.magenta, 2, false);
-
+            ReflectFromRectangularShape(brickCollision);
             var hitTimes = transform.localScale != DefaultScale ? 2 : 1;
             brick.Smash(hitTimes);
         }
 
         private void ChangeDirection(Vector3 newDirInWorldSpace)
         {
-            LocalVelocity = transform.InverseTransformDirection(newDirInWorldSpace.normalized) *
-                            LocalVelocity.magnitude;
+            LocalVelocity = transform.InverseTransformDirection(newDirInWorldSpace.normalized) * LocalVelocity.magnitude;
         }
 
         /*
