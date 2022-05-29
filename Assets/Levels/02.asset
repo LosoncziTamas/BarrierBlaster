@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: II
   _id: 67772526-af3b-423c-91a2-4593362fcc2d
-  _unlockedManually: 0
+  _unlockedManually: 1
   BrickAttributes:
   - Color: {r: 0.5849056, g: 0.20140618, b: 0.20140618, a: 1}
     HitPoints: 3
@@ -324,3 +324,4 @@ MonoBehaviour:
     Scale: {x: 0.80999994, y: 0.8099999, z: 1.6199998}
     Position: {x: -7.6499996, y: 0.5, z: 6.9}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
+  ObstacleAttributes: []

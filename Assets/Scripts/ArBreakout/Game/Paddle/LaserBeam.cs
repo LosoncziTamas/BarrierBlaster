@@ -88,7 +88,7 @@ namespace ArBreakout.Game.Paddle
                     hitCollider.GetComponent<BrickBehaviour>().Smash(times: 1);
                     length = hit.distance;
                 }
-                if (hitCollider.CompareTag(HorizontalObstacle.Tag))
+                if (hitCollider.CompareTag(Obstacle.Tag))
                 {
                     length = hit.distance;
                 }

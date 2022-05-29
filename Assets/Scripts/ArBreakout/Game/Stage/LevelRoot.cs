@@ -16,7 +16,7 @@ namespace ArBreakout.Game.Stage
         [SerializeField] private BallBehaviour _ballPrefab;
         [SerializeField] private GameObject _paddleParentPrefab;
         [SerializeField] private WallBehaviour _wallBehaviourPrefab;
-        [SerializeField] private HorizontalObstacle _obstaclePrefab;
+        [SerializeField] private Obstacle _obstaclePrefab;
         [SerializeField] private Gap _gapPrefab;
         [SerializeField] private BrickPool _brickPool;
         [SerializeField] private GameEntities _gameEntities;

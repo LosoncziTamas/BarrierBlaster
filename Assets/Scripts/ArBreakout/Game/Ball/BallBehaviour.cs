@@ -166,7 +166,7 @@ namespace ArBreakout.Game.Ball
                 _collidedInFrame = true;
                 ResolveBrickCollision(other);
             }
-            else if (other.gameObject.CompareTag(HorizontalObstacle.Tag) && !_collidedInFrame)
+            else if (other.gameObject.CompareTag(Obstacle.Tag) && !_collidedInFrame)
             {
                 AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
                 _collidedInFrame = true;
