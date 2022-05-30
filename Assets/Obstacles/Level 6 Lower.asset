@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6781371ca6854f04a8172795f60955f9, type: 3}
-  m_Name: Horizontal Move Tween Properties Level 3_1
+  m_Name: Level 6 Lower
   m_EditorClassIdentifier: 
-  Duration: 4
+  Duration: 6
   Ease: 35
   LoopCount: -1
   LoopType: 1
-  EndValue: {x: 3.5, y: 0.5, z: 8}
+  EndValue: {x: 7.65, y: 0.5, z: 1.5}
