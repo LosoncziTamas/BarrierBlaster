@@ -64,6 +64,7 @@ namespace ArBreakout.Gui.Modal
             _tsc = new TaskCompletionSource<bool>();
             _root.SetActive(true);
             var audioPlayer = AudioPlayer.Instance;
+            audioPlayer.PlaySound(AudioPlayer.SoundType.ModalAppear);
             _musicToggle.SetState(on: !audioPlayer.MusicIsMuted);
             _soundToggle.SetState(on: !audioPlayer.SoundsAreMuted);
 
