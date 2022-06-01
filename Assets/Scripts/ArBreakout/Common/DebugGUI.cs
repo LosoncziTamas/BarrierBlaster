@@ -1,4 +1,4 @@
-#define DEBUG
+#undef DEBUG
 #if DEBUG
 
 using ArBreakout.Game.Scoring;

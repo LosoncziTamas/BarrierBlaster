@@ -107,6 +107,11 @@ namespace ArBreakout.Game.Bricks
                 StartCoroutine(AnimateHit(0.2f, destroy: true));
                 return;
             }
+            else
+            {
+                var currentScale = transform.localScale;
+                transform.DOScale(currentScale * 0.8f, 0.4f);
+            }
 
             StartCoroutine(AnimateHit(0.4f, destroy: false));
         }
