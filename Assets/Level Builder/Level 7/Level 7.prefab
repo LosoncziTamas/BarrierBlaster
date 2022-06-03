@@ -782,7 +782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299c27be3182478288d0c9d2b3276a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitPoints: 4
+  _hitPoints: 3
   _powerUp: 0
 --- !u!1 &1525361968223941243
 GameObject:
@@ -1006,8 +1006,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299c27be3182478288d0c9d2b3276a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitPoints: 4
-  _powerUp: 0
+  _hitPoints: 3
+  _powerUp: 4
 --- !u!1 &1760236213384395558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,7 +1312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299c27be3182478288d0c9d2b3276a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitPoints: 4
+  _hitPoints: 3
   _powerUp: 0
 --- !u!1 &3148330312716005266
 GameObject:
@@ -2320,7 +2320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299c27be3182478288d0c9d2b3276a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitPoints: 4
+  _hitPoints: 3
   _powerUp: 0
 --- !u!1 &5274112001377353576
 GameObject:
@@ -2432,7 +2432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299c27be3182478288d0c9d2b3276a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitPoints: 4
+  _hitPoints: 3
   _powerUp: 0
 --- !u!1 &5539568594163103815
 GameObject:
@@ -2609,7 +2609,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4f215242621884f9dac6447219297330, type: 2}
+  - {fileID: 2100000, guid: c25c073bc3c4f42d4bfc5fea6e2517c0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2656,8 +2656,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299c27be3182478288d0c9d2b3276a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitPoints: 5
-  _powerUp: 0
+  _hitPoints: 2
+  _powerUp: 2
 --- !u!1 &6056577881843527925
 GameObject:
   m_ObjectHideFlags: 0
@@ -2880,7 +2880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299c27be3182478288d0c9d2b3276a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitPoints: 4
+  _hitPoints: 3
   _powerUp: 0
 --- !u!1 &6394557822327978052
 GameObject:
@@ -2945,7 +2945,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4f215242621884f9dac6447219297330, type: 2}
+  - {fileID: 2100000, guid: c25c073bc3c4f42d4bfc5fea6e2517c0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2992,7 +2992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299c27be3182478288d0c9d2b3276a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitPoints: 5
+  _hitPoints: 2
   _powerUp: 0
 --- !u!1 &6538398137511673253
 GameObject:
@@ -3440,7 +3440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299c27be3182478288d0c9d2b3276a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitPoints: 4
+  _hitPoints: 3
   _powerUp: 0
 --- !u!1 &7557658006023284274
 GameObject:
@@ -3777,7 +3777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitPoints: 5
-  _powerUp: 0
+  _powerUp: 1
 --- !u!1 &8040874788863813376
 GameObject:
   m_ObjectHideFlags: 0
@@ -4112,7 +4112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299c27be3182478288d0c9d2b3276a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitPoints: 4
+  _hitPoints: 3
   _powerUp: 0
 --- !u!1 &8820601773985814400
 GameObject:
@@ -4224,5 +4224,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299c27be3182478288d0c9d2b3276a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitPoints: 4
+  _hitPoints: 3
   _powerUp: 0

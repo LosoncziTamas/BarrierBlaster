@@ -16,88 +16,88 @@ MonoBehaviour:
   _id: 22aeeba6-6241-4440-a698-922e335a7060
   _unlockedManually: 1
   BrickAttributes:
-  - Color: {r: 0.9490196, g: 0.54023945, b: 0.10588235, a: 1}
-    HitPoints: 5
-    PowerUp: 0
+  - Color: {r: 0.43529412, g: 0.6039216, b: 0.5254902, a: 1}
+    HitPoints: 2
+    PowerUp: 2
     RowIndex: 0
     Scale: {x: 0.81, y: 0.81, z: 1.62}
     Position: {x: -5.75, y: 0.5, z: 5.275}
     Rotation: {x: -0, y: 0.38268343, z: -0, w: 0.92387956}
-  - Color: {r: 0.9490196, g: 0.54023945, b: 0.10588235, a: 1}
-    HitPoints: 5
+  - Color: {r: 0.43529412, g: 0.6039216, b: 0.5254902, a: 1}
+    HitPoints: 2
     PowerUp: 0
     RowIndex: 0
     Scale: {x: 0.81, y: 0.81, z: 1.62}
     Position: {x: 5.65, y: 0.5, z: 5.275}
     Rotation: {x: -0, y: 0.38268343, z: -0, w: 0.92387956}
-  - Color: {r: 0.9490196, g: 0.54023945, b: 0.10588235, a: 1}
-    HitPoints: 5
-    PowerUp: 0
-    RowIndex: 0
-    Scale: {x: 1.6199998, y: 1.6199998, z: 3.24}
-    Position: {x: 0, y: 0.5, z: 5.275}
-    Rotation: {x: -0, y: 0.38268343, z: -0, w: 0.92387956}
   - Color: {r: 0.16470589, g: 0.2627451, b: 0.34901962, a: 1}
-    HitPoints: 4
+    HitPoints: 3
     PowerUp: 0
     RowIndex: 0
     Scale: {x: 0.80999994, y: 0.80999994, z: 0.80999994}
     Position: {x: 0, y: 0.5, z: -0.5}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
   - Color: {r: 0.16470589, g: 0.2627451, b: 0.34901962, a: 1}
-    HitPoints: 4
+    HitPoints: 3
     PowerUp: 0
     RowIndex: 0
     Scale: {x: 0.80999994, y: 0.80999994, z: 0.80999994}
     Position: {x: 7.55, y: 0.5, z: -0.5}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
   - Color: {r: 0.16470589, g: 0.2627451, b: 0.34901962, a: 1}
-    HitPoints: 4
+    HitPoints: 3
     PowerUp: 0
     RowIndex: 0
     Scale: {x: 0.80999994, y: 0.80999994, z: 0.80999994}
     Position: {x: 5.65, y: 0.5, z: -0.5}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
   - Color: {r: 0.16470589, g: 0.2627451, b: 0.34901962, a: 1}
-    HitPoints: 4
-    PowerUp: 0
+    HitPoints: 3
+    PowerUp: 4
     RowIndex: 0
     Scale: {x: 0.80999994, y: 0.80999994, z: 0.80999994}
     Position: {x: 3.7500002, y: 0.5, z: -0.5}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
   - Color: {r: 0.16470589, g: 0.2627451, b: 0.34901962, a: 1}
-    HitPoints: 4
+    HitPoints: 3
     PowerUp: 0
     RowIndex: 0
     Scale: {x: 0.80999994, y: 0.80999994, z: 0.80999994}
     Position: {x: 1.8500006, y: 0.5, z: -0.5}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
   - Color: {r: 0.16470589, g: 0.2627451, b: 0.34901962, a: 1}
-    HitPoints: 4
+    HitPoints: 3
     PowerUp: 0
     RowIndex: 0
     Scale: {x: 0.80999994, y: 0.80999994, z: 0.80999994}
     Position: {x: -1.9499998, y: 0.5, z: -0.5}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
   - Color: {r: 0.16470589, g: 0.2627451, b: 0.34901962, a: 1}
-    HitPoints: 4
+    HitPoints: 3
     PowerUp: 0
     RowIndex: 0
     Scale: {x: 0.80999994, y: 0.80999994, z: 0.80999994}
     Position: {x: -3.8499997, y: 0.5, z: -0.5}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
   - Color: {r: 0.16470589, g: 0.2627451, b: 0.34901962, a: 1}
-    HitPoints: 4
+    HitPoints: 3
     PowerUp: 0
     RowIndex: 0
     Scale: {x: 0.80999994, y: 0.80999994, z: 0.80999994}
     Position: {x: -5.7499995, y: 0.5, z: -0.5}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
   - Color: {r: 0.16470589, g: 0.2627451, b: 0.34901962, a: 1}
-    HitPoints: 4
+    HitPoints: 3
     PowerUp: 0
     RowIndex: 0
     Scale: {x: 0.80999994, y: 0.80999994, z: 0.80999994}
     Position: {x: -7.6499996, y: 0.5, z: -0.5}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
+  - Color: {r: 0.9490196, g: 0.54023945, b: 0.10588235, a: 1}
+    HitPoints: 5
+    PowerUp: 1
+    RowIndex: 0
+    Scale: {x: 1.6199998, y: 1.6199998, z: 3.24}
+    Position: {x: 0, y: 0.5, z: 5.275}
+    Rotation: {x: -0, y: 0.38268343, z: -0, w: 0.92387956}
   ObstacleAttributes: []
