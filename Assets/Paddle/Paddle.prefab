@@ -428,6 +428,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 246966180500817078}
     m_Modifications:
+    - target: {fileID: 693178326251461878, guid: 395ae86fc29c44ffe8d913e89e22f9df,
+        type: 3}
+      propertyPath: m_Positions.Array.data[1].y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1450829901763132686, guid: 395ae86fc29c44ffe8d913e89e22f9df,
         type: 3}
       propertyPath: m_RootOrder
@@ -487,6 +492,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Blasters
+      objectReference: {fileID: 0}
+    - target: {fileID: 8318644206644439559, guid: 395ae86fc29c44ffe8d913e89e22f9df,
+        type: 3}
+      propertyPath: m_Positions.Array.data[1].y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 395ae86fc29c44ffe8d913e89e22f9df, type: 3}
