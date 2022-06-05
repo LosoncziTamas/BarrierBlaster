@@ -16,6 +16,13 @@ MonoBehaviour:
   _id: b2da4f0b-c37d-4e65-bde8-bc201d4de4d4
   _unlockedManually: 1
   BrickAttributes:
+  - Color: {r: 0.8509804, g: 0.2627451, b: 0.2627451, a: 1}
+    HitPoints: 3
+    PowerUp: 3
+    RowIndex: 0
+    Scale: {x: 0.80999994, y: 0.80999994, z: 1.6199998}
+    Position: {x: 0, y: 0.5, z: 1.4}
+    Rotation: {x: 0, y: -0.38268343, z: -0, w: 0.92387956}
   - Color: {r: 0.9490196, g: 0.54023945, b: 0.10588235, a: 1}
     HitPoints: 1
     PowerUp: 0
@@ -172,7 +179,7 @@ MonoBehaviour:
     Rotation: {x: -0, y: -0, z: -0, w: 1}
   - Color: {r: 0.9490196, g: 0.7372549, b: 0.105882354, a: 1}
     HitPoints: 1
-    PowerUp: 0
+    PowerUp: 2
     RowIndex: 0
     Scale: {x: 0.40499994, y: 0.80999994, z: 0.80999994}
     Position: {x: -4.1749988, y: 0.5, z: 1.5}
@@ -319,7 +326,7 @@ MonoBehaviour:
     Rotation: {x: -0, y: -0, z: -0, w: 1}
   - Color: {r: 0.9490196, g: 0.62352943, b: 0.019607844, a: 1}
     HitPoints: 1
-    PowerUp: 0
+    PowerUp: 4
     RowIndex: 0
     Scale: {x: 0.40499994, y: 0.80999994, z: 0.80999994}
     Position: {x: 0.7750007, y: 0.5, z: 4.5}
@@ -352,4 +359,22 @@ MonoBehaviour:
     Scale: {x: 0.40499994, y: 0.80999994, z: 0.80999994}
     Position: {x: 1.6000007, y: 0.5, z: 4.5}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
-  ObstacleAttributes: []
+  ObstacleAttributes:
+  - StartPos: {x: 1.55, y: 0.5, z: 6.4}
+    Scale: {x: 1, y: 0.5, z: 1}
+    Rotation: {x: 0.64085644, y: 0.29883623, z: -0.29883623, w: 0.64085644}
+    MoveTweenProperties: {fileID: 11400000, guid: 967fe0c68c0a14cf288a854e99e6153e,
+      type: 2}
+    Color: {r: 0.14117648, g: 0.17254902, b: 0.28235295, a: 1}
+  - StartPos: {x: 6.05, y: 0.5, z: -1.6}
+    Scale: {x: 1, y: 0.5, z: 1}
+    Rotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+    MoveTweenProperties: {fileID: 11400000, guid: cc8264f622d674b59a5eb2905c88d79a,
+      type: 2}
+    Color: {r: 0.14117648, g: 0.17254902, b: 0.28235295, a: 1}
+  - StartPos: {x: -6.91, y: 0.5, z: 0.1}
+    Scale: {x: 1, y: 0.5, z: 1}
+    Rotation: {x: 0.64085644, y: -0.29883623, z: 0.29883623, w: 0.64085644}
+    MoveTweenProperties: {fileID: 11400000, guid: 69f5a4ce9afa0487f89cf690ead1858f,
+      type: 2}
+    Color: {r: 0.14117648, g: 0.17254902, b: 0.28235295, a: 1}
