@@ -671,7 +671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitPoints: 1
-  _powerUp: 0
+  _powerUp: 4
 --- !u!1 &795905100991271679
 GameObject:
   m_ObjectHideFlags: 0
@@ -3247,7 +3247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitPoints: 1
-  _powerUp: 0
+  _powerUp: 2
 --- !u!1 &4230392266563339307
 GameObject:
   m_ObjectHideFlags: 0
@@ -4591,7 +4591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitPoints: 1
-  _powerUp: 0
+  _powerUp: 4
 --- !u!1 &8765407900286786485
 GameObject:
   m_ObjectHideFlags: 0
@@ -4905,7 +4905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitPoints: 3
-  _powerUp: 0
+  _powerUp: 4
 --- !u!1 &9109704982378432906
 GameObject:
   m_ObjectHideFlags: 0
