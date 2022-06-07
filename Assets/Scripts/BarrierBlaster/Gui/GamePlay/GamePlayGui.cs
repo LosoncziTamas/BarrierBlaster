@@ -106,8 +106,6 @@ namespace BarrierBlaster.Gui.GamePlay
             } 
             else if (result.AllLevelsComplete)
             {
-                // TODO: show credits or something
-                Debug.Log("All levels complete!");
                 _levelRoot.ClearLevel();
                 Controller.TransitionTo(typeof(MainMenu));
             }

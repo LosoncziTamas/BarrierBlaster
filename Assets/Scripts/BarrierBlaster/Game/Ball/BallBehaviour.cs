@@ -119,8 +119,6 @@ namespace BarrierBlaster.Game.Ball
 
         private void FixedUpdate()
         {
-            ApplyMouseControl();
-            
             if (!_released)
             {
                 return;
