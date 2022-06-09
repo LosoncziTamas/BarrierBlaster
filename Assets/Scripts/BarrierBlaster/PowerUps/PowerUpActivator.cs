@@ -84,7 +84,7 @@ namespace BarrierBlaster.PowerUps
 
         private void ScaleUpBall()
         {
-            UIMessageController.Instance.DisplayMessage("amplified", 1.0f, 0);
+            UIMessageController.Instance.DisplayMessage("bulldozer", 1.0f, 0);
             var powerUpIdx = (int) PowerUp.Magnifier;
             var balls = _gameEntities.Balls;
             _activePowerUpTimes[powerUpIdx] = PowerUpEffectDuration;
