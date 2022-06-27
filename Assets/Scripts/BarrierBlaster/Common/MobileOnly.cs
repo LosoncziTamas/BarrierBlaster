@@ -6,7 +6,8 @@ namespace BarrierBlaster.Common
     {
         private void Awake()
         {
-           gameObject.SetActive(Application.platform is RuntimePlatform.Android or RuntimePlatform.IPhonePlayer);
+           gameObject.SetActive(true);
+           // Application.platform is RuntimePlatform.Android or RuntimePlatform.IPhonePlayer
         }
     }
 }
