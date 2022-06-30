@@ -1023,6 +1023,8 @@ MonoBehaviour:
   _levelCompleteStar3: {fileID: 5237895033176130262}
   _punchScaleProperties: {fileID: 11400000, guid: e2f02abf64bdb40c491b91c2df4f217c,
     type: 2}
+  _punchScaleTweenProperties: {fileID: 11400000, guid: cc645ec3b506941c6b1a5024e167cfc1,
+    type: 2}
   _shakePositionProperties: {fileID: 11400000, guid: 72f3f9e088b8049d187164808b0f0666,
     type: 2}
   HiddenPosition: {x: 0, y: 2000, z: 0}

@@ -4,6 +4,7 @@ using BarrierBlaster.Common.Tween;
 using BarrierBlaster.Game.Scoring;
 using BarrierBlaster.Levels;
 using DG.Tweening;
+using ProtoPack.Tween;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,7 +29,7 @@ namespace BarrierBlaster.Gui.Modal
         [SerializeField] private LevelCompleteStar _levelCompleteStar2; 
         [SerializeField] private LevelCompleteStar _levelCompleteStar3; 
         
-        [SerializeField] private PunchScaleProperties _punchScaleProperties;
+        [SerializeField] private PunchScaleTweenProperties _punchScaleTweenProperties;
         [SerializeField] private ShakePositionProperties _shakePositionProperties;
         
         private TaskCompletionSource<Result> _taskCompletionSource;
@@ -172,7 +173,7 @@ namespace BarrierBlaster.Gui.Modal
         private Tween CreateStarFadeTween(Image filledStar)
         {
             var fadeTime = 1.0f;
-            return filledStar.DOFade(1.0f, fadeTime).SetEase(_punchScaleProperties.Ease);
+            return filledStar.DOFade(1.0f, fadeTime).SetEase(_punchScaleTweenProperties.Ease);
         }
 
         private Tween CreateModalShakeTween()
@@ -182,7 +183,7 @@ namespace BarrierBlaster.Gui.Modal
 
         private Tween CreateStarPunchTween(Image filledStar)
         {
-            return filledStar.transform.DOPunchScale(_punchScaleProperties.Punch, _punchScaleProperties.Duration, _punchScaleProperties.Vibrato, _punchScaleProperties.Elasticity).SetEase(_punchScaleProperties.Ease);
+            return filledStar.transform.DOPunchScale(_punchScaleTweenProperties.Punch, _punchScaleTweenProperties.Duration, _punchScaleTweenProperties.Vibrato, _punchScaleTweenProperties.Elasticity).SetEase(_punchScaleTweenProperties.Ease);
         }
 
         private static void PlayStarSound()

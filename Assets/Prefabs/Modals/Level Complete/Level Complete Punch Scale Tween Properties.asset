@@ -9,11 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd01a6de6af448c5b1ae0569fb079c61, type: 3}
-  m_Name: Punch Scale Properties
+  m_Script: {fileID: 11500000, guid: e2cbc180b7ea47ad8796fb397ed9ef1b, type: 3}
+  m_Name: Level Complete Punch Scale Tween Properties
   m_EditorClassIdentifier: 
-  Duration: 0.4
-  Ease: 25
-  Punch: {x: 1.6, y: 1.6, z: 1.6}
-  Vibrato: 7
-  Elasticity: 100
+  _duration: 0.4
+  _ease: 25
+  _looping: 1
+  _loopCount: -1
+  _loopType: 0
+  _punch: {x: 1.6, y: 1.6, z: 1.6}
+  _vibrato: 7
+  _elasticity: 1
