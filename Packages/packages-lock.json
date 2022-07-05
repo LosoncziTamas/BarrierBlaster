@@ -14,7 +14,13 @@
       "dependencies": {
         "com.unity.textmeshpro": "3.0.6"
       },
-      "hash": "6556c0acd237c455ee503cdc5df41cd2200fcdb9"
+      "hash": "66a7762f1cf527debc73da03c7ea048f66812aab"
+    },
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
     },
     "com.unity.ext.nunit": {
       "version": "1.0.6",
