@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using BarrierBlaster.Common;
-using BarrierBlaster.Common.Tween;
 using BarrierBlaster.Game.Scoring;
 using DG.Tweening;
+using ProtoPack.Tween;
 using TMPro;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
@@ -18,7 +18,7 @@ namespace BarrierBlaster.Gui.LevelSelector
         [SerializeField] private GameObject _lockedIcon;
         [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] private Stars _stars;
-        [SerializeField] private ShakePositionProperties _lockedLevelShake;
+        [SerializeField] private ShakePositionTweenProperties _lockedLevelShakePosition;
 
         private Action<LevelModel> _onClickAction;
         private LevelModel _levelModel;
@@ -82,11 +82,11 @@ namespace BarrierBlaster.Gui.LevelSelector
                 {
                     AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Hit);
                     _lockedAnimTween = transform.DOShakePosition(
-                        _lockedLevelShake.Duration, 
-                        _lockedLevelShake.Strength, 
-                        _lockedLevelShake.Vibrato, 
-                        _lockedLevelShake.Randomness, 
-                        _lockedLevelShake.FadeOut);
+                        _lockedLevelShakePosition.Duration, 
+                        _lockedLevelShakePosition.Strength, 
+                        _lockedLevelShakePosition.Vibrato, 
+                        _lockedLevelShakePosition.Randomness, 
+                        _lockedLevelShakePosition.FadeOut);
                 }
             }
         }

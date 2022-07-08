@@ -1,4 +1,5 @@
 #undef DEBUG
+#define DEBUG
 #if DEBUG
 
 using BarrierBlaster.Game.Scoring;

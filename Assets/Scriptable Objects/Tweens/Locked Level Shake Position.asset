@@ -9,12 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc5e98ca692d4647841a32de68d61504, type: 3}
-  m_Name: Locked Level Item Shake Position
+  m_Script: {fileID: 11500000, guid: b6bf357442284bb695cb9478b8da6ee7, type: 3}
+  m_Name: Locked Level Shake Position
   m_EditorClassIdentifier: 
-  Duration: 0.3
-  Ease: 25
-  Strength: 6
-  Vibrato: 20
-  FadeOut: 1
-  Randomness: 90
+  _duration: 0.3
+  _ease: 25
+  _looping: 0
+  _loopCount: -1
+  _loopType: 1
+  _strength: 6
+  _vibrato: 20
+  _fadeOut: 1
+  _snapping: 0
+  _randomness: 90

@@ -992,7 +992,7 @@ MonoBehaviour:
   _levelCompleteStar3: {fileID: 5237895033176130262}
   _punchScaleTweenProperties: {fileID: 11400000, guid: cc645ec3b506941c6b1a5024e167cfc1,
     type: 2}
-  _shakePositionProperties: {fileID: 11400000, guid: 72f3f9e088b8049d187164808b0f0666,
+  _shakePositionProperties: {fileID: 11400000, guid: cdba3d1d408164b7dacda328810f8c0e,
     type: 2}
   HiddenPosition: {x: 0, y: 2000, z: 0}
   AnimDuration: 0.4

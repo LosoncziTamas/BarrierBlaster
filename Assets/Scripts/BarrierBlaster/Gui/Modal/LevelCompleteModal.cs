@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using BarrierBlaster.Common;
-using BarrierBlaster.Common.Tween;
 using BarrierBlaster.Game.Scoring;
 using BarrierBlaster.Levels;
 using DG.Tweening;
@@ -30,7 +29,7 @@ namespace BarrierBlaster.Gui.Modal
         [SerializeField] private LevelCompleteStar _levelCompleteStar3; 
         
         [SerializeField] private PunchScaleTweenProperties _punchScaleTweenProperties;
-        [SerializeField] private ShakePositionProperties _shakePositionProperties;
+        [SerializeField] private ShakePositionTweenProperties _shakePositionProperties;
         
         private TaskCompletionSource<Result> _taskCompletionSource;
         private Sequence _showAnimation;
