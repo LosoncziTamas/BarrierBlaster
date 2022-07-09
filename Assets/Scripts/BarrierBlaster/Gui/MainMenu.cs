@@ -72,5 +72,17 @@ namespace BarrierBlaster.Gui
             _levels.Selected = selected;
             Controller.TransitionTo(typeof(GamePlayGui));
         }
+
+#if UNITY_ANDROID
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
+        }
+#endif
+        
     }
 }
