@@ -131,5 +131,17 @@ namespace BarrierBlaster.Gui.GamePlay
                 Controller.TransitionTo(typeof(MainMenu));
             }
         }
+
+#if UNITY_ANDROID
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                _levelRoot.ClearLevel();
+                Controller.TransitionTo(typeof(MainMenu));
+            }
+        }
+#endif
     }
 }
