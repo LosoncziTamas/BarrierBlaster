@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Possible;
 using UnityEngine;
 
@@ -64,6 +65,12 @@ namespace BarrierBlaster.Common
         {
             base.Awake();
             _backgroundTrack.mute = MusicIsMuted;
+            if (MusicIsMuted)
+            {
+                return;
+            }
+            _backgroundTrack.volume = 0f;
+            _backgroundTrack.DOFade(1.0f, 1.0f);
         }
 
         public void PlaySound(SoundType sound)
