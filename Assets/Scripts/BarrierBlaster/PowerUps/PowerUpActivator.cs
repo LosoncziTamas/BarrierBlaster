@@ -137,7 +137,7 @@ namespace BarrierBlaster.PowerUps
         private void SpawnBall()
         {
             UIMessageController.Instance.DisplayMessage("extra ball", 1.0f, 0);
-            var ball = _gameEntities.Balls.First();
+            var ball = _gameEntities.Balls.First(behaviour => !behaviour.IsMissed);
             var ballTrans = ball.transform;
             var spawnedBall = Instantiate(_ballPrefab, ballTrans.parent);
             
