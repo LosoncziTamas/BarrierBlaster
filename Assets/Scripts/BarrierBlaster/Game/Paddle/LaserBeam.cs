@@ -95,5 +95,10 @@ namespace BarrierBlaster.Game.Paddle
             }
             _lineRenderer.SetPosition(1, ray.origin + ray.direction * length);
         }
+
+        private void OnDestroy()
+        {
+            AudioPlayer.Instance.StopSound(AudioPlayer.SoundType.Laser);
+        }
     }
 }

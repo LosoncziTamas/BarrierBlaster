@@ -30,6 +30,7 @@ namespace BarrierBlaster.Game.Ball
         private Vector3 _localAcceleration;
         private GameObject _gameWorldRoot;
         private PowerUpActivator _powerUpActivator;
+        private int _brickCollisionSequence;
 
         private bool _released;
         private bool _collidedInFrame;
@@ -153,22 +154,26 @@ namespace BarrierBlaster.Game.Ball
             {
                 AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
                 ResolveWallCollision(other);
+                _brickCollisionSequence = 0;
             }
             else if (other.gameObject.CompareTag(PaddleBehaviour.GameObjectTag) && _released)
             {
                 ResolvePaddleCollision(other);
+                _brickCollisionSequence = 0;
             }
             else if (other.gameObject.CompareTag(BrickBehaviour.GameObjectTag) && !_collidedInFrame)
             {
                 // It is possible that the ball collides with multiple objects (bricks) in a frame. But we want to resolve only one at a time.
                 _collidedInFrame = true;
                 ResolveBrickCollision(other);
+                _brickCollisionSequence++;
             }
             else if (other.gameObject.CompareTag(Obstacle.Tag) && !_collidedInFrame)
             {
                 AudioPlayer.Instance.PlaySound(AudioPlayer.SoundType.Click);
                 _collidedInFrame = true;
                 ReflectFromRectangularShape(other);
+                _brickCollisionSequence = 0;
             }
         }
 
