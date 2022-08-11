@@ -8,6 +8,8 @@ namespace BarrierBlaster.Common
         {
 #if !UNITY_EDITOR && (UNITY_ANDROID || UNITY_IOS)
             gameObject.SetActive(true);
+#else
+            gameObject.SetActive(false);
 #endif
         }
     }
